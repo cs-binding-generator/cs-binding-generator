@@ -23,6 +23,26 @@ class TypeMapper:
     
     def map_type(self, ctype) -> str:
         """Map C type to C# type"""
+        # Check for va_list types (platform-specific variadic argument list)
+        # These appear as __va_list_tag or __builtin_va_list and cannot be mapped to C#
+        if hasattr(ctype, 'spelling'):
+            type_spelling = ctype.spelling
+            if type_spelling and ('__va_list' in type_spelling or type_spelling == 'va_list'):
+                return None  # Signal that this type cannot be mapped
+        
+        # Handle constant arrays - these need special syntax in C#
+        # For now, we'll skip them as they often appear with va_list
+        if ctype.kind == TypeKind.CONSTANTARRAY:
+            element_type = ctype.get_array_element_type()
+            # Check if it's a va_list array
+            if hasattr(element_type, 'spelling'):
+                element_spelling = element_type.spelling
+                if element_spelling and ('__va_list' in element_spelling or element_spelling == 'va_list'):
+                    return None  # Cannot map va_list
+            # For other arrays, we'd need to use fixed buffers or unsafe arrays
+            # For now, return None to skip these
+            return None
+        
         # Handle pointers
         if ctype.kind == TypeKind.POINTER:
             pointee = ctype.get_pointee()
@@ -49,41 +69,51 @@ class TypeMapper:
         # Handle elaborated types (e.g., 'struct Foo' vs 'Foo')
         if ctype.kind == TypeKind.ELABORATED:
             # Check if the spelling is a known typedef
-            if ctype.spelling in self.typedef_map:
-                return self.typedef_map[ctype.spelling]
+            if hasattr(ctype, 'spelling'):
+                spelling = ctype.spelling
+                if spelling and spelling in self.typedef_map:
+                    return self.typedef_map[spelling]
+            else:
+                spelling = None
             # Get the named type and map it
             named_type = ctype.get_named_type()
             if named_type.kind != TypeKind.INVALID:
                 return self.map_type(named_type)
             # Fallback: strip 'struct ', 'enum ', 'union ' prefixes
-            spelling = ctype.spelling
-            for prefix in ['struct ', 'enum ', 'union ', 'class ']:
-                if spelling.startswith(prefix):
-                    return spelling[len(prefix):]
+            if spelling:
+                for prefix in ['struct ', 'enum ', 'union ', 'class ']:
+                    if spelling.startswith(prefix):
+                        return spelling[len(prefix):]
             return spelling if spelling else "nint"
         
         # Typedef - check common typedefs first
         if ctype.kind == TypeKind.TYPEDEF:
-            typedef_name = ctype.spelling
-            if typedef_name in self.typedef_map:
-                return self.typedef_map[typedef_name]
+            if hasattr(ctype, 'spelling'):
+                typedef_name = ctype.spelling
+                if typedef_name and typedef_name in self.typedef_map:
+                    return self.typedef_map[typedef_name]
             # Otherwise resolve to canonical type
             return self.map_type(ctype.get_canonical())
         
         # Enum - strip 'enum ' prefix
         if ctype.kind == TypeKind.ENUM:
-            spelling = ctype.spelling or "int"
+            spelling = ctype.spelling if hasattr(ctype, 'spelling') else None
+            if not spelling:
+                spelling = "int"
             if spelling.startswith('enum '):
                 return spelling[5:]  # Strip 'enum ' prefix
             return spelling
         
         # Struct/Union - strip any 'struct'/'union' prefix
         if ctype.kind == TypeKind.RECORD:
-            spelling = ctype.spelling
-            for prefix in ['struct ', 'union ', 'class ']:
-                if spelling.startswith(prefix):
-                    return spelling[len(prefix):]
-            return spelling
+            if hasattr(ctype, 'spelling'):
+                spelling = ctype.spelling
+                if spelling:
+                    for prefix in ['struct ', 'union ', 'class ']:
+                        if spelling.startswith(prefix):
+                            return spelling[len(prefix):]
+                    return spelling
+            return "nint"
         
         # Fallback
-        return ctype.spelling or "nint"
+        return ctype.spelling if hasattr(ctype, 'spelling') and ctype.spelling else "nint"

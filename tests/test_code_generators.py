@@ -198,7 +198,7 @@ class TestOutputBuilder:
         assert "namespace MyApp.Bindings;" in result
         assert "public enum Status" in result
         assert "public struct Point" in result
-        assert "public static partial class NativeMethods" in result
+        assert "public static unsafe partial class NativeMethods" in result
         assert "public static partial int add(int a, int b);" in result
     
     def test_build_minimal_output(self):
@@ -213,7 +213,7 @@ class TestOutputBuilder:
         )
         
         assert "namespace Test;" in result
-        assert "public static partial class NativeMethods" in result
+        assert "public static unsafe partial class NativeMethods" in result
         assert "public static partial void init();" in result
     
     def test_build_empty_output(self):
@@ -240,4 +240,4 @@ class TestOutputBuilder:
             class_name="CustomNative"
         )
         
-        assert "public static partial class CustomNative" in result
+        assert "public static unsafe partial class CustomNative" in result

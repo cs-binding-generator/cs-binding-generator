@@ -30,6 +30,7 @@ CSHARP_TYPE_MAP = {
 REQUIRED_USINGS = [
     "using System.Runtime.InteropServices;",
     "using System.Runtime.InteropServices.Marshalling;",
+    "using System.Runtime.CompilerServices;",
 ]
 
 # Default namespace for generated bindings

@@ -18,26 +18,44 @@ class CodeGenerator:
         func_name = cursor.spelling
         result_type = self.type_mapper.map_type(cursor.result_type)
         
+        # Skip if return type cannot be mapped
+        if result_type is None:
+            return ""
+        
         # Skip variadic functions (not supported in LibraryImport)
         # Note: Only FUNCTIONPROTO types can be checked for variadicity
         if cursor.type.kind == TypeKind.FUNCTIONPROTO:
             if cursor.type.is_function_variadic():
                 return ""  # Skip variadic functions
         
-        # Build parameter list
+        # Build parameter list with marshalling attributes
         params = []
         for arg in cursor.get_arguments():
             arg_type = self.type_mapper.map_type(arg.type)
+            # Skip functions with unmappable parameter types (like va_list)
+            if arg_type is None:
+                return ""
             arg_name = arg.spelling or f"param{len(params)}"
             # Escape C# keywords in parameter names
             arg_name = self._escape_keyword(arg_name)
-            params.append(f"{arg_type} {arg_name}")
+            
+            # Add marshalling attributes for bool parameters
+            if arg_type == "bool":
+                params.append(f"[MarshalAs(UnmanagedType.I1)] {arg_type} {arg_name}")
+            else:
+                params.append(f"{arg_type} {arg_name}")
         
         params_str = ", ".join(params) if params else ""
         
-        # Generate LibraryImport attribute and method
-        code = f'''    [LibraryImport("{self.library_name}", EntryPoint = "{func_name}")]
-    public static partial {result_type} {func_name}({params_str});
+        # Add return value marshalling attribute for bool
+        return_marshal = ""
+        if result_type == "bool":
+            return_marshal = "    [return: MarshalAs(UnmanagedType.I1)]\n"
+        
+        # Generate LibraryImport attribute and method with StringMarshalling
+        code = f'''    [LibraryImport("{self.library_name}", EntryPoint = "{func_name}", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+{return_marshal}    public static partial {result_type} {func_name}({params_str});
 '''
         return code
     
@@ -53,12 +71,7 @@ class CodeGenerator:
         fields = []
         for field in cursor.get_children():
             if field.kind == CursorKind.FIELD_DECL:
-                field_type = self.type_mapper.map_type(field.type)
                 field_name = field.spelling
-                
-                # Skip fields with invalid types (anonymous unions/structs)
-                if not field_type or "unnamed" in field_type or "::" in field_type:
-                    continue
                 
                 # Skip unnamed fields (anonymous unions/structs)
                 if not field_name:
@@ -67,7 +80,28 @@ class CodeGenerator:
                 # Escape C# keywords
                 field_name = self._escape_keyword(field_name)
                 
-                fields.append(f"    public {field_type} {field_name};")
+                # Check if this is a constant array (fixed-size array in struct)
+                if field.type.kind == TypeKind.CONSTANTARRAY:
+                    element_type = field.type.get_array_element_type()
+                    array_size = field.type.get_array_size()
+                    element_csharp = self.type_mapper.map_type(element_type)
+                    
+                    # Skip if element type cannot be mapped
+                    if not element_csharp:
+                        continue
+                    
+                    # Use fixed buffer for primitive types in unsafe struct
+                    # For now, manually expand arrays as individual fields
+                    for i in range(array_size):
+                        fields.append(f"    public {element_csharp} {field_name}_{i};")
+                else:
+                    field_type = self.type_mapper.map_type(field.type)
+                    
+                    # Skip fields with invalid types (anonymous unions/structs)
+                    if not field_type or "unnamed" in field_type or "::" in field_type:
+                        continue
+                    
+                    fields.append(f"    public {field_type} {field_name};")
         
         if not fields:
             return ""
