@@ -53,6 +53,7 @@ class TestTypeMapper:
         for c_type_kind, expected_csharp in test_cases:
             mock_type = Mock()
             mock_type.kind = c_type_kind
+            mock_type.spelling = ""
             
             result = self.mapper.map_type(mock_type)
             assert result == expected_csharp
@@ -61,9 +62,11 @@ class TestTypeMapper:
         """Test that void* maps to nint"""
         mock_type = Mock()
         mock_type.kind = TypeKind.POINTER
+        mock_type.spelling = "void *"
         
         mock_pointee = Mock()
         mock_pointee.kind = TypeKind.VOID
+        mock_pointee.spelling = "void"
         mock_type.get_pointee.return_value = mock_pointee
         
         result = self.mapper.map_type(mock_type)
@@ -74,9 +77,11 @@ class TestTypeMapper:
         for char_kind in [TypeKind.CHAR_S, TypeKind.CHAR_U]:
             mock_type = Mock()
             mock_type.kind = TypeKind.POINTER
+            mock_type.spelling = "char *"
             
             mock_pointee = Mock()
             mock_pointee.kind = char_kind
+            mock_pointee.spelling = "char"
             mock_type.get_pointee.return_value = mock_pointee
             
             result = self.mapper.map_type(mock_type)
@@ -86,9 +91,11 @@ class TestTypeMapper:
         """Test that struct* maps to nint"""
         mock_type = Mock()
         mock_type.kind = TypeKind.POINTER
+        mock_type.spelling = "struct Point *"
         
         mock_pointee = Mock()
         mock_pointee.kind = TypeKind.RECORD
+        mock_pointee.spelling = "struct Point"
         mock_type.get_pointee.return_value = mock_pointee
         
         result = self.mapper.map_type(mock_type)
@@ -98,9 +105,11 @@ class TestTypeMapper:
         """Test that other pointers map to nint"""
         mock_type = Mock()
         mock_type.kind = TypeKind.POINTER
+        mock_type.spelling = "int *"
         
         mock_pointee = Mock()
         mock_pointee.kind = TypeKind.INT
+        mock_pointee.spelling = "int"
         mock_type.get_pointee.return_value = mock_pointee
         
         result = self.mapper.map_type(mock_type)
@@ -133,9 +142,11 @@ class TestTypeMapper:
         """Test that typedefs resolve to canonical type"""
         mock_type = Mock()
         mock_type.kind = TypeKind.TYPEDEF
+        mock_type.spelling = "my_int"
         
         mock_canonical = Mock()
         mock_canonical.kind = TypeKind.INT
+        mock_canonical.spelling = "int"
         mock_type.get_canonical.return_value = mock_canonical
         
         result = self.mapper.map_type(mock_type)

@@ -25,13 +25,16 @@ class TestCodeGenerator:
         
         mock_result_type = Mock()
         mock_result_type.kind = TypeKind.INT
+        mock_result_type.spelling = "int"
         mock_cursor.result_type = mock_result_type
         
         mock_cursor.get_arguments.return_value = []
         
         result = self.generator.generate_function(mock_cursor)
         
-        assert '[LibraryImport("mylib", EntryPoint = "get_version")]' in result
+        assert 'LibraryImport("mylib", EntryPoint = "get_version"' in result
+        assert 'StringMarshalling = StringMarshalling.Utf8' in result
+        assert 'UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])' in result
         assert "public static partial int get_version();" in result
     
     def test_generate_function_with_parameters(self):
@@ -41,6 +44,7 @@ class TestCodeGenerator:
         
         mock_result_type = Mock()
         mock_result_type.kind = TypeKind.INT
+        mock_result_type.spelling = "int"
         mock_cursor.result_type = mock_result_type
         
         # Create mock arguments
@@ -48,19 +52,22 @@ class TestCodeGenerator:
         arg1.spelling = "a"
         arg1_type = Mock()
         arg1_type.kind = TypeKind.INT
+        arg1_type.spelling = "int"
         arg1.type = arg1_type
         
         arg2 = Mock()
         arg2.spelling = "b"
         arg2_type = Mock()
         arg2_type.kind = TypeKind.INT
+        arg2_type.spelling = "int"
         arg2.type = arg2_type
         
         mock_cursor.get_arguments.return_value = [arg1, arg2]
         
         result = self.generator.generate_function(mock_cursor)
         
-        assert '[LibraryImport("mylib", EntryPoint = "add")]' in result
+        assert 'LibraryImport("mylib", EntryPoint = "add"' in result
+        assert 'StringMarshalling = StringMarshalling.Utf8' in result
         assert "public static partial int add(int a, int b);" in result
     
     def test_generate_function_unnamed_parameter(self):
@@ -70,6 +77,7 @@ class TestCodeGenerator:
         
         mock_result_type = Mock()
         mock_result_type.kind = TypeKind.VOID
+        mock_result_type.spelling = "void"
         mock_cursor.result_type = mock_result_type
         
         # Create mock argument with no name
@@ -77,6 +85,7 @@ class TestCodeGenerator:
         arg1.spelling = ""  # Unnamed parameter
         arg1_type = Mock()
         arg1_type.kind = TypeKind.INT
+        arg1_type.spelling = "int"
         arg1.type = arg1_type
         
         mock_cursor.get_arguments.return_value = [arg1]
@@ -96,6 +105,7 @@ class TestCodeGenerator:
         field1.spelling = "x"
         field1_type = Mock()
         field1_type.kind = TypeKind.INT
+        field1_type.spelling = "int"
         field1.type = field1_type
         field1.get_field_offsetof.return_value = 0  # offset in bits
         
@@ -104,6 +114,7 @@ class TestCodeGenerator:
         field2.spelling = "y"
         field2_type = Mock()
         field2_type.kind = TypeKind.INT
+        field2_type.spelling = "int"
         field2.type = field2_type
         field2.get_field_offsetof.return_value = 32  # offset in bits (4 bytes * 8)
         
@@ -125,6 +136,51 @@ class TestCodeGenerator:
         mock_cursor.get_children.return_value = []
         
         result = self.generator.generate_struct(mock_cursor)
+        
+        assert result == ""
+    
+    def test_generate_union_simple(self):
+        """Test generating a simple union"""
+        mock_cursor = Mock()
+        mock_cursor.spelling = "Data"
+        
+        # Create mock fields
+        field1 = Mock()
+        field1.kind = CursorKind.FIELD_DECL
+        field1.spelling = "as_int"
+        field1_type = Mock()
+        field1_type.kind = TypeKind.INT
+        field1_type.spelling = "int"
+        field1.type = field1_type
+        field1.get_field_offsetof.return_value = -1  # unions return -1
+        
+        field2 = Mock()
+        field2.kind = CursorKind.FIELD_DECL
+        field2.spelling = "as_float"
+        field2_type = Mock()
+        field2_type.kind = TypeKind.FLOAT
+        field2_type.spelling = "float"
+        field2.type = field2_type
+        field2.get_field_offsetof.return_value = -1  # unions return -1
+        
+        mock_cursor.get_children.return_value = [field1, field2]
+        
+        result = self.generator.generate_union(mock_cursor)
+        
+        assert "[StructLayout(LayoutKind.Explicit)]" in result
+        assert "public struct Data" in result
+        # Both fields should be at offset 0 in a union
+        assert result.count("[FieldOffset(0)]") == 2
+        assert "public int as_int;" in result
+        assert "public float as_float;" in result
+    
+    def test_generate_union_empty(self):
+        """Test that empty union returns empty string"""
+        mock_cursor = Mock()
+        mock_cursor.spelling = "EmptyUnion"
+        mock_cursor.get_children.return_value = []
+        
+        result = self.generator.generate_union(mock_cursor)
         
         assert result == ""
     

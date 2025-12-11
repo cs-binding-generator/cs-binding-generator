@@ -140,7 +140,8 @@ class TestCSharpBindingsGenerator:
         generator = CSharpBindingsGenerator("lib")
         output = generator.generate([temp_header_file])
         
-        assert "[StructLayout(LayoutKind.Sequential)]" in output
+        assert "[StructLayout(LayoutKind.Explicit)]" in output
+        assert "[FieldOffset(" in output
     
     def test_generate_with_include_dirs(self, header_with_include):
         """Test generating bindings with include directories"""
