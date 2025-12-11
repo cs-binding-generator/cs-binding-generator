@@ -4127,6 +4127,13 @@ public static unsafe partial class NativeMethods
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetEnvironmentVariable(nint env, string name);
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? SDL_GetEnvironmentVariableString(nint env, string name)
+    {
+        var ptr = SDL_GetEnvironmentVariable(env, name);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
+
     [LibraryImport("SDL3", EntryPoint = "SDL_GetEnvironmentVariables", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nint SDL_GetEnvironmentVariables(nint env);
@@ -4149,9 +4156,23 @@ public static unsafe partial class NativeMethods
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_getenv(string name);
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? SDL_getenvString(string name)
+    {
+        var ptr = SDL_getenv(name);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
+
     [LibraryImport("SDL3", EntryPoint = "SDL_getenv_unsafe", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_getenv_unsafe(string name);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? SDL_getenv_unsafeString(string name)
+    {
+        var ptr = SDL_getenv_unsafe(name);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
 
     [LibraryImport("SDL3", EntryPoint = "SDL_setenv_unsafe", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
@@ -4341,45 +4362,122 @@ public static unsafe partial class NativeMethods
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_strdup(string str);
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? SDL_strdupString(string str)
+    {
+        var ptr = SDL_strdup(str);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
+
     [LibraryImport("SDL3", EntryPoint = "SDL_strndup", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_strndup(string str, nuint maxlen);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? SDL_strndupString(string str, nuint maxlen)
+    {
+        var ptr = SDL_strndup(str, maxlen);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
 
     [LibraryImport("SDL3", EntryPoint = "SDL_strrev", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_strrev(string str);
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? SDL_strrevString(string str)
+    {
+        var ptr = SDL_strrev(str);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
+
     [LibraryImport("SDL3", EntryPoint = "SDL_strupr", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_strupr(string str);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? SDL_struprString(string str)
+    {
+        var ptr = SDL_strupr(str);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
 
     [LibraryImport("SDL3", EntryPoint = "SDL_strlwr", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_strlwr(string str);
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? SDL_strlwrString(string str)
+    {
+        var ptr = SDL_strlwr(str);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
+
     [LibraryImport("SDL3", EntryPoint = "SDL_strchr", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_strchr(string str, int c);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? SDL_strchrString(string str, int c)
+    {
+        var ptr = SDL_strchr(str, c);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
 
     [LibraryImport("SDL3", EntryPoint = "SDL_strrchr", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_strrchr(string str, int c);
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? SDL_strrchrString(string str, int c)
+    {
+        var ptr = SDL_strrchr(str, c);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
+
     [LibraryImport("SDL3", EntryPoint = "SDL_strstr", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_strstr(string haystack, string needle);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? SDL_strstrString(string haystack, string needle)
+    {
+        var ptr = SDL_strstr(haystack, needle);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
 
     [LibraryImport("SDL3", EntryPoint = "SDL_strnstr", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_strnstr(string haystack, string needle, nuint maxlen);
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? SDL_strnstrString(string haystack, string needle, nuint maxlen)
+    {
+        var ptr = SDL_strnstr(haystack, needle, maxlen);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
+
     [LibraryImport("SDL3", EntryPoint = "SDL_strcasestr", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_strcasestr(string haystack, string needle);
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? SDL_strcasestrString(string haystack, string needle)
+    {
+        var ptr = SDL_strcasestr(haystack, needle);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
+
     [LibraryImport("SDL3", EntryPoint = "SDL_strtok_r", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_strtok_r(string str, string delim, nint saveptr);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? SDL_strtok_rString(string str, string delim, nint saveptr)
+    {
+        var ptr = SDL_strtok_r(str, delim, saveptr);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
 
     [LibraryImport("SDL3", EntryPoint = "SDL_utf8strlen", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
@@ -4393,25 +4491,67 @@ public static unsafe partial class NativeMethods
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_itoa(int value, string str, int radix);
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? SDL_itoaString(int value, string str, int radix)
+    {
+        var ptr = SDL_itoa(value, str, radix);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
+
     [LibraryImport("SDL3", EntryPoint = "SDL_uitoa", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_uitoa(uint value, string str, int radix);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? SDL_uitoaString(uint value, string str, int radix)
+    {
+        var ptr = SDL_uitoa(value, str, radix);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
 
     [LibraryImport("SDL3", EntryPoint = "SDL_ltoa", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_ltoa(int value, string str, int radix);
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? SDL_ltoaString(int value, string str, int radix)
+    {
+        var ptr = SDL_ltoa(value, str, radix);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
+
     [LibraryImport("SDL3", EntryPoint = "SDL_ultoa", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_ultoa(uint value, string str, int radix);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? SDL_ultoaString(uint value, string str, int radix)
+    {
+        var ptr = SDL_ultoa(value, str, radix);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
 
     [LibraryImport("SDL3", EntryPoint = "SDL_lltoa", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_lltoa(long value, string str, int radix);
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? SDL_lltoaString(long value, string str, int radix)
+    {
+        var ptr = SDL_lltoa(value, str, radix);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
+
     [LibraryImport("SDL3", EntryPoint = "SDL_ulltoa", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_ulltoa(ulong value, string str, int radix);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? SDL_ulltoaString(ulong value, string str, int radix)
+    {
+        var ptr = SDL_ulltoa(value, str, radix);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
 
     [LibraryImport("SDL3", EntryPoint = "SDL_atoi", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
@@ -4461,6 +4601,13 @@ public static unsafe partial class NativeMethods
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_strpbrk(string str, string breakset);
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? SDL_strpbrkString(string str, string breakset)
+    {
+        var ptr = SDL_strpbrk(str, breakset);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
+
     [LibraryImport("SDL3", EntryPoint = "SDL_StepUTF8", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint SDL_StepUTF8(nint pstr, nint pslen);
@@ -4472,6 +4619,13 @@ public static unsafe partial class NativeMethods
     [LibraryImport("SDL3", EntryPoint = "SDL_UCS4ToUTF8", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_UCS4ToUTF8(uint codepoint, string dst);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? SDL_UCS4ToUTF8String(uint codepoint, string dst)
+    {
+        var ptr = SDL_UCS4ToUTF8(codepoint, dst);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
 
     [LibraryImport("SDL3", EntryPoint = "SDL_srand", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
@@ -4709,6 +4863,13 @@ public static unsafe partial class NativeMethods
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_iconv_string(string tocode, string fromcode, string inbuf, nuint inbytesleft);
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? SDL_iconv_stringString(string tocode, string fromcode, string inbuf, nuint inbytesleft)
+    {
+        var ptr = SDL_iconv_string(tocode, fromcode, inbuf, inbytesleft);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
+
     [LibraryImport("SDL3", EntryPoint = "SDL_size_mul_check_overflow", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
@@ -4880,6 +5041,13 @@ public static unsafe partial class NativeMethods
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetError();
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? SDL_GetErrorString()
+    {
+        var ptr = SDL_GetError();
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
+
     [LibraryImport("SDL3", EntryPoint = "SDL_ClearError", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
@@ -4954,6 +5122,13 @@ public static unsafe partial class NativeMethods
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetStringProperty(uint props, string name, string default_value);
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? SDL_GetStringPropertyString(uint props, string name, string default_value)
+    {
+        var ptr = SDL_GetStringProperty(props, name, default_value);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
+
     [LibraryImport("SDL3", EntryPoint = "SDL_GetNumberProperty", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial int SDL_GetNumberProperty(uint props, string name, int default_value);
@@ -4992,6 +5167,13 @@ public static unsafe partial class NativeMethods
     [LibraryImport("SDL3", EntryPoint = "SDL_GetThreadName", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetThreadName(nint thread);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? SDL_GetThreadNameString(nint thread)
+    {
+        var ptr = SDL_GetThreadName(thread);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
 
     [LibraryImport("SDL3", EntryPoint = "SDL_GetCurrentThreadID", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
@@ -5375,9 +5557,23 @@ public static unsafe partial class NativeMethods
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetAudioDriver(int index);
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? SDL_GetAudioDriverString(int index)
+    {
+        var ptr = SDL_GetAudioDriver(index);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
+
     [LibraryImport("SDL3", EntryPoint = "SDL_GetCurrentAudioDriver", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetCurrentAudioDriver();
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? SDL_GetCurrentAudioDriverString()
+    {
+        var ptr = SDL_GetCurrentAudioDriver();
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
 
     [LibraryImport("SDL3", EntryPoint = "SDL_GetAudioPlaybackDevices", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
@@ -5390,6 +5586,13 @@ public static unsafe partial class NativeMethods
     [LibraryImport("SDL3", EntryPoint = "SDL_GetAudioDeviceName", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetAudioDeviceName(uint devid);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? SDL_GetAudioDeviceNameString(uint devid)
+    {
+        var ptr = SDL_GetAudioDeviceName(devid);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
 
     [LibraryImport("SDL3", EntryPoint = "SDL_GetAudioDeviceFormat", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
@@ -5617,6 +5820,13 @@ public static unsafe partial class NativeMethods
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetAudioFormatName(SDL_AudioFormat format);
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? SDL_GetAudioFormatNameString(SDL_AudioFormat format)
+    {
+        var ptr = SDL_GetAudioFormatName(format);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
+
     [LibraryImport("SDL3", EntryPoint = "SDL_GetSilenceValueForFormat", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial int SDL_GetSilenceValueForFormat(SDL_AudioFormat format);
@@ -5637,6 +5847,13 @@ public static unsafe partial class NativeMethods
     [LibraryImport("SDL3", EntryPoint = "SDL_GetPixelFormatName", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetPixelFormatName(SDL_PixelFormat format);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? SDL_GetPixelFormatNameString(SDL_PixelFormat format)
+    {
+        var ptr = SDL_GetPixelFormatName(format);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
 
     [LibraryImport("SDL3", EntryPoint = "SDL_GetMasksForPixelFormat", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
@@ -6049,9 +6266,23 @@ public static unsafe partial class NativeMethods
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetCameraDriver(int index);
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? SDL_GetCameraDriverString(int index)
+    {
+        var ptr = SDL_GetCameraDriver(index);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
+
     [LibraryImport("SDL3", EntryPoint = "SDL_GetCurrentCameraDriver", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetCurrentCameraDriver();
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? SDL_GetCurrentCameraDriverString()
+    {
+        var ptr = SDL_GetCurrentCameraDriver();
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
 
     [LibraryImport("SDL3", EntryPoint = "SDL_GetCameras", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
@@ -6064,6 +6295,13 @@ public static unsafe partial class NativeMethods
     [LibraryImport("SDL3", EntryPoint = "SDL_GetCameraName", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetCameraName(uint instance_id);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? SDL_GetCameraNameString(uint instance_id)
+    {
+        var ptr = SDL_GetCameraName(instance_id);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
 
     [LibraryImport("SDL3", EntryPoint = "SDL_GetCameraPosition", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
@@ -6111,6 +6349,13 @@ public static unsafe partial class NativeMethods
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetClipboardText();
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? SDL_GetClipboardTextString()
+    {
+        var ptr = SDL_GetClipboardText();
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
+
     [LibraryImport("SDL3", EntryPoint = "SDL_HasClipboardText", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
@@ -6124,6 +6369,13 @@ public static unsafe partial class NativeMethods
     [LibraryImport("SDL3", EntryPoint = "SDL_GetPrimarySelectionText", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetPrimarySelectionText();
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? SDL_GetPrimarySelectionTextString()
+    {
+        var ptr = SDL_GetPrimarySelectionText();
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
 
     [LibraryImport("SDL3", EntryPoint = "SDL_HasPrimarySelectionText", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
@@ -6247,9 +6499,23 @@ public static unsafe partial class NativeMethods
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetVideoDriver(int index);
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? SDL_GetVideoDriverString(int index)
+    {
+        var ptr = SDL_GetVideoDriver(index);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
+
     [LibraryImport("SDL3", EntryPoint = "SDL_GetCurrentVideoDriver", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetCurrentVideoDriver();
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? SDL_GetCurrentVideoDriverString()
+    {
+        var ptr = SDL_GetCurrentVideoDriver();
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
 
     [LibraryImport("SDL3", EntryPoint = "SDL_GetSystemTheme", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
@@ -6270,6 +6536,13 @@ public static unsafe partial class NativeMethods
     [LibraryImport("SDL3", EntryPoint = "SDL_GetDisplayName", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetDisplayName(uint displayID);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? SDL_GetDisplayNameString(uint displayID)
+    {
+        var ptr = SDL_GetDisplayName(displayID);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
 
     [LibraryImport("SDL3", EntryPoint = "SDL_GetDisplayBounds", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
@@ -6391,6 +6664,13 @@ public static unsafe partial class NativeMethods
     [LibraryImport("SDL3", EntryPoint = "SDL_GetWindowTitle", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetWindowTitle(nint window);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? SDL_GetWindowTitleString(nint window)
+    {
+        var ptr = SDL_GetWindowTitle(window);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
 
     [LibraryImport("SDL3", EntryPoint = "SDL_SetWindowIcon", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
@@ -6772,6 +7052,13 @@ public static unsafe partial class NativeMethods
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetSensorNameForID(uint instance_id);
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? SDL_GetSensorNameForIDString(uint instance_id)
+    {
+        var ptr = SDL_GetSensorNameForID(instance_id);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
+
     [LibraryImport("SDL3", EntryPoint = "SDL_GetSensorTypeForID", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_SensorType SDL_GetSensorTypeForID(uint instance_id);
@@ -6795,6 +7082,13 @@ public static unsafe partial class NativeMethods
     [LibraryImport("SDL3", EntryPoint = "SDL_GetSensorName", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetSensorName(nint sensor);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? SDL_GetSensorNameString(nint sensor)
+    {
+        var ptr = SDL_GetSensorName(sensor);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
 
     [LibraryImport("SDL3", EntryPoint = "SDL_GetSensorType", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
@@ -6842,9 +7136,23 @@ public static unsafe partial class NativeMethods
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetJoystickNameForID(uint instance_id);
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? SDL_GetJoystickNameForIDString(uint instance_id)
+    {
+        var ptr = SDL_GetJoystickNameForID(instance_id);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
+
     [LibraryImport("SDL3", EntryPoint = "SDL_GetJoystickPathForID", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetJoystickPathForID(uint instance_id);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? SDL_GetJoystickPathForIDString(uint instance_id)
+    {
+        var ptr = SDL_GetJoystickPathForID(instance_id);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
 
     [LibraryImport("SDL3", EntryPoint = "SDL_GetJoystickPlayerIndexForID", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
@@ -6934,9 +7242,23 @@ public static unsafe partial class NativeMethods
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetJoystickName(nint joystick);
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? SDL_GetJoystickNameString(nint joystick)
+    {
+        var ptr = SDL_GetJoystickName(joystick);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
+
     [LibraryImport("SDL3", EntryPoint = "SDL_GetJoystickPath", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetJoystickPath(nint joystick);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? SDL_GetJoystickPathString(nint joystick)
+    {
+        var ptr = SDL_GetJoystickPath(joystick);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
 
     [LibraryImport("SDL3", EntryPoint = "SDL_GetJoystickPlayerIndex", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
@@ -6970,6 +7292,13 @@ public static unsafe partial class NativeMethods
     [LibraryImport("SDL3", EntryPoint = "SDL_GetJoystickSerial", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetJoystickSerial(nint joystick);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? SDL_GetJoystickSerialString(nint joystick)
+    {
+        var ptr = SDL_GetJoystickSerial(joystick);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
 
     [LibraryImport("SDL3", EntryPoint = "SDL_GetJoystickType", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
@@ -7097,9 +7426,23 @@ public static unsafe partial class NativeMethods
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetGamepadMappingForGUID(SDL_GUID guid);
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? SDL_GetGamepadMappingForGUIDString(SDL_GUID guid)
+    {
+        var ptr = SDL_GetGamepadMappingForGUID(guid);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
+
     [LibraryImport("SDL3", EntryPoint = "SDL_GetGamepadMapping", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetGamepadMapping(nint gamepad);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? SDL_GetGamepadMappingString(nint gamepad)
+    {
+        var ptr = SDL_GetGamepadMapping(gamepad);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
 
     [LibraryImport("SDL3", EntryPoint = "SDL_SetGamepadMapping", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
@@ -7124,9 +7467,23 @@ public static unsafe partial class NativeMethods
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetGamepadNameForID(uint instance_id);
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? SDL_GetGamepadNameForIDString(uint instance_id)
+    {
+        var ptr = SDL_GetGamepadNameForID(instance_id);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
+
     [LibraryImport("SDL3", EntryPoint = "SDL_GetGamepadPathForID", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetGamepadPathForID(uint instance_id);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? SDL_GetGamepadPathForIDString(uint instance_id)
+    {
+        var ptr = SDL_GetGamepadPathForID(instance_id);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
 
     [LibraryImport("SDL3", EntryPoint = "SDL_GetGamepadPlayerIndexForID", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
@@ -7160,6 +7517,13 @@ public static unsafe partial class NativeMethods
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetGamepadMappingForID(uint instance_id);
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? SDL_GetGamepadMappingForIDString(uint instance_id)
+    {
+        var ptr = SDL_GetGamepadMappingForID(instance_id);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
+
     [LibraryImport("SDL3", EntryPoint = "SDL_OpenGamepad", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nint SDL_OpenGamepad(uint instance_id);
@@ -7184,9 +7548,23 @@ public static unsafe partial class NativeMethods
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetGamepadName(nint gamepad);
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? SDL_GetGamepadNameString(nint gamepad)
+    {
+        var ptr = SDL_GetGamepadName(gamepad);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
+
     [LibraryImport("SDL3", EntryPoint = "SDL_GetGamepadPath", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetGamepadPath(nint gamepad);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? SDL_GetGamepadPathString(nint gamepad)
+    {
+        var ptr = SDL_GetGamepadPath(gamepad);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
 
     [LibraryImport("SDL3", EntryPoint = "SDL_GetGamepadType", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
@@ -7224,6 +7602,13 @@ public static unsafe partial class NativeMethods
     [LibraryImport("SDL3", EntryPoint = "SDL_GetGamepadSerial", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetGamepadSerial(nint gamepad);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? SDL_GetGamepadSerialString(nint gamepad)
+    {
+        var ptr = SDL_GetGamepadSerial(gamepad);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
 
     [LibraryImport("SDL3", EntryPoint = "SDL_GetGamepadSteamHandle", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
@@ -7271,6 +7656,13 @@ public static unsafe partial class NativeMethods
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetGamepadStringForType(SDL_GamepadType type);
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? SDL_GetGamepadStringForTypeString(SDL_GamepadType type)
+    {
+        var ptr = SDL_GetGamepadStringForType(type);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
+
     [LibraryImport("SDL3", EntryPoint = "SDL_GetGamepadAxisFromString", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_GamepadAxis SDL_GetGamepadAxisFromString(string str);
@@ -7278,6 +7670,13 @@ public static unsafe partial class NativeMethods
     [LibraryImport("SDL3", EntryPoint = "SDL_GetGamepadStringForAxis", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetGamepadStringForAxis(SDL_GamepadAxis axis);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? SDL_GetGamepadStringForAxisString(SDL_GamepadAxis axis)
+    {
+        var ptr = SDL_GetGamepadStringForAxis(axis);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
 
     [LibraryImport("SDL3", EntryPoint = "SDL_GamepadHasAxis", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
@@ -7295,6 +7694,13 @@ public static unsafe partial class NativeMethods
     [LibraryImport("SDL3", EntryPoint = "SDL_GetGamepadStringForButton", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetGamepadStringForButton(SDL_GamepadButton button);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? SDL_GetGamepadStringForButtonString(SDL_GamepadButton button)
+    {
+        var ptr = SDL_GetGamepadStringForButton(button);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
 
     [LibraryImport("SDL3", EntryPoint = "SDL_GamepadHasButton", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
@@ -7379,9 +7785,23 @@ public static unsafe partial class NativeMethods
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetGamepadAppleSFSymbolsNameForButton(nint gamepad, SDL_GamepadButton button);
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? SDL_GetGamepadAppleSFSymbolsNameForButtonString(nint gamepad, SDL_GamepadButton button)
+    {
+        var ptr = SDL_GetGamepadAppleSFSymbolsNameForButton(gamepad, button);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
+
     [LibraryImport("SDL3", EntryPoint = "SDL_GetGamepadAppleSFSymbolsNameForAxis", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetGamepadAppleSFSymbolsNameForAxis(nint gamepad, SDL_GamepadAxis axis);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? SDL_GetGamepadAppleSFSymbolsNameForAxisString(nint gamepad, SDL_GamepadAxis axis)
+    {
+        var ptr = SDL_GetGamepadAppleSFSymbolsNameForAxis(gamepad, axis);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
 
     [LibraryImport("SDL3", EntryPoint = "SDL_HasKeyboard", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
@@ -7395,6 +7815,13 @@ public static unsafe partial class NativeMethods
     [LibraryImport("SDL3", EntryPoint = "SDL_GetKeyboardNameForID", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetKeyboardNameForID(uint instance_id);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? SDL_GetKeyboardNameForIDString(uint instance_id)
+    {
+        var ptr = SDL_GetKeyboardNameForID(instance_id);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
 
     [LibraryImport("SDL3", EntryPoint = "SDL_GetKeyboardFocus", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
@@ -7433,6 +7860,13 @@ public static unsafe partial class NativeMethods
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetScancodeName(SDL_Scancode scancode);
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? SDL_GetScancodeNameString(SDL_Scancode scancode)
+    {
+        var ptr = SDL_GetScancodeName(scancode);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
+
     [LibraryImport("SDL3", EntryPoint = "SDL_GetScancodeFromName", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Scancode SDL_GetScancodeFromName(string name);
@@ -7440,6 +7874,13 @@ public static unsafe partial class NativeMethods
     [LibraryImport("SDL3", EntryPoint = "SDL_GetKeyName", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetKeyName(uint key);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? SDL_GetKeyNameString(uint key)
+    {
+        var ptr = SDL_GetKeyName(key);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
 
     [LibraryImport("SDL3", EntryPoint = "SDL_GetKeyFromName", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
@@ -7502,6 +7943,13 @@ public static unsafe partial class NativeMethods
     [LibraryImport("SDL3", EntryPoint = "SDL_GetMouseNameForID", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetMouseNameForID(uint instance_id);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? SDL_GetMouseNameForIDString(uint instance_id)
+    {
+        var ptr = SDL_GetMouseNameForID(instance_id);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
 
     [LibraryImport("SDL3", EntryPoint = "SDL_GetMouseFocus", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
@@ -7594,6 +8042,13 @@ public static unsafe partial class NativeMethods
     [LibraryImport("SDL3", EntryPoint = "SDL_GetTouchDeviceName", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetTouchDeviceName(uint touchID);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? SDL_GetTouchDeviceNameString(uint touchID)
+    {
+        var ptr = SDL_GetTouchDeviceName(touchID);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
 
     [LibraryImport("SDL3", EntryPoint = "SDL_GetTouchDeviceType", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
@@ -7692,13 +8147,34 @@ public static unsafe partial class NativeMethods
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetBasePath();
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? SDL_GetBasePathString()
+    {
+        var ptr = SDL_GetBasePath();
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
+
     [LibraryImport("SDL3", EntryPoint = "SDL_GetPrefPath", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetPrefPath(string org, string app);
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? SDL_GetPrefPathString(string org, string app)
+    {
+        var ptr = SDL_GetPrefPath(org, app);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
+
     [LibraryImport("SDL3", EntryPoint = "SDL_GetUserFolder", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetUserFolder(SDL_Folder folder);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? SDL_GetUserFolderString(SDL_Folder folder)
+    {
+        var ptr = SDL_GetUserFolder(folder);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
 
     [LibraryImport("SDL3", EntryPoint = "SDL_CreateDirectory", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
@@ -7738,6 +8214,13 @@ public static unsafe partial class NativeMethods
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetCurrentDirectory();
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? SDL_GetCurrentDirectoryString()
+    {
+        var ptr = SDL_GetCurrentDirectory();
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
+
     [LibraryImport("SDL3", EntryPoint = "SDL_GPUSupportsShaderFormats", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
@@ -7768,9 +8251,23 @@ public static unsafe partial class NativeMethods
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetGPUDriver(int index);
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? SDL_GetGPUDriverString(int index)
+    {
+        var ptr = SDL_GetGPUDriver(index);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
+
     [LibraryImport("SDL3", EntryPoint = "SDL_GetGPUDeviceDriver", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetGPUDeviceDriver(nint device);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? SDL_GetGPUDeviceDriverString(nint device)
+    {
+        var ptr = SDL_GetGPUDeviceDriver(device);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
 
     [LibraryImport("SDL3", EntryPoint = "SDL_GetGPUShaderFormats", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
@@ -8131,6 +8628,13 @@ public static unsafe partial class NativeMethods
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetHapticNameForID(uint instance_id);
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? SDL_GetHapticNameForIDString(uint instance_id)
+    {
+        var ptr = SDL_GetHapticNameForID(instance_id);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
+
     [LibraryImport("SDL3", EntryPoint = "SDL_OpenHaptic", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nint SDL_OpenHaptic(uint instance_id);
@@ -8146,6 +8650,13 @@ public static unsafe partial class NativeMethods
     [LibraryImport("SDL3", EntryPoint = "SDL_GetHapticName", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetHapticName(nint haptic);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? SDL_GetHapticNameString(nint haptic)
+    {
+        var ptr = SDL_GetHapticName(haptic);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
 
     [LibraryImport("SDL3", EntryPoint = "SDL_IsMouseHaptic", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
@@ -8374,6 +8885,13 @@ public static unsafe partial class NativeMethods
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetHint(string name);
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? SDL_GetHintString(string name)
+    {
+        var ptr = SDL_GetHint(name);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
+
     [LibraryImport("SDL3", EntryPoint = "SDL_GetHintBoolean", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
@@ -8433,6 +8951,13 @@ public static unsafe partial class NativeMethods
     [LibraryImport("SDL3", EntryPoint = "SDL_GetAppMetadataProperty", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetAppMetadataProperty(string name);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? SDL_GetAppMetadataPropertyString(string name)
+    {
+        var ptr = SDL_GetAppMetadataProperty(name);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
 
     [LibraryImport("SDL3", EntryPoint = "SDL_LoadObject", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
@@ -8514,6 +9039,13 @@ public static unsafe partial class NativeMethods
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetPlatform();
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? SDL_GetPlatformString()
+    {
+        var ptr = SDL_GetPlatform();
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
+
     [LibraryImport("SDL3", EntryPoint = "SDL_CreateProcess", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nint SDL_CreateProcess(nint args, [MarshalAs(UnmanagedType.I1)] bool pipe_stdio);
@@ -8560,6 +9092,13 @@ public static unsafe partial class NativeMethods
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetRenderDriver(int index);
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? SDL_GetRenderDriverString(int index)
+    {
+        var ptr = SDL_GetRenderDriver(index);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
+
     [LibraryImport("SDL3", EntryPoint = "SDL_CreateWindowAndRenderer", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
@@ -8588,6 +9127,13 @@ public static unsafe partial class NativeMethods
     [LibraryImport("SDL3", EntryPoint = "SDL_GetRendererName", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetRendererName(nint renderer);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? SDL_GetRendererNameString(nint renderer)
+    {
+        var ptr = SDL_GetRendererName(renderer);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
 
     [LibraryImport("SDL3", EntryPoint = "SDL_GetRendererProperties", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
@@ -9231,6 +9777,13 @@ public static unsafe partial class NativeMethods
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetTrayEntryLabel(nint entry);
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? SDL_GetTrayEntryLabelString(nint entry)
+    {
+        var ptr = SDL_GetTrayEntryLabel(entry);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
+
     [LibraryImport("SDL3", EntryPoint = "SDL_SetTrayEntryChecked", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_SetTrayEntryChecked(nint entry, [MarshalAs(UnmanagedType.I1)] bool @checked);
@@ -9284,5 +9837,12 @@ public static unsafe partial class NativeMethods
     [LibraryImport("SDL3", EntryPoint = "SDL_GetRevision", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetRevision();
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? SDL_GetRevisionString()
+    {
+        var ptr = SDL_GetRevision();
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
 
 }

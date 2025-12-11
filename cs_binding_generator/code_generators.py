@@ -22,6 +22,9 @@ class CodeGenerator:
         if result_type is None:
             return ""
         
+        # Check if this returns a char* (now mapped to nuint)
+        is_char_pointer_return = self._is_char_pointer(cursor.result_type)
+        
         # Skip variadic functions (not supported in LibraryImport)
         # Note: Only FUNCTIONPROTO types can be checked for variadicity
         if cursor.type.kind == TypeKind.FUNCTIONPROTO:
@@ -57,7 +60,34 @@ class CodeGenerator:
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
 {return_marshal}    public static partial {result_type} {func_name}({params_str});
 '''
+        
+        # Add helper function for char* return types
+        if is_char_pointer_return:
+            # Get parameter names for the helper function call
+            param_names = []
+            for arg in cursor.get_arguments():
+                arg_name = arg.spelling or f"param{len(param_names)}"
+                arg_name = self._escape_keyword(arg_name)
+                param_names.append(arg_name)
+            param_names_str = ", ".join(param_names) if param_names else ""
+            
+            code += f'''
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? {func_name}String({params_str})
+    {{
+        var ptr = {func_name}({param_names_str});
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }}
+'''
+        
         return code
+    
+    def _is_char_pointer(self, ctype) -> bool:
+        """Check if a type is char* (pointer to char)"""
+        if ctype.kind == TypeKind.POINTER:
+            pointee = ctype.get_pointee()
+            return pointee.kind in (TypeKind.CHAR_S, TypeKind.CHAR_U)
+        return False
     
     def generate_struct(self, cursor) -> str:
         """Generate C# struct with explicit layout"""
