@@ -154,6 +154,18 @@ public struct {struct_name}
 '''
         return code
     
+    def generate_opaque_type(self, type_name: str) -> str:
+        """Generate C# struct for opaque handle types (empty structs used as pointers)"""
+        if not type_name or "unnamed" in type_name or "::" in type_name:
+            return ""
+        
+        # Generate an empty readonly struct that can be used as a type-safe handle
+        code = f'''public readonly struct {type_name}
+{{
+}}
+'''
+        return code
+    
     def generate_union(self, cursor) -> str:
         """Generate C# struct representing a union using LayoutKind.Explicit"""
         union_name = cursor.spelling

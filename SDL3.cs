@@ -1520,6 +1520,14 @@ public struct SDL_alignment_test
     public nint b;
 }
 
+public readonly struct SDL_Environment
+{
+}
+
+public readonly struct SDL_iconv_t
+{
+}
+
 [StructLayout(LayoutKind.Explicit)]
 public struct SDL_AssertData
 {
@@ -1537,6 +1545,10 @@ public struct SDL_AssertData
     public string function;
     [FieldOffset(40)]
     public nint next;
+}
+
+public readonly struct SDL_AsyncIO
+{
 }
 
 [StructLayout(LayoutKind.Explicit)]
@@ -1560,6 +1572,10 @@ public struct SDL_AsyncIOOutcome
     public nint userdata;
 }
 
+public readonly struct SDL_AsyncIOQueue
+{
+}
+
 [StructLayout(LayoutKind.Explicit)]
 public struct SDL_AtomicInt
 {
@@ -1572,6 +1588,26 @@ public struct SDL_AtomicU32
 {
     [FieldOffset(0)]
     public uint value;
+}
+
+public readonly struct SDL_Thread
+{
+}
+
+public readonly struct SDL_Mutex
+{
+}
+
+public readonly struct SDL_RWLock
+{
+}
+
+public readonly struct SDL_Semaphore
+{
+}
+
+public readonly struct SDL_Condition
+{
 }
 
 [StructLayout(LayoutKind.Explicit)]
@@ -1604,6 +1640,10 @@ public struct SDL_IOStreamInterface
     public nint close;
 }
 
+public readonly struct SDL_IOStream
+{
+}
+
 [StructLayout(LayoutKind.Explicit)]
 public struct SDL_AudioSpec
 {
@@ -1613,6 +1653,10 @@ public struct SDL_AudioSpec
     public int channels;
     [FieldOffset(8)]
     public int freq;
+}
+
+public readonly struct SDL_AudioStream
+{
 }
 
 [StructLayout(LayoutKind.Explicit)]
@@ -1758,6 +1802,10 @@ public struct SDL_Surface
     public nint reserved;
 }
 
+public readonly struct SDL_Camera
+{
+}
+
 [StructLayout(LayoutKind.Explicit)]
 public struct SDL_CameraSpec
 {
@@ -1773,6 +1821,10 @@ public struct SDL_CameraSpec
     public int framerate_numerator;
     [FieldOffset(20)]
     public int framerate_denominator;
+}
+
+public readonly struct SDL_DisplayModeData
+{
 }
 
 [StructLayout(LayoutKind.Explicit)]
@@ -1796,6 +1848,14 @@ public struct SDL_DisplayMode
     public int refresh_rate_denominator;
     [FieldOffset(32)]
     public nint @internal;
+}
+
+public readonly struct SDL_Window
+{
+}
+
+public readonly struct SDL_GLContext
+{
 }
 
 [StructLayout(LayoutKind.Explicit)]
@@ -1842,6 +1902,14 @@ public struct SDL_GUID
     public byte data_14;
     [FieldOffset(15)]
     public byte data_15;
+}
+
+public readonly struct SDL_Sensor
+{
+}
+
+public readonly struct SDL_Joystick
+{
 }
 
 [StructLayout(LayoutKind.Explicit)]
@@ -1925,6 +1993,10 @@ public struct SDL_VirtualJoystickDesc
     public nint Cleanup;
 }
 
+public readonly struct SDL_Gamepad
+{
+}
+
 [StructLayout(LayoutKind.Explicit)]
 public struct SDL_GamepadBinding
 {
@@ -1932,6 +2004,10 @@ public struct SDL_GamepadBinding
     public SDL_GamepadBindingType input_type;
     [FieldOffset(16)]
     public SDL_GamepadBindingType output_type;
+}
+
+public readonly struct SDL_Cursor
+{
 }
 
 [StructLayout(LayoutKind.Explicit)]
@@ -3046,6 +3122,58 @@ public struct SDL_PathInfo
     public int access_time;
 }
 
+public readonly struct SDL_GPUDevice
+{
+}
+
+public readonly struct SDL_GPUBuffer
+{
+}
+
+public readonly struct SDL_GPUTransferBuffer
+{
+}
+
+public readonly struct SDL_GPUTexture
+{
+}
+
+public readonly struct SDL_GPUSampler
+{
+}
+
+public readonly struct SDL_GPUShader
+{
+}
+
+public readonly struct SDL_GPUComputePipeline
+{
+}
+
+public readonly struct SDL_GPUGraphicsPipeline
+{
+}
+
+public readonly struct SDL_GPUCommandBuffer
+{
+}
+
+public readonly struct SDL_GPURenderPass
+{
+}
+
+public readonly struct SDL_GPUComputePass
+{
+}
+
+public readonly struct SDL_GPUCopyPass
+{
+}
+
+public readonly struct SDL_GPUFence
+{
+}
+
 [StructLayout(LayoutKind.Explicit)]
 public struct SDL_GPUViewport
 {
@@ -3675,6 +3803,10 @@ public struct SDL_GPUStorageTextureReadWriteBinding
     public byte padding3;
 }
 
+public readonly struct SDL_Haptic
+{
+}
+
 [StructLayout(LayoutKind.Explicit)]
 public struct SDL_HapticDirection
 {
@@ -3895,6 +4027,10 @@ public struct SDL_HapticEffect
     public SDL_HapticCustom custom;
 }
 
+public readonly struct SDL_hid_device
+{
+}
+
 [StructLayout(LayoutKind.Explicit)]
 public struct SDL_hid_device_info
 {
@@ -3928,6 +4064,10 @@ public struct SDL_hid_device_info
     public SDL_hid_bus_type bus_type;
     [FieldOffset(72)]
     public nint next;
+}
+
+public readonly struct SDL_SharedObject
+{
 }
 
 [StructLayout(LayoutKind.Explicit)]
@@ -3995,6 +4135,10 @@ public struct SDL_MessageBoxData
     public nint colorScheme;
 }
 
+public readonly struct SDL_Process
+{
+}
+
 [StructLayout(LayoutKind.Explicit)]
 public struct SDL_Vertex
 {
@@ -4004,6 +4148,10 @@ public struct SDL_Vertex
     public SDL_FColor color;
     [FieldOffset(24)]
     public SDL_FPoint tex_coord;
+}
+
+public readonly struct SDL_Renderer
+{
 }
 
 [StructLayout(LayoutKind.Explicit)]
@@ -4048,6 +4196,10 @@ public struct SDL_StorageInterface
     public nint space_remaining;
 }
 
+public readonly struct SDL_Storage
+{
+}
+
 [StructLayout(LayoutKind.Explicit)]
 public struct SDL_DateTime
 {
@@ -4069,6 +4221,18 @@ public struct SDL_DateTime
     public int day_of_week;
     [FieldOffset(32)]
     public int utc_offset;
+}
+
+public readonly struct SDL_Tray
+{
+}
+
+public readonly struct SDL_TrayMenu
+{
+}
+
+public readonly struct SDL_TrayEntry
+{
 }
 
 

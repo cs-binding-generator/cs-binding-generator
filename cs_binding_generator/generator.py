@@ -57,6 +57,9 @@ class CSharpBindingsGenerator:
                     if code:
                         self.generated_structs.append(code)
                         self.seen_structs.add(struct_key)
+                        # Also mark as seen by name only to prevent opaque type generation
+                        if cursor.spelling:
+                            self.seen_structs.add((cursor.spelling, None, None))
         
         elif cursor.kind == CursorKind.UNION_DECL:
             if cursor.is_definition():
@@ -77,6 +80,38 @@ class CSharpBindingsGenerator:
                     if code:
                         self.generated_enums.append(code)
                         self.seen_enums.add(enum_key)
+        
+        elif cursor.kind == CursorKind.TYPEDEF_DECL:
+            # Handle opaque struct typedefs (e.g., typedef struct SDL_Window SDL_Window;)
+            # These are used as handles in C APIs
+            children = list(cursor.get_children())
+            if len(children) == 1:
+                child = children[0]
+                type_name = cursor.spelling
+                # Skip if already generated as a full struct
+                if (type_name, None, None) in self.seen_structs:
+                    return
+                    
+                # Check if it's a reference to a struct (TYPE_REF) or direct STRUCT_DECL
+                if child.kind == CursorKind.TYPE_REF and child.spelling and 'struct ' in str(child.type.spelling):
+                    # This is an opaque typedef like: typedef struct SDL_Window SDL_Window;
+                    if type_name and type_name not in ['size_t', 'ssize_t', 'ptrdiff_t', 'intptr_t', 'uintptr_t', 'wchar_t']:
+                        struct_key = (type_name, str(cursor.location.file), cursor.location.line)
+                        if struct_key not in self.seen_structs:
+                            code = self.code_generator.generate_opaque_type(type_name)
+                            if code:
+                                self.generated_structs.append(code)
+                                self.seen_structs.add(struct_key)
+                                self.seen_structs.add((type_name, None, None))
+                elif child.kind == CursorKind.STRUCT_DECL and not child.is_definition() and child.spelling:
+                    # Direct forward declaration
+                    struct_key = (child.spelling, str(cursor.location.file), cursor.location.line)
+                    if struct_key not in self.seen_structs:
+                        code = self.code_generator.generate_opaque_type(child.spelling)
+                        if code:
+                            self.generated_structs.append(code)
+                            self.seen_structs.add(struct_key)
+                            self.seen_structs.add((child.spelling, None, None))
         
         # Recurse into children
         for child in cursor.get_children():
