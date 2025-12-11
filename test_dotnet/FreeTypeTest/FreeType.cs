@@ -755,7 +755,7 @@ public partial struct FT_Size_Request
 
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct FT_StreamDesc_
+public unsafe partial struct FT_StreamDesc_
 {
     [FieldOffset(0)]
     public int value;

@@ -234,14 +234,21 @@ class CodeGenerator:
                     if not element_csharp:
                         continue
                     
-                    # Get element size (assume byte-sized elements for now)
-                    # For proper alignment, we need to know the element size
+                    # Get element size
                     element_size = element_type.get_size()  # size in bytes
                     
-                    # Expand arrays as individual fields with proper offsets
-                    for i in range(array_size):
-                        field_offset = offset_bytes + (i * element_size)
-                        fields.append(f"    [FieldOffset({field_offset})]\n    public {element_csharp} {field_name}_{i};")
+                    # Check if element type is a primitive type (can use fixed keyword)
+                    primitive_types = {'byte', 'sbyte', 'short', 'ushort', 'int', 'uint', 
+                                     'long', 'ulong', 'float', 'double', 'bool', 'char'}
+                    
+                    if element_csharp in primitive_types:
+                        # Use fixed array for primitive types
+                        fields.append(f"    [FieldOffset({offset_bytes})]\n    public fixed {element_csharp} {field_name}[{array_size}];")
+                    else:
+                        # Expand non-primitive arrays as individual fields with proper offsets
+                        for i in range(array_size):
+                            field_offset = offset_bytes + (i * element_size)
+                            fields.append(f"    [FieldOffset({field_offset})]\n    public {element_csharp} {field_name}_{i};")
                 else:
                     field_type = self.type_mapper.map_type(field.type, is_struct_field=True)
                     
@@ -311,10 +318,18 @@ public unsafe partial struct {struct_name}
                     # Get element size
                     element_size = element_type.get_size()
                     
-                    # Expand arrays as individual fields, all starting at offset 0 (union behavior)
-                    for i in range(array_size):
-                        field_offset = i * element_size
-                        fields.append(f"    [FieldOffset({field_offset})]\n    public {element_csharp} {field_name}_{i};")
+                    # Check if element type is a primitive type (can use fixed keyword)
+                    primitive_types = {'byte', 'sbyte', 'short', 'ushort', 'int', 'uint', 
+                                     'long', 'ulong', 'float', 'double', 'bool', 'char'}
+                    
+                    if element_csharp in primitive_types:
+                        # Use fixed array for primitive types (starts at offset 0 for union)
+                        fields.append(f"    [FieldOffset(0)]\n    public fixed {element_csharp} {field_name}[{array_size}];")
+                    else:
+                        # Expand non-primitive arrays as individual fields, all starting at offset 0 (union behavior)
+                        for i in range(array_size):
+                            field_offset = i * element_size
+                            fields.append(f"    [FieldOffset({field_offset})]\n    public {element_csharp} {field_name}_{i};")
                 else:
                     field_type = self.type_mapper.map_type(field.type, is_struct_field=True)
                     

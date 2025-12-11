@@ -1710,9 +1710,7 @@ public unsafe partial struct SDL_PixelFormatDetails
     [FieldOffset(5)]
     public byte bytes_per_pixel;
     [FieldOffset(6)]
-    public byte padding_0;
-    [FieldOffset(7)]
-    public byte padding_1;
+    public fixed byte padding[2];
     [FieldOffset(8)]
     public uint Rmask;
     [FieldOffset(12)]
@@ -1873,37 +1871,7 @@ public unsafe partial struct SDL_DialogFileFilter
 public unsafe partial struct SDL_GUID
 {
     [FieldOffset(0)]
-    public byte data_0;
-    [FieldOffset(1)]
-    public byte data_1;
-    [FieldOffset(2)]
-    public byte data_2;
-    [FieldOffset(3)]
-    public byte data_3;
-    [FieldOffset(4)]
-    public byte data_4;
-    [FieldOffset(5)]
-    public byte data_5;
-    [FieldOffset(6)]
-    public byte data_6;
-    [FieldOffset(7)]
-    public byte data_7;
-    [FieldOffset(8)]
-    public byte data_8;
-    [FieldOffset(9)]
-    public byte data_9;
-    [FieldOffset(10)]
-    public byte data_10;
-    [FieldOffset(11)]
-    public byte data_11;
-    [FieldOffset(12)]
-    public byte data_12;
-    [FieldOffset(13)]
-    public byte data_13;
-    [FieldOffset(14)]
-    public byte data_14;
-    [FieldOffset(15)]
-    public byte data_15;
+    public fixed byte data[16];
 }
 
 public partial struct SDL_Sensor
@@ -1920,11 +1888,7 @@ public unsafe partial struct SDL_VirtualJoystickTouchpadDesc
     [FieldOffset(0)]
     public ushort nfingers;
     [FieldOffset(2)]
-    public ushort padding_0;
-    [FieldOffset(4)]
-    public ushort padding_1;
-    [FieldOffset(6)]
-    public ushort padding_2;
+    public fixed ushort padding[3];
 }
 
 [StructLayout(LayoutKind.Explicit)]
@@ -1962,9 +1926,7 @@ public unsafe partial struct SDL_VirtualJoystickDesc
     [FieldOffset(22)]
     public ushort nsensors;
     [FieldOffset(24)]
-    public ushort padding2_0;
-    [FieldOffset(26)]
-    public ushort padding2_1;
+    public fixed ushort padding2[2];
     [FieldOffset(28)]
     public uint button_mask;
     [FieldOffset(32)]
@@ -2483,11 +2445,7 @@ public unsafe partial struct SDL_GamepadSensorEvent
     [FieldOffset(20)]
     public int sensor;
     [FieldOffset(24)]
-    public float data_0;
-    [FieldOffset(28)]
-    public float data_1;
-    [FieldOffset(32)]
-    public float data_2;
+    public fixed float data[3];
     [FieldOffset(40)]
     public uint sensor_timestamp;
 }
@@ -2727,17 +2685,7 @@ public unsafe partial struct SDL_SensorEvent
     [FieldOffset(16)]
     public uint which;
     [FieldOffset(20)]
-    public float data_0;
-    [FieldOffset(24)]
-    public float data_1;
-    [FieldOffset(28)]
-    public float data_2;
-    [FieldOffset(32)]
-    public float data_3;
-    [FieldOffset(36)]
-    public float data_4;
-    [FieldOffset(40)]
-    public float data_5;
+    public fixed float data[6];
     [FieldOffset(48)]
     public uint sensor_timestamp;
 }
@@ -3478,11 +3426,7 @@ public unsafe partial struct SDL_HapticDirection
     [FieldOffset(0)]
     public byte type;
     [FieldOffset(4)]
-    public int dir_0;
-    [FieldOffset(8)]
-    public int dir_1;
-    [FieldOffset(12)]
-    public int dir_2;
+    public fixed int dir[3];
 }
 
 [StructLayout(LayoutKind.Explicit)]
@@ -3561,41 +3505,17 @@ public unsafe partial struct SDL_HapticCondition
     [FieldOffset(28)]
     public ushort interval;
     [FieldOffset(30)]
-    public ushort right_sat_0;
-    [FieldOffset(32)]
-    public ushort right_sat_1;
-    [FieldOffset(34)]
-    public ushort right_sat_2;
+    public fixed ushort right_sat[3];
     [FieldOffset(36)]
-    public ushort left_sat_0;
-    [FieldOffset(38)]
-    public ushort left_sat_1;
-    [FieldOffset(40)]
-    public ushort left_sat_2;
+    public fixed ushort left_sat[3];
     [FieldOffset(42)]
-    public short right_coeff_0;
-    [FieldOffset(44)]
-    public short right_coeff_1;
-    [FieldOffset(46)]
-    public short right_coeff_2;
+    public fixed short right_coeff[3];
     [FieldOffset(48)]
-    public short left_coeff_0;
-    [FieldOffset(50)]
-    public short left_coeff_1;
-    [FieldOffset(52)]
-    public short left_coeff_2;
+    public fixed short left_coeff[3];
     [FieldOffset(54)]
-    public ushort deadband_0;
-    [FieldOffset(56)]
-    public ushort deadband_1;
-    [FieldOffset(58)]
-    public ushort deadband_2;
+    public fixed ushort deadband[3];
     [FieldOffset(60)]
-    public short center_0;
-    [FieldOffset(62)]
-    public short center_1;
-    [FieldOffset(64)]
-    public short center_2;
+    public fixed short center[3];
 }
 
 [StructLayout(LayoutKind.Explicit)]
@@ -3883,7 +3803,7 @@ public partial struct SDL_TrayEntry
 
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_Event
+public unsafe partial struct SDL_Event
 {
     [FieldOffset(0)]
     public uint type;
@@ -3962,265 +3882,11 @@ public unsafe struct SDL_Event
     [FieldOffset(0)]
     public SDL_ClipboardEvent clipboard;
     [FieldOffset(0)]
-    public byte padding_0;
-    [FieldOffset(1)]
-    public byte padding_1;
-    [FieldOffset(2)]
-    public byte padding_2;
-    [FieldOffset(3)]
-    public byte padding_3;
-    [FieldOffset(4)]
-    public byte padding_4;
-    [FieldOffset(5)]
-    public byte padding_5;
-    [FieldOffset(6)]
-    public byte padding_6;
-    [FieldOffset(7)]
-    public byte padding_7;
-    [FieldOffset(8)]
-    public byte padding_8;
-    [FieldOffset(9)]
-    public byte padding_9;
-    [FieldOffset(10)]
-    public byte padding_10;
-    [FieldOffset(11)]
-    public byte padding_11;
-    [FieldOffset(12)]
-    public byte padding_12;
-    [FieldOffset(13)]
-    public byte padding_13;
-    [FieldOffset(14)]
-    public byte padding_14;
-    [FieldOffset(15)]
-    public byte padding_15;
-    [FieldOffset(16)]
-    public byte padding_16;
-    [FieldOffset(17)]
-    public byte padding_17;
-    [FieldOffset(18)]
-    public byte padding_18;
-    [FieldOffset(19)]
-    public byte padding_19;
-    [FieldOffset(20)]
-    public byte padding_20;
-    [FieldOffset(21)]
-    public byte padding_21;
-    [FieldOffset(22)]
-    public byte padding_22;
-    [FieldOffset(23)]
-    public byte padding_23;
-    [FieldOffset(24)]
-    public byte padding_24;
-    [FieldOffset(25)]
-    public byte padding_25;
-    [FieldOffset(26)]
-    public byte padding_26;
-    [FieldOffset(27)]
-    public byte padding_27;
-    [FieldOffset(28)]
-    public byte padding_28;
-    [FieldOffset(29)]
-    public byte padding_29;
-    [FieldOffset(30)]
-    public byte padding_30;
-    [FieldOffset(31)]
-    public byte padding_31;
-    [FieldOffset(32)]
-    public byte padding_32;
-    [FieldOffset(33)]
-    public byte padding_33;
-    [FieldOffset(34)]
-    public byte padding_34;
-    [FieldOffset(35)]
-    public byte padding_35;
-    [FieldOffset(36)]
-    public byte padding_36;
-    [FieldOffset(37)]
-    public byte padding_37;
-    [FieldOffset(38)]
-    public byte padding_38;
-    [FieldOffset(39)]
-    public byte padding_39;
-    [FieldOffset(40)]
-    public byte padding_40;
-    [FieldOffset(41)]
-    public byte padding_41;
-    [FieldOffset(42)]
-    public byte padding_42;
-    [FieldOffset(43)]
-    public byte padding_43;
-    [FieldOffset(44)]
-    public byte padding_44;
-    [FieldOffset(45)]
-    public byte padding_45;
-    [FieldOffset(46)]
-    public byte padding_46;
-    [FieldOffset(47)]
-    public byte padding_47;
-    [FieldOffset(48)]
-    public byte padding_48;
-    [FieldOffset(49)]
-    public byte padding_49;
-    [FieldOffset(50)]
-    public byte padding_50;
-    [FieldOffset(51)]
-    public byte padding_51;
-    [FieldOffset(52)]
-    public byte padding_52;
-    [FieldOffset(53)]
-    public byte padding_53;
-    [FieldOffset(54)]
-    public byte padding_54;
-    [FieldOffset(55)]
-    public byte padding_55;
-    [FieldOffset(56)]
-    public byte padding_56;
-    [FieldOffset(57)]
-    public byte padding_57;
-    [FieldOffset(58)]
-    public byte padding_58;
-    [FieldOffset(59)]
-    public byte padding_59;
-    [FieldOffset(60)]
-    public byte padding_60;
-    [FieldOffset(61)]
-    public byte padding_61;
-    [FieldOffset(62)]
-    public byte padding_62;
-    [FieldOffset(63)]
-    public byte padding_63;
-    [FieldOffset(64)]
-    public byte padding_64;
-    [FieldOffset(65)]
-    public byte padding_65;
-    [FieldOffset(66)]
-    public byte padding_66;
-    [FieldOffset(67)]
-    public byte padding_67;
-    [FieldOffset(68)]
-    public byte padding_68;
-    [FieldOffset(69)]
-    public byte padding_69;
-    [FieldOffset(70)]
-    public byte padding_70;
-    [FieldOffset(71)]
-    public byte padding_71;
-    [FieldOffset(72)]
-    public byte padding_72;
-    [FieldOffset(73)]
-    public byte padding_73;
-    [FieldOffset(74)]
-    public byte padding_74;
-    [FieldOffset(75)]
-    public byte padding_75;
-    [FieldOffset(76)]
-    public byte padding_76;
-    [FieldOffset(77)]
-    public byte padding_77;
-    [FieldOffset(78)]
-    public byte padding_78;
-    [FieldOffset(79)]
-    public byte padding_79;
-    [FieldOffset(80)]
-    public byte padding_80;
-    [FieldOffset(81)]
-    public byte padding_81;
-    [FieldOffset(82)]
-    public byte padding_82;
-    [FieldOffset(83)]
-    public byte padding_83;
-    [FieldOffset(84)]
-    public byte padding_84;
-    [FieldOffset(85)]
-    public byte padding_85;
-    [FieldOffset(86)]
-    public byte padding_86;
-    [FieldOffset(87)]
-    public byte padding_87;
-    [FieldOffset(88)]
-    public byte padding_88;
-    [FieldOffset(89)]
-    public byte padding_89;
-    [FieldOffset(90)]
-    public byte padding_90;
-    [FieldOffset(91)]
-    public byte padding_91;
-    [FieldOffset(92)]
-    public byte padding_92;
-    [FieldOffset(93)]
-    public byte padding_93;
-    [FieldOffset(94)]
-    public byte padding_94;
-    [FieldOffset(95)]
-    public byte padding_95;
-    [FieldOffset(96)]
-    public byte padding_96;
-    [FieldOffset(97)]
-    public byte padding_97;
-    [FieldOffset(98)]
-    public byte padding_98;
-    [FieldOffset(99)]
-    public byte padding_99;
-    [FieldOffset(100)]
-    public byte padding_100;
-    [FieldOffset(101)]
-    public byte padding_101;
-    [FieldOffset(102)]
-    public byte padding_102;
-    [FieldOffset(103)]
-    public byte padding_103;
-    [FieldOffset(104)]
-    public byte padding_104;
-    [FieldOffset(105)]
-    public byte padding_105;
-    [FieldOffset(106)]
-    public byte padding_106;
-    [FieldOffset(107)]
-    public byte padding_107;
-    [FieldOffset(108)]
-    public byte padding_108;
-    [FieldOffset(109)]
-    public byte padding_109;
-    [FieldOffset(110)]
-    public byte padding_110;
-    [FieldOffset(111)]
-    public byte padding_111;
-    [FieldOffset(112)]
-    public byte padding_112;
-    [FieldOffset(113)]
-    public byte padding_113;
-    [FieldOffset(114)]
-    public byte padding_114;
-    [FieldOffset(115)]
-    public byte padding_115;
-    [FieldOffset(116)]
-    public byte padding_116;
-    [FieldOffset(117)]
-    public byte padding_117;
-    [FieldOffset(118)]
-    public byte padding_118;
-    [FieldOffset(119)]
-    public byte padding_119;
-    [FieldOffset(120)]
-    public byte padding_120;
-    [FieldOffset(121)]
-    public byte padding_121;
-    [FieldOffset(122)]
-    public byte padding_122;
-    [FieldOffset(123)]
-    public byte padding_123;
-    [FieldOffset(124)]
-    public byte padding_124;
-    [FieldOffset(125)]
-    public byte padding_125;
-    [FieldOffset(126)]
-    public byte padding_126;
-    [FieldOffset(127)]
-    public byte padding_127;
+    public fixed byte padding[128];
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_HapticEffect
+public unsafe partial struct SDL_HapticEffect
 {
     [FieldOffset(0)]
     public ushort type;
