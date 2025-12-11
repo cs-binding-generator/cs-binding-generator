@@ -91,7 +91,9 @@ Examples:
             include_depth=args.include_depth
         )
     except Exception as e:
+        import traceback
         print(f"Error: {e}", file=sys.stderr)
+        traceback.print_exc(file=sys.stderr)
         sys.exit(1)
 
 

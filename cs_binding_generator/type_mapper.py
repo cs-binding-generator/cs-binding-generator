@@ -70,9 +70,12 @@ class TypeMapper:
             # Otherwise resolve to canonical type
             return self.map_type(ctype.get_canonical())
         
-        # Enum
+        # Enum - strip 'enum ' prefix
         if ctype.kind == TypeKind.ENUM:
-            return ctype.spelling or "int"
+            spelling = ctype.spelling or "int"
+            if spelling.startswith('enum '):
+                return spelling[5:]  # Strip 'enum ' prefix
+            return spelling
         
         # Struct/Union - strip any 'struct'/'union' prefix
         if ctype.kind == TypeKind.RECORD:

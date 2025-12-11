@@ -170,8 +170,61 @@ void main_function();
         assert "main_function" in result.stdout
 
 
+def test_sdl3_generates_valid_csharp():
+    """Test that SDL3 headers generate valid C# code that compiles with dotnet"""
+    with tempfile.TemporaryDirectory() as tmpdir:
+        tmppath = Path(tmpdir)
+        
+        # Generate SDL3 bindings
+        output_file = tmppath / "SDL3Bindings.cs"
+        
+        result = subprocess.run(
+            [
+                "cs-binding-generator",
+                "-i", "/usr/include/SDL3/SDL.h",
+                "-l", "SDL3",
+                "-o", str(output_file),
+                "--include-depth", "1",
+                "-I", "/usr/include",
+                "-I", "/usr/lib/clang/21/include"
+            ],
+            capture_output=True,
+            text=True
+        )
+        
+        # Check generation succeeded
+        assert result.returncode == 0, f"SDL3 generation failed: {result.stderr}"
+        assert output_file.exists(), "Output file not created"
+        
+        # Create a minimal C# project to compile the bindings
+        csproj = tmppath / "Test.csproj"
+        csproj.write_text("""<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+</Project>
+""")
+        
+        # Verify the C# file compiles with dotnet
+        result = subprocess.run(
+            ["dotnet", "build"],
+            cwd=tmppath,
+            capture_output=True,
+            text=True
+        )
+        
+        # Check compilation succeeded
+        assert result.returncode == 0, f"C# compilation failed:\n{result.stdout}\n{result.stderr}"
+        
+        # Verify output contains success message
+        assert "Build succeeded" in result.stdout or "Build SUCCEEDED" in result.stdout
+
+
 if __name__ == "__main__":
     test_cli_with_include_directories()
     test_cli_multiple_include_dirs()
     test_cli_include_depth()
+    test_sdl3_generates_valid_csharp()
     print("CLI tests passed!")

@@ -145,6 +145,37 @@ class CSharpBindingsGenerator:
         for include_dir in include_dirs:
             clang_args.append(f'-I{include_dir}')
         
+        # Add system include paths so clang can find standard headers
+        # These paths are typical locations for system headers
+        import subprocess
+        try:
+            # Try to get system include paths from clang itself
+            result = subprocess.run(
+                ['clang', '-E', '-v', '-'],
+                input=b'',
+                capture_output=True,
+                text=False,
+                timeout=2
+            )
+            stderr = result.stderr.decode('utf-8', errors='ignore')
+            in_includes = False
+            for line in stderr.split('\n'):
+                if '#include <...> search starts here:' in line:
+                    in_includes = True
+                    continue
+                if in_includes:
+                    if line.startswith('End of search list'):
+                        break
+                    # Extract path from line like " /usr/include"
+                    path = line.strip()
+                    if path and path.startswith('/'):
+                        clang_args.append(f'-I{path}')
+        except Exception as e:
+            # Fallback to common paths if clang query fails
+            # Don't print errors - this is a best-effort attempt
+            for path in ['/usr/lib/clang/21/include', '/usr/local/include', '/usr/include']:
+                clang_args.append(f'-I{path}')
+        
         # Parse each header file
         index = clang.cindex.Index.create()
         
