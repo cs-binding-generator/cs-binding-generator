@@ -1,0 +1,1035 @@
+using System.Runtime.InteropServices;
+using System.Runtime.InteropServices.Marshalling;
+using System.Runtime.CompilerServices;
+
+namespace FreeType;
+
+public enum FT_Pixel_Mode_
+{
+    FT_PIXEL_MODE_NONE = 0,
+    FT_PIXEL_MODE_MONO = 1,
+    FT_PIXEL_MODE_GRAY = 2,
+    FT_PIXEL_MODE_GRAY2 = 3,
+    FT_PIXEL_MODE_GRAY4 = 4,
+    FT_PIXEL_MODE_LCD = 5,
+    FT_PIXEL_MODE_LCD_V = 6,
+    FT_PIXEL_MODE_BGRA = 7,
+    FT_PIXEL_MODE_MAX = 8,
+}
+
+public enum FT_Glyph_Format_
+{
+    FT_GLYPH_FORMAT_NONE = 0,
+    FT_GLYPH_FORMAT_COMPOSITE = 1668246896,
+    FT_GLYPH_FORMAT_BITMAP = 1651078259,
+    FT_GLYPH_FORMAT_OUTLINE = 1869968492,
+    FT_GLYPH_FORMAT_PLOTTER = 1886154612,
+    FT_GLYPH_FORMAT_SVG = 1398163232,
+}
+
+public enum FT_Mod_Err
+{
+    FT_Mod_Err_Base = 0,
+    FT_Mod_Err_Autofit = 0,
+    FT_Mod_Err_BDF = 0,
+    FT_Mod_Err_Bzip2 = 0,
+    FT_Mod_Err_Cache = 0,
+    FT_Mod_Err_CFF = 0,
+    FT_Mod_Err_CID = 0,
+    FT_Mod_Err_Gzip = 0,
+    FT_Mod_Err_LZW = 0,
+    FT_Mod_Err_OTvalid = 0,
+    FT_Mod_Err_PCF = 0,
+    FT_Mod_Err_PFR = 0,
+    FT_Mod_Err_PSaux = 0,
+    FT_Mod_Err_PShinter = 0,
+    FT_Mod_Err_PSnames = 0,
+    FT_Mod_Err_Raster = 0,
+    FT_Mod_Err_SFNT = 0,
+    FT_Mod_Err_Smooth = 0,
+    FT_Mod_Err_TrueType = 0,
+    FT_Mod_Err_Type1 = 0,
+    FT_Mod_Err_Type42 = 0,
+    FT_Mod_Err_Winfonts = 0,
+    FT_Mod_Err_GXvalid = 0,
+    FT_Mod_Err_Sdf = 0,
+    FT_Mod_Err_Max = 1,
+}
+
+public enum FT_Err
+{
+    FT_Err_Ok = 0,
+    FT_Err_Cannot_Open_Resource = 1,
+    FT_Err_Unknown_File_Format = 2,
+    FT_Err_Invalid_File_Format = 3,
+    FT_Err_Invalid_Version = 4,
+    FT_Err_Lower_Module_Version = 5,
+    FT_Err_Invalid_Argument = 6,
+    FT_Err_Unimplemented_Feature = 7,
+    FT_Err_Invalid_Table = 8,
+    FT_Err_Invalid_Offset = 9,
+    FT_Err_Array_Too_Large = 10,
+    FT_Err_Missing_Module = 11,
+    FT_Err_Missing_Property = 12,
+    FT_Err_Invalid_Glyph_Index = 16,
+    FT_Err_Invalid_Character_Code = 17,
+    FT_Err_Invalid_Glyph_Format = 18,
+    FT_Err_Cannot_Render_Glyph = 19,
+    FT_Err_Invalid_Outline = 20,
+    FT_Err_Invalid_Composite = 21,
+    FT_Err_Too_Many_Hints = 22,
+    FT_Err_Invalid_Pixel_Size = 23,
+    FT_Err_Invalid_SVG_Document = 24,
+    FT_Err_Invalid_Handle = 32,
+    FT_Err_Invalid_Library_Handle = 33,
+    FT_Err_Invalid_Driver_Handle = 34,
+    FT_Err_Invalid_Face_Handle = 35,
+    FT_Err_Invalid_Size_Handle = 36,
+    FT_Err_Invalid_Slot_Handle = 37,
+    FT_Err_Invalid_CharMap_Handle = 38,
+    FT_Err_Invalid_Cache_Handle = 39,
+    FT_Err_Invalid_Stream_Handle = 40,
+    FT_Err_Too_Many_Drivers = 48,
+    FT_Err_Too_Many_Extensions = 49,
+    FT_Err_Out_Of_Memory = 64,
+    FT_Err_Unlisted_Object = 65,
+    FT_Err_Cannot_Open_Stream = 81,
+    FT_Err_Invalid_Stream_Seek = 82,
+    FT_Err_Invalid_Stream_Skip = 83,
+    FT_Err_Invalid_Stream_Read = 84,
+    FT_Err_Invalid_Stream_Operation = 85,
+    FT_Err_Invalid_Frame_Operation = 86,
+    FT_Err_Nested_Frame_Access = 87,
+    FT_Err_Invalid_Frame_Read = 88,
+    FT_Err_Raster_Uninitialized = 96,
+    FT_Err_Raster_Corrupted = 97,
+    FT_Err_Raster_Overflow = 98,
+    FT_Err_Raster_Negative_Height = 99,
+    FT_Err_Too_Many_Caches = 112,
+    FT_Err_Invalid_Opcode = 128,
+    FT_Err_Too_Few_Arguments = 129,
+    FT_Err_Stack_Overflow = 130,
+    FT_Err_Code_Overflow = 131,
+    FT_Err_Bad_Argument = 132,
+    FT_Err_Divide_By_Zero = 133,
+    FT_Err_Invalid_Reference = 134,
+    FT_Err_Debug_OpCode = 135,
+    FT_Err_ENDF_In_Exec_Stream = 136,
+    FT_Err_Nested_DEFS = 137,
+    FT_Err_Invalid_CodeRange = 138,
+    FT_Err_Execution_Too_Long = 139,
+    FT_Err_Too_Many_Function_Defs = 140,
+    FT_Err_Too_Many_Instruction_Defs = 141,
+    FT_Err_Table_Missing = 142,
+    FT_Err_Horiz_Header_Missing = 143,
+    FT_Err_Locations_Missing = 144,
+    FT_Err_Name_Table_Missing = 145,
+    FT_Err_CMap_Table_Missing = 146,
+    FT_Err_Hmtx_Table_Missing = 147,
+    FT_Err_Post_Table_Missing = 148,
+    FT_Err_Invalid_Horiz_Metrics = 149,
+    FT_Err_Invalid_CharMap_Format = 150,
+    FT_Err_Invalid_PPem = 151,
+    FT_Err_Invalid_Vert_Metrics = 152,
+    FT_Err_Could_Not_Find_Context = 153,
+    FT_Err_Invalid_Post_Table_Format = 154,
+    FT_Err_Invalid_Post_Table = 155,
+    FT_Err_DEF_In_Glyf_Bytecode = 156,
+    FT_Err_Missing_Bitmap = 157,
+    FT_Err_Missing_SVG_Hooks = 158,
+    FT_Err_Syntax_Error = 160,
+    FT_Err_Stack_Underflow = 161,
+    FT_Err_Ignore = 162,
+    FT_Err_No_Unicode_Glyph_Name = 163,
+    FT_Err_Glyph_Too_Big = 164,
+    FT_Err_Missing_Startfont_Field = 176,
+    FT_Err_Missing_Font_Field = 177,
+    FT_Err_Missing_Size_Field = 178,
+    FT_Err_Missing_Fontboundingbox_Field = 179,
+    FT_Err_Missing_Chars_Field = 180,
+    FT_Err_Missing_Startchar_Field = 181,
+    FT_Err_Missing_Encoding_Field = 182,
+    FT_Err_Missing_Bbx_Field = 183,
+    FT_Err_Bbx_Too_Big = 184,
+    FT_Err_Corrupted_Font_Header = 185,
+    FT_Err_Corrupted_Font_Glyphs = 186,
+    FT_Err_Max = 187,
+}
+
+public enum FT_Encoding_
+{
+    FT_ENCODING_NONE = 0,
+    FT_ENCODING_MS_SYMBOL = 1937337698,
+    FT_ENCODING_UNICODE = 1970170211,
+    FT_ENCODING_SJIS = 1936353651,
+    FT_ENCODING_PRC = 1734484000,
+    FT_ENCODING_BIG5 = 1651074869,
+    FT_ENCODING_WANSUNG = 2002873971,
+    FT_ENCODING_JOHAB = 1785686113,
+    FT_ENCODING_GB2312 = 1734484000,
+    FT_ENCODING_MS_SJIS = 1936353651,
+    FT_ENCODING_MS_GB2312 = 1734484000,
+    FT_ENCODING_MS_BIG5 = 1651074869,
+    FT_ENCODING_MS_WANSUNG = 2002873971,
+    FT_ENCODING_MS_JOHAB = 1785686113,
+    FT_ENCODING_ADOBE_STANDARD = 1094995778,
+    FT_ENCODING_ADOBE_EXPERT = 1094992453,
+    FT_ENCODING_ADOBE_CUSTOM = 1094992451,
+    FT_ENCODING_ADOBE_LATIN_1 = 1818326065,
+    FT_ENCODING_OLD_LATIN_2 = 1818326066,
+    FT_ENCODING_APPLE_ROMAN = 1634889070,
+}
+
+public enum FT_Size_Request_Type_
+{
+    FT_SIZE_REQUEST_TYPE_NOMINAL = 0,
+    FT_SIZE_REQUEST_TYPE_REAL_DIM = 1,
+    FT_SIZE_REQUEST_TYPE_BBOX = 2,
+    FT_SIZE_REQUEST_TYPE_CELL = 3,
+    FT_SIZE_REQUEST_TYPE_SCALES = 4,
+    FT_SIZE_REQUEST_TYPE_MAX = 5,
+}
+
+public enum FT_Render_Mode_
+{
+    FT_RENDER_MODE_NORMAL = 0,
+    FT_RENDER_MODE_LIGHT = 1,
+    FT_RENDER_MODE_MONO = 2,
+    FT_RENDER_MODE_LCD = 3,
+    FT_RENDER_MODE_LCD_V = 4,
+    FT_RENDER_MODE_SDF = 5,
+    FT_RENDER_MODE_MAX = 6,
+}
+
+public enum FT_Kerning_Mode_
+{
+    FT_KERNING_DEFAULT = 0,
+    FT_KERNING_UNFITTED = 1,
+    FT_KERNING_UNSCALED = 2,
+}
+
+
+public struct FT_Memory
+{
+}
+
+[StructLayout(LayoutKind.Explicit)]
+public unsafe struct FT_MemoryRec_
+{
+    [FieldOffset(0)]
+    public nint user;
+    [FieldOffset(8)]
+    public nint alloc;
+    [FieldOffset(16)]
+    public nint free;
+    [FieldOffset(24)]
+    public nint realloc;
+}
+
+public struct FT_Stream
+{
+}
+
+[StructLayout(LayoutKind.Explicit)]
+public unsafe struct FT_StreamRec_
+{
+    [FieldOffset(0)]
+    public nint @base;
+    [FieldOffset(8)]
+    public uint size;
+    [FieldOffset(16)]
+    public uint pos;
+    [FieldOffset(24)]
+    public FT_StreamDesc_ descriptor;
+    [FieldOffset(32)]
+    public FT_StreamDesc_ pathname;
+    [FieldOffset(40)]
+    public nint read;
+    [FieldOffset(48)]
+    public nint close;
+    [FieldOffset(56)]
+    public nint memory;
+    [FieldOffset(64)]
+    public nint cursor;
+    [FieldOffset(72)]
+    public nint limit;
+}
+
+[StructLayout(LayoutKind.Explicit)]
+public unsafe struct FT_Vector_
+{
+    [FieldOffset(0)]
+    public int x;
+    [FieldOffset(8)]
+    public int y;
+}
+
+[StructLayout(LayoutKind.Explicit)]
+public unsafe struct FT_BBox_
+{
+    [FieldOffset(0)]
+    public int xMin;
+    [FieldOffset(8)]
+    public int yMin;
+    [FieldOffset(16)]
+    public int xMax;
+    [FieldOffset(24)]
+    public int yMax;
+}
+
+[StructLayout(LayoutKind.Explicit)]
+public unsafe struct FT_Bitmap_
+{
+    [FieldOffset(0)]
+    public uint rows;
+    [FieldOffset(4)]
+    public uint width;
+    [FieldOffset(8)]
+    public int pitch;
+    [FieldOffset(16)]
+    public nint buffer;
+    [FieldOffset(24)]
+    public ushort num_grays;
+    [FieldOffset(26)]
+    public byte pixel_mode;
+    [FieldOffset(27)]
+    public byte palette_mode;
+    [FieldOffset(32)]
+    public nint palette;
+}
+
+[StructLayout(LayoutKind.Explicit)]
+public unsafe struct FT_Outline_
+{
+    [FieldOffset(0)]
+    public ushort n_contours;
+    [FieldOffset(2)]
+    public ushort n_points;
+    [FieldOffset(8)]
+    public FT_Vector_* points;
+    [FieldOffset(16)]
+    public nint tags;
+    [FieldOffset(24)]
+    public nint contours;
+    [FieldOffset(32)]
+    public int flags;
+}
+
+[StructLayout(LayoutKind.Explicit)]
+public unsafe struct FT_Outline_Funcs_
+{
+    [FieldOffset(0)]
+    public nint move_to;
+    [FieldOffset(8)]
+    public nint line_to;
+    [FieldOffset(16)]
+    public nint conic_to;
+    [FieldOffset(24)]
+    public nint cubic_to;
+    [FieldOffset(32)]
+    public int shift;
+    [FieldOffset(40)]
+    public int delta;
+}
+
+[StructLayout(LayoutKind.Explicit)]
+public unsafe struct FT_Span_
+{
+    [FieldOffset(0)]
+    public short x;
+    [FieldOffset(2)]
+    public ushort len;
+    [FieldOffset(4)]
+    public byte coverage;
+}
+
+[StructLayout(LayoutKind.Explicit)]
+public unsafe struct FT_Raster_Params_
+{
+    [FieldOffset(0)]
+    public FT_Bitmap_* target;
+    [FieldOffset(8)]
+    public nint source;
+    [FieldOffset(16)]
+    public int flags;
+    [FieldOffset(24)]
+    public nint gray_spans;
+    [FieldOffset(32)]
+    public nint black_spans;
+    [FieldOffset(40)]
+    public nint bit_test;
+    [FieldOffset(48)]
+    public nint bit_set;
+    [FieldOffset(56)]
+    public nint user;
+    [FieldOffset(64)]
+    public FT_BBox_ clip_box;
+}
+
+public struct FT_Raster
+{
+}
+
+[StructLayout(LayoutKind.Explicit)]
+public unsafe struct FT_Raster_Funcs_
+{
+    [FieldOffset(0)]
+    public FT_Glyph_Format_ glyph_format;
+    [FieldOffset(8)]
+    public nint raster_new;
+    [FieldOffset(16)]
+    public nint raster_reset;
+    [FieldOffset(24)]
+    public nint raster_set_mode;
+    [FieldOffset(32)]
+    public nint raster_render;
+    [FieldOffset(40)]
+    public nint raster_done;
+}
+
+[StructLayout(LayoutKind.Explicit)]
+public unsafe struct FT_UnitVector_
+{
+    [FieldOffset(0)]
+    public short x;
+    [FieldOffset(2)]
+    public short y;
+}
+
+[StructLayout(LayoutKind.Explicit)]
+public unsafe struct FT_Matrix_
+{
+    [FieldOffset(0)]
+    public int xx;
+    [FieldOffset(8)]
+    public int xy;
+    [FieldOffset(16)]
+    public int yx;
+    [FieldOffset(24)]
+    public int yy;
+}
+
+[StructLayout(LayoutKind.Explicit)]
+public unsafe struct FT_Data_
+{
+    [FieldOffset(0)]
+    public byte* pointer;
+    [FieldOffset(8)]
+    public uint length;
+}
+
+[StructLayout(LayoutKind.Explicit)]
+public unsafe struct FT_Generic_
+{
+    [FieldOffset(0)]
+    public nint data;
+    [FieldOffset(8)]
+    public nint finalizer;
+}
+
+public struct FT_ListNode
+{
+}
+
+public struct FT_List
+{
+}
+
+[StructLayout(LayoutKind.Explicit)]
+public unsafe struct FT_ListNodeRec_
+{
+    [FieldOffset(0)]
+    public nint prev;
+    [FieldOffset(8)]
+    public nint next;
+    [FieldOffset(16)]
+    public nint data;
+}
+
+[StructLayout(LayoutKind.Explicit)]
+public unsafe struct FT_ListRec_
+{
+    [FieldOffset(0)]
+    public nint head;
+    [FieldOffset(8)]
+    public nint tail;
+}
+
+[StructLayout(LayoutKind.Explicit)]
+public unsafe struct FT_Glyph_Metrics_
+{
+    [FieldOffset(0)]
+    public int width;
+    [FieldOffset(8)]
+    public int height;
+    [FieldOffset(16)]
+    public int horiBearingX;
+    [FieldOffset(24)]
+    public int horiBearingY;
+    [FieldOffset(32)]
+    public int horiAdvance;
+    [FieldOffset(40)]
+    public int vertBearingX;
+    [FieldOffset(48)]
+    public int vertBearingY;
+    [FieldOffset(56)]
+    public int vertAdvance;
+}
+
+[StructLayout(LayoutKind.Explicit)]
+public unsafe struct FT_Bitmap_Size_
+{
+    [FieldOffset(0)]
+    public short height;
+    [FieldOffset(2)]
+    public short width;
+    [FieldOffset(8)]
+    public int size;
+    [FieldOffset(16)]
+    public int x_ppem;
+    [FieldOffset(24)]
+    public int y_ppem;
+}
+
+public struct FT_Library
+{
+}
+
+public struct FT_Module
+{
+}
+
+public struct FT_Driver
+{
+}
+
+public struct FT_Renderer
+{
+}
+
+public struct FT_Face
+{
+}
+
+public struct FT_Size
+{
+}
+
+public struct FT_GlyphSlot
+{
+}
+
+public struct FT_CharMap
+{
+}
+
+[StructLayout(LayoutKind.Explicit)]
+public unsafe struct FT_CharMapRec_
+{
+    [FieldOffset(0)]
+    public nint face;
+    [FieldOffset(8)]
+    public FT_Encoding_ encoding;
+    [FieldOffset(12)]
+    public ushort platform_id;
+    [FieldOffset(14)]
+    public ushort encoding_id;
+}
+
+public struct FT_Face_Internal
+{
+}
+
+[StructLayout(LayoutKind.Explicit)]
+public unsafe struct FT_FaceRec_
+{
+    [FieldOffset(0)]
+    public int num_faces;
+    [FieldOffset(8)]
+    public int face_index;
+    [FieldOffset(16)]
+    public int face_flags;
+    [FieldOffset(24)]
+    public int style_flags;
+    [FieldOffset(32)]
+    public int num_glyphs;
+    [FieldOffset(40)]
+    public sbyte* family_name;
+    [FieldOffset(48)]
+    public sbyte* style_name;
+    [FieldOffset(56)]
+    public int num_fixed_sizes;
+    [FieldOffset(64)]
+    public FT_Bitmap_Size_* available_sizes;
+    [FieldOffset(72)]
+    public int num_charmaps;
+    [FieldOffset(80)]
+    public nint* charmaps;
+    [FieldOffset(88)]
+    public FT_Generic_ generic;
+    [FieldOffset(104)]
+    public FT_BBox_ bbox;
+    [FieldOffset(136)]
+    public ushort units_per_EM;
+    [FieldOffset(138)]
+    public short ascender;
+    [FieldOffset(140)]
+    public short descender;
+    [FieldOffset(142)]
+    public short height;
+    [FieldOffset(144)]
+    public short max_advance_width;
+    [FieldOffset(146)]
+    public short max_advance_height;
+    [FieldOffset(148)]
+    public short underline_position;
+    [FieldOffset(150)]
+    public short underline_thickness;
+    [FieldOffset(152)]
+    public nint glyph;
+    [FieldOffset(160)]
+    public nint size;
+    [FieldOffset(168)]
+    public nint charmap;
+    [FieldOffset(176)]
+    public nint driver;
+    [FieldOffset(184)]
+    public nint memory;
+    [FieldOffset(192)]
+    public nint stream;
+    [FieldOffset(200)]
+    public FT_ListRec_ sizes_list;
+    [FieldOffset(216)]
+    public FT_Generic_ autohint;
+    [FieldOffset(232)]
+    public nint extensions;
+    [FieldOffset(240)]
+    public nint @internal;
+}
+
+public struct FT_Size_Internal
+{
+}
+
+[StructLayout(LayoutKind.Explicit)]
+public unsafe struct FT_Size_Metrics_
+{
+    [FieldOffset(0)]
+    public ushort x_ppem;
+    [FieldOffset(2)]
+    public ushort y_ppem;
+    [FieldOffset(8)]
+    public int x_scale;
+    [FieldOffset(16)]
+    public int y_scale;
+    [FieldOffset(24)]
+    public int ascender;
+    [FieldOffset(32)]
+    public int descender;
+    [FieldOffset(40)]
+    public int height;
+    [FieldOffset(48)]
+    public int max_advance;
+}
+
+[StructLayout(LayoutKind.Explicit)]
+public unsafe struct FT_SizeRec_
+{
+    [FieldOffset(0)]
+    public nint face;
+    [FieldOffset(8)]
+    public FT_Generic_ generic;
+    [FieldOffset(24)]
+    public FT_Size_Metrics_ metrics;
+    [FieldOffset(80)]
+    public nint @internal;
+}
+
+public struct FT_SubGlyph
+{
+}
+
+public struct FT_Slot_Internal
+{
+}
+
+[StructLayout(LayoutKind.Explicit)]
+public unsafe struct FT_GlyphSlotRec_
+{
+    [FieldOffset(0)]
+    public nint library;
+    [FieldOffset(8)]
+    public nint face;
+    [FieldOffset(16)]
+    public nint next;
+    [FieldOffset(24)]
+    public uint glyph_index;
+    [FieldOffset(32)]
+    public FT_Generic_ generic;
+    [FieldOffset(48)]
+    public FT_Glyph_Metrics_ metrics;
+    [FieldOffset(112)]
+    public int linearHoriAdvance;
+    [FieldOffset(120)]
+    public int linearVertAdvance;
+    [FieldOffset(128)]
+    public FT_Vector_ advance;
+    [FieldOffset(144)]
+    public FT_Glyph_Format_ format;
+    [FieldOffset(152)]
+    public FT_Bitmap_ bitmap;
+    [FieldOffset(192)]
+    public int bitmap_left;
+    [FieldOffset(196)]
+    public int bitmap_top;
+    [FieldOffset(200)]
+    public FT_Outline_ outline;
+    [FieldOffset(240)]
+    public uint num_subglyphs;
+    [FieldOffset(248)]
+    public nint subglyphs;
+    [FieldOffset(256)]
+    public nint control_data;
+    [FieldOffset(264)]
+    public int control_len;
+    [FieldOffset(272)]
+    public int lsb_delta;
+    [FieldOffset(280)]
+    public int rsb_delta;
+    [FieldOffset(288)]
+    public nint other;
+    [FieldOffset(296)]
+    public nint @internal;
+}
+
+[StructLayout(LayoutKind.Explicit)]
+public unsafe struct FT_Parameter_
+{
+    [FieldOffset(0)]
+    public uint tag;
+    [FieldOffset(8)]
+    public nint data;
+}
+
+[StructLayout(LayoutKind.Explicit)]
+public unsafe struct FT_Open_Args_
+{
+    [FieldOffset(0)]
+    public uint flags;
+    [FieldOffset(8)]
+    public byte* memory_base;
+    [FieldOffset(16)]
+    public int memory_size;
+    [FieldOffset(24)]
+    public sbyte* pathname;
+    [FieldOffset(32)]
+    public nint stream;
+    [FieldOffset(40)]
+    public nint driver;
+    [FieldOffset(48)]
+    public int num_params;
+    [FieldOffset(56)]
+    public FT_Parameter_* @params;
+}
+
+[StructLayout(LayoutKind.Explicit)]
+public unsafe struct FT_Size_RequestRec_
+{
+    [FieldOffset(0)]
+    public FT_Size_Request_Type_ type;
+    [FieldOffset(8)]
+    public int width;
+    [FieldOffset(16)]
+    public int height;
+    [FieldOffset(24)]
+    public uint horiResolution;
+    [FieldOffset(28)]
+    public uint vertResolution;
+}
+
+public struct FT_Size_Request
+{
+}
+
+
+[StructLayout(LayoutKind.Explicit)]
+public unsafe struct FT_StreamDesc_
+{
+    [FieldOffset(0)]
+    public int value;
+    [FieldOffset(0)]
+    public nint pointer;
+}
+
+
+public static unsafe partial class NativeMethods
+{
+    [LibraryImport("freetype", EntryPoint = "bcmp", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int bcmp(nint __s1, nint __s2, uint __n);
+
+    [LibraryImport("freetype", EntryPoint = "bcopy", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void bcopy(nint __src, nint __dest, uint __n);
+
+    [LibraryImport("freetype", EntryPoint = "bzero", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void bzero(nint __s, uint __n);
+
+    [LibraryImport("freetype", EntryPoint = "index", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint index(string __s, int __c);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? indexString(string __s, int __c)
+    {
+        var ptr = index(__s, __c);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
+
+    [LibraryImport("freetype", EntryPoint = "rindex", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint rindex(string __s, int __c);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? rindexString(string __s, int __c)
+    {
+        var ptr = rindex(__s, __c);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
+
+    [LibraryImport("freetype", EntryPoint = "ffs", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int ffs(int __i);
+
+    [LibraryImport("freetype", EntryPoint = "ffsl", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int ffsl(int __l);
+
+    [LibraryImport("freetype", EntryPoint = "ffsll", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int ffsll(long __ll);
+
+    [LibraryImport("freetype", EntryPoint = "strcasecmp", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int strcasecmp(string __s1, string __s2);
+
+    [LibraryImport("freetype", EntryPoint = "strncasecmp", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int strncasecmp(string __s1, string __s2, uint __n);
+
+    [LibraryImport("freetype", EntryPoint = "strcasecmp_l", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int strcasecmp_l(string __s1, string __s2, nint __loc);
+
+    [LibraryImport("freetype", EntryPoint = "strncasecmp_l", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int strncasecmp_l(string __s1, string __s2, uint __n, nint __loc);
+
+    [LibraryImport("freetype", EntryPoint = "FT_Error_String", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint FT_Error_String(int error_code);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? FT_Error_StringString(int error_code)
+    {
+        var ptr = FT_Error_String(error_code);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
+
+    [LibraryImport("freetype", EntryPoint = "FT_Init_FreeType", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int FT_Init_FreeType(nint* alibrary);
+
+    [LibraryImport("freetype", EntryPoint = "FT_Done_FreeType", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int FT_Done_FreeType(nint library);
+
+    [LibraryImport("freetype", EntryPoint = "FT_New_Face", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int FT_New_Face(nint library, string filepathname, int face_index, nint* aface);
+
+    [LibraryImport("freetype", EntryPoint = "FT_New_Memory_Face", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int FT_New_Memory_Face(nint library, byte* file_base, int file_size, int face_index, nint* aface);
+
+    [LibraryImport("freetype", EntryPoint = "FT_Open_Face", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int FT_Open_Face(nint library, FT_Open_Args_* args, int face_index, nint* aface);
+
+    [LibraryImport("freetype", EntryPoint = "FT_Attach_File", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int FT_Attach_File(nint face, string filepathname);
+
+    [LibraryImport("freetype", EntryPoint = "FT_Attach_Stream", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int FT_Attach_Stream(nint face, FT_Open_Args_* parameters);
+
+    [LibraryImport("freetype", EntryPoint = "FT_Reference_Face", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int FT_Reference_Face(nint face);
+
+    [LibraryImport("freetype", EntryPoint = "FT_Done_Face", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int FT_Done_Face(nint face);
+
+    [LibraryImport("freetype", EntryPoint = "FT_Select_Size", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int FT_Select_Size(nint face, int strike_index);
+
+    [LibraryImport("freetype", EntryPoint = "FT_Request_Size", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int FT_Request_Size(nint face, nint req);
+
+    [LibraryImport("freetype", EntryPoint = "FT_Set_Char_Size", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int FT_Set_Char_Size(nint face, int char_width, int char_height, uint horz_resolution, uint vert_resolution);
+
+    [LibraryImport("freetype", EntryPoint = "FT_Set_Pixel_Sizes", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int FT_Set_Pixel_Sizes(nint face, uint pixel_width, uint pixel_height);
+
+    [LibraryImport("freetype", EntryPoint = "FT_Load_Glyph", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int FT_Load_Glyph(nint face, uint glyph_index, int load_flags);
+
+    [LibraryImport("freetype", EntryPoint = "FT_Load_Char", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int FT_Load_Char(nint face, uint char_code, int load_flags);
+
+    [LibraryImport("freetype", EntryPoint = "FT_Set_Transform", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void FT_Set_Transform(nint face, FT_Matrix_* matrix, FT_Vector_* delta);
+
+    [LibraryImport("freetype", EntryPoint = "FT_Get_Transform", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void FT_Get_Transform(nint face, FT_Matrix_* matrix, FT_Vector_* delta);
+
+    [LibraryImport("freetype", EntryPoint = "FT_Render_Glyph", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int FT_Render_Glyph(nint slot, FT_Render_Mode_ render_mode);
+
+    [LibraryImport("freetype", EntryPoint = "FT_Get_Kerning", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int FT_Get_Kerning(nint face, uint left_glyph, uint right_glyph, uint kern_mode, FT_Vector_* akerning);
+
+    [LibraryImport("freetype", EntryPoint = "FT_Get_Track_Kerning", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int FT_Get_Track_Kerning(nint face, int point_size, int degree, int* akerning);
+
+    [LibraryImport("freetype", EntryPoint = "FT_Select_Charmap", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int FT_Select_Charmap(nint face, FT_Encoding_ encoding);
+
+    [LibraryImport("freetype", EntryPoint = "FT_Set_Charmap", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int FT_Set_Charmap(nint face, nint charmap);
+
+    [LibraryImport("freetype", EntryPoint = "FT_Get_Charmap_Index", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int FT_Get_Charmap_Index(nint charmap);
+
+    [LibraryImport("freetype", EntryPoint = "FT_Get_Char_Index", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial uint FT_Get_Char_Index(nint face, uint charcode);
+
+    [LibraryImport("freetype", EntryPoint = "FT_Get_First_Char", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial uint FT_Get_First_Char(nint face, uint* agindex);
+
+    [LibraryImport("freetype", EntryPoint = "FT_Get_Next_Char", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial uint FT_Get_Next_Char(nint face, uint char_code, uint* agindex);
+
+    [LibraryImport("freetype", EntryPoint = "FT_Face_Properties", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int FT_Face_Properties(nint face, uint num_properties, FT_Parameter_* properties);
+
+    [LibraryImport("freetype", EntryPoint = "FT_Get_Name_Index", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial uint FT_Get_Name_Index(nint face, sbyte* glyph_name);
+
+    [LibraryImport("freetype", EntryPoint = "FT_Get_Glyph_Name", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int FT_Get_Glyph_Name(nint face, uint glyph_index, nint buffer, uint buffer_max);
+
+    [LibraryImport("freetype", EntryPoint = "FT_Get_Postscript_Name", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint FT_Get_Postscript_Name(nint face);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? FT_Get_Postscript_NameString(nint face)
+    {
+        var ptr = FT_Get_Postscript_Name(face);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
+
+    [LibraryImport("freetype", EntryPoint = "FT_Get_SubGlyph_Info", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int FT_Get_SubGlyph_Info(nint glyph, uint sub_index, int* p_index, uint* p_flags, int* p_arg1, int* p_arg2, FT_Matrix_* p_transform);
+
+    [LibraryImport("freetype", EntryPoint = "FT_Get_FSType_Flags", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial ushort FT_Get_FSType_Flags(nint face);
+
+    [LibraryImport("freetype", EntryPoint = "FT_Face_GetCharVariantIndex", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial uint FT_Face_GetCharVariantIndex(nint face, uint charcode, uint variantSelector);
+
+    [LibraryImport("freetype", EntryPoint = "FT_Face_GetCharVariantIsDefault", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int FT_Face_GetCharVariantIsDefault(nint face, uint charcode, uint variantSelector);
+
+    [LibraryImport("freetype", EntryPoint = "FT_Face_GetVariantSelectors", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial uint* FT_Face_GetVariantSelectors(nint face);
+
+    [LibraryImport("freetype", EntryPoint = "FT_Face_GetVariantsOfChar", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial uint* FT_Face_GetVariantsOfChar(nint face, uint charcode);
+
+    [LibraryImport("freetype", EntryPoint = "FT_Face_GetCharsOfVariant", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial uint* FT_Face_GetCharsOfVariant(nint face, uint variantSelector);
+
+    [LibraryImport("freetype", EntryPoint = "FT_MulDiv", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int FT_MulDiv(int a, int b, int c);
+
+    [LibraryImport("freetype", EntryPoint = "FT_MulFix", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int FT_MulFix(int a, int b);
+
+    [LibraryImport("freetype", EntryPoint = "FT_DivFix", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int FT_DivFix(int a, int b);
+
+    [LibraryImport("freetype", EntryPoint = "FT_RoundFix", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int FT_RoundFix(int a);
+
+    [LibraryImport("freetype", EntryPoint = "FT_CeilFix", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int FT_CeilFix(int a);
+
+    [LibraryImport("freetype", EntryPoint = "FT_FloorFix", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int FT_FloorFix(int a);
+
+    [LibraryImport("freetype", EntryPoint = "FT_Vector_Transform", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void FT_Vector_Transform(FT_Vector_* vector, FT_Matrix_* matrix);
+
+    [LibraryImport("freetype", EntryPoint = "FT_Library_Version", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void FT_Library_Version(nint library, int* amajor, int* aminor, int* apatch);
+
+    [LibraryImport("freetype", EntryPoint = "FT_Face_CheckTrueTypePatents", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial byte FT_Face_CheckTrueTypePatents(nint face);
+
+    [LibraryImport("freetype", EntryPoint = "FT_Face_SetUnpatentedHinting", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial byte FT_Face_SetUnpatentedHinting(nint face, byte value);
+
+}

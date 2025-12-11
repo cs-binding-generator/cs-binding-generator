@@ -222,7 +222,8 @@ class TestCodeGenerator:
         
         result = self.generator.generate_enum(mock_cursor)
         
-        assert "public enum AnonymousEnum" in result
+        # Single-member enum should derive name from the member
+        assert "public enum VALUE1" in result
         assert "VALUE1 = 100," in result
     
     def test_generate_enum_empty(self):

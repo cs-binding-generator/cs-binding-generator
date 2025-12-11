@@ -12,6 +12,7 @@ class CodeGenerator:
     def __init__(self, library_name: str, type_mapper: TypeMapper):
         self.library_name = library_name
         self.type_mapper = type_mapper
+        self.anonymous_enum_counter = 0
     
     def generate_function(self, cursor) -> str:
         """Generate C# LibraryImport for a function"""
@@ -330,7 +331,11 @@ public unsafe struct {union_name}
     
     def generate_enum(self, cursor) -> str:
         """Generate C# enum"""
-        enum_name = cursor.spelling or "AnonymousEnum"
+        enum_name = cursor.spelling
+        
+        # Filter out invalid enum names (anonymous enums with full display name)
+        if enum_name and ("unnamed" in enum_name or "(" in enum_name or "::" in enum_name):
+            enum_name = None
         
         # Collect enum values
         values = []
@@ -343,6 +348,29 @@ public unsafe struct {union_name}
         if not values:
             return ""
         
+        # Generate name for anonymous enum
+        if not enum_name:
+            # Try to derive name from common prefix of members
+            member_names = [child.spelling for child in cursor.get_children() 
+                          if child.kind == CursorKind.ENUM_CONSTANT_DECL]
+            
+            if member_names:
+                # Find common prefix
+                common_prefix = self._find_common_prefix(member_names)
+                # Remove trailing underscore and convert to PascalCase
+                if common_prefix and len(common_prefix) > 2:
+                    enum_name = common_prefix.rstrip('_')
+                    # If it ends up empty after stripping, use counter
+                    if not enum_name:
+                        self.anonymous_enum_counter += 1
+                        enum_name = f"AnonymousEnum{self.anonymous_enum_counter}"
+                else:
+                    self.anonymous_enum_counter += 1
+                    enum_name = f"AnonymousEnum{self.anonymous_enum_counter}"
+            else:
+                self.anonymous_enum_counter += 1
+                enum_name = f"AnonymousEnum{self.anonymous_enum_counter}"
+        
         values_str = "\n".join(values)
         
         code = f'''public enum {enum_name}
@@ -351,6 +379,22 @@ public unsafe struct {union_name}
 }}
 '''
         return code
+    
+    def _find_common_prefix(self, strings: list[str]) -> str:
+        """Find common prefix of a list of strings"""
+        if not strings:
+            return ""
+        
+        # Find the shortest string
+        min_len = min(len(s) for s in strings)
+        
+        # Check each character position
+        for i in range(min_len):
+            char = strings[0][i]
+            if not all(s[i] == char for s in strings):
+                return strings[0][:i]
+        
+        return strings[0][:min_len]
 
 
 class OutputBuilder:
