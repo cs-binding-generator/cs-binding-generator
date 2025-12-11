@@ -31,10 +31,10 @@ Examples:
     
     parser.add_argument(
         "-i", "--input",
-        nargs="+",
+        action="append",
         required=True,
         metavar="HEADER",
-        help="Input C header file(s) to process"
+        help="Input C header file(s) to process (can be specified multiple times)"
     )
     
     parser.add_argument(

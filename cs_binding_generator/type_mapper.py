@@ -232,15 +232,19 @@ class TypeMapper:
                 if canonical.kind in self.type_map:
                     return self.type_map[canonical.kind]
                 # Recursively map the canonical type
-                return self.map_type(canonical)
+                mapped_canonical = self.map_type(canonical, is_return_type, is_struct_field)
+                # If the canonical type returns a clean struct name, use it
+                if mapped_canonical and mapped_canonical != "nint":
+                    return mapped_canonical
             
             # Check if the spelling is a known typedef
             if hasattr(ctype, 'spelling'):
                 spelling = ctype.spelling
                 # Strip qualifiers before checking typedef_map
                 clean_spelling = spelling
-                for prefix in ['const ', 'volatile ', 'restrict ']:
-                    clean_spelling = clean_spelling.removeprefix(prefix)
+                for prefix in ['const ', 'volatile ', 'restrict ', 'struct ', 'union ', 'enum ', 'class ']:
+                    while clean_spelling.startswith(prefix):
+                        clean_spelling = clean_spelling[len(prefix):]
                 
                 # Try typedef chain first (runtime-discovered types)
                 if clean_spelling:
@@ -251,6 +255,10 @@ class TypeMapper:
                     # Fall back to static typedef_map
                     if clean_spelling in self.typedef_map:
                         return self.typedef_map[clean_spelling]
+                
+                # If we have a clean spelling after stripping, return it
+                if clean_spelling:
+                    return clean_spelling
             else:
                 spelling = None
             # Get the named type and map it
@@ -288,16 +296,34 @@ class TypeMapper:
                 return spelling[5:]  # Strip 'enum ' prefix
             return spelling
         
-        # Struct/Union - strip any 'struct'/'union' prefix
+        # Struct/Union - strip any 'struct'/'union'/'const' prefix
         if ctype.kind == TypeKind.RECORD:
             if hasattr(ctype, 'spelling'):
                 spelling = ctype.spelling
                 if spelling:
-                    for prefix in ['struct ', 'union ', 'class ']:
-                        if spelling.startswith(prefix):
-                            return spelling[len(prefix):]
-                    return spelling
+                    # Strip all qualifiers and keywords
+                    changed = True
+                    while changed:
+                        changed = False
+                        for prefix in ['const ', 'volatile ', 'restrict ', 'struct ', 'union ', 'class ']:
+                            if spelling.startswith(prefix):
+                                spelling = spelling[len(prefix):]
+                                changed = True
+                                break
+                    return spelling if spelling else "nint"
             return "nint"
         
         # Fallback
-        return ctype.spelling if hasattr(ctype, 'spelling') and ctype.spelling else "nint"
+        spelling = ctype.spelling if hasattr(ctype, 'spelling') and ctype.spelling else None
+        if spelling:
+            # Strip ALL qualifiers and keywords repeatedly
+            changed = True
+            while changed:
+                changed = False
+                for prefix in ['const ', 'volatile ', 'restrict ', 'struct ', 'union ', 'enum ', 'class ']:
+                    if spelling.startswith(prefix):
+                        spelling = spelling[len(prefix):]
+                        changed = True
+                        break
+            return spelling if spelling else "nint"
+        return "nint"

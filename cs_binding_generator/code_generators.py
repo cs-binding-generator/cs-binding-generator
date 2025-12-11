@@ -26,6 +26,13 @@ class CodeGenerator:
         # Check if this returns a char* (now mapped to nuint)
         is_char_pointer_return = self._is_char_pointer(cursor.result_type)
         
+        # Check if this returns a struct by value (not allowed in LibraryImport)
+        # LibraryImport cannot return structs by value, only primitives or pointers
+        is_struct_return = self._is_struct_return(cursor.result_type)
+        struct_return_type = result_type  # Save the original struct type name
+        if is_struct_return:
+            result_type = "nuint"  # Return as nuint pointer instead
+        
         # Skip variadic functions (not supported in LibraryImport)
         # Note: Only FUNCTIONPROTO types can be checked for variadicity
         if cursor.type.kind == TypeKind.FUNCTIONPROTO:
@@ -151,6 +158,18 @@ class CodeGenerator:
     }}
 '''
         
+        # Add helper function for struct return types
+        if is_struct_return:
+            # Build parameters for helper (same as original)
+            code += f'''
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static unsafe {struct_return_type} {func_name}Struct({params_str})
+    {{
+        var ptr = {func_name}({", ".join(arg.spelling or f"param{i}" for i, arg in enumerate(cursor.get_arguments())) if cursor.get_arguments() else ""});
+        return Marshal.PtrToStructure<{struct_return_type}>((nint)ptr);
+    }}
+'''
+        
         return code
     
     def _is_char_pointer(self, ctype) -> bool:
@@ -167,6 +186,17 @@ class CodeGenerator:
             if pointee.kind == TypeKind.POINTER:
                 inner_pointee = pointee.get_pointee()
                 return inner_pointee.kind in (TypeKind.CHAR_S, TypeKind.CHAR_U)
+        return False
+    
+    def _is_struct_return(self, ctype) -> bool:
+        """Check if a type is a struct/union returned by value"""
+        # Check if it's a RECORD (struct/union) type that's not a pointer
+        if ctype.kind == TypeKind.RECORD:
+            return True
+        # Also check ELABORATED types (typedef'd structs)
+        if ctype.kind == TypeKind.ELABORATED:
+            canonical = ctype.get_canonical()
+            return canonical.kind == TypeKind.RECORD
         return False
     
     def generate_struct(self, cursor) -> str:
