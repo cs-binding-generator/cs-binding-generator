@@ -13,7 +13,9 @@ A Python-based tool that automatically generates C# P/Invoke bindings from C hea
 - **Automatic Type Mapping**: Intelligently maps C types to C# equivalents
 - **String Handling**: Provides both raw pointer and helper string methods for `char*` returns
 - **Struct Generation**: Creates explicit layout structs with proper field offsets
-- **Include Depth Control**: Process headers with configurable include file depth (see [docs/INCLUDE_DEPTH.md](docs/INCLUDE_DEPTH.md))
+- **Union Support**: Converts C unions to C# structs with `LayoutKind.Explicit` and field offsets
+- **Typedef Resolution**: Properly resolves struct-to-struct typedefs through the typedef chain
+- **Include Depth Control**: Process headers with configurable include file depth (default: infinite; see [docs/INCLUDE_DEPTH.md](docs/INCLUDE_DEPTH.md))
 - **Include Directory Support**: Specify additional header search paths (see [docs/INCLUDE_DIRECTORIES.md](docs/INCLUDE_DIRECTORIES.md))
 - **Opaque Type Support**: Handles opaque struct typedefs (like `SDL_Window`)
 
@@ -49,7 +51,6 @@ cs_binding_generator \
   -o SDL3.cs \
   -l SDL3 \
   -n SDL \
-  --include-depth 1 \
   -I /usr/include
 ```
 
@@ -60,7 +61,7 @@ cs_binding_generator \
 - `-l, --library`: Native library name (required)
 - `-n, --namespace`: C# namespace (default: "Bindings")
 - `-I, --include-dir`: Additional include directories for clang
-- `--include-depth`: Maximum include file depth to process (default: 0)
+- `--include-depth`: Maximum include file depth to process (default: infinite)
 - `--clang-path`: Path to libclang library (optional)
 
 ### Python API
@@ -72,8 +73,7 @@ generator = CSharpBindingsGenerator("SDL3")
 output = generator.generate(
     header_files=["/usr/include/SDL3/SDL.h"],
     namespace="SDL",
-    include_dirs=["/usr/include"],
-    include_depth=1
+    include_dirs=["/usr/include"]
 )
 print(output)
 ```
@@ -102,6 +102,7 @@ print(output)
 | `char*` (return) | `nuint` | Use helper method for string |
 | `void*` | `nint` | Generic pointer |
 | `struct Foo*` | `Foo*` | Typed unsafe pointer |
+| `union Bar` | `Bar` | Struct with `LayoutKind.Explicit` |
 | `const struct Foo*` | `Foo*` | Const stripped |
 | `size_t` | `nuint` | |
 | `bool` | `bool` | With marshalling attribute |
@@ -177,7 +178,6 @@ cs_binding_generator \
   -o SDL3.cs \
   -l SDL3 \
   -n SDL \
-  --include-depth 1 \
   -I /usr/include
 ```
 

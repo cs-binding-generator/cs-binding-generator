@@ -4,13 +4,16 @@ The C# Bindings Generator allows you to control how deep into the include hierar
 
 ## Overview
 
-By default (`--include-depth 0`), the generator only processes definitions from the input header files you specify. With include depth control, you can also generate bindings for types and functions defined in included headers.
+By default, the generator processes all includes at infinite depth. This means it will generate bindings for types and functions defined in all included headers, recursively.
 
-This feature is essential when working with libraries like SDL3, which have a main header that includes many sub-headers containing the actual API definitions.
+You can control this behavior using the `--include-depth` parameter to limit how deep into the include hierarchy to generate bindings.
+
+This feature is useful when you want to limit the scope of generated bindings or when working with libraries that have deep include hierarchies.
 
 ## Include Depth Levels
 
-- **Depth 0** (default): Only process the input header file(s)
+- **Infinite** (default): Process all includes recursively
+- **Depth 0**: Only process the input header file(s)
 - **Depth 1**: Process input files + their direct includes
 - **Depth 2**: Process input files + includes + includes of those includes
 - **Depth N**: Process up to N levels deep in the include hierarchy
@@ -31,7 +34,10 @@ Only files within the specified depth are processed for code generation.
 ### Command Line
 
 ```bash
-# Only process main.h (default behavior)
+# Process all includes recursively (default behavior)
+cs_binding_generator -i main.h -l mylib -I ./include
+
+# Only process main.h, no includes
 cs_binding_generator -i main.h -l mylib --include-depth 0
 
 # Process main.h and files it directly includes
@@ -47,11 +53,20 @@ cs_binding_generator -i main.h -l mylib --include-depth 2 -I ./include
 from cs_binding_generator import CSharpBindingsGenerator
 
 generator = CSharpBindingsGenerator("mylib")
+
+# Default: infinite depth
+output = generator.generate(
+    header_files=["main.h"],
+    output_file="Bindings.cs",
+    include_dirs=["./include"]
+)
+
+# Limit to direct includes only
 output = generator.generate(
     header_files=["main.h"],
     output_file="Bindings.cs",
     include_dirs=["./include"],
-    include_depth=1  # Process direct includes
+    include_depth=1
 )
 ```
 
