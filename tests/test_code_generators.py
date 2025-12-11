@@ -249,6 +249,7 @@ class TestOutputBuilder:
             namespace="MyApp.Bindings",
             enums=enums,
             structs=structs,
+            unions=[],
             functions=functions,
             class_name="NativeMethods"
         )
@@ -269,6 +270,7 @@ class TestOutputBuilder:
             namespace="Test",
             enums=[],
             structs=[],
+            unions=[],
             functions=functions
         )
         
@@ -282,6 +284,7 @@ class TestOutputBuilder:
             namespace="Empty",
             enums=[],
             structs=[],
+            unions=[],
             functions=[]
         )
         
@@ -296,6 +299,7 @@ class TestOutputBuilder:
             namespace="Test",
             enums=[],
             structs=[],
+            unions=[],
             functions=functions,
             class_name="CustomNative"
         )

@@ -279,13 +279,14 @@ class OutputBuilder:
     
     @staticmethod
     def build(namespace: str, enums: list[str], structs: list[str], 
-              functions: list[str], class_name: str = "NativeMethods") -> str:
+              unions: list[str], functions: list[str], class_name: str = "NativeMethods") -> str:
         """Build the final C# output"""
         parts = []
         
-        # Usings
+        # Usings (non-global)
         from .constants import REQUIRED_USINGS
         parts.extend(REQUIRED_USINGS)
+        
         parts.append("")
         
         # Namespace
@@ -300,6 +301,11 @@ class OutputBuilder:
         # Structs
         if structs:
             parts.extend(structs)
+            parts.append("")
+        
+        # Unions (represented as structs with explicit layout)
+        if unions:
+            parts.extend(unions)
             parts.append("")
         
         # Functions class - mark as unsafe for pointer support

@@ -23,6 +23,7 @@ CSHARP_TYPE_MAP = {
     TypeKind.ULONGLONG: "ulong",
     TypeKind.FLOAT: "float",
     TypeKind.DOUBLE: "double",
+    TypeKind.LONGDOUBLE: "double",  # C# doesn't have long double, use double (may lose precision)
     TypeKind.POINTER: "nint",  # Generic pointer, refined in type_mapper
 }
 

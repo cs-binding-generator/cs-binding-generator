@@ -11,6 +11,8 @@ class TypeMapper:
     
     def __init__(self):
         self.type_map = CSHARP_TYPE_MAP.copy()
+        # Typedef resolution map: maps typedef name to underlying clang Type
+        self.typedef_chain = {}
         # Common typedef mappings (before resolving to canonical type)
         self.typedef_map = {
             'size_t': 'nuint',
@@ -22,6 +24,63 @@ class TypeMapper:
         }
         # Track opaque types (empty structs used as handles)
         self.opaque_types = set()
+    
+    def register_typedef(self, name: str, underlying_type):
+        """Register a typedef for later resolution"""
+        if name not in self.typedef_chain:
+            self.typedef_chain[name] = underlying_type
+    
+    def resolve_typedef_chain(self, type_name: str):
+        """Resolve a typedef to its final underlying type"""
+        visited = set()
+        current_name = type_name
+        
+        # Follow the chain of typedefs
+        while current_name in self.typedef_chain:
+            if current_name in visited:
+                # Circular typedef, shouldn't happen but be safe
+                break
+            visited.add(current_name)
+            
+            underlying = self.typedef_chain[current_name]
+            # Get the canonical type to resolve through typedefs
+            canonical = underlying.get_canonical()
+            
+            # If canonical is a primitive type, map it
+            if canonical.kind in self.type_map:
+                return self.type_map[canonical.kind]
+            
+            # If it's a struct/union, get the name from canonical
+            if canonical.kind == TypeKind.RECORD:
+                resolved_name = canonical.spelling
+                # Strip struct/union prefix
+                for prefix in ['struct ', 'union ', 'class ']:
+                    if resolved_name.startswith(prefix):
+                        resolved_name = resolved_name[len(prefix):]
+                        break
+                # Check if this name is also a typedef
+                if resolved_name in self.typedef_chain and resolved_name != current_name:
+                    current_name = resolved_name
+                    continue
+                else:
+                    return resolved_name
+            
+            # If it's another typedef, continue the chain
+            if underlying.spelling and underlying.spelling != current_name:
+                next_name = underlying.spelling
+                # Strip qualifiers
+                for prefix in ['const ', 'struct ', 'union ', 'enum ']:
+                    if next_name.startswith(prefix):
+                        next_name = next_name[len(prefix):]
+                        break
+                if next_name in self.typedef_chain:
+                    current_name = next_name
+                else:
+                    return next_name
+            else:
+                break
+        
+        return None
     
     def map_type(self, ctype, is_return_type: bool = False) -> str:
         """Map C type to C# type
@@ -64,6 +123,39 @@ class TypeMapper:
             if pointee.kind == TypeKind.VOID:
                 return "nint"
             
+            # Handle pointer to typedef (e.g., Uint8*, Sint16*)
+            # ELABORATED types can also be typedefs - check typedef chain first
+            pointee_name = pointee.spelling if hasattr(pointee, 'spelling') else None
+            
+            # Handle double pointers (e.g., Uint8** -> byte**)
+            if pointee.kind == TypeKind.POINTER:
+                inner_mapped = self.map_type(pointee, is_return_type=False)
+                if inner_mapped and inner_mapped != "nint":
+                    return f"{inner_mapped}*"
+            
+            # Strip qualifiers from pointee name before checking typedefs
+            if pointee_name:
+                clean_name = pointee_name
+                for prefix in ['const ', 'volatile ', 'restrict ']:
+                    clean_name = clean_name.removeprefix(prefix)
+                
+                # Try typedef chain first (runtime-discovered types)
+                resolved = self.resolve_typedef_chain(clean_name)
+                if resolved:
+                    return f"{resolved}*"
+                
+                # Fall back to static typedef_map
+                if clean_name in self.typedef_map:
+                    mapped_type = self.typedef_map[clean_name]
+                    # Return the mapped pointer type (including nint* for function pointers)
+                    return f"{mapped_type}*"
+            
+            # Also try mapping if it's explicitly a TYPEDEF kind
+            if pointee.kind == TypeKind.TYPEDEF:
+                mapped_type = self.map_type(pointee, is_return_type=False)
+                if mapped_type and mapped_type != "nint":
+                    return f"{mapped_type}*"
+            
             # Get struct name for pointer to struct (handles RECORD and ELABORATED types)
             struct_name = None
             if pointee.kind == TypeKind.ELABORATED:
@@ -80,6 +172,12 @@ class TypeMapper:
                                 break
                         if not stripped:
                             break
+                    
+                    # Try to resolve through typedef chain for ELABORATED types that are typedefs
+                    # Example: SDL_TLSID is ELABORATED but is actually a typedef to SDL_AtomicInt
+                    resolved = self.resolve_typedef_chain(struct_name)
+                    if resolved and resolved != struct_name:
+                        struct_name = resolved
             elif pointee.kind == TypeKind.RECORD:
                 # For record types, strip 'struct ', 'const ' prefixes - may need multiple passes
                 if hasattr(pointee, 'spelling'):
@@ -111,11 +209,42 @@ class TypeMapper:
         
         # Handle elaborated types (e.g., 'struct Foo' vs 'Foo')
         if ctype.kind == TypeKind.ELABORATED:
+            # Check if this is a typedef for a pointer or function pointer type
+            # (common opaque pointer pattern: typedef struct X *Y;)
+            canonical = ctype.get_canonical()
+            if canonical.kind in (TypeKind.POINTER, TypeKind.FUNCTIONPROTO, TypeKind.FUNCTIONNOPROTO):
+                return "nint"
+            
+            # Try to resolve through typedef chain first
+            if hasattr(ctype, 'spelling') and ctype.spelling:
+                resolved = self.resolve_typedef_chain(ctype.spelling)
+                if resolved:
+                    return resolved
+            
+            # For non-pointer typedefs, try to resolve to canonical primitive type
+            if canonical.kind != ctype.kind:  # If canonical is different from original
+                if canonical.kind in self.type_map:
+                    return self.type_map[canonical.kind]
+                # Recursively map the canonical type
+                return self.map_type(canonical)
+            
             # Check if the spelling is a known typedef
             if hasattr(ctype, 'spelling'):
                 spelling = ctype.spelling
-                if spelling and spelling in self.typedef_map:
-                    return self.typedef_map[spelling]
+                # Strip qualifiers before checking typedef_map
+                clean_spelling = spelling
+                for prefix in ['const ', 'volatile ', 'restrict ']:
+                    clean_spelling = clean_spelling.removeprefix(prefix)
+                
+                # Try typedef chain first (runtime-discovered types)
+                if clean_spelling:
+                    resolved = self.resolve_typedef_chain(clean_spelling)
+                    if resolved:
+                        return resolved
+                    
+                    # Fall back to static typedef_map
+                    if clean_spelling in self.typedef_map:
+                        return self.typedef_map[clean_spelling]
             else:
                 spelling = None
             # Get the named type and map it
@@ -129,12 +258,18 @@ class TypeMapper:
                         return spelling[len(prefix):]
             return spelling if spelling else "nint"
         
-        # Typedef - check common typedefs first
+        # Typedef - check typedef chain first, then common typedefs
         if ctype.kind == TypeKind.TYPEDEF:
             if hasattr(ctype, 'spelling'):
                 typedef_name = ctype.spelling
-                if typedef_name and typedef_name in self.typedef_map:
-                    return self.typedef_map[typedef_name]
+                if typedef_name:
+                    # Try typedef chain first (runtime-discovered types)
+                    resolved = self.resolve_typedef_chain(typedef_name)
+                    if resolved:
+                        return resolved
+                    # Fall back to static typedef_map
+                    if typedef_name in self.typedef_map:
+                        return self.typedef_map[typedef_name]
             # Otherwise resolve to canonical type
             return self.map_type(ctype.get_canonical())
         

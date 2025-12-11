@@ -266,6 +266,7 @@ class TestGeneratorInternals:
             namespace="Empty",
             enums=[],
             structs=[],
+            unions=[],
             functions=[]
         )
         

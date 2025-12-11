@@ -5,7 +5,7 @@ Main C# bindings generator orchestration
 import sys
 from pathlib import Path
 import clang.cindex
-from clang.cindex import CursorKind
+from clang.cindex import CursorKind, TypeKind
 
 from .type_mapper import TypeMapper
 from .code_generators import CodeGenerator, OutputBuilder
@@ -22,6 +22,7 @@ class CSharpBindingsGenerator:
         
         self.generated_functions = []
         self.generated_structs = []
+        self.generated_unions = []
         self.generated_enums = []
         self.source_file = None
         self.allowed_files = set()  # Files allowed based on include depth
@@ -29,17 +30,67 @@ class CSharpBindingsGenerator:
         # Track what we've already generated to avoid duplicates
         self.seen_functions = set()  # (name, location)
         self.seen_structs = set()    # (name, location)
+        self.seen_unions = set()     # (name, location)
         self.seen_enums = set()      # (name, location)
+    
+    def _is_system_header(self, file_path: str) -> bool:
+        """Check if a file path is a system header that should be excluded"""
+        path = Path(file_path).resolve()
+        path_str = str(path)
+        
+        # Standard C library headers to exclude  - check filename first
+        c_std_headers = {
+            'assert.h', 'complex.h', 'ctype.h', 'errno.h', 'fenv.h', 'float.h',
+            'inttypes.h', 'iso646.h', 'limits.h', 'locale.h', 'math.h', 'setjmp.h',
+            'signal.h', 'stdalign.h', 'stdarg.h', 'stdatomic.h', 'stdbool.h', 
+            'stddef.h', 'stdint.h', 'stdio.h', 'stdlib.h', 'stdnoreturn.h',
+            'string.h', 'tgmath.h', 'threads.h', 'time.h', 'uchar.h', 'wchar.h',
+            'wctype.h', 'alloca.h'
+        }
+        
+        filename = path.name
+        if filename in c_std_headers:
+            return True
+        
+        # System directories to exclude entirely
+        system_paths = [
+            '/usr/include/c++',
+            '/usr/include/x86_64-linux-gnu',
+            '/usr/include/aarch64-linux-gnu',
+            '/usr/lib/gcc',
+            '/usr/lib/clang',
+            '/usr/local/include',
+        ]
+        
+        if any(path_str.startswith(sys_path) for sys_path in system_paths):
+            return True
+        
+        # System subdirectories under /usr/include to exclude
+        if path_str.startswith('/usr/include/'):
+            relative = path_str[len('/usr/include/'):]
+            first_part = relative.split('/')[0] if '/' in relative else ''
+            
+            system_subdirs = {'sys', 'bits', 'gnu', 'asm', 'asm-generic', 'linux', 
+                            'arpa', 'net', 'netinet', 'rpc', 'scsi', 'protocols'}
+            if first_part in system_subdirs:
+                return True
+        
+        return False
     
     def process_cursor(self, cursor):
         """Recursively process AST nodes"""
-        # Only process items in allowed files (based on include depth)
-        if cursor.location.file:
-            file_path = str(cursor.location.file)
-            if file_path not in self.allowed_files:
-                return
+        # Note: We don't filter files here anymore - we need to see all typedefs
+        # to build a complete type resolution map. Filtering happens during code generation.
         
         if cursor.kind == CursorKind.FUNCTION_DECL:
+            # Only generate code for non-system headers
+            if cursor.location.file:
+                file_path = str(cursor.location.file)
+                if file_path not in self.allowed_files or self._is_system_header(file_path):
+                    # Don't generate code but still recurse
+                    for child in cursor.get_children():
+                        self.process_cursor(child)
+                    return
             # Check if we've already generated this function
             func_key = (cursor.spelling, str(cursor.location.file), cursor.location.line)
             if func_key not in self.seen_functions:
@@ -50,6 +101,14 @@ class CSharpBindingsGenerator:
         
         elif cursor.kind == CursorKind.STRUCT_DECL:
             if cursor.is_definition():
+                # Only generate code for non-system headers
+                if cursor.location.file:
+                    file_path = str(cursor.location.file)
+                    if file_path not in self.allowed_files or self._is_system_header(file_path):
+                        # Don't generate code but still recurse
+                        for child in cursor.get_children():
+                            self.process_cursor(child)
+                        return
                 # Check if we've already generated this struct
                 struct_key = (cursor.spelling, str(cursor.location.file), cursor.location.line)
                 if struct_key not in self.seen_structs:
@@ -63,16 +122,32 @@ class CSharpBindingsGenerator:
         
         elif cursor.kind == CursorKind.UNION_DECL:
             if cursor.is_definition():
+                # Only generate code for non-system headers
+                if cursor.location.file:
+                    file_path = str(cursor.location.file)
+                    if file_path not in self.allowed_files or self._is_system_header(file_path):
+                        # Don't generate code but still recurse
+                        for child in cursor.get_children():
+                            self.process_cursor(child)
+                        return
                 # Check if we've already generated this union
                 union_key = (cursor.spelling, str(cursor.location.file), cursor.location.line)
-                if union_key not in self.seen_structs:  # Reuse seen_structs set for unions
+                if union_key not in self.seen_unions:
                     code = self.code_generator.generate_union(cursor)
                     if code:
-                        self.generated_structs.append(code)  # Add to structs list
-                        self.seen_structs.add(union_key)
+                        self.generated_unions.append(code)
+                        self.seen_unions.add(union_key)
         
         elif cursor.kind == CursorKind.ENUM_DECL:
             if cursor.is_definition():
+                # Only generate code for non-system headers
+                if cursor.location.file:
+                    file_path = str(cursor.location.file)
+                    if file_path not in self.allowed_files or self._is_system_header(file_path):
+                        # Don't generate code but still recurse
+                        for child in cursor.get_children():
+                            self.process_cursor(child)
+                        return
                 # Check if we've already generated this enum
                 enum_key = (cursor.spelling, str(cursor.location.file), cursor.location.line)
                 if enum_key not in self.seen_enums:
@@ -82,12 +157,24 @@ class CSharpBindingsGenerator:
                         self.seen_enums.add(enum_key)
         
         elif cursor.kind == CursorKind.TYPEDEF_DECL:
+            # Build typedef resolution map for ALL typedefs (including system headers)
+            type_name = cursor.spelling
+            underlying_type = cursor.underlying_typedef_type
+            if type_name and underlying_type:
+                # Store the typedef mapping for later resolution
+                self.type_mapper.register_typedef(type_name, underlying_type)
+            
+            # Only generate code for non-system opaque struct typedefs
+            if cursor.location.file:
+                file_path = str(cursor.location.file)
+                if file_path not in self.allowed_files or self._is_system_header(file_path):
+                    return
+            
             # Handle opaque struct typedefs (e.g., typedef struct SDL_Window SDL_Window;)
             # These are used as handles in C APIs
             children = list(cursor.get_children())
             if len(children) == 1:
                 child = children[0]
-                type_name = cursor.spelling
                 # Skip if already generated as a full struct
                 if (type_name, None, None) in self.seen_structs:
                     return
@@ -305,6 +392,7 @@ class CSharpBindingsGenerator:
             namespace=namespace,
             enums=self.generated_enums,
             structs=self.generated_structs,
+            unions=self.generated_unions,
             functions=self.generated_functions,
             class_name=NATIVE_METHODS_CLASS
         )
