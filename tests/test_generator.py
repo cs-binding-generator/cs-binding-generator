@@ -177,6 +177,79 @@ class TestCSharpBindingsGenerator:
         # Check for errors in stderr
         captured = capsys.readouterr()
         # May have errors about not finding common.h
+    
+    def test_include_depth_zero(self, nested_includes):
+        """Test include depth 0 (only root file)"""
+        generator = CSharpBindingsGenerator("testlib")
+        output = generator.generate(
+            [nested_includes['root']],
+            namespace="Test",
+            include_dirs=[nested_includes['include_dir']],
+            include_depth=0
+        )
+        
+        # Should only include items from root.h
+        assert "public struct RootStruct" in output
+        assert "public static partial void root_function();" in output
+        
+        # Should NOT include items from level1.h or level2.h
+        assert "MiddleStruct" not in output or "public struct MiddleStruct" not in output
+        assert "DeepStruct" not in output or "public struct DeepStruct" not in output
+        assert "level1_function" not in output
+        assert "level2_function" not in output
+    
+    def test_include_depth_one(self, nested_includes):
+        """Test include depth 1 (root + direct includes)"""
+        generator = CSharpBindingsGenerator("testlib")
+        output = generator.generate(
+            [nested_includes['root']],
+            namespace="Test",
+            include_dirs=[nested_includes['include_dir']],
+            include_depth=1
+        )
+        
+        # Should include items from root.h and level1.h
+        assert "public struct RootStruct" in output
+        assert "public struct MiddleStruct" in output
+        assert "public static partial void root_function();" in output
+        assert "public static partial void level1_function();" in output
+        
+        # Should NOT include items from level2.h
+        assert "public struct DeepStruct" not in output
+        assert "level2_function" not in output
+    
+    def test_include_depth_two(self, nested_includes):
+        """Test include depth 2 (root + 2 levels of includes)"""
+        generator = CSharpBindingsGenerator("testlib")
+        output = generator.generate(
+            [nested_includes['root']],
+            namespace="Test",
+            include_dirs=[nested_includes['include_dir']],
+            include_depth=2
+        )
+        
+        # Should include items from all levels
+        assert "public struct RootStruct" in output
+        assert "public struct MiddleStruct" in output
+        assert "public struct DeepStruct" in output
+        assert "public static partial void root_function();" in output
+        assert "public static partial void level1_function();" in output
+        assert "public static partial void level2_function();" in output
+    
+    def test_include_depth_large(self, nested_includes):
+        """Test include depth larger than actual depth"""
+        generator = CSharpBindingsGenerator("testlib")
+        output = generator.generate(
+            [nested_includes['root']],
+            namespace="Test",
+            include_dirs=[nested_includes['include_dir']],
+            include_depth=10  # Larger than actual depth
+        )
+        
+        # Should include everything (same as depth 2)
+        assert "public struct RootStruct" in output
+        assert "public struct MiddleStruct" in output
+        assert "public struct DeepStruct" in output
 
 
 class TestGeneratorInternals:

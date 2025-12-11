@@ -122,3 +122,63 @@ void init_window(Window* win);
         'include_dir': str(include_dir),
         'common': str(common_header)
     }
+
+
+@pytest.fixture
+def nested_includes(tmp_path):
+    """Create nested include hierarchy for testing include depth"""
+    include_dir = tmp_path / "include"
+    include_dir.mkdir()
+    
+    # Level 2: Deepest header
+    level2_header = include_dir / "level2.h"
+    level2_header.write_text("""
+#ifndef LEVEL2_H
+#define LEVEL2_H
+
+typedef struct DeepStruct {
+    int deep_value;
+} DeepStruct;
+
+void level2_function();
+
+#endif
+""")
+    
+    # Level 1: Middle header that includes level2
+    level1_header = include_dir / "level1.h"
+    level1_header.write_text("""
+#ifndef LEVEL1_H
+#define LEVEL1_H
+
+#include "level2.h"
+
+typedef struct MiddleStruct {
+    int middle_value;
+    DeepStruct deep;
+} MiddleStruct;
+
+void level1_function();
+
+#endif
+""")
+    
+    # Level 0: Root header that includes level1
+    root_header = tmp_path / "root.h"
+    root_header.write_text("""
+#include "level1.h"
+
+typedef struct RootStruct {
+    int root_value;
+    MiddleStruct middle;
+} RootStruct;
+
+void root_function();
+""")
+    
+    return {
+        'root': str(root_header),
+        'include_dir': str(include_dir),
+        'level1': str(level1_header),
+        'level2': str(level2_header)
+    }

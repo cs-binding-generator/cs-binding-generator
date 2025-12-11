@@ -20,6 +20,7 @@ Examples:
   %(prog)s -i mylib.h -o MyBindings.cs -l mylib
   %(prog)s -i header1.h header2.h -o Bindings.cs -l native -n My.Library
   %(prog)s -i mylib.h -I /usr/include -I ./include -o Bindings.cs -l mylib
+  %(prog)s -i mylib.h --include-depth 1 -o Bindings.cs -l mylib
         """
     )
     
@@ -60,6 +61,14 @@ Examples:
     )
     
     parser.add_argument(
+        "--include-depth",
+        type=int,
+        default=0,
+        metavar="N",
+        help="Process included files up to depth N (0=only input files, 1=direct includes, etc.; default: 0)"
+    )
+    
+    parser.add_argument(
         "--clang-path",
         metavar="PATH",
         help="Path to libclang library (if not in default location)"
@@ -78,7 +87,8 @@ Examples:
             args.input, 
             args.output, 
             args.namespace,
-            include_dirs=args.include_dirs or []
+            include_dirs=args.include_dirs or [],
+            include_depth=args.include_depth
         )
     except Exception as e:
         print(f"Error: {e}", file=sys.stderr)

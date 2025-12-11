@@ -104,7 +104,74 @@ MyInt get_value();
         assert "get_value" in result.stdout
 
 
+def test_cli_include_depth():
+    """Test CLI with --include-depth flag"""
+    with tempfile.TemporaryDirectory() as tmpdir:
+        tmppath = Path(tmpdir)
+        
+        # Create include directory
+        include_dir = tmppath / "include"
+        include_dir.mkdir()
+        
+        # Create level 1 header
+        (include_dir / "base.h").write_text("""
+typedef struct BaseType {
+    int value;
+} BaseType;
+""")
+        
+        # Create main header that includes base.h
+        main_header = tmppath / "main.h"
+        main_header.write_text("""
+#include "base.h"
+
+typedef struct MainType {
+    BaseType base;
+} MainType;
+
+void main_function();
+""")
+        
+        # Test with depth 0 (should only have MainType)
+        result = subprocess.run(
+            [
+                "python", "-m", "cs_binding_generator.main",
+                "-i", str(main_header),
+                "-I", str(include_dir),
+                "-l", "lib",
+                "--include-depth", "0"
+            ],
+            capture_output=True,
+            text=True
+        )
+        
+        assert result.returncode == 0
+        assert "MainType" in result.stdout
+        assert "main_function" in result.stdout
+        # BaseType should not be generated (it's in included file)
+        assert "public struct BaseType" not in result.stdout
+        
+        # Test with depth 1 (should have both)
+        result = subprocess.run(
+            [
+                "python", "-m", "cs_binding_generator.main",
+                "-i", str(main_header),
+                "-I", str(include_dir),
+                "-l", "lib",
+                "--include-depth", "1"
+            ],
+            capture_output=True,
+            text=True
+        )
+        
+        assert result.returncode == 0
+        assert "MainType" in result.stdout
+        assert "BaseType" in result.stdout
+        assert "main_function" in result.stdout
+
+
 if __name__ == "__main__":
     test_cli_with_include_directories()
     test_cli_multiple_include_dirs()
+    test_cli_include_depth()
     print("CLI tests passed!")
