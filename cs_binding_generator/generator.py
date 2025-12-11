@@ -58,6 +58,16 @@ class CSharpBindingsGenerator:
                         self.generated_structs.append(code)
                         self.seen_structs.add(struct_key)
         
+        elif cursor.kind == CursorKind.UNION_DECL:
+            if cursor.is_definition():
+                # Check if we've already generated this union
+                union_key = (cursor.spelling, str(cursor.location.file), cursor.location.line)
+                if union_key not in self.seen_structs:  # Reuse seen_structs set for unions
+                    code = self.code_generator.generate_union(cursor)
+                    if code:
+                        self.generated_structs.append(code)  # Add to structs list
+                        self.seen_structs.add(union_key)
+        
         elif cursor.kind == CursorKind.ENUM_DECL:
             if cursor.is_definition():
                 # Check if we've already generated this enum

@@ -124,6 +124,67 @@ public struct {struct_name}
 '''
         return code
     
+    def generate_union(self, cursor) -> str:
+        """Generate C# struct representing a union using LayoutKind.Explicit"""
+        union_name = cursor.spelling
+        
+        # Skip anonymous/unnamed unions
+        if not union_name or "unnamed" in union_name or "::" in union_name:
+            return ""
+        
+        # Collect fields - all starting at offset 0 for union
+        fields = []
+        for field in cursor.get_children():
+            if field.kind == CursorKind.FIELD_DECL:
+                field_name = field.spelling
+                
+                # Skip unnamed fields
+                if not field_name:
+                    continue
+                
+                # Escape C# keywords
+                field_name = self._escape_keyword(field_name)
+                
+                # Check if this is a constant array (fixed-size array in union)
+                if field.type.kind == TypeKind.CONSTANTARRAY:
+                    element_type = field.type.get_array_element_type()
+                    array_size = field.type.get_array_size()
+                    element_csharp = self.type_mapper.map_type(element_type)
+                    
+                    # Skip if element type cannot be mapped
+                    if not element_csharp:
+                        continue
+                    
+                    # Get element size
+                    element_size = element_type.get_size()
+                    
+                    # Expand arrays as individual fields, all starting at offset 0 (union behavior)
+                    for i in range(array_size):
+                        field_offset = i * element_size
+                        fields.append(f"    [FieldOffset({field_offset})]\n    public {element_csharp} {field_name}_{i};")
+                else:
+                    field_type = self.type_mapper.map_type(field.type)
+                    
+                    # Skip fields with invalid types
+                    if not field_type or "unnamed" in field_type or "::" in field_type:
+                        continue
+                    
+                    # All union fields start at offset 0
+                    fields.append(f"    [FieldOffset(0)]\n    public {field_type} {field_name};")
+        
+        if not fields:
+            return ""
+        
+        fields_str = "\n".join(fields)
+        
+        code = f'''[StructLayout(LayoutKind.Explicit)]
+public struct {union_name}
+{{
+{fields_str}
+}}
+'''
+        return code
+    
     @staticmethod
     def _escape_keyword(name: str) -> str:
         """Escape C# keywords by prefixing with @"""
