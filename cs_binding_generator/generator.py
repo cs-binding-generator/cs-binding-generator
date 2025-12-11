@@ -339,7 +339,7 @@ class CSharpBindingsGenerator:
     
     def generate(self, header_files: list[str], output_file: str = None, 
                  namespace: str = "Bindings", include_dirs: list[str] = None,
-                 include_depth: int = None) -> str:
+                 include_depth: int = None, ignore_missing: bool = False) -> str:
         """Generate C# bindings from C header file(s)
         
         Args:
@@ -394,11 +394,18 @@ class CSharpBindingsGenerator:
         # Parse options to get detailed preprocessing info (for include directives)
         parse_options = clang.cindex.TranslationUnit.PARSE_DETAILED_PROCESSING_RECORD
         
+        successfully_processed = 0
+        
         for header_file in header_files:
             if not Path(header_file).exists():
-                print(f"Warning: Header file not found: {header_file}", file=sys.stderr)
-                continue
+                if ignore_missing:
+                    print(f"Warning: Header file not found: {header_file}", file=sys.stderr)
+                    continue
+                else:
+                    print(f"Error: Header file not found: {header_file}", file=sys.stderr)
+                    raise FileNotFoundError(f"Header file not found: {header_file}")
             
+            successfully_processed += 1
             self.source_file = header_file
             print(f"Processing: {header_file}")
             if include_dirs:
@@ -437,6 +444,10 @@ class CSharpBindingsGenerator:
             
             # Process the AST
             self.process_cursor(tu.cursor)
+        
+        # Check if any files were successfully processed
+        if successfully_processed == 0 and not ignore_missing:
+            raise FileNotFoundError(f"No valid header files found. Checked: {', '.join(header_files)}")
         
         # Generate merged enums from collected members
         for enum_name, members in sorted(self.enum_members.items()):

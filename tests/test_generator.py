@@ -105,12 +105,42 @@ class TestCSharpBindingsGenerator:
     def test_generate_nonexistent_file(self, capsys):
         """Test handling of nonexistent header files"""
         generator = CSharpBindingsGenerator("testlib")
-        output = generator.generate(["/nonexistent/file.h"])
+        
+        # Should raise FileNotFoundError by default
+        with pytest.raises(FileNotFoundError) as excinfo:
+            generator.generate(["/nonexistent/file.h"])
+        
+        assert "Header file not found" in str(excinfo.value)
+        assert "/nonexistent/file.h" in str(excinfo.value)
+        
+        # Should print error message
+        captured = capsys.readouterr()
+        assert "Error: Header file not found" in captured.err
+    
+    def test_generate_nonexistent_file_with_ignore_missing(self, capsys):
+        """Test handling of nonexistent header files with ignore_missing=True"""
+        generator = CSharpBindingsGenerator("testlib")
+        output = generator.generate(["/nonexistent/file.h"], ignore_missing=True)
         
         # Should still generate valid output (empty)
         assert "namespace Bindings;" in output
         
         # Should print warning
+        captured = capsys.readouterr()
+        assert "Warning: Header file not found" in captured.err
+    
+    def test_generate_mixed_existing_nonexistent_files(self, temp_header_file, capsys):
+        """Test handling mix of existing and nonexistent files"""
+        generator = CSharpBindingsGenerator("testlib")
+        
+        # Should fail by default if ANY file is missing
+        with pytest.raises(FileNotFoundError):
+            generator.generate([temp_header_file, "/nonexistent/file.h"])
+        
+        # Should succeed with ignore_missing=True, processing only valid files
+        output = generator.generate([temp_header_file, "/nonexistent/file.h"], ignore_missing=True)
+        assert "public unsafe partial struct Point" in output
+        
         captured = capsys.readouterr()
         assert "Warning: Header file not found" in captured.err
     

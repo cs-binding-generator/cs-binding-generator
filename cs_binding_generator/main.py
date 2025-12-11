@@ -79,6 +79,12 @@ Examples:
         help="Path to libclang library (if not in default location)"
     )
     
+    parser.add_argument(
+        "--ignore-missing",
+        action="store_true",
+        help="Continue processing even if some header files are not found (default: fail on missing files)"
+    )
+    
     args = parser.parse_args()
     
     # Set clang library path if provided
@@ -93,7 +99,8 @@ Examples:
             args.output, 
             args.namespace,
             include_dirs=args.include_dirs or [],
-            include_depth=args.include_depth
+            include_depth=args.include_depth,
+            ignore_missing=args.ignore_missing
         )
     except Exception as e:
         import traceback

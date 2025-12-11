@@ -93,6 +93,13 @@ public enum SDL_BlendOperation
     SDL_BLENDOPERATION_MAXIMUM = 5,
 }
 
+public enum SDL_CameraPermissionState
+{
+    SDL_CAMERA_PERMISSION_STATE_DENIED = -1,
+    SDL_CAMERA_PERMISSION_STATE_PENDING = 0,
+    SDL_CAMERA_PERMISSION_STATE_APPROVED = 1,
+}
+
 public enum SDL_CameraPosition
 {
     SDL_CAMERA_POSITION_UNKNOWN = 0,
@@ -162,7 +169,7 @@ public enum SDL_Colorspace
     SDL_COLORSPACE_BT2020_LIMITED = 554706441,
     SDL_COLORSPACE_BT2020_FULL = 571483657,
     SDL_COLORSPACE_RGB_DEFAULT = 301991328,
-    SDL_COLORSPACE_YUV_DEFAULT = 570426566,
+    SDL_COLORSPACE_YUV_DEFAULT = 554703046,
 }
 
 public enum SDL_DUMMY_ENUM
@@ -219,8 +226,9 @@ public enum SDL_EventType
     SDL_EVENT_DISPLAY_DESKTOP_MODE_CHANGED = 341,
     SDL_EVENT_DISPLAY_CURRENT_MODE_CHANGED = 342,
     SDL_EVENT_DISPLAY_CONTENT_SCALE_CHANGED = 343,
+    SDL_EVENT_DISPLAY_USABLE_BOUNDS_CHANGED = 344,
     SDL_EVENT_DISPLAY_FIRST = 337,
-    SDL_EVENT_DISPLAY_LAST = 343,
+    SDL_EVENT_DISPLAY_LAST = 344,
     SDL_EVENT_WINDOW_SHOWN = 514,
     SDL_EVENT_WINDOW_HIDDEN = 515,
     SDL_EVENT_WINDOW_EXPOSED = 516,
@@ -256,6 +264,8 @@ public enum SDL_EventType
     SDL_EVENT_KEYBOARD_ADDED = 773,
     SDL_EVENT_KEYBOARD_REMOVED = 774,
     SDL_EVENT_TEXT_EDITING_CANDIDATES = 775,
+    SDL_EVENT_SCREEN_KEYBOARD_SHOWN = 776,
+    SDL_EVENT_SCREEN_KEYBOARD_HIDDEN = 777,
     SDL_EVENT_MOUSE_MOTION = 1024,
     SDL_EVENT_MOUSE_BUTTON_DOWN = 1025,
     SDL_EVENT_MOUSE_BUTTON_UP = 1026,
@@ -287,6 +297,9 @@ public enum SDL_EventType
     SDL_EVENT_FINGER_UP = 1793,
     SDL_EVENT_FINGER_MOTION = 1794,
     SDL_EVENT_FINGER_CANCELED = 1795,
+    SDL_EVENT_PINCH_BEGIN = 1808,
+    SDL_EVENT_PINCH_UPDATE = 1809,
+    SDL_EVENT_PINCH_END = 1810,
     SDL_EVENT_CLIPBOARD_UPDATE = 2304,
     SDL_EVENT_DROP_FILE = 4096,
     SDL_EVENT_DROP_TEXT = 4097,
@@ -341,6 +354,7 @@ public enum SDL_FlipMode
     SDL_FLIP_NONE = 0,
     SDL_FLIP_HORIZONTAL = 1,
     SDL_FLIP_VERTICAL = 2,
+    SDL_FLIP_HORIZONTAL_AND_VERTICAL = 3,
 }
 
 public enum SDL_Folder
@@ -795,7 +809,8 @@ public enum SDL_GamepadType
     SDL_GAMEPAD_TYPE_NINTENDO_SWITCH_JOYCON_LEFT = 8,
     SDL_GAMEPAD_TYPE_NINTENDO_SWITCH_JOYCON_RIGHT = 9,
     SDL_GAMEPAD_TYPE_NINTENDO_SWITCH_JOYCON_PAIR = 10,
-    SDL_GAMEPAD_TYPE_COUNT = 11,
+    SDL_GAMEPAD_TYPE_GAMECUBE = 11,
+    SDL_GAMEPAD_TYPE_COUNT = 12,
 }
 
 public enum SDL_HintPriority
@@ -985,6 +1000,14 @@ public enum SDL_PenAxis
     SDL_PEN_AXIS_COUNT = 7,
 }
 
+public enum SDL_PenDeviceType
+{
+    SDL_PEN_DEVICE_TYPE_INVALID = -1,
+    SDL_PEN_DEVICE_TYPE_UNKNOWN = 0,
+    SDL_PEN_DEVICE_TYPE_DIRECT = 1,
+    SDL_PEN_DEVICE_TYPE_INDIRECT = 2,
+}
+
 public enum SDL_PixelFormat
 {
     SDL_PIXELFORMAT_UNKNOWN = 0,
@@ -1097,6 +1120,16 @@ public enum SDL_ProcessIO
     SDL_PROCESS_STDIO_REDIRECT = 3,
 }
 
+public enum SDL_ProgressState
+{
+    SDL_PROGRESS_STATE_INVALID = -1,
+    SDL_PROGRESS_STATE_NONE = 0,
+    SDL_PROGRESS_STATE_INDETERMINATE = 1,
+    SDL_PROGRESS_STATE_NORMAL = 2,
+    SDL_PROGRESS_STATE_PAUSED = 3,
+    SDL_PROGRESS_STATE_ERROR = 4,
+}
+
 public enum SDL_PropertyType
 {
     SDL_PROPERTY_TYPE_INVALID = 0,
@@ -1130,6 +1163,7 @@ public enum SDL_ScaleMode
     SDL_SCALEMODE_INVALID = -1,
     SDL_SCALEMODE_NEAREST = 0,
     SDL_SCALEMODE_LINEAR = 1,
+    SDL_SCALEMODE_PIXELART = 2,
 }
 
 public enum SDL_Scancode
@@ -1450,6 +1484,14 @@ public enum SDL_TextureAccess
     SDL_TEXTUREACCESS_TARGET = 2,
 }
 
+public enum SDL_TextureAddressMode
+{
+    SDL_TEXTURE_ADDRESS_INVALID = -1,
+    SDL_TEXTURE_ADDRESS_AUTO = 0,
+    SDL_TEXTURE_ADDRESS_CLAMP = 1,
+    SDL_TEXTURE_ADDRESS_WRAP = 2,
+}
+
 public enum SDL_ThreadPriority
 {
     SDL_THREAD_PRIORITY_LOW = 0,
@@ -1512,1137 +1554,6 @@ public enum SDL_hid_bus_type
     SDL_HID_API_BUS_SPI = 4,
 }
 
-public enum TCOD_COLOR
-{
-    TCOD_COLOR_RED = 0,
-    TCOD_COLOR_FLAME = 1,
-    TCOD_COLOR_ORANGE = 2,
-    TCOD_COLOR_AMBER = 3,
-    TCOD_COLOR_YELLOW = 4,
-    TCOD_COLOR_LIME = 5,
-    TCOD_COLOR_CHARTREUSE = 6,
-    TCOD_COLOR_GREEN = 7,
-    TCOD_COLOR_SEA = 8,
-    TCOD_COLOR_TURQUOISE = 9,
-    TCOD_COLOR_CYAN = 10,
-    TCOD_COLOR_SKY = 11,
-    TCOD_COLOR_AZURE = 12,
-    TCOD_COLOR_BLUE = 13,
-    TCOD_COLOR_HAN = 14,
-    TCOD_COLOR_VIOLET = 15,
-    TCOD_COLOR_PURPLE = 16,
-    TCOD_COLOR_FUCHSIA = 17,
-    TCOD_COLOR_MAGENTA = 18,
-    TCOD_COLOR_PINK = 19,
-    TCOD_COLOR_CRIMSON = 20,
-    TCOD_COLOR_NB = 21,
-    TCOD_COLOR_DESATURATED = 0,
-    TCOD_COLOR_LIGHTEST = 1,
-    TCOD_COLOR_LIGHTER = 2,
-    TCOD_COLOR_LIGHT = 3,
-    TCOD_COLOR_NORMAL = 4,
-    TCOD_COLOR_DARK = 5,
-    TCOD_COLOR_DARKER = 6,
-    TCOD_COLOR_DARKEST = 7,
-    TCOD_COLOR_LEVELS = 8,
-}
-
-public enum TCOD_Error
-{
-    TCOD_E_OK = 0,
-    TCOD_E_ERROR = -1,
-    TCOD_E_INVALID_ARGUMENT = -2,
-    TCOD_E_OUT_OF_MEMORY = -3,
-    TCOD_E_REQUIRES_ATTENTION = -4,
-    TCOD_E_WARN = 1,
-}
-
-public enum TCOD_LogLevel
-{
-    TCOD_LOG_DEBUG = 10,
-    TCOD_LOG_INFO = 20,
-    TCOD_LOG_WARNING = 30,
-    TCOD_LOG_ERROR = 40,
-    TCOD_LOG_CRITICAL = 50,
-}
-
-public enum TCOD_alignment_t
-{
-    TCOD_LEFT = 0,
-    TCOD_RIGHT = 1,
-    TCOD_CENTER = 2,
-}
-
-public enum TCOD_bkgnd_flag_t
-{
-    TCOD_BKGND_NONE = 0,
-    TCOD_BKGND_SET = 1,
-    TCOD_BKGND_MULTIPLY = 2,
-    TCOD_BKGND_LIGHTEN = 3,
-    TCOD_BKGND_DARKEN = 4,
-    TCOD_BKGND_SCREEN = 5,
-    TCOD_BKGND_COLOR_DODGE = 6,
-    TCOD_BKGND_COLOR_BURN = 7,
-    TCOD_BKGND_ADD = 8,
-    TCOD_BKGND_ADDA = 9,
-    TCOD_BKGND_BURN = 10,
-    TCOD_BKGND_OVERLAY = 11,
-    TCOD_BKGND_ALPH = 12,
-    TCOD_BKGND_DEFAULT = 13,
-}
-
-public enum TCOD_chars_t
-{
-    TCOD_CHAR_HLINE = 196,
-    TCOD_CHAR_VLINE = 179,
-    TCOD_CHAR_NE = 191,
-    TCOD_CHAR_NW = 218,
-    TCOD_CHAR_SE = 217,
-    TCOD_CHAR_SW = 192,
-    TCOD_CHAR_TEEW = 180,
-    TCOD_CHAR_TEEE = 195,
-    TCOD_CHAR_TEEN = 193,
-    TCOD_CHAR_TEES = 194,
-    TCOD_CHAR_CROSS = 197,
-    TCOD_CHAR_DHLINE = 205,
-    TCOD_CHAR_DVLINE = 186,
-    TCOD_CHAR_DNE = 187,
-    TCOD_CHAR_DNW = 201,
-    TCOD_CHAR_DSE = 188,
-    TCOD_CHAR_DSW = 200,
-    TCOD_CHAR_DTEEW = 185,
-    TCOD_CHAR_DTEEE = 204,
-    TCOD_CHAR_DTEEN = 202,
-    TCOD_CHAR_DTEES = 203,
-    TCOD_CHAR_DCROSS = 206,
-    TCOD_CHAR_BLOCK1 = 176,
-    TCOD_CHAR_BLOCK2 = 177,
-    TCOD_CHAR_BLOCK3 = 178,
-    TCOD_CHAR_ARROW_N = 24,
-    TCOD_CHAR_ARROW_S = 25,
-    TCOD_CHAR_ARROW_E = 26,
-    TCOD_CHAR_ARROW_W = 27,
-    TCOD_CHAR_ARROW2_N = 30,
-    TCOD_CHAR_ARROW2_S = 31,
-    TCOD_CHAR_ARROW2_E = 16,
-    TCOD_CHAR_ARROW2_W = 17,
-    TCOD_CHAR_DARROW_H = 29,
-    TCOD_CHAR_DARROW_V = 18,
-    TCOD_CHAR_CHECKBOX_UNSET = 224,
-    TCOD_CHAR_CHECKBOX_SET = 225,
-    TCOD_CHAR_RADIO_UNSET = 9,
-    TCOD_CHAR_RADIO_SET = 10,
-    TCOD_CHAR_SUBP_NW = 226,
-    TCOD_CHAR_SUBP_NE = 227,
-    TCOD_CHAR_SUBP_N = 228,
-    TCOD_CHAR_SUBP_SE = 229,
-    TCOD_CHAR_SUBP_DIAG = 230,
-    TCOD_CHAR_SUBP_E = 231,
-    TCOD_CHAR_SUBP_SW = 232,
-    TCOD_CHAR_SMILIE = 1,
-    TCOD_CHAR_SMILIE_INV = 2,
-    TCOD_CHAR_HEART = 3,
-    TCOD_CHAR_DIAMOND = 4,
-    TCOD_CHAR_CLUB = 5,
-    TCOD_CHAR_SPADE = 6,
-    TCOD_CHAR_BULLET = 7,
-    TCOD_CHAR_BULLET_INV = 8,
-    TCOD_CHAR_MALE = 11,
-    TCOD_CHAR_FEMALE = 12,
-    TCOD_CHAR_NOTE = 13,
-    TCOD_CHAR_NOTE_DOUBLE = 14,
-    TCOD_CHAR_LIGHT = 15,
-    TCOD_CHAR_EXCLAM_DOUBLE = 19,
-    TCOD_CHAR_PILCROW = 20,
-    TCOD_CHAR_SECTION = 21,
-    TCOD_CHAR_POUND = 156,
-    TCOD_CHAR_MULTIPLICATION = 158,
-    TCOD_CHAR_FUNCTION = 159,
-    TCOD_CHAR_RESERVED = 169,
-    TCOD_CHAR_HALF = 171,
-    TCOD_CHAR_ONE_QUARTER = 172,
-    TCOD_CHAR_COPYRIGHT = 184,
-    TCOD_CHAR_CENT = 189,
-    TCOD_CHAR_YEN = 190,
-    TCOD_CHAR_CURRENCY = 207,
-    TCOD_CHAR_THREE_QUARTERS = 243,
-    TCOD_CHAR_DIVISION = 246,
-    TCOD_CHAR_GRADE = 248,
-    TCOD_CHAR_UMLAUT = 249,
-    TCOD_CHAR_POW1 = 251,
-    TCOD_CHAR_POW3 = 252,
-    TCOD_CHAR_POW2 = 253,
-    TCOD_CHAR_BULLET_SQUARE = 254,
-}
-
-public enum TCOD_colctrl_t
-{
-    TCOD_COLCTRL_1 = 1,
-    TCOD_COLCTRL_2 = 2,
-    TCOD_COLCTRL_3 = 3,
-    TCOD_COLCTRL_4 = 4,
-    TCOD_COLCTRL_5 = 5,
-    TCOD_COLCTRL_NUMBER = 5,
-    TCOD_COLCTRL_FORE_RGB = 6,
-    TCOD_COLCTRL_BACK_RGB = 7,
-    TCOD_COLCTRL_STOP = 8,
-}
-
-public enum TCOD_distribution_t
-{
-    TCOD_DISTRIBUTION_LINEAR = 0,
-    TCOD_DISTRIBUTION_GAUSSIAN = 1,
-    TCOD_DISTRIBUTION_GAUSSIAN_RANGE = 2,
-    TCOD_DISTRIBUTION_GAUSSIAN_INVERSE = 3,
-    TCOD_DISTRIBUTION_GAUSSIAN_RANGE_INVERSE = 4,
-}
-
-public enum TCOD_event_t
-{
-    TCOD_EVENT_NONE = 0,
-    TCOD_EVENT_KEY_PRESS = 1,
-    TCOD_EVENT_KEY_RELEASE = 2,
-    TCOD_EVENT_KEY = 3,
-    TCOD_EVENT_MOUSE_MOVE = 4,
-    TCOD_EVENT_MOUSE_PRESS = 8,
-    TCOD_EVENT_MOUSE_RELEASE = 16,
-    TCOD_EVENT_MOUSE = 28,
-    TCOD_EVENT_FINGER_MOVE = 32,
-    TCOD_EVENT_FINGER_PRESS = 64,
-    TCOD_EVENT_FINGER_RELEASE = 128,
-    TCOD_EVENT_FINGER = 224,
-    TCOD_EVENT_ANY = 255,
-}
-
-public enum TCOD_font_flags_t
-{
-    TCOD_FONT_LAYOUT_ASCII_INCOL = 1,
-    TCOD_FONT_LAYOUT_ASCII_INROW = 2,
-    TCOD_FONT_TYPE_GREYSCALE = 4,
-    TCOD_FONT_TYPE_GRAYSCALE = 4,
-    TCOD_FONT_LAYOUT_TCOD = 8,
-    TCOD_FONT_LAYOUT_CP437 = 16,
-}
-
-public enum TCOD_fov_algorithm_t
-{
-    FOV_BASIC = 0,
-    FOV_DIAMOND = 1,
-    FOV_SHADOW = 2,
-    FOV_PERMISSIVE_0 = 3,
-    FOV_PERMISSIVE_1 = 4,
-    FOV_PERMISSIVE_2 = 5,
-    FOV_PERMISSIVE_3 = 6,
-    FOV_PERMISSIVE_4 = 7,
-    FOV_PERMISSIVE_5 = 8,
-    FOV_PERMISSIVE_6 = 9,
-    FOV_PERMISSIVE_7 = 10,
-    FOV_PERMISSIVE_8 = 11,
-    FOV_RESTRICTIVE = 12,
-    FOV_SYMMETRIC_SHADOWCAST = 13,
-    NB_FOV_ALGORITHMS = 14,
-}
-
-public enum TCOD_key_status_t
-{
-    TCOD_KEY_PRESSED = 1,
-    TCOD_KEY_RELEASED = 2,
-}
-
-public enum TCOD_keycode_t
-{
-    TCODK_NONE = 0,
-    TCODK_ESCAPE = 1,
-    TCODK_BACKSPACE = 2,
-    TCODK_TAB = 3,
-    TCODK_ENTER = 4,
-    TCODK_SHIFT = 5,
-    TCODK_CONTROL = 6,
-    TCODK_ALT = 7,
-    TCODK_PAUSE = 8,
-    TCODK_CAPSLOCK = 9,
-    TCODK_PAGEUP = 10,
-    TCODK_PAGEDOWN = 11,
-    TCODK_END = 12,
-    TCODK_HOME = 13,
-    TCODK_UP = 14,
-    TCODK_LEFT = 15,
-    TCODK_RIGHT = 16,
-    TCODK_DOWN = 17,
-    TCODK_PRINTSCREEN = 18,
-    TCODK_INSERT = 19,
-    TCODK_DELETE = 20,
-    TCODK_LWIN = 21,
-    TCODK_RWIN = 22,
-    TCODK_APPS = 23,
-    TCODK_0 = 24,
-    TCODK_1 = 25,
-    TCODK_2 = 26,
-    TCODK_3 = 27,
-    TCODK_4 = 28,
-    TCODK_5 = 29,
-    TCODK_6 = 30,
-    TCODK_7 = 31,
-    TCODK_8 = 32,
-    TCODK_9 = 33,
-    TCODK_KP0 = 34,
-    TCODK_KP1 = 35,
-    TCODK_KP2 = 36,
-    TCODK_KP3 = 37,
-    TCODK_KP4 = 38,
-    TCODK_KP5 = 39,
-    TCODK_KP6 = 40,
-    TCODK_KP7 = 41,
-    TCODK_KP8 = 42,
-    TCODK_KP9 = 43,
-    TCODK_KPADD = 44,
-    TCODK_KPSUB = 45,
-    TCODK_KPDIV = 46,
-    TCODK_KPMUL = 47,
-    TCODK_KPDEC = 48,
-    TCODK_KPENTER = 49,
-    TCODK_F1 = 50,
-    TCODK_F2 = 51,
-    TCODK_F3 = 52,
-    TCODK_F4 = 53,
-    TCODK_F5 = 54,
-    TCODK_F6 = 55,
-    TCODK_F7 = 56,
-    TCODK_F8 = 57,
-    TCODK_F9 = 58,
-    TCODK_F10 = 59,
-    TCODK_F11 = 60,
-    TCODK_F12 = 61,
-    TCODK_NUMLOCK = 62,
-    TCODK_SCROLLLOCK = 63,
-    TCODK_SPACE = 64,
-    TCODK_CHAR = 65,
-    TCODK_TEXT = 66,
-}
-
-public enum TCOD_noise_type_t
-{
-    TCOD_NOISE_PERLIN = 1,
-    TCOD_NOISE_SIMPLEX = 2,
-    TCOD_NOISE_WAVELET = 4,
-    TCOD_NOISE_DEFAULT = 0,
-}
-
-public enum TCOD_random_algo_t
-{
-    TCOD_RNG_MT = 0,
-    TCOD_RNG_CMWC = 1,
-}
-
-public enum TCOD_renderer_t
-{
-    TCOD_RENDERER_GLSL = 0,
-    TCOD_RENDERER_OPENGL = 1,
-    TCOD_RENDERER_SDL = 2,
-    TCOD_RENDERER_SDL2 = 3,
-    TCOD_RENDERER_OPENGL2 = 4,
-    TCOD_RENDERER_XTERM = 5,
-    TCOD_NB_RENDERERS = 6,
-}
-
-public enum TCOD_value_type_t
-{
-    TCOD_TYPE_NONE = 0,
-    TCOD_TYPE_BOOL = 1,
-    TCOD_TYPE_CHAR = 2,
-    TCOD_TYPE_INT = 3,
-    TCOD_TYPE_FLOAT = 4,
-    TCOD_TYPE_STRING = 5,
-    TCOD_TYPE_COLOR = 6,
-    TCOD_TYPE_DICE = 7,
-    TCOD_TYPE_VALUELIST00 = 8,
-    TCOD_TYPE_VALUELIST01 = 9,
-    TCOD_TYPE_VALUELIST02 = 10,
-    TCOD_TYPE_VALUELIST03 = 11,
-    TCOD_TYPE_VALUELIST04 = 12,
-    TCOD_TYPE_VALUELIST05 = 13,
-    TCOD_TYPE_VALUELIST06 = 14,
-    TCOD_TYPE_VALUELIST07 = 15,
-    TCOD_TYPE_VALUELIST08 = 16,
-    TCOD_TYPE_VALUELIST09 = 17,
-    TCOD_TYPE_VALUELIST10 = 18,
-    TCOD_TYPE_VALUELIST11 = 19,
-    TCOD_TYPE_VALUELIST12 = 20,
-    TCOD_TYPE_VALUELIST13 = 21,
-    TCOD_TYPE_VALUELIST14 = 22,
-    TCOD_TYPE_VALUELIST15 = 23,
-    TCOD_TYPE_CUSTOM00 = 24,
-    TCOD_TYPE_CUSTOM01 = 25,
-    TCOD_TYPE_CUSTOM02 = 26,
-    TCOD_TYPE_CUSTOM03 = 27,
-    TCOD_TYPE_CUSTOM04 = 28,
-    TCOD_TYPE_CUSTOM05 = 29,
-    TCOD_TYPE_CUSTOM06 = 30,
-    TCOD_TYPE_CUSTOM07 = 31,
-    TCOD_TYPE_CUSTOM08 = 32,
-    TCOD_TYPE_CUSTOM09 = 33,
-    TCOD_TYPE_CUSTOM10 = 34,
-    TCOD_TYPE_CUSTOM11 = 35,
-    TCOD_TYPE_CUSTOM12 = 36,
-    TCOD_TYPE_CUSTOM13 = 37,
-    TCOD_TYPE_CUSTOM14 = 38,
-    TCOD_TYPE_CUSTOM15 = 39,
-    TCOD_TYPE_LIST = 1024,
-}
-
-
-[StructLayout(LayoutKind.Explicit)]
-public unsafe partial struct TCOD_bresenham_data_t
-{
-    [FieldOffset(0)]
-    public int stepx;
-    [FieldOffset(4)]
-    public int stepy;
-    [FieldOffset(8)]
-    public int e;
-    [FieldOffset(12)]
-    public int deltax;
-    [FieldOffset(16)]
-    public int deltay;
-    [FieldOffset(20)]
-    public int origx;
-    [FieldOffset(24)]
-    public int origy;
-    [FieldOffset(28)]
-    public int destx;
-    [FieldOffset(32)]
-    public int desty;
-}
-
-[StructLayout(LayoutKind.Explicit)]
-public unsafe partial struct TCOD_dice_t
-{
-    [FieldOffset(0)]
-    public int nb_rolls;
-    [FieldOffset(4)]
-    public int nb_faces;
-    [FieldOffset(8)]
-    public float multiplier;
-    [FieldOffset(12)]
-    public float addsub;
-}
-
-[StructLayout(LayoutKind.Explicit)]
-public unsafe partial struct TCOD_Random_MT_CMWC
-{
-    [FieldOffset(0)]
-    public TCOD_random_algo_t algorithm;
-    [FieldOffset(4)]
-    public TCOD_distribution_t distribution;
-    [FieldOffset(8)]
-    public fixed uint mt[624];
-    [FieldOffset(2504)]
-    public int cur_mt;
-    [FieldOffset(2508)]
-    public fixed uint Q[4096];
-    [FieldOffset(18892)]
-    public uint c;
-    [FieldOffset(18896)]
-    public int cur;
-}
-
-[StructLayout(LayoutKind.Explicit)]
-public unsafe partial struct TCOD_tree_t
-{
-    [FieldOffset(0)]
-    public TCOD_tree_t* next;
-    [FieldOffset(8)]
-    public TCOD_tree_t* father;
-    [FieldOffset(16)]
-    public TCOD_tree_t* sons;
-}
-
-[StructLayout(LayoutKind.Explicit)]
-public unsafe partial struct TCOD_bsp_t
-{
-    [FieldOffset(0)]
-    public TCOD_tree_t tree;
-    [FieldOffset(24)]
-    public int x;
-    [FieldOffset(28)]
-    public int y;
-    [FieldOffset(32)]
-    public int w;
-    [FieldOffset(36)]
-    public int h;
-    [FieldOffset(40)]
-    public int position;
-    [FieldOffset(44)]
-    public byte level;
-    [FieldOffset(45)]
-    public bool horizontal;
-}
-
-[StructLayout(LayoutKind.Explicit)]
-public unsafe partial struct TCOD_ColorRGB
-{
-    [FieldOffset(0)]
-    public byte r;
-    [FieldOffset(1)]
-    public byte g;
-    [FieldOffset(2)]
-    public byte b;
-}
-
-public partial struct TCOD_color_t
-{
-}
-
-[StructLayout(LayoutKind.Explicit)]
-public unsafe partial struct TCOD_ColorRGBA
-{
-    [FieldOffset(0)]
-    public byte r;
-    [FieldOffset(1)]
-    public byte g;
-    [FieldOffset(2)]
-    public byte b;
-    [FieldOffset(3)]
-    public byte a;
-}
-
-[StructLayout(LayoutKind.Explicit)]
-public unsafe partial struct TCOD_TilesetObserver
-{
-    [FieldOffset(0)]
-    public TCOD_Tileset* tileset;
-    [FieldOffset(8)]
-    public TCOD_TilesetObserver* next;
-    [FieldOffset(16)]
-    public nint userdata;
-    [FieldOffset(24)]
-    public nint on_observer_delete;
-    [FieldOffset(32)]
-    public nint on_tile_changed;
-}
-
-[StructLayout(LayoutKind.Explicit)]
-public unsafe partial struct TCOD_Tileset
-{
-    [FieldOffset(0)]
-    public int tile_width;
-    [FieldOffset(4)]
-    public int tile_height;
-    [FieldOffset(8)]
-    public int tile_length;
-    [FieldOffset(12)]
-    public int tiles_capacity;
-    [FieldOffset(16)]
-    public int tiles_count;
-    [FieldOffset(24)]
-    public TCOD_ColorRGBA* pixels;
-    [FieldOffset(32)]
-    public int character_map_length;
-    [FieldOffset(40)]
-    public nint character_map;
-    [FieldOffset(48)]
-    public TCOD_TilesetObserver* observer_list;
-    [FieldOffset(56)]
-    public int virtual_columns;
-    [FieldOffset(60)]
-    public int ref_count;
-}
-
-[StructLayout(LayoutKind.Explicit)]
-public unsafe partial struct TCOD_ConsoleTile
-{
-    [FieldOffset(0)]
-    public int ch;
-    [FieldOffset(4)]
-    public TCOD_ColorRGBA fg;
-    [FieldOffset(8)]
-    public TCOD_ColorRGBA bg;
-}
-
-[StructLayout(LayoutKind.Explicit)]
-public unsafe partial struct TCOD_Console
-{
-    [FieldOffset(0)]
-    public int w;
-    [FieldOffset(4)]
-    public int h;
-    [FieldOffset(8)]
-    public TCOD_ConsoleTile* tiles;
-    [FieldOffset(16)]
-    public TCOD_bkgnd_flag_t bkgnd_flag;
-    [FieldOffset(20)]
-    public TCOD_alignment_t alignment;
-    [FieldOffset(24)]
-    public TCOD_ColorRGB fore;
-    [FieldOffset(27)]
-    public TCOD_ColorRGB back;
-    [FieldOffset(30)]
-    public bool has_key_color;
-    [FieldOffset(31)]
-    public TCOD_ColorRGB key_color;
-    [FieldOffset(36)]
-    public int elements;
-    [FieldOffset(40)]
-    public nint userdata;
-    [FieldOffset(48)]
-    public nint on_delete;
-}
-
-public partial struct TCOD_console_t
-{
-}
-
-[StructLayout(LayoutKind.Explicit)]
-public unsafe partial struct TCOD_key_t
-{
-    [FieldOffset(0)]
-    public TCOD_keycode_t vk;
-    [FieldOffset(4)]
-    public sbyte c;
-    [FieldOffset(5)]
-    public fixed sbyte text[32];
-    [FieldOffset(37)]
-    public bool pressed;
-    [FieldOffset(38)]
-    public bool lalt;
-    [FieldOffset(39)]
-    public bool lctrl;
-    [FieldOffset(40)]
-    public bool lmeta;
-    [FieldOffset(41)]
-    public bool ralt;
-    [FieldOffset(42)]
-    public bool rctrl;
-    [FieldOffset(43)]
-    public bool rmeta;
-    [FieldOffset(44)]
-    public bool shift;
-}
-
-[StructLayout(LayoutKind.Explicit)]
-public unsafe partial struct TCOD_ViewportOptions
-{
-    [FieldOffset(0)]
-    public int tcod_version;
-    [FieldOffset(4)]
-    public bool keep_aspect;
-    [FieldOffset(5)]
-    public bool integer_scaling;
-    [FieldOffset(6)]
-    public TCOD_ColorRGBA clear_color;
-    [FieldOffset(12)]
-    public float align_x;
-    [FieldOffset(16)]
-    public float align_y;
-}
-
-[StructLayout(LayoutKind.Explicit)]
-public unsafe partial struct TCOD_mouse_t
-{
-    [FieldOffset(0)]
-    public int x;
-    [FieldOffset(4)]
-    public int y;
-    [FieldOffset(8)]
-    public int dx;
-    [FieldOffset(12)]
-    public int dy;
-    [FieldOffset(16)]
-    public int cx;
-    [FieldOffset(20)]
-    public int cy;
-    [FieldOffset(24)]
-    public int dcx;
-    [FieldOffset(28)]
-    public int dcy;
-    [FieldOffset(32)]
-    public bool lbutton;
-    [FieldOffset(33)]
-    public bool rbutton;
-    [FieldOffset(34)]
-    public bool mbutton;
-    [FieldOffset(35)]
-    public bool lbutton_pressed;
-    [FieldOffset(36)]
-    public bool rbutton_pressed;
-    [FieldOffset(37)]
-    public bool mbutton_pressed;
-    [FieldOffset(38)]
-    public bool wheel_up;
-    [FieldOffset(39)]
-    public bool wheel_down;
-}
-
-[StructLayout(LayoutKind.Explicit)]
-public unsafe partial struct TCOD_MouseTransform
-{
-    [FieldOffset(0)]
-    public double offset_x;
-    [FieldOffset(8)]
-    public double offset_y;
-    [FieldOffset(16)]
-    public double scale_x;
-    [FieldOffset(24)]
-    public double scale_y;
-}
-
-public partial struct TCOD_Context
-{
-}
-
-[StructLayout(LayoutKind.Explicit)]
-public unsafe partial struct TCOD_ContextParams
-{
-    [FieldOffset(0)]
-    public int tcod_version;
-    [FieldOffset(4)]
-    public int window_x;
-    [FieldOffset(8)]
-    public int window_y;
-    [FieldOffset(12)]
-    public int pixel_width;
-    [FieldOffset(16)]
-    public int pixel_height;
-    [FieldOffset(20)]
-    public int columns;
-    [FieldOffset(24)]
-    public int rows;
-    [FieldOffset(28)]
-    public int renderer_type;
-    [FieldOffset(32)]
-    public TCOD_Tileset* tileset;
-    [FieldOffset(40)]
-    public int vsync;
-    [FieldOffset(44)]
-    public int sdl_window_flags;
-    [FieldOffset(48)]
-    public nuint window_title;
-    [FieldOffset(56)]
-    public int argc;
-    [FieldOffset(64)]
-    public nuint argv;
-    [FieldOffset(72)]
-    public nint cli_output;
-    [FieldOffset(80)]
-    public nint cli_userdata;
-    [FieldOffset(88)]
-    public bool window_xy_defined;
-    [FieldOffset(96)]
-    public TCOD_Console* console;
-}
-
-[StructLayout(LayoutKind.Explicit)]
-public unsafe partial struct TCOD_Context
-{
-    [FieldOffset(0)]
-    public int type;
-    [FieldOffset(8)]
-    public nint contextdata_;
-    [FieldOffset(16)]
-    public nint c_destructor_;
-    [FieldOffset(24)]
-    public nint c_present_;
-    [FieldOffset(32)]
-    public nint c_pixel_to_tile_;
-    [FieldOffset(40)]
-    public nint c_save_screenshot_;
-    [FieldOffset(48)]
-    public nint c_get_sdl_window_;
-    [FieldOffset(56)]
-    public nint c_get_sdl_renderer_;
-    [FieldOffset(64)]
-    public nint c_accumulate_;
-    [FieldOffset(72)]
-    public nint c_set_tileset_;
-    [FieldOffset(80)]
-    public nint c_recommended_console_size_;
-    [FieldOffset(88)]
-    public nint c_screen_capture_;
-    [FieldOffset(96)]
-    public nint c_set_mouse_transform_;
-}
-
-[StructLayout(LayoutKind.Explicit)]
-public unsafe partial struct TCOD_mipmap_
-{
-    [FieldOffset(0)]
-    public int width;
-    [FieldOffset(4)]
-    public int height;
-    [FieldOffset(8)]
-    public float fwidth;
-    [FieldOffset(12)]
-    public float fheight;
-    [FieldOffset(16)]
-    public TCOD_ColorRGB* buf;
-    [FieldOffset(24)]
-    public bool dirty;
-}
-
-[StructLayout(LayoutKind.Explicit)]
-public unsafe partial struct TCOD_Image
-{
-    [FieldOffset(0)]
-    public int nb_mipmaps;
-    [FieldOffset(8)]
-    public TCOD_mipmap_* mipmaps;
-    [FieldOffset(16)]
-    public TCOD_ColorRGB key_color;
-    [FieldOffset(19)]
-    public bool has_key_color;
-}
-
-public partial struct TCOD_list_t
-{
-}
-
-[StructLayout(LayoutKind.Explicit)]
-public unsafe partial struct TCOD_PrintParamsRGB
-{
-    [FieldOffset(0)]
-    public int x;
-    [FieldOffset(4)]
-    public int y;
-    [FieldOffset(8)]
-    public int width;
-    [FieldOffset(12)]
-    public int height;
-    [FieldOffset(16)]
-    public TCOD_ColorRGB* fg;
-    [FieldOffset(24)]
-    public TCOD_ColorRGB* bg;
-    [FieldOffset(32)]
-    public TCOD_bkgnd_flag_t flag;
-    [FieldOffset(36)]
-    public TCOD_alignment_t alignment;
-}
-
-[StructLayout(LayoutKind.Explicit)]
-public unsafe partial struct TCOD_MapCell
-{
-    [FieldOffset(0)]
-    public bool transparent;
-    [FieldOffset(1)]
-    public bool walkable;
-    [FieldOffset(2)]
-    public bool fov;
-}
-
-[StructLayout(LayoutKind.Explicit)]
-public unsafe partial struct TCOD_Map
-{
-    [FieldOffset(0)]
-    public int width;
-    [FieldOffset(4)]
-    public int height;
-    [FieldOffset(8)]
-    public int nbcells;
-    [FieldOffset(16)]
-    public TCOD_MapCell* cells;
-}
-
-[StructLayout(LayoutKind.Explicit)]
-public unsafe partial struct TCOD_Noise
-{
-    [FieldOffset(0)]
-    public int ndim;
-    [FieldOffset(4)]
-    public fixed byte map[256];
-    [FieldOffset(4356)]
-    public float H;
-    [FieldOffset(4360)]
-    public float lacunarity;
-    [FieldOffset(4364)]
-    public fixed float exponent[128];
-    [FieldOffset(4880)]
-    public nint waveletTileData;
-    [FieldOffset(4888)]
-    public TCOD_Random* rand;
-    [FieldOffset(4896)]
-    public TCOD_noise_type_t noise_type;
-}
-
-[StructLayout(LayoutKind.Explicit)]
-public unsafe partial struct TCOD_heightmap_t
-{
-    [FieldOffset(0)]
-    public int w;
-    [FieldOffset(4)]
-    public int h;
-    [FieldOffset(8)]
-    public nint values;
-}
-
-[StructLayout(LayoutKind.Explicit)]
-public unsafe partial struct TCOD_lex_t
-{
-    [FieldOffset(0)]
-    public int file_line;
-    [FieldOffset(4)]
-    public int token_type;
-    [FieldOffset(8)]
-    public int token_int_val;
-    [FieldOffset(12)]
-    public int token_idx;
-    [FieldOffset(16)]
-    public float token_float_val;
-    [FieldOffset(24)]
-    public nuint tok;
-    [FieldOffset(32)]
-    public int toklen;
-    [FieldOffset(36)]
-    public sbyte lastStringDelim;
-    [FieldOffset(40)]
-    public nuint pos;
-    [FieldOffset(48)]
-    public nuint buf;
-    [FieldOffset(56)]
-    public nuint filename;
-    [FieldOffset(64)]
-    public nuint last_javadoc_comment;
-    [FieldOffset(72)]
-    public int nb_symbols;
-    [FieldOffset(76)]
-    public int nb_keywords;
-    [FieldOffset(80)]
-    public int flags;
-    [FieldOffset(2584)]
-    public nuint simple_comment;
-    [FieldOffset(2592)]
-    public nuint comment_start;
-    [FieldOffset(2600)]
-    public nuint comment_stop;
-    [FieldOffset(2608)]
-    public nuint javadoc_comment_start;
-    [FieldOffset(2616)]
-    public nuint stringDelim;
-    [FieldOffset(2624)]
-    public bool javadoc_read;
-    [FieldOffset(2625)]
-    public bool allocBuf;
-    [FieldOffset(2626)]
-    public bool is_savepoint;
-}
-
-[StructLayout(LayoutKind.Explicit)]
-public unsafe partial struct TCOD_LogMessage
-{
-    [FieldOffset(0)]
-    public nuint message;
-    [FieldOffset(8)]
-    public int level;
-    [FieldOffset(16)]
-    public nuint source;
-    [FieldOffset(24)]
-    public int lineno;
-}
-
-public partial struct TCOD_namegen_t
-{
-}
-
-[StructLayout(LayoutKind.Explicit)]
-public unsafe partial struct TCOD_ParserStruct
-{
-    [FieldOffset(0)]
-    public nuint name;
-    [FieldOffset(8)]
-    public nint flags;
-    [FieldOffset(16)]
-    public nint props;
-    [FieldOffset(24)]
-    public nint lists;
-    [FieldOffset(32)]
-    public nint structs;
-}
-
-public partial struct TCOD_struct_int_t
-{
-}
-
-public partial struct TCOD_parser_struct_t
-{
-}
-
-[StructLayout(LayoutKind.Explicit)]
-public unsafe partial struct TCOD_Parser
-{
-    [FieldOffset(0)]
-    public nint structs;
-    [FieldOffset(8)]
-    public nint customs_0;
-    [FieldOffset(16)]
-    public nint customs_1;
-    [FieldOffset(24)]
-    public nint customs_2;
-    [FieldOffset(32)]
-    public nint customs_3;
-    [FieldOffset(40)]
-    public nint customs_4;
-    [FieldOffset(48)]
-    public nint customs_5;
-    [FieldOffset(56)]
-    public nint customs_6;
-    [FieldOffset(64)]
-    public nint customs_7;
-    [FieldOffset(72)]
-    public nint customs_8;
-    [FieldOffset(80)]
-    public nint customs_9;
-    [FieldOffset(88)]
-    public nint customs_10;
-    [FieldOffset(96)]
-    public nint customs_11;
-    [FieldOffset(104)]
-    public nint customs_12;
-    [FieldOffset(112)]
-    public nint customs_13;
-    [FieldOffset(120)]
-    public nint customs_14;
-    [FieldOffset(128)]
-    public nint customs_15;
-    [FieldOffset(136)]
-    public bool fatal;
-    [FieldOffset(144)]
-    public nint props;
-}
-
-public partial struct TCOD_parser_int_t
-{
-}
-
-[StructLayout(LayoutKind.Explicit)]
-public unsafe partial struct TCOD_parser_listener_t
-{
-    [FieldOffset(0)]
-    public nint new_struct;
-    [FieldOffset(8)]
-    public nint new_flag;
-    [FieldOffset(16)]
-    public nint new_property;
-    [FieldOffset(24)]
-    public nint end_struct;
-    [FieldOffset(32)]
-    public nint error;
-}
-
-public partial struct TCOD_parser_t
-{
-}
-
-public partial struct TCOD_path_t
-{
-}
-
-[StructLayout(LayoutKind.Explicit)]
-public unsafe partial struct TCOD_Dijkstra
-{
-    [FieldOffset(0)]
-    public int diagonal_cost;
-    [FieldOffset(4)]
-    public int width;
-    [FieldOffset(8)]
-    public int height;
-    [FieldOffset(12)]
-    public int nodes_max;
-    [FieldOffset(16)]
-    public TCOD_Map* map;
-    [FieldOffset(24)]
-    public nint func;
-    [FieldOffset(32)]
-    public nint user_data;
-    [FieldOffset(40)]
-    public nint distances;
-    [FieldOffset(48)]
-    public nint nodes;
-    [FieldOffset(56)]
-    public nint path;
-}
-
-public partial struct TCOD_dijkstra_t
-{
-}
-
-[StructLayout(LayoutKind.Explicit)]
-public unsafe partial struct TCOD_Heap
-{
-    [FieldOffset(0)]
-    public nint heap;
-    [FieldOffset(8)]
-    public int size;
-    [FieldOffset(12)]
-    public int capacity;
-    [FieldOffset(16)]
-    public uint node_size;
-    [FieldOffset(24)]
-    public uint data_size;
-    [FieldOffset(32)]
-    public uint data_offset;
-    [FieldOffset(40)]
-    public int priority_type;
-}
-
-[StructLayout(LayoutKind.Explicit)]
-public unsafe partial struct TCOD_ArrayData
-{
-    [FieldOffset(0)]
-    public sbyte ndim;
-    [FieldOffset(4)]
-    public int int_type;
-    [FieldOffset(8)]
-    public fixed uint shape[5];
-    [FieldOffset(48)]
-    public fixed uint strides[5];
-    [FieldOffset(88)]
-    public nint data;
-}
-
-[StructLayout(LayoutKind.Explicit)]
-public unsafe partial struct TCOD_BasicGraph2D
-{
-    [FieldOffset(0)]
-    public TCOD_ArrayData cost;
-    [FieldOffset(96)]
-    public int cardinal;
-    [FieldOffset(100)]
-    public int diagonal;
-}
-
-[StructLayout(LayoutKind.Explicit)]
-public unsafe partial struct TCOD_Pathfinder
-{
-    [FieldOffset(0)]
-    public sbyte ndim;
-    [FieldOffset(8)]
-    public fixed uint shape[4];
-    [FieldOffset(40)]
-    public bool owns_distance;
-    [FieldOffset(41)]
-    public bool owns_graph;
-    [FieldOffset(42)]
-    public bool owns_traversal;
-    [FieldOffset(48)]
-    public TCOD_ArrayData distance;
-    [FieldOffset(144)]
-    public TCOD_BasicGraph2D graph;
-    [FieldOffset(248)]
-    public TCOD_ArrayData traversal;
-    [FieldOffset(344)]
-    public TCOD_Heap heap;
-}
-
-[StructLayout(LayoutKind.Explicit)]
-public unsafe partial struct TCOD_Frontier
-{
-    [FieldOffset(0)]
-    public sbyte ndim;
-    [FieldOffset(4)]
-    public int active_dist;
-    [FieldOffset(8)]
-    public fixed int active_index[4];
-    [FieldOffset(24)]
-    public TCOD_Heap heap;
-}
 
 [StructLayout(LayoutKind.Explicit)]
 public unsafe partial struct SDL_alignment_test
@@ -2658,48 +1569,6 @@ public partial struct SDL_Environment
 }
 
 public partial struct SDL_iconv_t
-{
-}
-
-[StructLayout(LayoutKind.Explicit)]
-public unsafe partial struct TCOD_TilesetAtlasSDL2
-{
-    [FieldOffset(0)]
-    public SDL_Renderer* renderer;
-    [FieldOffset(8)]
-    public SDL_Texture* texture;
-    [FieldOffset(16)]
-    public TCOD_Tileset* tileset;
-    [FieldOffset(24)]
-    public TCOD_TilesetObserver* observer;
-    [FieldOffset(32)]
-    public int texture_columns;
-}
-
-[StructLayout(LayoutKind.Explicit)]
-public unsafe partial struct TCOD_RendererSDL2
-{
-    [FieldOffset(0)]
-    public SDL_Window* window;
-    [FieldOffset(8)]
-    public SDL_Renderer* renderer;
-    [FieldOffset(16)]
-    public TCOD_TilesetAtlasSDL2* atlas;
-    [FieldOffset(24)]
-    public TCOD_Console* cache_console;
-    [FieldOffset(32)]
-    public SDL_Texture* cache_texture;
-    [FieldOffset(40)]
-    public uint sdl_subsystems;
-    [FieldOffset(48)]
-    public TCOD_MouseTransform cursor_transform;
-}
-
-public partial struct TCOD_text_t
-{
-}
-
-public partial struct TCOD_zip_t
 {
 }
 
@@ -3145,6 +2014,15 @@ public unsafe partial struct SDL_GamepadBinding
 
 public partial struct SDL_Cursor
 {
+}
+
+[StructLayout(LayoutKind.Explicit)]
+public unsafe partial struct SDL_CursorFrameInfo
+{
+    [FieldOffset(0)]
+    public SDL_Surface* surface;
+    [FieldOffset(8)]
+    public uint duration;
 }
 
 [StructLayout(LayoutKind.Explicit)]
@@ -3694,6 +2572,21 @@ public unsafe partial struct SDL_TouchFingerEvent
     [FieldOffset(48)]
     public float pressure;
     [FieldOffset(52)]
+    public uint windowID;
+}
+
+[StructLayout(LayoutKind.Explicit)]
+public unsafe partial struct SDL_PinchFingerEvent
+{
+    [FieldOffset(0)]
+    public SDL_EventType type;
+    [FieldOffset(4)]
+    public uint reserved;
+    [FieldOffset(8)]
+    public uint timestamp;
+    [FieldOffset(16)]
+    public float scale;
+    [FieldOffset(20)]
     public uint windowID;
 }
 
@@ -4338,7 +3231,7 @@ public unsafe partial struct SDL_GPUMultisampleState
     [FieldOffset(8)]
     public bool enable_mask;
     [FieldOffset(9)]
-    public byte padding1;
+    public bool enable_alpha_to_coverage;
     [FieldOffset(10)]
     public byte padding2;
     [FieldOffset(11)]
@@ -4507,9 +3400,9 @@ public unsafe partial struct SDL_GPUDepthStencilTargetInfo
     [FieldOffset(29)]
     public byte clear_stencil;
     [FieldOffset(30)]
-    public byte padding1;
+    public byte mip_level;
     [FieldOffset(31)]
-    public byte padding2;
+    public byte layer;
 }
 
 [StructLayout(LayoutKind.Explicit)]
@@ -4587,6 +3480,25 @@ public unsafe partial struct SDL_GPUStorageTextureReadWriteBinding
     public byte padding2;
     [FieldOffset(19)]
     public byte padding3;
+}
+
+[StructLayout(LayoutKind.Explicit)]
+public unsafe partial struct SDL_GPUVulkanOptions
+{
+    [FieldOffset(0)]
+    public uint vulkan_api_version;
+    [FieldOffset(8)]
+    public nint feature_list;
+    [FieldOffset(16)]
+    public nint vulkan_10_physical_device_features;
+    [FieldOffset(24)]
+    public uint device_extension_count;
+    [FieldOffset(32)]
+    public nuint device_extension_names;
+    [FieldOffset(40)]
+    public uint instance_extension_count;
+    [FieldOffset(48)]
+    public nuint instance_extension_names;
 }
 
 public partial struct SDL_Haptic
@@ -4907,6 +3819,31 @@ public unsafe partial struct SDL_Texture
 }
 
 [StructLayout(LayoutKind.Explicit)]
+public unsafe partial struct SDL_GPURenderStateCreateInfo
+{
+    [FieldOffset(0)]
+    public SDL_GPUShader* fragment_shader;
+    [FieldOffset(8)]
+    public int num_sampler_bindings;
+    [FieldOffset(16)]
+    public SDL_GPUTextureSamplerBinding* sampler_bindings;
+    [FieldOffset(24)]
+    public int num_storage_textures;
+    [FieldOffset(32)]
+    public SDL_GPUTexture** storage_textures;
+    [FieldOffset(40)]
+    public int num_storage_buffers;
+    [FieldOffset(48)]
+    public SDL_GPUBuffer** storage_buffers;
+    [FieldOffset(56)]
+    public uint props;
+}
+
+public partial struct SDL_GPURenderState
+{
+}
+
+[StructLayout(LayoutKind.Explicit)]
 public unsafe partial struct SDL_StorageInterface
 {
     [FieldOffset(0)]
@@ -4976,38 +3913,6 @@ public partial struct SDL_TrayEntry
 
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe partial struct TCOD_Random
-{
-    [FieldOffset(0)]
-    public TCOD_random_algo_t algorithm;
-    [FieldOffset(0)]
-    public TCOD_Random_MT_CMWC mt_cmwc;
-}
-
-[StructLayout(LayoutKind.Explicit)]
-public unsafe partial struct TCOD_value_t
-{
-    [FieldOffset(0)]
-    public bool b;
-    [FieldOffset(0)]
-    public sbyte c;
-    [FieldOffset(0)]
-    public int i;
-    [FieldOffset(0)]
-    public float f;
-    [FieldOffset(0)]
-    public nuint s;
-    [FieldOffset(0)]
-    public TCOD_ColorRGB col;
-    [FieldOffset(0)]
-    public TCOD_dice_t dice;
-    [FieldOffset(0)]
-    public nint list;
-    [FieldOffset(0)]
-    public nint custom;
-}
-
-[StructLayout(LayoutKind.Explicit)]
 public unsafe partial struct SDL_Event
 {
     [FieldOffset(0)]
@@ -5071,6 +3976,8 @@ public unsafe partial struct SDL_Event
     [FieldOffset(0)]
     public SDL_TouchFingerEvent tfinger;
     [FieldOffset(0)]
+    public SDL_PinchFingerEvent pinch;
+    [FieldOffset(0)]
     public SDL_PenProximityEvent pproximity;
     [FieldOffset(0)]
     public SDL_PenTouchEvent ptouch;
@@ -5112,1933 +4019,6 @@ public unsafe partial struct SDL_HapticEffect
 
 public static unsafe partial class NativeMethods
 {
-    [LibraryImport("libtcod", EntryPoint = "TCOD_strdup", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial nuint TCOD_strdup(string s);
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static string? TCOD_strdupString(string s)
-    {
-        var ptr = TCOD_strdup(s);
-        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
-    }
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_strcasecmp", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial int TCOD_strcasecmp(string s1, string s2);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_strncasecmp", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial int TCOD_strncasecmp(string s1, string s2, uint n);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_line_init", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_line_init(int xFrom, int yFrom, int xTo, int yTo);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_line_step", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    [return: MarshalAs(UnmanagedType.I1)]
-    public static partial bool TCOD_line_step(nint xCur, nint yCur);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_line", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    [return: MarshalAs(UnmanagedType.I1)]
-    public static partial bool TCOD_line(int xFrom, int yFrom, int xTo, int yTo, nint listener);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_line_init_mt", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_line_init_mt(int xFrom, int yFrom, int xTo, int yTo, TCOD_bresenham_data_t* data);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_line_step_mt", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    [return: MarshalAs(UnmanagedType.I1)]
-    public static partial bool TCOD_line_step_mt(nint xCur, nint yCur, TCOD_bresenham_data_t* data);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_line_mt", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    [return: MarshalAs(UnmanagedType.I1)]
-    public static partial bool TCOD_line_mt(int xFrom, int yFrom, int xTo, int yTo, nint listener, TCOD_bresenham_data_t* data);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_tree_new", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_tree_t* TCOD_tree_new();
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_tree_add_son", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_tree_add_son(TCOD_tree_t* node, TCOD_tree_t* son);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_bsp_new", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_bsp_t* TCOD_bsp_new();
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_bsp_new_with_size", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_bsp_t* TCOD_bsp_new_with_size(int x, int y, int w, int h);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_bsp_delete", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_bsp_delete(TCOD_bsp_t* node);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_bsp_left", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_bsp_t* TCOD_bsp_left(TCOD_bsp_t* node);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_bsp_right", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_bsp_t* TCOD_bsp_right(TCOD_bsp_t* node);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_bsp_father", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_bsp_t* TCOD_bsp_father(TCOD_bsp_t* node);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_bsp_is_leaf", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    [return: MarshalAs(UnmanagedType.I1)]
-    public static partial bool TCOD_bsp_is_leaf(TCOD_bsp_t* node);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_bsp_traverse_pre_order", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    [return: MarshalAs(UnmanagedType.I1)]
-    public static partial bool TCOD_bsp_traverse_pre_order(TCOD_bsp_t* node, nint listener, nint userData);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_bsp_traverse_in_order", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    [return: MarshalAs(UnmanagedType.I1)]
-    public static partial bool TCOD_bsp_traverse_in_order(TCOD_bsp_t* node, nint listener, nint userData);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_bsp_traverse_post_order", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    [return: MarshalAs(UnmanagedType.I1)]
-    public static partial bool TCOD_bsp_traverse_post_order(TCOD_bsp_t* node, nint listener, nint userData);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_bsp_traverse_level_order", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    [return: MarshalAs(UnmanagedType.I1)]
-    public static partial bool TCOD_bsp_traverse_level_order(TCOD_bsp_t* node, nint listener, nint userData);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_bsp_traverse_inverted_level_order", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    [return: MarshalAs(UnmanagedType.I1)]
-    public static partial bool TCOD_bsp_traverse_inverted_level_order(TCOD_bsp_t* node, nint listener, nint userData);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_bsp_contains", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    [return: MarshalAs(UnmanagedType.I1)]
-    public static partial bool TCOD_bsp_contains(TCOD_bsp_t* node, int x, int y);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_bsp_find_node", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_bsp_t* TCOD_bsp_find_node(TCOD_bsp_t* node, int x, int y);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_bsp_resize", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_bsp_resize(TCOD_bsp_t* node, int x, int y, int w, int h);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_bsp_split_once", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_bsp_split_once(TCOD_bsp_t* node, [MarshalAs(UnmanagedType.I1)] bool horizontal, int position);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_bsp_split_recursive", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_bsp_split_recursive(TCOD_bsp_t* node, TCOD_Random* randomizer, int nb, int minHSize, int minVSize, float maxHRatio, float maxVRatio);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_bsp_remove_sons", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_bsp_remove_sons(TCOD_bsp_t* node);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_color_RGB", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial nuint TCOD_color_RGB(byte r, byte g, byte b);
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static unsafe TCOD_ColorRGB TCOD_color_RGBStruct(byte r, byte g, byte b)
-    {
-        var ptr = TCOD_color_RGB(r, g, b);
-        return Marshal.PtrToStructure<TCOD_ColorRGB>((nint)ptr);
-    }
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_color_HSV", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial nuint TCOD_color_HSV(float hue, float saturation, float value);
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static unsafe TCOD_ColorRGB TCOD_color_HSVStruct(float hue, float saturation, float value)
-    {
-        var ptr = TCOD_color_HSV(hue, saturation, value);
-        return Marshal.PtrToStructure<TCOD_ColorRGB>((nint)ptr);
-    }
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_color_equals", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    [return: MarshalAs(UnmanagedType.I1)]
-    public static partial bool TCOD_color_equals(TCOD_ColorRGB c1, TCOD_ColorRGB c2);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_color_add", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial nuint TCOD_color_add(TCOD_ColorRGB c1, TCOD_ColorRGB c2);
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static unsafe TCOD_ColorRGB TCOD_color_addStruct(TCOD_ColorRGB c1, TCOD_ColorRGB c2)
-    {
-        var ptr = TCOD_color_add(c1, c2);
-        return Marshal.PtrToStructure<TCOD_ColorRGB>((nint)ptr);
-    }
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_color_subtract", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial nuint TCOD_color_subtract(TCOD_ColorRGB c1, TCOD_ColorRGB c2);
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static unsafe TCOD_ColorRGB TCOD_color_subtractStruct(TCOD_ColorRGB c1, TCOD_ColorRGB c2)
-    {
-        var ptr = TCOD_color_subtract(c1, c2);
-        return Marshal.PtrToStructure<TCOD_ColorRGB>((nint)ptr);
-    }
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_color_multiply", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial nuint TCOD_color_multiply(TCOD_ColorRGB c1, TCOD_ColorRGB c2);
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static unsafe TCOD_ColorRGB TCOD_color_multiplyStruct(TCOD_ColorRGB c1, TCOD_ColorRGB c2)
-    {
-        var ptr = TCOD_color_multiply(c1, c2);
-        return Marshal.PtrToStructure<TCOD_ColorRGB>((nint)ptr);
-    }
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_color_multiply_scalar", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial nuint TCOD_color_multiply_scalar(TCOD_ColorRGB c1, float value);
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static unsafe TCOD_ColorRGB TCOD_color_multiply_scalarStruct(TCOD_ColorRGB c1, float value)
-    {
-        var ptr = TCOD_color_multiply_scalar(c1, value);
-        return Marshal.PtrToStructure<TCOD_ColorRGB>((nint)ptr);
-    }
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_color_lerp", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial nuint TCOD_color_lerp(TCOD_ColorRGB c1, TCOD_ColorRGB c2, float coef);
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static unsafe TCOD_ColorRGB TCOD_color_lerpStruct(TCOD_ColorRGB c1, TCOD_ColorRGB c2, float coef)
-    {
-        var ptr = TCOD_color_lerp(c1, c2, coef);
-        return Marshal.PtrToStructure<TCOD_ColorRGB>((nint)ptr);
-    }
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_color_alpha_blend", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_color_alpha_blend(TCOD_ColorRGBA* dst, TCOD_ColorRGBA* src);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_color_set_HSV", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_color_set_HSV(TCOD_ColorRGB* color, float hue, float saturation, float value);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_color_get_HSV", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_color_get_HSV(TCOD_ColorRGB color, nint hue, nint saturation, nint value);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_color_get_hue", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial float TCOD_color_get_hue(TCOD_ColorRGB color);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_color_set_hue", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_color_set_hue(TCOD_ColorRGB* color, float hue);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_color_get_saturation", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial float TCOD_color_get_saturation(TCOD_ColorRGB color);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_color_set_saturation", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_color_set_saturation(TCOD_ColorRGB* color, float saturation);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_color_get_value", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial float TCOD_color_get_value(TCOD_ColorRGB color);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_color_set_value", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_color_set_value(TCOD_ColorRGB* color, float value);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_color_shift_hue", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_color_shift_hue(TCOD_ColorRGB* color, float shift);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_color_scale_HSV", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_color_scale_HSV(TCOD_ColorRGB* color, float saturation_coef, float value_coef);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_color_gen_map", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_color_gen_map(TCOD_ColorRGB* map, int nb_key, TCOD_ColorRGB* key_color, nint key_index);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_get_error", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial nuint TCOD_get_error();
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static string? TCOD_get_errorString()
-    {
-        var ptr = TCOD_get_error();
-        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
-    }
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_set_error", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_Error TCOD_set_error(string msg);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_clear_error", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_clear_error();
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_tileset_new", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_Tileset* TCOD_tileset_new(int tile_width, int tile_height);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_tileset_delete", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_tileset_delete(TCOD_Tileset* tileset);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_tileset_get_tile_width_", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial int TCOD_tileset_get_tile_width_(TCOD_Tileset* tileset);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_tileset_get_tile_height_", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial int TCOD_tileset_get_tile_height_(TCOD_Tileset* tileset);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_tileset_get_tile_", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_Error TCOD_tileset_get_tile_(TCOD_Tileset* tileset, int codepoint, TCOD_ColorRGBA* buffer);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_tileset_set_tile_", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_Error TCOD_tileset_set_tile_(TCOD_Tileset* tileset, int codepoint, TCOD_ColorRGBA* buffer);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_tileset_load", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_Tileset* TCOD_tileset_load(string filename, int columns, int rows, int n, nint charmap);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_tileset_load_mem", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_Tileset* TCOD_tileset_load_mem(uint buffer_length, nint buffer, int columns, int rows, int n, nint charmap);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_tileset_load_raw", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_Tileset* TCOD_tileset_load_raw(int width, int height, TCOD_ColorRGBA* pixels, int columns, int rows, int n, nint charmap);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_tileset_assign_tile", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial int TCOD_tileset_assign_tile(TCOD_Tileset* tileset, int tile_id, int codepoint);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_tileset_get_tile", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_ColorRGBA* TCOD_tileset_get_tile(TCOD_Tileset* tileset, int codepoint);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_tileset_observer_new", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_TilesetObserver* TCOD_tileset_observer_new(TCOD_Tileset* tileset);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_tileset_observer_delete", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_tileset_observer_delete(TCOD_TilesetObserver* observer);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_tileset_notify_tile_changed", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_tileset_notify_tile_changed(TCOD_Tileset* tileset, int tile_id);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_tileset_reserve", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_Error TCOD_tileset_reserve(TCOD_Tileset* tileset, int desired);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_console_new", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_Console* TCOD_console_new(int w, int h);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_console_get_width", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial int TCOD_console_get_width(TCOD_Console* con);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_console_get_height", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial int TCOD_console_get_height(TCOD_Console* con);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_console_set_key_color", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_console_set_key_color(TCOD_Console* con, TCOD_ColorRGB col);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_console_blit", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_console_blit(TCOD_Console* src, int xSrc, int ySrc, int wSrc, int hSrc, TCOD_Console* dst, int xDst, int yDst, float foreground_alpha, float background_alpha);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_console_blit_key_color", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_console_blit_key_color(TCOD_Console* src, int xSrc, int ySrc, int wSrc, int hSrc, TCOD_Console* dst, int xDst, int yDst, float foreground_alpha, float background_alpha, TCOD_ColorRGB* key_color);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_console_delete", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_console_delete(TCOD_Console* console);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_console_set_default_background", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_console_set_default_background(TCOD_Console* con, TCOD_ColorRGB col);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_console_set_default_foreground", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_console_set_default_foreground(TCOD_Console* con, TCOD_ColorRGB col);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_console_clear", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_console_clear(TCOD_Console* con);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_console_set_char_background", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_console_set_char_background(TCOD_Console* con, int x, int y, TCOD_ColorRGB col, TCOD_bkgnd_flag_t flag);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_console_set_char_foreground", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_console_set_char_foreground(TCOD_Console* con, int x, int y, TCOD_ColorRGB col);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_console_set_char", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_console_set_char(TCOD_Console* con, int x, int y, int c);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_console_put_char", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_console_put_char(TCOD_Console* con, int x, int y, int c, TCOD_bkgnd_flag_t flag);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_console_put_char_ex", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_console_put_char_ex(TCOD_Console* con, int x, int y, int c, TCOD_ColorRGB fore, TCOD_ColorRGB back);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_console_set_background_flag", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_console_set_background_flag(TCOD_Console* con, TCOD_bkgnd_flag_t flag);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_console_get_background_flag", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_bkgnd_flag_t TCOD_console_get_background_flag(TCOD_Console* con);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_console_set_alignment", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_console_set_alignment(TCOD_Console* con, TCOD_alignment_t alignment);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_console_get_alignment", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_alignment_t TCOD_console_get_alignment(TCOD_Console* con);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_console_get_default_background", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial nuint TCOD_console_get_default_background(TCOD_Console* con);
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static unsafe TCOD_ColorRGB TCOD_console_get_default_backgroundStruct(TCOD_Console* con)
-    {
-        var ptr = TCOD_console_get_default_background(con);
-        return Marshal.PtrToStructure<TCOD_ColorRGB>((nint)ptr);
-    }
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_console_get_default_foreground", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial nuint TCOD_console_get_default_foreground(TCOD_Console* con);
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static unsafe TCOD_ColorRGB TCOD_console_get_default_foregroundStruct(TCOD_Console* con)
-    {
-        var ptr = TCOD_console_get_default_foreground(con);
-        return Marshal.PtrToStructure<TCOD_ColorRGB>((nint)ptr);
-    }
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_console_get_char_background", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial nuint TCOD_console_get_char_background(TCOD_Console* con, int x, int y);
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static unsafe TCOD_ColorRGB TCOD_console_get_char_backgroundStruct(TCOD_Console* con, int x, int y)
-    {
-        var ptr = TCOD_console_get_char_background(con, x, y);
-        return Marshal.PtrToStructure<TCOD_ColorRGB>((nint)ptr);
-    }
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_console_get_char_foreground", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial nuint TCOD_console_get_char_foreground(TCOD_Console* con, int x, int y);
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static unsafe TCOD_ColorRGB TCOD_console_get_char_foregroundStruct(TCOD_Console* con, int x, int y)
-    {
-        var ptr = TCOD_console_get_char_foreground(con, x, y);
-        return Marshal.PtrToStructure<TCOD_ColorRGB>((nint)ptr);
-    }
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_console_get_char", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial int TCOD_console_get_char(TCOD_Console* con, int x, int y);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_console_set_fade", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_console_set_fade(byte val, TCOD_ColorRGB fade_color);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_console_get_fade", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial byte TCOD_console_get_fade();
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_console_get_fading_color", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial nuint TCOD_console_get_fading_color();
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static unsafe TCOD_ColorRGB TCOD_console_get_fading_colorStruct()
-    {
-        var ptr = TCOD_console_get_fading_color();
-        return Marshal.PtrToStructure<TCOD_ColorRGB>((nint)ptr);
-    }
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_console_resize_", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_console_resize_(TCOD_Console* console, int width, int height);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_console_rect", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_console_rect(TCOD_Console* con, int x, int y, int rw, int rh, [MarshalAs(UnmanagedType.I1)] bool clear, TCOD_bkgnd_flag_t flag);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_console_hline", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_console_hline(TCOD_Console* con, int x, int y, int l, TCOD_bkgnd_flag_t flag);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_console_vline", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_console_vline(TCOD_Console* con, int x, int y, int l, TCOD_bkgnd_flag_t flag);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_console_put_rgb", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_console_put_rgb(TCOD_Console* console, int x, int y, int ch, TCOD_ColorRGB* fg, TCOD_ColorRGB* bg, TCOD_bkgnd_flag_t flag);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_console_draw_rect_rgb", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_Error TCOD_console_draw_rect_rgb(TCOD_Console* console, int x, int y, int width, int height, int ch, TCOD_ColorRGB* fg, TCOD_ColorRGB* bg, TCOD_bkgnd_flag_t flag);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_console_draw_frame_rgb", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_Error TCOD_console_draw_frame_rgb(TCOD_Console* con, int x, int y, int width, int height, nint decoration, TCOD_ColorRGB* fg, TCOD_ColorRGB* bg, TCOD_bkgnd_flag_t flag, [MarshalAs(UnmanagedType.I1)] bool clear);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_viewport_new", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_ViewportOptions* TCOD_viewport_new();
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_viewport_delete", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_viewport_delete(TCOD_ViewportOptions* viewport);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_context_delete", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_context_delete(TCOD_Context* renderer);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_context_new_", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_Context* TCOD_context_new_();
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_context_present", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_Error TCOD_context_present(TCOD_Context* context, TCOD_Console* console, TCOD_ViewportOptions* viewport);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_context_screen_pixel_to_tile_d", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_Error TCOD_context_screen_pixel_to_tile_d(TCOD_Context* context, nint x, nint y);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_context_screen_pixel_to_tile_i", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_Error TCOD_context_screen_pixel_to_tile_i(TCOD_Context* context, nint x, nint y);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_context_convert_event_coordinates", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_Error TCOD_context_convert_event_coordinates(TCOD_Context* context, SDL_Event* @event);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_context_save_screenshot", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_Error TCOD_context_save_screenshot(TCOD_Context* context, string filename);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_context_get_sdl_window", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial SDL_Window* TCOD_context_get_sdl_window(TCOD_Context* context);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_context_get_sdl_renderer", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial SDL_Renderer* TCOD_context_get_sdl_renderer(TCOD_Context* context);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_context_change_tileset", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_Error TCOD_context_change_tileset(TCOD_Context* self, TCOD_Tileset* tileset);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_context_get_renderer_type", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial int TCOD_context_get_renderer_type(TCOD_Context* context);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_context_recommended_console_size", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_Error TCOD_context_recommended_console_size(TCOD_Context* context, float magnification, nint columns, nint rows);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_context_screen_capture", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_Error TCOD_context_screen_capture(TCOD_Context* context, TCOD_ColorRGBA* out_pixels, nint width, nint height);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_context_screen_capture_alloc", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_ColorRGBA* TCOD_context_screen_capture_alloc(TCOD_Context* context, nint width, nint height);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_context_set_mouse_transform", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_Error TCOD_context_set_mouse_transform(TCOD_Context* context, TCOD_MouseTransform* transform);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_image_new", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_Image* TCOD_image_new(int width, int height);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_image_from_console", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_Image* TCOD_image_from_console(TCOD_Console* console);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_image_refresh_console", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_image_refresh_console(TCOD_Image* image, TCOD_Console* console);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_image_clear", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_image_clear(TCOD_Image* image, TCOD_ColorRGB color);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_image_invert", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_image_invert(TCOD_Image* image);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_image_hflip", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_image_hflip(TCOD_Image* image);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_image_rotate90", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_image_rotate90(TCOD_Image* image, int numRotations);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_image_vflip", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_image_vflip(TCOD_Image* image);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_image_scale", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_image_scale(TCOD_Image* image, int new_w, int new_h);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_image_load", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_Image* TCOD_image_load(string filename);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_image_save", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_Error TCOD_image_save(TCOD_Image* image, string filename);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_image_get_size", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_image_get_size(TCOD_Image* image, nint w, nint h);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_image_get_pixel", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial nuint TCOD_image_get_pixel(TCOD_Image* image, int x, int y);
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static unsafe TCOD_ColorRGB TCOD_image_get_pixelStruct(TCOD_Image* image, int x, int y)
-    {
-        var ptr = TCOD_image_get_pixel(image, x, y);
-        return Marshal.PtrToStructure<TCOD_ColorRGB>((nint)ptr);
-    }
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_image_get_alpha", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial int TCOD_image_get_alpha(TCOD_Image* image, int x, int y);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_image_get_mipmap_pixel", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial nuint TCOD_image_get_mipmap_pixel(TCOD_Image* image, float x0, float y0, float x1, float y1);
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static unsafe TCOD_ColorRGB TCOD_image_get_mipmap_pixelStruct(TCOD_Image* image, float x0, float y0, float x1, float y1)
-    {
-        var ptr = TCOD_image_get_mipmap_pixel(image, x0, y0, x1, y1);
-        return Marshal.PtrToStructure<TCOD_ColorRGB>((nint)ptr);
-    }
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_image_put_pixel", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_image_put_pixel(TCOD_Image* image, int x, int y, TCOD_ColorRGB col);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_image_blit", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_image_blit(TCOD_Image* image, nint console, float x, float y, TCOD_bkgnd_flag_t bkgnd_flag, float scale_x, float scale_y, float angle);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_image_blit_rect", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_image_blit_rect(TCOD_Image* image, nint console, int x, int y, int w, int h, TCOD_bkgnd_flag_t bkgnd_flag);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_image_blit_2x", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_image_blit_2x(TCOD_Image* image, TCOD_Console* dest, int dx, int dy, int sx, int sy, int w, int h);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_image_delete", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_image_delete(TCOD_Image* image);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_image_set_key_color", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_image_set_key_color(TCOD_Image* image, TCOD_ColorRGB key_color);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_image_is_pixel_transparent", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    [return: MarshalAs(UnmanagedType.I1)]
-    public static partial bool TCOD_image_is_pixel_transparent(TCOD_Image* image, int x, int y);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_list_new", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial nint TCOD_list_new();
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_list_allocate", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial nint TCOD_list_allocate(int nb_elements);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_list_duplicate", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial nint TCOD_list_duplicate(nint l);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_list_delete", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_list_delete(nint l);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_list_push", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_list_push(nint l, nint elt);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_list_pop", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial nint TCOD_list_pop(nint l);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_list_peek", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial nint TCOD_list_peek(nint l);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_list_add_all", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_list_add_all(nint l, nint l2);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_list_get", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial nint TCOD_list_get(nint l, int idx);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_list_set", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_list_set(nint l, nint elt, int idx);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_list_begin", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial nint TCOD_list_begin(nint l);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_list_end", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial nint TCOD_list_end(nint l);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_list_reverse", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_list_reverse(nint l);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_list_remove_iterator", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial nint TCOD_list_remove_iterator(nint l, nint elt);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_list_remove", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_list_remove(nint l, nint elt);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_list_remove_iterator_fast", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial nint TCOD_list_remove_iterator_fast(nint l, nint elt);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_list_remove_fast", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_list_remove_fast(nint l, nint elt);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_list_contains", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    [return: MarshalAs(UnmanagedType.I1)]
-    public static partial bool TCOD_list_contains(nint l, nint elt);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_list_clear", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_list_clear(nint l);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_list_clear_and_delete", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_list_clear_and_delete(nint l);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_list_size", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial int TCOD_list_size(nint l);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_list_insert_before", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial nint TCOD_list_insert_before(nint l, nint elt, int before);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_list_is_empty", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    [return: MarshalAs(UnmanagedType.I1)]
-    public static partial bool TCOD_list_is_empty(nint l);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_console_set_custom_font", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_Error TCOD_console_set_custom_font(string fontFile, int flags, int nb_char_horiz, int nb_char_vertic);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_console_map_ascii_code_to_font", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_console_map_ascii_code_to_font(int asciiCode, int fontCharX, int fontCharY);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_console_map_ascii_codes_to_font", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_console_map_ascii_codes_to_font(int asciiCode, int nbCodes, int fontCharX, int fontCharY);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_console_map_string_to_font", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_console_map_string_to_font(string s, int fontCharX, int fontCharY);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_console_map_string_to_font_utf", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_console_map_string_to_font_utf(int* s, int fontCharX, int fontCharY);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_console_set_dirty", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_console_set_dirty(int x, int y, int w, int h);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_console_flush_ex", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_Error TCOD_console_flush_ex(TCOD_Console* console, TCOD_ViewportOptions* viewport);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_console_flush", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_Error TCOD_console_flush();
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_console_is_key_pressed", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    [return: MarshalAs(UnmanagedType.I1)]
-    public static partial bool TCOD_console_is_key_pressed(TCOD_keycode_t key);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_console_from_file", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial nint TCOD_console_from_file(string filename);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_console_load_asc", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    [return: MarshalAs(UnmanagedType.I1)]
-    public static partial bool TCOD_console_load_asc(nint con, string filename);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_console_load_apf", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    [return: MarshalAs(UnmanagedType.I1)]
-    public static partial bool TCOD_console_load_apf(nint con, string filename);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_console_save_asc", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    [return: MarshalAs(UnmanagedType.I1)]
-    public static partial bool TCOD_console_save_asc(nint con, string filename);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_console_save_apf", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    [return: MarshalAs(UnmanagedType.I1)]
-    public static partial bool TCOD_console_save_apf(nint con, string filename);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_console_check_for_keypress", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial nuint TCOD_console_check_for_keypress(int flags);
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static unsafe TCOD_key_t TCOD_console_check_for_keypressStruct(int flags)
-    {
-        var ptr = TCOD_console_check_for_keypress(flags);
-        return Marshal.PtrToStructure<TCOD_key_t>((nint)ptr);
-    }
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_console_wait_for_keypress", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial nuint TCOD_console_wait_for_keypress([MarshalAs(UnmanagedType.I1)] bool flush);
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static unsafe TCOD_key_t TCOD_console_wait_for_keypressStruct([MarshalAs(UnmanagedType.I1)] bool flush)
-    {
-        var ptr = TCOD_console_wait_for_keypress(flush);
-        return Marshal.PtrToStructure<TCOD_key_t>((nint)ptr);
-    }
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_console_credits", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_console_credits();
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_console_credits_reset", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_console_credits_reset();
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_console_credits_render", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    [return: MarshalAs(UnmanagedType.I1)]
-    public static partial bool TCOD_console_credits_render(int x, int y, [MarshalAs(UnmanagedType.I1)] bool alpha);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_console_credits_render_ex", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    [return: MarshalAs(UnmanagedType.I1)]
-    public static partial bool TCOD_console_credits_render_ex(TCOD_Console* console, int x, int y, [MarshalAs(UnmanagedType.I1)] bool alpha, float delta_time);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_console_set_keyboard_repeat", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_console_set_keyboard_repeat(int initial_delay, int interval);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_console_disable_keyboard_repeat", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_console_disable_keyboard_repeat();
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_console_init_root", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_Error TCOD_console_init_root(int w, int h, string title, [MarshalAs(UnmanagedType.I1)] bool fullscreen, TCOD_renderer_t renderer);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_console_init_root_", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_Error TCOD_console_init_root_(int w, int h, string title, [MarshalAs(UnmanagedType.I1)] bool fullscreen, TCOD_renderer_t renderer, [MarshalAs(UnmanagedType.I1)] bool vsync);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_console_set_window_title", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_console_set_window_title(string title);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_console_set_fullscreen", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_console_set_fullscreen([MarshalAs(UnmanagedType.I1)] bool fullscreen);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_console_is_fullscreen", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    [return: MarshalAs(UnmanagedType.I1)]
-    public static partial bool TCOD_console_is_fullscreen();
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_console_has_mouse_focus", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    [return: MarshalAs(UnmanagedType.I1)]
-    public static partial bool TCOD_console_has_mouse_focus();
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_console_is_active", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    [return: MarshalAs(UnmanagedType.I1)]
-    public static partial bool TCOD_console_is_active();
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_console_is_window_closed", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    [return: MarshalAs(UnmanagedType.I1)]
-    public static partial bool TCOD_console_is_window_closed();
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_sys_get_sdl_window", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial SDL_Window* TCOD_sys_get_sdl_window();
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_sys_get_sdl_renderer", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial SDL_Renderer* TCOD_sys_get_sdl_renderer();
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_sys_accumulate_console", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial int TCOD_sys_accumulate_console(TCOD_Console* console);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_sys_accumulate_console_", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial int TCOD_sys_accumulate_console_(TCOD_Console* console, SDL_Rect* viewport);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_sys_get_internal_context", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_Context* TCOD_sys_get_internal_context();
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_sys_get_internal_console", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_Console* TCOD_sys_get_internal_console();
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_quit", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_quit();
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_console_set_color_control", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_console_set_color_control(TCOD_colctrl_t con, TCOD_ColorRGB fore, TCOD_ColorRGB back);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_console_printn", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_Error TCOD_console_printn(TCOD_Console* console, int x, int y, uint n, string str, TCOD_ColorRGB* fg, TCOD_ColorRGB* bg, TCOD_bkgnd_flag_t flag, TCOD_alignment_t alignment);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_console_printn_rect", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial int TCOD_console_printn_rect(TCOD_Console* console, int x, int y, int width, int height, uint n, string str, TCOD_ColorRGB* fg, TCOD_ColorRGB* bg, TCOD_bkgnd_flag_t flag, TCOD_alignment_t alignment);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_console_get_height_rect_n", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial int TCOD_console_get_height_rect_n(TCOD_Console* console, int x, int y, int width, int height, uint n, string str);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_console_get_height_rect_wn", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial int TCOD_console_get_height_rect_wn(int width, uint n, string str);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_console_printn_frame", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_Error TCOD_console_printn_frame(TCOD_Console* console, int x, int y, int width, int height, uint n, string title, TCOD_ColorRGB* fg, TCOD_ColorRGB* bg, TCOD_bkgnd_flag_t flag, [MarshalAs(UnmanagedType.I1)] bool clear);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_printn_rgb", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial int TCOD_printn_rgb(TCOD_Console* console, TCOD_PrintParamsRGB @params, int n, string str);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_console_from_xp", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial nint TCOD_console_from_xp(string filename);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_console_load_xp", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    [return: MarshalAs(UnmanagedType.I1)]
-    public static partial bool TCOD_console_load_xp(TCOD_Console* con, string filename);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_console_save_xp", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    [return: MarshalAs(UnmanagedType.I1)]
-    public static partial bool TCOD_console_save_xp(TCOD_Console* con, string filename, int compress_level);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_console_list_from_xp", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial nint TCOD_console_list_from_xp(string filename);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_console_list_save_xp", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    [return: MarshalAs(UnmanagedType.I1)]
-    public static partial bool TCOD_console_list_save_xp(nint console_list, string filename, int compress_level);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_load_xp_from_memory", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial int TCOD_load_xp_from_memory(int n_data, nint data, int n_out, TCOD_Console** @out);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_save_xp_to_memory", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial int TCOD_save_xp_to_memory(int n_consoles, TCOD_Console** consoles, int n_out, nint @out, int compression_level);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_load_xp", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial int TCOD_load_xp(string path, int n, TCOD_Console** @out);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_save_xp", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_Error TCOD_save_xp(int n, TCOD_Console** consoles, string path, int compress_level);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_context_new", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_Error TCOD_context_new(TCOD_ContextParams* @params, TCOD_Context** @out);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_map_new", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_Map* TCOD_map_new(int width, int height);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_map_clear", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_map_clear(TCOD_Map* map, [MarshalAs(UnmanagedType.I1)] bool transparent, [MarshalAs(UnmanagedType.I1)] bool walkable);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_map_copy", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_Error TCOD_map_copy(TCOD_Map* source, TCOD_Map* dest);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_map_set_properties", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_map_set_properties(TCOD_Map* map, int x, int y, [MarshalAs(UnmanagedType.I1)] bool is_transparent, [MarshalAs(UnmanagedType.I1)] bool is_walkable);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_map_delete", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_map_delete(TCOD_Map* map);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_map_compute_fov", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_Error TCOD_map_compute_fov(TCOD_Map* map, int pov_x, int pov_y, int max_radius, [MarshalAs(UnmanagedType.I1)] bool light_walls, TCOD_fov_algorithm_t algo);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_map_is_in_fov", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    [return: MarshalAs(UnmanagedType.I1)]
-    public static partial bool TCOD_map_is_in_fov(TCOD_Map* map, int x, int y);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_map_set_in_fov", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_map_set_in_fov(TCOD_Map* map, int x, int y, [MarshalAs(UnmanagedType.I1)] bool fov);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_map_is_transparent", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    [return: MarshalAs(UnmanagedType.I1)]
-    public static partial bool TCOD_map_is_transparent(TCOD_Map* map, int x, int y);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_map_is_walkable", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    [return: MarshalAs(UnmanagedType.I1)]
-    public static partial bool TCOD_map_is_walkable(TCOD_Map* map, int x, int y);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_map_get_width", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial int TCOD_map_get_width(TCOD_Map* map);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_map_get_height", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial int TCOD_map_get_height(TCOD_Map* map);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_map_get_nb_cells", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial int TCOD_map_get_nb_cells(TCOD_Map* map);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_get_default_tileset", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_Tileset* TCOD_get_default_tileset();
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_set_default_tileset", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_set_default_tileset(TCOD_Tileset* tileset);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_noise_new", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_Noise* TCOD_noise_new(int dimensions, float hurst, float lacunarity, TCOD_Random* random);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_noise_set_type", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_noise_set_type(TCOD_Noise* noise, TCOD_noise_type_t type);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_noise_get_ex", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial float TCOD_noise_get_ex(TCOD_Noise* noise, nint f, TCOD_noise_type_t type);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_noise_get_fbm_ex", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial float TCOD_noise_get_fbm_ex(TCOD_Noise* noise, nint f, float octaves, TCOD_noise_type_t type);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_noise_get_turbulence_ex", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial float TCOD_noise_get_turbulence_ex(TCOD_Noise* noise, nint f, float octaves, TCOD_noise_type_t type);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_noise_get", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial float TCOD_noise_get(TCOD_Noise* noise, nint f);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_noise_get_fbm", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial float TCOD_noise_get_fbm(TCOD_Noise* noise, nint f, float octaves);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_noise_get_turbulence", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial float TCOD_noise_get_turbulence(TCOD_Noise* noise, nint f, float octaves);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_noise_delete", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_noise_delete(TCOD_Noise* noise);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_noise_get_vectorized", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_noise_get_vectorized(TCOD_Noise* noise, TCOD_noise_type_t type, int n, nint x, nint y, nint z, nint w, nint @out);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_noise_get_fbm_vectorized", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_noise_get_fbm_vectorized(TCOD_Noise* noise, TCOD_noise_type_t type, float octaves, int n, nint x, nint y, nint z, nint w, nint @out);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_noise_get_turbulence_vectorized", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_noise_get_turbulence_vectorized(TCOD_Noise* noise, TCOD_noise_type_t type, float octaves, int n, nint x, nint y, nint z, nint w, nint @out);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_heightmap_new", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_heightmap_t* TCOD_heightmap_new(int w, int h);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_heightmap_delete", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_heightmap_delete(TCOD_heightmap_t* hm);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_heightmap_get_value", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial float TCOD_heightmap_get_value(TCOD_heightmap_t* hm, int x, int y);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_heightmap_get_interpolated_value", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial float TCOD_heightmap_get_interpolated_value(TCOD_heightmap_t* hm, float x, float y);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_heightmap_set_value", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_heightmap_set_value(TCOD_heightmap_t* hm, int x, int y, float value);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_heightmap_get_slope", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial float TCOD_heightmap_get_slope(TCOD_heightmap_t* hm, int x, int y);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_heightmap_count_cells", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial int TCOD_heightmap_count_cells(TCOD_heightmap_t* hm, float min, float max);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_heightmap_has_land_on_border", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    [return: MarshalAs(UnmanagedType.I1)]
-    public static partial bool TCOD_heightmap_has_land_on_border(TCOD_heightmap_t* hm, float waterLevel);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_heightmap_get_minmax", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_heightmap_get_minmax(TCOD_heightmap_t* hm, nint min, nint max);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_heightmap_copy", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_heightmap_copy(TCOD_heightmap_t* hm_source, TCOD_heightmap_t* hm_dest);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_heightmap_add", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_heightmap_add(TCOD_heightmap_t* hm, float value);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_heightmap_scale", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_heightmap_scale(TCOD_heightmap_t* hm, float value);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_heightmap_clamp", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_heightmap_clamp(TCOD_heightmap_t* hm, float min, float max);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_heightmap_normalize", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_heightmap_normalize(TCOD_heightmap_t* hm, float min, float max);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_heightmap_clear", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_heightmap_clear(TCOD_heightmap_t* hm);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_heightmap_lerp_hm", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_heightmap_lerp_hm(TCOD_heightmap_t* hm1, TCOD_heightmap_t* hm2, TCOD_heightmap_t* @out, float coef);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_heightmap_add_hm", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_heightmap_add_hm(TCOD_heightmap_t* hm1, TCOD_heightmap_t* hm2, TCOD_heightmap_t* @out);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_heightmap_multiply_hm", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_heightmap_multiply_hm(TCOD_heightmap_t* hm1, TCOD_heightmap_t* hm2, TCOD_heightmap_t* @out);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_heightmap_add_hill", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_heightmap_add_hill(TCOD_heightmap_t* hm, float hx, float hy, float h_radius, float h_height);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_heightmap_dig_hill", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_heightmap_dig_hill(TCOD_heightmap_t* hm, float hx, float hy, float h_radius, float h_height);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_heightmap_rain_erosion", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_heightmap_rain_erosion(TCOD_heightmap_t* hm, int nbDrops, float erosionCoef, float sedimentationCoef, TCOD_Random* rnd);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_heightmap_kernel_transform", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_heightmap_kernel_transform(TCOD_heightmap_t* hm, int kernel_size, nint dx, nint dy, nint weight, float minLevel, float maxLevel);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_heightmap_add_voronoi", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_heightmap_add_voronoi(TCOD_heightmap_t* hm, int nbPoints, int nbCoef, nint coef, TCOD_Random* rnd);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_heightmap_mid_point_displacement", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_heightmap_mid_point_displacement(TCOD_heightmap_t* hm, TCOD_Random* rnd, float roughness);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_heightmap_add_fbm", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_heightmap_add_fbm(TCOD_heightmap_t* hm, nint noise, float mul_x, float mul_y, float add_x, float add_y, float octaves, float delta, float scale);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_heightmap_scale_fbm", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_heightmap_scale_fbm(TCOD_heightmap_t* hm, nint noise, float mul_x, float mul_y, float add_x, float add_y, float octaves, float delta, float scale);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_heightmap_islandify", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_heightmap_islandify(TCOD_heightmap_t* hm, float seaLevel, TCOD_Random* rnd);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_lex_new_intern", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_lex_t* TCOD_lex_new_intern();
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_lex_new", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_lex_t* TCOD_lex_new(nuint symbols, nuint keywords, string simpleComment, string commentStart, string commentStop, string javadocCommentStart, string stringDelim, int flags);
-
-    public static unsafe TCOD_lex_t* TCOD_lex_newString(out string? symbols, out string? keywords, string simpleComment, string commentStart, string commentStop, string javadocCommentStart, string stringDelim, int flags)
-    {
-        nuint symbolsPtr = 0;
-        nuint keywordsPtr = 0;
-        TCOD_lex_t* result = TCOD_lex_new((nuint)(&symbolsPtr), (nuint)(&keywordsPtr), simpleComment, commentStart, commentStop, javadocCommentStart, stringDelim, flags);
-        if (symbolsPtr == 0)
-        {
-            symbols = null;
-        }
-        else
-        {
-            symbols = Marshal.PtrToStringUTF8((nint)symbolsPtr);
-        }
-        if (keywordsPtr == 0)
-        {
-            keywords = null;
-        }
-        else
-        {
-            keywords = Marshal.PtrToStringUTF8((nint)keywordsPtr);
-        }
-        return result;
-    }
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_lex_delete", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_lex_delete(TCOD_lex_t* lex);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_lex_set_data_buffer", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_lex_set_data_buffer(TCOD_lex_t* lex, string dat);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_lex_set_data_file", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    [return: MarshalAs(UnmanagedType.I1)]
-    public static partial bool TCOD_lex_set_data_file(TCOD_lex_t* lex, string filename);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_lex_parse", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial int TCOD_lex_parse(TCOD_lex_t* lex);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_lex_parse_until_token_type", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial int TCOD_lex_parse_until_token_type(TCOD_lex_t* lex, int token_type);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_lex_parse_until_token_value", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial int TCOD_lex_parse_until_token_value(TCOD_lex_t* lex, string token_value);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_lex_expect_token_type", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    [return: MarshalAs(UnmanagedType.I1)]
-    public static partial bool TCOD_lex_expect_token_type(TCOD_lex_t* lex, int token_type);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_lex_expect_token_value", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    [return: MarshalAs(UnmanagedType.I1)]
-    public static partial bool TCOD_lex_expect_token_value(TCOD_lex_t* lex, int token_type, string token_value);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_lex_savepoint", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_lex_savepoint(TCOD_lex_t* lex, TCOD_lex_t* savepoint);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_lex_restore", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_lex_restore(TCOD_lex_t* lex, TCOD_lex_t* savepoint);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_lex_get_last_javadoc", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial nuint TCOD_lex_get_last_javadoc(TCOD_lex_t* lex);
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static string? TCOD_lex_get_last_javadocString(TCOD_lex_t* lex)
-    {
-        var ptr = TCOD_lex_get_last_javadoc(lex);
-        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
-    }
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_lex_get_token_name", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial nuint TCOD_lex_get_token_name(int token_type);
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static string? TCOD_lex_get_token_nameString(int token_type)
-    {
-        var ptr = TCOD_lex_get_token_name(token_type);
-        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
-    }
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_lex_hextoint", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial int TCOD_lex_hextoint(sbyte c);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_set_log_level", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_set_log_level(int level);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_set_log_callback", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_set_log_callback(nint callback, nint userdata);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_log_verbose_", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_log_verbose_(string msg, int level, string source, int line);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_random_get_instance", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_Random* TCOD_random_get_instance();
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_random_new", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_Random* TCOD_random_new(TCOD_random_algo_t algo);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_random_save", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_Random* TCOD_random_save(TCOD_Random* mersenne);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_random_restore", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_random_restore(TCOD_Random* mersenne, TCOD_Random* backup);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_random_new_from_seed", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_Random* TCOD_random_new_from_seed(TCOD_random_algo_t algo, uint seed);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_random_delete", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_random_delete(TCOD_Random* mersenne);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_random_set_distribution", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_random_set_distribution(TCOD_Random* mersenne, TCOD_distribution_t distribution);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_random_get_int", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial int TCOD_random_get_int(TCOD_Random* mersenne, int min, int max);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_random_get_float", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial float TCOD_random_get_float(TCOD_Random* mersenne, float min, float max);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_random_get_double", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial double TCOD_random_get_double(TCOD_Random* mersenne, double min, double max);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_random_get_int_mean", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial int TCOD_random_get_int_mean(TCOD_Random* mersenne, int min, int max, int mean);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_random_get_float_mean", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial float TCOD_random_get_float_mean(TCOD_Random* mersenne, float min, float max, float mean);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_random_get_double_mean", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial double TCOD_random_get_double_mean(TCOD_Random* mersenne, double min, double max, double mean);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_random_dice_new", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial nuint TCOD_random_dice_new(string s);
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static unsafe TCOD_dice_t TCOD_random_dice_newStruct(string s)
-    {
-        var ptr = TCOD_random_dice_new(s);
-        return Marshal.PtrToStructure<TCOD_dice_t>((nint)ptr);
-    }
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_random_dice_roll", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial int TCOD_random_dice_roll(TCOD_Random* mersenne, TCOD_dice_t dice);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_random_dice_roll_s", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial int TCOD_random_dice_roll_s(TCOD_Random* mersenne, string s);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_mouse_show_cursor", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_mouse_show_cursor([MarshalAs(UnmanagedType.I1)] bool visible);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_mouse_get_status", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial nuint TCOD_mouse_get_status();
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static unsafe TCOD_mouse_t TCOD_mouse_get_statusStruct()
-    {
-        var ptr = TCOD_mouse_get_status();
-        return Marshal.PtrToStructure<TCOD_mouse_t>((nint)ptr);
-    }
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_mouse_is_cursor_visible", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    [return: MarshalAs(UnmanagedType.I1)]
-    public static partial bool TCOD_mouse_is_cursor_visible();
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_mouse_move", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_mouse_move(int x, int y);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_mouse_includes_touch", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_mouse_includes_touch([MarshalAs(UnmanagedType.I1)] bool enable);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_namegen_parse", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_namegen_parse(string filename, TCOD_Random* random);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_namegen_generate", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial nuint TCOD_namegen_generate(string name, [MarshalAs(UnmanagedType.I1)] bool allocate);
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static string? TCOD_namegen_generateString(string name, [MarshalAs(UnmanagedType.I1)] bool allocate)
-    {
-        var ptr = TCOD_namegen_generate(name, allocate);
-        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
-    }
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_namegen_generate_custom", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial nuint TCOD_namegen_generate_custom(string name, string rule, [MarshalAs(UnmanagedType.I1)] bool allocate);
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static string? TCOD_namegen_generate_customString(string name, string rule, [MarshalAs(UnmanagedType.I1)] bool allocate)
-    {
-        var ptr = TCOD_namegen_generate_custom(name, rule, allocate);
-        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
-    }
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_namegen_get_sets", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial nint TCOD_namegen_get_sets();
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_namegen_destroy", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_namegen_destroy();
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_struct_get_name", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial nuint TCOD_struct_get_name(TCOD_ParserStruct* def);
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static string? TCOD_struct_get_nameString(TCOD_ParserStruct* def)
-    {
-        var ptr = TCOD_struct_get_name(def);
-        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
-    }
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_struct_add_property", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_struct_add_property(TCOD_ParserStruct* def, string name, TCOD_value_type_t type, [MarshalAs(UnmanagedType.I1)] bool mandatory);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_struct_add_list_property", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_struct_add_list_property(TCOD_ParserStruct* def, string name, TCOD_value_type_t type, [MarshalAs(UnmanagedType.I1)] bool mandatory);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_struct_add_value_list", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_struct_add_value_list(TCOD_ParserStruct* def, string name, nuint value_list, [MarshalAs(UnmanagedType.I1)] bool mandatory);
-
-    public static unsafe void TCOD_struct_add_value_listString(TCOD_ParserStruct* def, string name, out string? value_list, [MarshalAs(UnmanagedType.I1)] bool mandatory)
-    {
-        nuint value_listPtr = 0;
-        TCOD_struct_add_value_list(def, name, (nuint)(&value_listPtr), mandatory);
-        if (value_listPtr == 0)
-        {
-            value_list = null;
-        }
-        else
-        {
-            value_list = Marshal.PtrToStringUTF8((nint)value_listPtr);
-        }
-        
-    }
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_struct_add_value_list_sized", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_struct_add_value_list_sized(TCOD_ParserStruct* def, string name, nuint value_list, int size, [MarshalAs(UnmanagedType.I1)] bool mandatory);
-
-    public static unsafe void TCOD_struct_add_value_list_sizedString(TCOD_ParserStruct* def, string name, out string? value_list, int size, [MarshalAs(UnmanagedType.I1)] bool mandatory)
-    {
-        nuint value_listPtr = 0;
-        TCOD_struct_add_value_list_sized(def, name, (nuint)(&value_listPtr), size, mandatory);
-        if (value_listPtr == 0)
-        {
-            value_list = null;
-        }
-        else
-        {
-            value_list = Marshal.PtrToStringUTF8((nint)value_listPtr);
-        }
-        
-    }
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_struct_add_flag", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_struct_add_flag(TCOD_ParserStruct* def, string propname);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_struct_add_structure", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_struct_add_structure(TCOD_ParserStruct* def, TCOD_ParserStruct* sub_structure);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_struct_is_mandatory", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    [return: MarshalAs(UnmanagedType.I1)]
-    public static partial bool TCOD_struct_is_mandatory(TCOD_ParserStruct* def, string propname);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_struct_get_type", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_value_type_t TCOD_struct_get_type(TCOD_ParserStruct* def, string propname);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_parser_new", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_Parser* TCOD_parser_new();
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_parser_new_struct", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_ParserStruct* TCOD_parser_new_struct(TCOD_Parser* parser, string name);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_parser_new_custom_type", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_value_type_t TCOD_parser_new_custom_type(TCOD_Parser* parser, nint custom_type_parser);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_parser_run", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_parser_run(TCOD_Parser* parser, string filename, TCOD_parser_listener_t* listener);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_parser_delete", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_parser_delete(TCOD_Parser* parser);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_parser_has_property", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    [return: MarshalAs(UnmanagedType.I1)]
-    public static partial bool TCOD_parser_has_property(TCOD_Parser* parser, string name);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_parser_get_bool_property", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    [return: MarshalAs(UnmanagedType.I1)]
-    public static partial bool TCOD_parser_get_bool_property(TCOD_Parser* parser, string name);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_parser_get_char_property", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial int TCOD_parser_get_char_property(TCOD_Parser* parser, string name);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_parser_get_int_property", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial int TCOD_parser_get_int_property(TCOD_Parser* parser, string name);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_parser_get_float_property", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial float TCOD_parser_get_float_property(TCOD_Parser* parser, string name);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_parser_get_string_property", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial nuint TCOD_parser_get_string_property(TCOD_Parser* parser, string name);
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static string? TCOD_parser_get_string_propertyString(TCOD_Parser* parser, string name)
-    {
-        var ptr = TCOD_parser_get_string_property(parser, name);
-        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
-    }
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_parser_get_color_property", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial nuint TCOD_parser_get_color_property(TCOD_Parser* parser, string name);
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static unsafe TCOD_ColorRGB TCOD_parser_get_color_propertyStruct(TCOD_Parser* parser, string name)
-    {
-        var ptr = TCOD_parser_get_color_property(parser, name);
-        return Marshal.PtrToStructure<TCOD_ColorRGB>((nint)ptr);
-    }
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_parser_get_dice_property", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial nuint TCOD_parser_get_dice_property(TCOD_Parser* parser, string name);
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static unsafe TCOD_dice_t TCOD_parser_get_dice_propertyStruct(TCOD_Parser* parser, string name)
-    {
-        var ptr = TCOD_parser_get_dice_property(parser, name);
-        return Marshal.PtrToStructure<TCOD_dice_t>((nint)ptr);
-    }
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_parser_get_dice_property_py", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_parser_get_dice_property_py(TCOD_Parser* parser, string name, TCOD_dice_t* dice);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_parser_get_custom_property", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial nint TCOD_parser_get_custom_property(TCOD_Parser* parser, string name);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_parser_get_list_property", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial nint TCOD_parser_get_list_property(TCOD_Parser* parser, string name, TCOD_value_type_t type);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_parse_bool_value", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial nuint TCOD_parse_bool_value();
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static unsafe TCOD_value_t TCOD_parse_bool_valueStruct()
-    {
-        var ptr = TCOD_parse_bool_value();
-        return Marshal.PtrToStructure<TCOD_value_t>((nint)ptr);
-    }
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_parse_char_value", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial nuint TCOD_parse_char_value();
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static unsafe TCOD_value_t TCOD_parse_char_valueStruct()
-    {
-        var ptr = TCOD_parse_char_value();
-        return Marshal.PtrToStructure<TCOD_value_t>((nint)ptr);
-    }
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_parse_integer_value", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial nuint TCOD_parse_integer_value();
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static unsafe TCOD_value_t TCOD_parse_integer_valueStruct()
-    {
-        var ptr = TCOD_parse_integer_value();
-        return Marshal.PtrToStructure<TCOD_value_t>((nint)ptr);
-    }
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_parse_float_value", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial nuint TCOD_parse_float_value();
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static unsafe TCOD_value_t TCOD_parse_float_valueStruct()
-    {
-        var ptr = TCOD_parse_float_value();
-        return Marshal.PtrToStructure<TCOD_value_t>((nint)ptr);
-    }
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_parse_string_value", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial nuint TCOD_parse_string_value();
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static unsafe TCOD_value_t TCOD_parse_string_valueStruct()
-    {
-        var ptr = TCOD_parse_string_value();
-        return Marshal.PtrToStructure<TCOD_value_t>((nint)ptr);
-    }
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_parse_color_value", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial nuint TCOD_parse_color_value();
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static unsafe TCOD_value_t TCOD_parse_color_valueStruct()
-    {
-        var ptr = TCOD_parse_color_value();
-        return Marshal.PtrToStructure<TCOD_value_t>((nint)ptr);
-    }
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_parse_dice_value", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial nuint TCOD_parse_dice_value();
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static unsafe TCOD_value_t TCOD_parse_dice_valueStruct()
-    {
-        var ptr = TCOD_parse_dice_value();
-        return Marshal.PtrToStructure<TCOD_value_t>((nint)ptr);
-    }
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_parse_value_list_value", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial nuint TCOD_parse_value_list_value(TCOD_ParserStruct* def, int list_num);
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static unsafe TCOD_value_t TCOD_parse_value_list_valueStruct(TCOD_ParserStruct* def, int list_num)
-    {
-        var ptr = TCOD_parse_value_list_value(def, list_num);
-        return Marshal.PtrToStructure<TCOD_value_t>((nint)ptr);
-    }
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_parse_property_value", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial nuint TCOD_parse_property_value(TCOD_Parser* parser, TCOD_ParserStruct* def, string propname, [MarshalAs(UnmanagedType.I1)] bool list);
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static unsafe TCOD_value_t TCOD_parse_property_valueStruct(TCOD_Parser* parser, TCOD_ParserStruct* def, string propname, [MarshalAs(UnmanagedType.I1)] bool list)
-    {
-        var ptr = TCOD_parse_property_value(parser, def, propname, list);
-        return Marshal.PtrToStructure<TCOD_value_t>((nint)ptr);
-    }
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_path_new_using_map", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial nint TCOD_path_new_using_map(TCOD_Map* map, float diagonalCost);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_path_new_using_function", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial nint TCOD_path_new_using_function(int map_width, int map_height, nint func, nint user_data, float diagonalCost);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_path_compute", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    [return: MarshalAs(UnmanagedType.I1)]
-    public static partial bool TCOD_path_compute(nint path, int ox, int oy, int dx, int dy);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_path_walk", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    [return: MarshalAs(UnmanagedType.I1)]
-    public static partial bool TCOD_path_walk(nint path, nint x, nint y, [MarshalAs(UnmanagedType.I1)] bool recalculate_when_needed);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_path_is_empty", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    [return: MarshalAs(UnmanagedType.I1)]
-    public static partial bool TCOD_path_is_empty(nint path);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_path_size", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial int TCOD_path_size(nint path);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_path_reverse", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_path_reverse(nint path);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_path_get", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_path_get(nint path, int index, nint x, nint y);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_path_get_origin", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_path_get_origin(nint path, nint x, nint y);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_path_get_destination", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_path_get_destination(nint path, nint x, nint y);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_path_delete", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_path_delete(nint path);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_dijkstra_new", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_Dijkstra* TCOD_dijkstra_new(TCOD_Map* map, float diagonalCost);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_dijkstra_new_using_function", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_Dijkstra* TCOD_dijkstra_new_using_function(int map_width, int map_height, nint func, nint user_data, float diagonalCost);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_dijkstra_compute", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_dijkstra_compute(TCOD_Dijkstra* dijkstra, int root_x, int root_y);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_dijkstra_get_distance", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial float TCOD_dijkstra_get_distance(TCOD_Dijkstra* dijkstra, int x, int y);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_dijkstra_path_set", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    [return: MarshalAs(UnmanagedType.I1)]
-    public static partial bool TCOD_dijkstra_path_set(TCOD_Dijkstra* dijkstra, int x, int y);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_dijkstra_is_empty", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    [return: MarshalAs(UnmanagedType.I1)]
-    public static partial bool TCOD_dijkstra_is_empty(TCOD_Dijkstra* path);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_dijkstra_size", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial int TCOD_dijkstra_size(TCOD_Dijkstra* path);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_dijkstra_reverse", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_dijkstra_reverse(TCOD_Dijkstra* path);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_dijkstra_get", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_dijkstra_get(TCOD_Dijkstra* path, int index, nint x, nint y);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_dijkstra_path_walk", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    [return: MarshalAs(UnmanagedType.I1)]
-    public static partial bool TCOD_dijkstra_path_walk(TCOD_Dijkstra* dijkstra, nint x, nint y);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_dijkstra_delete", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_dijkstra_delete(TCOD_Dijkstra* dijkstra);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_heap_init", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial int TCOD_heap_init(TCOD_Heap* heap, uint data_size);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_heap_uninit", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_heap_uninit(TCOD_Heap* heap);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_heap_clear", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_heap_clear(TCOD_Heap* heap);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_minheap_push", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial int TCOD_minheap_push(TCOD_Heap* minheap, int priority, nint data);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_minheap_pop", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_minheap_pop(TCOD_Heap* minheap, nint @out);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_minheap_heapify", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_minheap_heapify(TCOD_Heap* minheap);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_pf_new", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_Pathfinder* TCOD_pf_new(int ndim, uint* shape);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_pf_delete", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_pf_delete(TCOD_Pathfinder* path);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_pf_set_distance_pointer", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_pf_set_distance_pointer(TCOD_Pathfinder* path, nint data, int int_type, uint* strides);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_pf_set_graph2d_pointer", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_pf_set_graph2d_pointer(TCOD_Pathfinder* path, nint data, int int_type, uint* strides, int cardinal, int diagonal);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_pf_set_traversal_pointer", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_pf_set_traversal_pointer(TCOD_Pathfinder* path, nint data, int int_type, uint* strides);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_pf_recompile", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial int TCOD_pf_recompile(TCOD_Pathfinder* path);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_pf_compute", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial int TCOD_pf_compute(TCOD_Pathfinder* path);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_pf_compute_step", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial int TCOD_pf_compute_step(TCOD_Pathfinder* path);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_frontier_new", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_Frontier* TCOD_frontier_new(int ndim);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_frontier_delete", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_frontier_delete(TCOD_Frontier* frontier);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_frontier_pop", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_Error TCOD_frontier_pop(TCOD_Frontier* frontier);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_frontier_push", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_Error TCOD_frontier_push(TCOD_Frontier* frontier, nint index, int dist, int heuristic);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_frontier_size", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial int TCOD_frontier_size(TCOD_Frontier* frontier);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_frontier_clear", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_Error TCOD_frontier_clear(TCOD_Frontier* frontier);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_rng_splitmix64_next", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial uint TCOD_rng_splitmix64_next(uint* state);
-
     [LibraryImport("libtcod", EntryPoint = "bcmp", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial int bcmp(nint __s1, nint __s2, uint __n);
@@ -8061,348 +5041,6 @@ public static unsafe partial class NativeMethods
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_size_add_check_overflow_builtin(uint a, uint b, uint* ret);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_OutOfMemory", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    [return: MarshalAs(UnmanagedType.I1)]
-    public static partial bool SDL_OutOfMemory();
-
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetError", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial nuint SDL_GetError();
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static string? SDL_GetErrorString()
-    {
-        var ptr = SDL_GetError();
-        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
-    }
-
-    [LibraryImport("libtcod", EntryPoint = "SDL_ClearError", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    [return: MarshalAs(UnmanagedType.I1)]
-    public static partial bool SDL_ClearError();
-
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetGlobalProperties", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial uint SDL_GetGlobalProperties();
-
-    [LibraryImport("libtcod", EntryPoint = "SDL_CreateProperties", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial uint SDL_CreateProperties();
-
-    [LibraryImport("libtcod", EntryPoint = "SDL_CopyProperties", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    [return: MarshalAs(UnmanagedType.I1)]
-    public static partial bool SDL_CopyProperties(uint src, uint dst);
-
-    [LibraryImport("libtcod", EntryPoint = "SDL_LockProperties", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    [return: MarshalAs(UnmanagedType.I1)]
-    public static partial bool SDL_LockProperties(uint props);
-
-    [LibraryImport("libtcod", EntryPoint = "SDL_UnlockProperties", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void SDL_UnlockProperties(uint props);
-
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetPointerPropertyWithCleanup", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    [return: MarshalAs(UnmanagedType.I1)]
-    public static partial bool SDL_SetPointerPropertyWithCleanup(uint props, string name, nint value, nint cleanup, nint userdata);
-
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetPointerProperty", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    [return: MarshalAs(UnmanagedType.I1)]
-    public static partial bool SDL_SetPointerProperty(uint props, string name, nint value);
-
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetStringProperty", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    [return: MarshalAs(UnmanagedType.I1)]
-    public static partial bool SDL_SetStringProperty(uint props, string name, string value);
-
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetNumberProperty", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    [return: MarshalAs(UnmanagedType.I1)]
-    public static partial bool SDL_SetNumberProperty(uint props, string name, int value);
-
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetFloatProperty", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    [return: MarshalAs(UnmanagedType.I1)]
-    public static partial bool SDL_SetFloatProperty(uint props, string name, float value);
-
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetBooleanProperty", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    [return: MarshalAs(UnmanagedType.I1)]
-    public static partial bool SDL_SetBooleanProperty(uint props, string name, [MarshalAs(UnmanagedType.I1)] bool value);
-
-    [LibraryImport("libtcod", EntryPoint = "SDL_HasProperty", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    [return: MarshalAs(UnmanagedType.I1)]
-    public static partial bool SDL_HasProperty(uint props, string name);
-
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetPropertyType", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial SDL_PropertyType SDL_GetPropertyType(uint props, string name);
-
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetPointerProperty", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial nint SDL_GetPointerProperty(uint props, string name, nint default_value);
-
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetStringProperty", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial nuint SDL_GetStringProperty(uint props, string name, string default_value);
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static string? SDL_GetStringPropertyString(uint props, string name, string default_value)
-    {
-        var ptr = SDL_GetStringProperty(props, name, default_value);
-        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
-    }
-
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetNumberProperty", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial int SDL_GetNumberProperty(uint props, string name, int default_value);
-
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetFloatProperty", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial float SDL_GetFloatProperty(uint props, string name, float default_value);
-
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetBooleanProperty", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    [return: MarshalAs(UnmanagedType.I1)]
-    public static partial bool SDL_GetBooleanProperty(uint props, string name, [MarshalAs(UnmanagedType.I1)] bool default_value);
-
-    [LibraryImport("libtcod", EntryPoint = "SDL_ClearProperty", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    [return: MarshalAs(UnmanagedType.I1)]
-    public static partial bool SDL_ClearProperty(uint props, string name);
-
-    [LibraryImport("libtcod", EntryPoint = "SDL_EnumerateProperties", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    [return: MarshalAs(UnmanagedType.I1)]
-    public static partial bool SDL_EnumerateProperties(uint props, nint callback, nint userdata);
-
-    [LibraryImport("libtcod", EntryPoint = "SDL_DestroyProperties", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void SDL_DestroyProperties(uint props);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_renderer_init_sdl2", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_Context* TCOD_renderer_init_sdl2(int x, int y, int width, int height, string title, int window_flags, int vsync, TCOD_Tileset* tileset);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_renderer_init_sdl3", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_Context* TCOD_renderer_init_sdl3(uint window_props, uint renderer_props, TCOD_Tileset* tileset);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_sdl2_atlas_new", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_TilesetAtlasSDL2* TCOD_sdl2_atlas_new(SDL_Renderer* renderer, TCOD_Tileset* tileset);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_sdl2_atlas_delete", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_sdl2_atlas_delete(TCOD_TilesetAtlasSDL2* atlas);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_sdl2_render_texture_setup", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_Error TCOD_sdl2_render_texture_setup(TCOD_TilesetAtlasSDL2* atlas, TCOD_Console* console, TCOD_Console** cache, SDL_Texture** target);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_sdl2_render_texture", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_Error TCOD_sdl2_render_texture(TCOD_TilesetAtlasSDL2* atlas, TCOD_Console* console, TCOD_Console* cache, SDL_Texture* target);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_sys_process_key_event", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_event_t TCOD_sys_process_key_event(SDL_Event* @in, TCOD_key_t* @out);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_sys_process_mouse_event", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_event_t TCOD_sys_process_mouse_event(SDL_Event* @in, TCOD_mouse_t* @out);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_load_bdf", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_Tileset* TCOD_load_bdf(string path);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_load_bdf_memory", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_Tileset* TCOD_load_bdf_memory(int size, nint buffer);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_tileset_load_fallback_font_", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_Tileset* TCOD_tileset_load_fallback_font_(int tile_width, int tile_height);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_tileset_render_to_surface", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_Error TCOD_tileset_render_to_surface(TCOD_Tileset* tileset, TCOD_Console* console, TCOD_Console** cache, SDL_Surface** surface_out);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_load_truetype_font_", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_Tileset* TCOD_load_truetype_font_(string path, int tile_width, int tile_height);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_tileset_load_truetype_", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_Error TCOD_tileset_load_truetype_(string path, int tile_width, int tile_height);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_text_init", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial nint TCOD_text_init(int x, int y, int w, int h, int max_chars);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_text_init2", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial nint TCOD_text_init2(int w, int h, int max_chars);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_text_set_pos", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_text_set_pos(nint txt, int x, int y);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_text_set_properties", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_text_set_properties(nint txt, int cursor_char, int blink_interval, string prompt, int tab_size);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_text_set_colors", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_text_set_colors(nint txt, TCOD_ColorRGB fore, TCOD_ColorRGB back, float back_transparency);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_text_update", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    [return: MarshalAs(UnmanagedType.I1)]
-    public static partial bool TCOD_text_update(nint txt, TCOD_key_t key);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_text_render", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_text_render(nint txt, nint con);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_text_get", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial nuint TCOD_text_get(nint txt);
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static string? TCOD_text_getString(nint txt)
-    {
-        var ptr = TCOD_text_get(txt);
-        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
-    }
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_text_reset", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_text_reset(nint txt);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_text_delete", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_text_delete(nint txt);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_zip_new", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial nint TCOD_zip_new();
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_zip_delete", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_zip_delete(nint zip);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_zip_put_char", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_zip_put_char(nint zip, sbyte val);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_zip_put_int", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_zip_put_int(nint zip, int val);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_zip_put_float", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_zip_put_float(nint zip, float val);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_zip_put_string", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_zip_put_string(nint zip, string val);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_zip_put_color", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_zip_put_color(nint zip, TCOD_ColorRGB val);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_zip_put_image", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_zip_put_image(nint zip, TCOD_Image* val);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_zip_put_console", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_zip_put_console(nint zip, TCOD_Console* val);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_zip_put_random", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_zip_put_random(nint zip, TCOD_Random* val);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_zip_put_data", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_zip_put_data(nint zip, int nbBytes, nint data);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_zip_get_current_bytes", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial uint TCOD_zip_get_current_bytes(nint zip);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_zip_save_to_file", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial int TCOD_zip_save_to_file(nint zip, string filename);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_zip_load_from_file", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial int TCOD_zip_load_from_file(nint zip, string filename);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_zip_get_char", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial sbyte TCOD_zip_get_char(nint zip);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_zip_get_int", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial int TCOD_zip_get_int(nint zip);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_zip_get_float", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial float TCOD_zip_get_float(nint zip);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_zip_get_string", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial nuint TCOD_zip_get_string(nint zip);
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static string? TCOD_zip_get_stringString(nint zip)
-    {
-        var ptr = TCOD_zip_get_string(zip);
-        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
-    }
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_zip_get_color", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial nuint TCOD_zip_get_color(nint zip);
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static unsafe TCOD_ColorRGB TCOD_zip_get_colorStruct(nint zip)
-    {
-        var ptr = TCOD_zip_get_color(zip);
-        return Marshal.PtrToStructure<TCOD_ColorRGB>((nint)ptr);
-    }
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_zip_get_image", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_Image* TCOD_zip_get_image(nint zip);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_zip_get_console", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial nint TCOD_zip_get_console(nint zip);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_zip_get_random", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial TCOD_Random* TCOD_zip_get_random(nint zip);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_zip_get_data", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial int TCOD_zip_get_data(nint zip, int nbBytes, nint data);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_zip_get_remaining_bytes", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial uint TCOD_zip_get_remaining_bytes(nint zip);
-
-    [LibraryImport("libtcod", EntryPoint = "TCOD_zip_skip_bytes", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void TCOD_zip_skip_bytes(nint zip, uint nbBytes);
-
     [LibraryImport("libtcod", EntryPoint = "SDL_ReportAssertion", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_AssertState SDL_ReportAssertion(SDL_AssertData* data, string func, string file, int line);
@@ -8528,6 +5166,10 @@ public static unsafe partial class NativeMethods
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint SDL_GetAtomicU32(SDL_AtomicU32* a);
 
+    [LibraryImport("libtcod", EntryPoint = "SDL_AddAtomicU32", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial uint SDL_AddAtomicU32(SDL_AtomicU32* a, int v);
+
     [LibraryImport("libtcod", EntryPoint = "SDL_CompareAndSwapAtomicPointer", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
@@ -8544,6 +5186,130 @@ public static unsafe partial class NativeMethods
     [LibraryImport("libtcod", EntryPoint = "SDL_SwapFloat", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial float SDL_SwapFloat(float x);
+
+    [LibraryImport("libtcod", EntryPoint = "SDL_OutOfMemory", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool SDL_OutOfMemory();
+
+    [LibraryImport("libtcod", EntryPoint = "SDL_GetError", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint SDL_GetError();
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? SDL_GetErrorString()
+    {
+        var ptr = SDL_GetError();
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
+
+    [LibraryImport("libtcod", EntryPoint = "SDL_ClearError", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool SDL_ClearError();
+
+    [LibraryImport("libtcod", EntryPoint = "SDL_GetGlobalProperties", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial uint SDL_GetGlobalProperties();
+
+    [LibraryImport("libtcod", EntryPoint = "SDL_CreateProperties", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial uint SDL_CreateProperties();
+
+    [LibraryImport("libtcod", EntryPoint = "SDL_CopyProperties", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool SDL_CopyProperties(uint src, uint dst);
+
+    [LibraryImport("libtcod", EntryPoint = "SDL_LockProperties", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool SDL_LockProperties(uint props);
+
+    [LibraryImport("libtcod", EntryPoint = "SDL_UnlockProperties", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void SDL_UnlockProperties(uint props);
+
+    [LibraryImport("libtcod", EntryPoint = "SDL_SetPointerPropertyWithCleanup", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool SDL_SetPointerPropertyWithCleanup(uint props, string name, nint value, nint cleanup, nint userdata);
+
+    [LibraryImport("libtcod", EntryPoint = "SDL_SetPointerProperty", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool SDL_SetPointerProperty(uint props, string name, nint value);
+
+    [LibraryImport("libtcod", EntryPoint = "SDL_SetStringProperty", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool SDL_SetStringProperty(uint props, string name, string value);
+
+    [LibraryImport("libtcod", EntryPoint = "SDL_SetNumberProperty", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool SDL_SetNumberProperty(uint props, string name, int value);
+
+    [LibraryImport("libtcod", EntryPoint = "SDL_SetFloatProperty", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool SDL_SetFloatProperty(uint props, string name, float value);
+
+    [LibraryImport("libtcod", EntryPoint = "SDL_SetBooleanProperty", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool SDL_SetBooleanProperty(uint props, string name, [MarshalAs(UnmanagedType.I1)] bool value);
+
+    [LibraryImport("libtcod", EntryPoint = "SDL_HasProperty", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool SDL_HasProperty(uint props, string name);
+
+    [LibraryImport("libtcod", EntryPoint = "SDL_GetPropertyType", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial SDL_PropertyType SDL_GetPropertyType(uint props, string name);
+
+    [LibraryImport("libtcod", EntryPoint = "SDL_GetPointerProperty", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nint SDL_GetPointerProperty(uint props, string name, nint default_value);
+
+    [LibraryImport("libtcod", EntryPoint = "SDL_GetStringProperty", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint SDL_GetStringProperty(uint props, string name, string default_value);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? SDL_GetStringPropertyString(uint props, string name, string default_value)
+    {
+        var ptr = SDL_GetStringProperty(props, name, default_value);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
+
+    [LibraryImport("libtcod", EntryPoint = "SDL_GetNumberProperty", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int SDL_GetNumberProperty(uint props, string name, int default_value);
+
+    [LibraryImport("libtcod", EntryPoint = "SDL_GetFloatProperty", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial float SDL_GetFloatProperty(uint props, string name, float default_value);
+
+    [LibraryImport("libtcod", EntryPoint = "SDL_GetBooleanProperty", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool SDL_GetBooleanProperty(uint props, string name, [MarshalAs(UnmanagedType.I1)] bool default_value);
+
+    [LibraryImport("libtcod", EntryPoint = "SDL_ClearProperty", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool SDL_ClearProperty(uint props, string name);
+
+    [LibraryImport("libtcod", EntryPoint = "SDL_EnumerateProperties", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool SDL_EnumerateProperties(uint props, nint callback, nint userdata);
+
+    [LibraryImport("libtcod", EntryPoint = "SDL_DestroyProperties", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void SDL_DestroyProperties(uint props);
 
     [LibraryImport("libtcod", EntryPoint = "SDL_CreateThreadRuntime", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
@@ -9115,6 +5881,16 @@ public static unsafe partial class NativeMethods
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_PutAudioStreamData(SDL_AudioStream* stream, nint buf, int len);
 
+    [LibraryImport("libtcod", EntryPoint = "SDL_PutAudioStreamDataNoCopy", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool SDL_PutAudioStreamDataNoCopy(SDL_AudioStream* stream, nint buf, int len, nint callback, nint userdata);
+
+    [LibraryImport("libtcod", EntryPoint = "SDL_PutAudioStreamPlanarData", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool SDL_PutAudioStreamPlanarData(SDL_AudioStream* stream, nint channel_buffers, int num_channels, int num_samples);
+
     [LibraryImport("libtcod", EntryPoint = "SDL_GetAudioStreamData", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial int SDL_GetAudioStreamData(SDL_AudioStream* stream, nint buf, int len);
@@ -9280,11 +6056,11 @@ public static unsafe partial class NativeMethods
 
     [LibraryImport("libtcod", EntryPoint = "SDL_GetRGB", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void SDL_GetRGB(uint pixel, SDL_PixelFormatDetails* format, SDL_Palette* palette, byte* r, byte* g, byte* b);
+    public static partial void SDL_GetRGB(uint pixelvalue, SDL_PixelFormatDetails* format, SDL_Palette* palette, byte* r, byte* g, byte* b);
 
     [LibraryImport("libtcod", EntryPoint = "SDL_GetRGBA", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void SDL_GetRGBA(uint pixel, SDL_PixelFormatDetails* format, SDL_Palette* palette, byte* r, byte* g, byte* b, byte* a);
+    public static partial void SDL_GetRGBA(uint pixelvalue, SDL_PixelFormatDetails* format, SDL_Palette* palette, byte* r, byte* g, byte* b, byte* a);
 
     [LibraryImport("libtcod", EntryPoint = "SDL_RectToFRect", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
@@ -9440,6 +6216,14 @@ public static unsafe partial class NativeMethods
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_UnlockSurface(SDL_Surface* surface);
 
+    [LibraryImport("libtcod", EntryPoint = "SDL_LoadSurface_IO", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial SDL_Surface* SDL_LoadSurface_IO(SDL_IOStream* src, [MarshalAs(UnmanagedType.I1)] bool closeio);
+
+    [LibraryImport("libtcod", EntryPoint = "SDL_LoadSurface", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial SDL_Surface* SDL_LoadSurface(string file);
+
     [LibraryImport("libtcod", EntryPoint = "SDL_LoadBMP_IO", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Surface* SDL_LoadBMP_IO(SDL_IOStream* src, [MarshalAs(UnmanagedType.I1)] bool closeio);
@@ -9457,6 +6241,24 @@ public static unsafe partial class NativeMethods
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SaveBMP(SDL_Surface* surface, string file);
+
+    [LibraryImport("libtcod", EntryPoint = "SDL_LoadPNG_IO", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial SDL_Surface* SDL_LoadPNG_IO(SDL_IOStream* src, [MarshalAs(UnmanagedType.I1)] bool closeio);
+
+    [LibraryImport("libtcod", EntryPoint = "SDL_LoadPNG", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial SDL_Surface* SDL_LoadPNG(string file);
+
+    [LibraryImport("libtcod", EntryPoint = "SDL_SavePNG_IO", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool SDL_SavePNG_IO(SDL_Surface* surface, SDL_IOStream* dst, [MarshalAs(UnmanagedType.I1)] bool closeio);
+
+    [LibraryImport("libtcod", EntryPoint = "SDL_SavePNG", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool SDL_SavePNG(SDL_Surface* surface, string file);
 
     [LibraryImport("libtcod", EntryPoint = "SDL_SetSurfaceRLE", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
@@ -9527,6 +6329,10 @@ public static unsafe partial class NativeMethods
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_FlipSurface(SDL_Surface* surface, SDL_FlipMode flip);
+
+    [LibraryImport("libtcod", EntryPoint = "SDL_RotateSurface", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial SDL_Surface* SDL_RotateSurface(SDL_Surface* surface, float angle);
 
     [LibraryImport("libtcod", EntryPoint = "SDL_DuplicateSurface", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
@@ -9702,7 +6508,7 @@ public static unsafe partial class NativeMethods
 
     [LibraryImport("libtcod", EntryPoint = "SDL_GetCameraPermissionState", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial int SDL_GetCameraPermissionState(SDL_Camera* camera);
+    public static partial SDL_CameraPermissionState SDL_GetCameraPermissionState(SDL_Camera* camera);
 
     [LibraryImport("libtcod", EntryPoint = "SDL_GetCameraID", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
@@ -9894,6 +6700,10 @@ public static unsafe partial class NativeMethods
     [LibraryImport("libtcod", EntryPoint = "SDL_GetSIMDAlignment", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint SDL_GetSIMDAlignment();
+
+    [LibraryImport("libtcod", EntryPoint = "SDL_GetSystemPageSize", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int SDL_GetSystemPageSize();
 
     [LibraryImport("libtcod", EntryPoint = "SDL_GetNumVideoDrivers", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
@@ -10161,6 +6971,11 @@ public static unsafe partial class NativeMethods
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetWindowAlwaysOnTop(SDL_Window* window, [MarshalAs(UnmanagedType.I1)] bool on_top);
 
+    [LibraryImport("libtcod", EntryPoint = "SDL_SetWindowFillDocument", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool SDL_SetWindowFillDocument(SDL_Window* window, [MarshalAs(UnmanagedType.I1)] bool fill);
+
     [LibraryImport("libtcod", EntryPoint = "SDL_ShowWindow", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
@@ -10311,6 +7126,24 @@ public static unsafe partial class NativeMethods
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_FlashWindow(SDL_Window* window, SDL_FlashOperation operation);
+
+    [LibraryImport("libtcod", EntryPoint = "SDL_SetWindowProgressState", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool SDL_SetWindowProgressState(SDL_Window* window, SDL_ProgressState state);
+
+    [LibraryImport("libtcod", EntryPoint = "SDL_GetWindowProgressState", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial SDL_ProgressState SDL_GetWindowProgressState(SDL_Window* window);
+
+    [LibraryImport("libtcod", EntryPoint = "SDL_SetWindowProgressValue", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool SDL_SetWindowProgressValue(SDL_Window* window, float value);
+
+    [LibraryImport("libtcod", EntryPoint = "SDL_GetWindowProgressValue", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial float SDL_GetWindowProgressValue(SDL_Window* window);
 
     [LibraryImport("libtcod", EntryPoint = "SDL_DestroyWindow", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
@@ -11408,6 +8241,11 @@ public static unsafe partial class NativeMethods
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_WarpMouseGlobal(float x, float y);
 
+    [LibraryImport("libtcod", EntryPoint = "SDL_SetRelativeMouseTransform", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool SDL_SetRelativeMouseTransform(nint callback, nint userdata);
+
     [LibraryImport("libtcod", EntryPoint = "SDL_SetWindowRelativeMouseMode", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
@@ -11430,6 +8268,10 @@ public static unsafe partial class NativeMethods
     [LibraryImport("libtcod", EntryPoint = "SDL_CreateColorCursor", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Cursor* SDL_CreateColorCursor(SDL_Surface* surface, int hot_x, int hot_y);
+
+    [LibraryImport("libtcod", EntryPoint = "SDL_CreateAnimatedCursor", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial SDL_Cursor* SDL_CreateAnimatedCursor(SDL_CursorFrameInfo* frames, int frame_count, int hot_x, int hot_y);
 
     [LibraryImport("libtcod", EntryPoint = "SDL_CreateSystemCursor", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
@@ -11489,6 +8331,10 @@ public static unsafe partial class NativeMethods
     [LibraryImport("libtcod", EntryPoint = "SDL_GetTouchFingers", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Finger** SDL_GetTouchFingers(uint touchID, nint count);
+
+    [LibraryImport("libtcod", EntryPoint = "SDL_GetPenDeviceType", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial SDL_PenDeviceType SDL_GetPenDeviceType(uint instance_id);
 
     [LibraryImport("libtcod", EntryPoint = "SDL_PumpEvents", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
@@ -11574,6 +8420,10 @@ public static unsafe partial class NativeMethods
     [LibraryImport("libtcod", EntryPoint = "SDL_GetWindowFromEvent", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Window* SDL_GetWindowFromEvent(SDL_Event* @event);
+
+    [LibraryImport("libtcod", EntryPoint = "SDL_GetEventDescription", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int SDL_GetEventDescription(SDL_Event* @event, string buf, int buflen);
 
     [LibraryImport("libtcod", EntryPoint = "SDL_GetBasePath", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
@@ -11704,6 +8554,10 @@ public static unsafe partial class NativeMethods
     [LibraryImport("libtcod", EntryPoint = "SDL_GetGPUShaderFormats", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint SDL_GetGPUShaderFormats(SDL_GPUDevice* device);
+
+    [LibraryImport("libtcod", EntryPoint = "SDL_GetGPUDeviceProperties", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial uint SDL_GetGPUDeviceProperties(SDL_GPUDevice* device);
 
     [LibraryImport("libtcod", EntryPoint = "SDL_CreateGPUComputePipeline", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
@@ -12052,6 +8906,14 @@ public static unsafe partial class NativeMethods
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint SDL_CalculateGPUTextureFormatSize(SDL_GPUTextureFormat format, uint width, uint height, uint depth_or_layer_count);
 
+    [LibraryImport("libtcod", EntryPoint = "SDL_GetPixelFormatFromGPUTextureFormat", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial SDL_PixelFormat SDL_GetPixelFormatFromGPUTextureFormat(SDL_GPUTextureFormat format);
+
+    [LibraryImport("libtcod", EntryPoint = "SDL_GetGPUTextureFormatFromPixelFormat", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial SDL_GPUTextureFormat SDL_GetGPUTextureFormatFromPixelFormat(SDL_PixelFormat format);
+
     [LibraryImport("libtcod", EntryPoint = "SDL_GetHaptics", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint* SDL_GetHaptics(nint count);
@@ -12233,6 +9095,10 @@ public static unsafe partial class NativeMethods
     [LibraryImport("libtcod", EntryPoint = "SDL_hid_open_path", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_hid_device* SDL_hid_open_path(string path);
+
+    [LibraryImport("libtcod", EntryPoint = "SDL_hid_get_properties", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial uint SDL_hid_get_properties(SDL_hid_device* dev);
 
     [LibraryImport("libtcod", EntryPoint = "SDL_hid_write", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
@@ -12559,6 +9425,14 @@ public static unsafe partial class NativeMethods
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Renderer* SDL_CreateRendererWithProperties(uint props);
 
+    [LibraryImport("libtcod", EntryPoint = "SDL_CreateGPURenderer", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial SDL_Renderer* SDL_CreateGPURenderer(SDL_GPUDevice* device, SDL_Window* window);
+
+    [LibraryImport("libtcod", EntryPoint = "SDL_GetGPURendererDevice", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial SDL_GPUDevice* SDL_GetGPURendererDevice(SDL_Renderer* renderer);
+
     [LibraryImport("libtcod", EntryPoint = "SDL_CreateSoftwareRenderer", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Renderer* SDL_CreateSoftwareRenderer(SDL_Surface* surface);
@@ -12620,6 +9494,15 @@ public static unsafe partial class NativeMethods
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GetTextureSize(SDL_Texture* texture, nint w, nint h);
+
+    [LibraryImport("libtcod", EntryPoint = "SDL_SetTexturePalette", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool SDL_SetTexturePalette(SDL_Texture* texture, SDL_Palette* palette);
+
+    [LibraryImport("libtcod", EntryPoint = "SDL_GetTexturePalette", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial SDL_Palette* SDL_GetTexturePalette(SDL_Texture* texture);
 
     [LibraryImport("libtcod", EntryPoint = "SDL_SetTextureColorMod", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
@@ -12904,6 +9787,11 @@ public static unsafe partial class NativeMethods
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_RenderTexture9Grid(SDL_Renderer* renderer, SDL_Texture* texture, SDL_FRect* srcrect, float left_width, float right_width, float top_height, float bottom_height, float scale, SDL_FRect* dstrect);
 
+    [LibraryImport("libtcod", EntryPoint = "SDL_RenderTexture9GridTiled", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool SDL_RenderTexture9GridTiled(SDL_Renderer* renderer, SDL_Texture* texture, SDL_FRect* srcrect, float left_width, float right_width, float top_height, float bottom_height, float scale, SDL_FRect* dstrect, float tileScale);
+
     [LibraryImport("libtcod", EntryPoint = "SDL_RenderGeometry", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
@@ -12913,6 +9801,16 @@ public static unsafe partial class NativeMethods
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_RenderGeometryRaw(SDL_Renderer* renderer, SDL_Texture* texture, nint xy, int xy_stride, SDL_FColor* color, int color_stride, nint uv, int uv_stride, int num_vertices, nint indices, int num_indices, int size_indices);
+
+    [LibraryImport("libtcod", EntryPoint = "SDL_SetRenderTextureAddressMode", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool SDL_SetRenderTextureAddressMode(SDL_Renderer* renderer, SDL_TextureAddressMode u_mode, SDL_TextureAddressMode v_mode);
+
+    [LibraryImport("libtcod", EntryPoint = "SDL_GetRenderTextureAddressMode", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool SDL_GetRenderTextureAddressMode(SDL_Renderer* renderer, SDL_TextureAddressMode* u_mode, SDL_TextureAddressMode* v_mode);
 
     [LibraryImport("libtcod", EntryPoint = "SDL_RenderReadPixels", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
@@ -12963,6 +9861,34 @@ public static unsafe partial class NativeMethods
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_RenderDebugText(SDL_Renderer* renderer, float x, float y, string str);
+
+    [LibraryImport("libtcod", EntryPoint = "SDL_SetDefaultTextureScaleMode", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool SDL_SetDefaultTextureScaleMode(SDL_Renderer* renderer, SDL_ScaleMode scale_mode);
+
+    [LibraryImport("libtcod", EntryPoint = "SDL_GetDefaultTextureScaleMode", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool SDL_GetDefaultTextureScaleMode(SDL_Renderer* renderer, SDL_ScaleMode* scale_mode);
+
+    [LibraryImport("libtcod", EntryPoint = "SDL_CreateGPURenderState", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial SDL_GPURenderState* SDL_CreateGPURenderState(SDL_Renderer* renderer, SDL_GPURenderStateCreateInfo* createinfo);
+
+    [LibraryImport("libtcod", EntryPoint = "SDL_SetGPURenderStateFragmentUniforms", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool SDL_SetGPURenderStateFragmentUniforms(SDL_GPURenderState* state, uint slot_index, nint data, uint length);
+
+    [LibraryImport("libtcod", EntryPoint = "SDL_SetGPURenderState", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool SDL_SetGPURenderState(SDL_Renderer* renderer, SDL_GPURenderState* state);
+
+    [LibraryImport("libtcod", EntryPoint = "SDL_DestroyGPURenderState", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void SDL_DestroyGPURenderState(SDL_GPURenderState* state);
 
     [LibraryImport("libtcod", EntryPoint = "SDL_OpenTitleStorage", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]

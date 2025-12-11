@@ -218,9 +218,45 @@ def test_sdl3_generates_valid_csharp():
         assert "Build succeeded" in result.stdout or "Build SUCCEEDED" in result.stdout
 
 
+def test_cli_missing_header_files():
+    """Test CLI behavior with missing header files"""
+    # Test that CLI fails by default with missing file
+    result = subprocess.run(
+        [
+            "python", "-m", "cs_binding_generator.main",
+            "-i", "/nonexistent/file.h",
+            "-l", "testlib"
+        ],
+        capture_output=True,
+        text=True
+    )
+    
+    # Should fail
+    assert result.returncode != 0
+    assert "Error: Header file not found" in result.stderr
+
+    # Test that CLI succeeds with --ignore-missing flag
+    result = subprocess.run(
+        [
+            "python", "-m", "cs_binding_generator.main",
+            "-i", "/nonexistent/file.h",
+            "-l", "testlib",
+            "--ignore-missing"
+        ],
+        capture_output=True,
+        text=True
+    )
+    
+    # Should succeed but generate empty output
+    assert result.returncode == 0
+    assert "Warning: Header file not found" in result.stderr
+    assert "namespace Bindings;" in result.stdout
+
+
 if __name__ == "__main__":
     test_cli_with_include_directories()
     test_cli_multiple_include_dirs()
     test_cli_include_depth()
     test_sdl3_generates_valid_csharp()
+    test_cli_missing_header_files()
     print("CLI tests passed!")
