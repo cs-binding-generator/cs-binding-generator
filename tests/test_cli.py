@@ -146,7 +146,7 @@ void main_function();
         assert "MainType" in result.stdout
         assert "main_function" in result.stdout
         # BaseType should not be generated (it's in included file)
-        assert "public struct BaseType" not in result.stdout
+        assert "public partial struct BaseType" not in result.stdout
         
         # Test with depth 1 (should have both)
         result = subprocess.run(

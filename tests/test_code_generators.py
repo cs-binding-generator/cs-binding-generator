@@ -123,7 +123,7 @@ class TestCodeGenerator:
         result = self.generator.generate_struct(mock_cursor)
         
         assert "[StructLayout(LayoutKind.Explicit)]" in result
-        assert "public unsafe struct Point" in result
+        assert "public unsafe partial struct Point" in result
         assert "[FieldOffset(0)]" in result
         assert "[FieldOffset(4)]" in result
         assert "public int x;" in result
@@ -168,7 +168,7 @@ class TestCodeGenerator:
         result = self.generator.generate_union(mock_cursor)
         
         assert "[StructLayout(LayoutKind.Explicit)]" in result
-        assert "public unsafe struct Data" in result
+        assert "public unsafe partial struct Data" in result
         # Both fields should be at offset 0 in a union
         assert result.count("[FieldOffset(0)]") == 2
         assert "public int as_int;" in result
@@ -243,7 +243,7 @@ class TestOutputBuilder:
     def test_build_complete_output(self):
         """Test building complete C# output"""
         enums = ['public enum Status\n{\n    OK = 0,\n}\n']
-        structs = ['[StructLayout(LayoutKind.Explicit)]\npublic struct Point\n{\n    [FieldOffset(0)]\n    public int x;\n}\n']
+        structs = ['[StructLayout(LayoutKind.Explicit)]\npublic partial struct Point\n{\n    [FieldOffset(0)]\n    public int x;\n}\n']
         functions = ['    [LibraryImport("mylib")]\n    public static partial int add(int a, int b);\n']
         
         result = OutputBuilder.build(
@@ -259,7 +259,7 @@ class TestOutputBuilder:
         assert "using System.Runtime.InteropServices.Marshalling;" in result
         assert "namespace MyApp.Bindings;" in result
         assert "public enum Status" in result
-        assert "public struct Point" in result
+        assert "public partial struct Point" in result
         assert "public static unsafe partial class NativeMethods" in result
         assert "public static partial int add(int a, int b);" in result
     

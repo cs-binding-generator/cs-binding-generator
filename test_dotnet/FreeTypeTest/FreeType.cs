@@ -2,58 +2,32 @@ using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.Marshalling;
 using System.Runtime.CompilerServices;
 
+[assembly: System.Runtime.CompilerServices.DisableRuntimeMarshalling]
+
 namespace FreeType;
 
-public enum FT_Pixel_Mode_
+public enum FT_Encoding_
 {
-    FT_PIXEL_MODE_NONE = 0,
-    FT_PIXEL_MODE_MONO = 1,
-    FT_PIXEL_MODE_GRAY = 2,
-    FT_PIXEL_MODE_GRAY2 = 3,
-    FT_PIXEL_MODE_GRAY4 = 4,
-    FT_PIXEL_MODE_LCD = 5,
-    FT_PIXEL_MODE_LCD_V = 6,
-    FT_PIXEL_MODE_BGRA = 7,
-    FT_PIXEL_MODE_MAX = 8,
-}
-
-public enum FT_Glyph_Format_
-{
-    FT_GLYPH_FORMAT_NONE = 0,
-    FT_GLYPH_FORMAT_COMPOSITE = 1668246896,
-    FT_GLYPH_FORMAT_BITMAP = 1651078259,
-    FT_GLYPH_FORMAT_OUTLINE = 1869968492,
-    FT_GLYPH_FORMAT_PLOTTER = 1886154612,
-    FT_GLYPH_FORMAT_SVG = 1398163232,
-}
-
-public enum FT_Mod_Err
-{
-    FT_Mod_Err_Base = 0,
-    FT_Mod_Err_Autofit = 0,
-    FT_Mod_Err_BDF = 0,
-    FT_Mod_Err_Bzip2 = 0,
-    FT_Mod_Err_Cache = 0,
-    FT_Mod_Err_CFF = 0,
-    FT_Mod_Err_CID = 0,
-    FT_Mod_Err_Gzip = 0,
-    FT_Mod_Err_LZW = 0,
-    FT_Mod_Err_OTvalid = 0,
-    FT_Mod_Err_PCF = 0,
-    FT_Mod_Err_PFR = 0,
-    FT_Mod_Err_PSaux = 0,
-    FT_Mod_Err_PShinter = 0,
-    FT_Mod_Err_PSnames = 0,
-    FT_Mod_Err_Raster = 0,
-    FT_Mod_Err_SFNT = 0,
-    FT_Mod_Err_Smooth = 0,
-    FT_Mod_Err_TrueType = 0,
-    FT_Mod_Err_Type1 = 0,
-    FT_Mod_Err_Type42 = 0,
-    FT_Mod_Err_Winfonts = 0,
-    FT_Mod_Err_GXvalid = 0,
-    FT_Mod_Err_Sdf = 0,
-    FT_Mod_Err_Max = 1,
+    FT_ENCODING_NONE = 0,
+    FT_ENCODING_MS_SYMBOL = 1937337698,
+    FT_ENCODING_UNICODE = 1970170211,
+    FT_ENCODING_SJIS = 1936353651,
+    FT_ENCODING_PRC = 1734484000,
+    FT_ENCODING_BIG5 = 1651074869,
+    FT_ENCODING_WANSUNG = 2002873971,
+    FT_ENCODING_JOHAB = 1785686113,
+    FT_ENCODING_GB2312 = 1734484000,
+    FT_ENCODING_MS_SJIS = 1936353651,
+    FT_ENCODING_MS_GB2312 = 1734484000,
+    FT_ENCODING_MS_BIG5 = 1651074869,
+    FT_ENCODING_MS_WANSUNG = 2002873971,
+    FT_ENCODING_MS_JOHAB = 1785686113,
+    FT_ENCODING_ADOBE_STANDARD = 1094995778,
+    FT_ENCODING_ADOBE_EXPERT = 1094992453,
+    FT_ENCODING_ADOBE_CUSTOM = 1094992451,
+    FT_ENCODING_ADOBE_LATIN_1 = 1818326065,
+    FT_ENCODING_OLD_LATIN_2 = 1818326066,
+    FT_ENCODING_APPLE_ROMAN = 1634889070,
 }
 
 public enum FT_Err
@@ -156,38 +130,63 @@ public enum FT_Err
     FT_Err_Max = 187,
 }
 
-public enum FT_Encoding_
+public enum FT_Glyph_Format_
 {
-    FT_ENCODING_NONE = 0,
-    FT_ENCODING_MS_SYMBOL = 1937337698,
-    FT_ENCODING_UNICODE = 1970170211,
-    FT_ENCODING_SJIS = 1936353651,
-    FT_ENCODING_PRC = 1734484000,
-    FT_ENCODING_BIG5 = 1651074869,
-    FT_ENCODING_WANSUNG = 2002873971,
-    FT_ENCODING_JOHAB = 1785686113,
-    FT_ENCODING_GB2312 = 1734484000,
-    FT_ENCODING_MS_SJIS = 1936353651,
-    FT_ENCODING_MS_GB2312 = 1734484000,
-    FT_ENCODING_MS_BIG5 = 1651074869,
-    FT_ENCODING_MS_WANSUNG = 2002873971,
-    FT_ENCODING_MS_JOHAB = 1785686113,
-    FT_ENCODING_ADOBE_STANDARD = 1094995778,
-    FT_ENCODING_ADOBE_EXPERT = 1094992453,
-    FT_ENCODING_ADOBE_CUSTOM = 1094992451,
-    FT_ENCODING_ADOBE_LATIN_1 = 1818326065,
-    FT_ENCODING_OLD_LATIN_2 = 1818326066,
-    FT_ENCODING_APPLE_ROMAN = 1634889070,
+    FT_GLYPH_FORMAT_NONE = 0,
+    FT_GLYPH_FORMAT_COMPOSITE = 1668246896,
+    FT_GLYPH_FORMAT_BITMAP = 1651078259,
+    FT_GLYPH_FORMAT_OUTLINE = 1869968492,
+    FT_GLYPH_FORMAT_PLOTTER = 1886154612,
+    FT_GLYPH_FORMAT_SVG = 1398163232,
 }
 
-public enum FT_Size_Request_Type_
+public enum FT_Kerning_Mode_
 {
-    FT_SIZE_REQUEST_TYPE_NOMINAL = 0,
-    FT_SIZE_REQUEST_TYPE_REAL_DIM = 1,
-    FT_SIZE_REQUEST_TYPE_BBOX = 2,
-    FT_SIZE_REQUEST_TYPE_CELL = 3,
-    FT_SIZE_REQUEST_TYPE_SCALES = 4,
-    FT_SIZE_REQUEST_TYPE_MAX = 5,
+    FT_KERNING_DEFAULT = 0,
+    FT_KERNING_UNFITTED = 1,
+    FT_KERNING_UNSCALED = 2,
+}
+
+public enum FT_Mod_Err
+{
+    FT_Mod_Err_Base = 0,
+    FT_Mod_Err_Autofit = 0,
+    FT_Mod_Err_BDF = 0,
+    FT_Mod_Err_Bzip2 = 0,
+    FT_Mod_Err_Cache = 0,
+    FT_Mod_Err_CFF = 0,
+    FT_Mod_Err_CID = 0,
+    FT_Mod_Err_Gzip = 0,
+    FT_Mod_Err_LZW = 0,
+    FT_Mod_Err_OTvalid = 0,
+    FT_Mod_Err_PCF = 0,
+    FT_Mod_Err_PFR = 0,
+    FT_Mod_Err_PSaux = 0,
+    FT_Mod_Err_PShinter = 0,
+    FT_Mod_Err_PSnames = 0,
+    FT_Mod_Err_Raster = 0,
+    FT_Mod_Err_SFNT = 0,
+    FT_Mod_Err_Smooth = 0,
+    FT_Mod_Err_TrueType = 0,
+    FT_Mod_Err_Type1 = 0,
+    FT_Mod_Err_Type42 = 0,
+    FT_Mod_Err_Winfonts = 0,
+    FT_Mod_Err_GXvalid = 0,
+    FT_Mod_Err_Sdf = 0,
+    FT_Mod_Err_Max = 1,
+}
+
+public enum FT_Pixel_Mode_
+{
+    FT_PIXEL_MODE_NONE = 0,
+    FT_PIXEL_MODE_MONO = 1,
+    FT_PIXEL_MODE_GRAY = 2,
+    FT_PIXEL_MODE_GRAY2 = 3,
+    FT_PIXEL_MODE_GRAY4 = 4,
+    FT_PIXEL_MODE_LCD = 5,
+    FT_PIXEL_MODE_LCD_V = 6,
+    FT_PIXEL_MODE_BGRA = 7,
+    FT_PIXEL_MODE_MAX = 8,
 }
 
 public enum FT_Render_Mode_
@@ -201,20 +200,23 @@ public enum FT_Render_Mode_
     FT_RENDER_MODE_MAX = 6,
 }
 
-public enum FT_Kerning_Mode_
+public enum FT_Size_Request_Type_
 {
-    FT_KERNING_DEFAULT = 0,
-    FT_KERNING_UNFITTED = 1,
-    FT_KERNING_UNSCALED = 2,
+    FT_SIZE_REQUEST_TYPE_NOMINAL = 0,
+    FT_SIZE_REQUEST_TYPE_REAL_DIM = 1,
+    FT_SIZE_REQUEST_TYPE_BBOX = 2,
+    FT_SIZE_REQUEST_TYPE_CELL = 3,
+    FT_SIZE_REQUEST_TYPE_SCALES = 4,
+    FT_SIZE_REQUEST_TYPE_MAX = 5,
 }
 
 
-public struct FT_Memory
+public partial struct FT_Memory
 {
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct FT_MemoryRec_
+public unsafe partial struct FT_MemoryRec_
 {
     [FieldOffset(0)]
     public nint user;
@@ -226,12 +228,12 @@ public unsafe struct FT_MemoryRec_
     public nint realloc;
 }
 
-public struct FT_Stream
+public partial struct FT_Stream
 {
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct FT_StreamRec_
+public unsafe partial struct FT_StreamRec_
 {
     [FieldOffset(0)]
     public nint @base;
@@ -256,7 +258,7 @@ public unsafe struct FT_StreamRec_
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct FT_Vector_
+public unsafe partial struct FT_Vector_
 {
     [FieldOffset(0)]
     public int x;
@@ -265,7 +267,7 @@ public unsafe struct FT_Vector_
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct FT_BBox_
+public unsafe partial struct FT_BBox_
 {
     [FieldOffset(0)]
     public int xMin;
@@ -278,7 +280,7 @@ public unsafe struct FT_BBox_
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct FT_Bitmap_
+public unsafe partial struct FT_Bitmap_
 {
     [FieldOffset(0)]
     public uint rows;
@@ -299,7 +301,7 @@ public unsafe struct FT_Bitmap_
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct FT_Outline_
+public unsafe partial struct FT_Outline_
 {
     [FieldOffset(0)]
     public ushort n_contours;
@@ -316,7 +318,7 @@ public unsafe struct FT_Outline_
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct FT_Outline_Funcs_
+public unsafe partial struct FT_Outline_Funcs_
 {
     [FieldOffset(0)]
     public nint move_to;
@@ -333,7 +335,7 @@ public unsafe struct FT_Outline_Funcs_
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct FT_Span_
+public unsafe partial struct FT_Span_
 {
     [FieldOffset(0)]
     public short x;
@@ -344,7 +346,7 @@ public unsafe struct FT_Span_
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct FT_Raster_Params_
+public unsafe partial struct FT_Raster_Params_
 {
     [FieldOffset(0)]
     public FT_Bitmap_* target;
@@ -366,12 +368,12 @@ public unsafe struct FT_Raster_Params_
     public FT_BBox_ clip_box;
 }
 
-public struct FT_Raster
+public partial struct FT_Raster
 {
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct FT_Raster_Funcs_
+public unsafe partial struct FT_Raster_Funcs_
 {
     [FieldOffset(0)]
     public FT_Glyph_Format_ glyph_format;
@@ -388,7 +390,7 @@ public unsafe struct FT_Raster_Funcs_
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct FT_UnitVector_
+public unsafe partial struct FT_UnitVector_
 {
     [FieldOffset(0)]
     public short x;
@@ -397,7 +399,7 @@ public unsafe struct FT_UnitVector_
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct FT_Matrix_
+public unsafe partial struct FT_Matrix_
 {
     [FieldOffset(0)]
     public int xx;
@@ -410,7 +412,7 @@ public unsafe struct FT_Matrix_
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct FT_Data_
+public unsafe partial struct FT_Data_
 {
     [FieldOffset(0)]
     public byte* pointer;
@@ -419,7 +421,7 @@ public unsafe struct FT_Data_
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct FT_Generic_
+public unsafe partial struct FT_Generic_
 {
     [FieldOffset(0)]
     public nint data;
@@ -427,16 +429,16 @@ public unsafe struct FT_Generic_
     public nint finalizer;
 }
 
-public struct FT_ListNode
+public partial struct FT_ListNode
 {
 }
 
-public struct FT_List
+public partial struct FT_List
 {
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct FT_ListNodeRec_
+public unsafe partial struct FT_ListNodeRec_
 {
     [FieldOffset(0)]
     public nint prev;
@@ -447,7 +449,7 @@ public unsafe struct FT_ListNodeRec_
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct FT_ListRec_
+public unsafe partial struct FT_ListRec_
 {
     [FieldOffset(0)]
     public nint head;
@@ -456,7 +458,7 @@ public unsafe struct FT_ListRec_
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct FT_Glyph_Metrics_
+public unsafe partial struct FT_Glyph_Metrics_
 {
     [FieldOffset(0)]
     public int width;
@@ -477,7 +479,7 @@ public unsafe struct FT_Glyph_Metrics_
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct FT_Bitmap_Size_
+public unsafe partial struct FT_Bitmap_Size_
 {
     [FieldOffset(0)]
     public short height;
@@ -491,40 +493,40 @@ public unsafe struct FT_Bitmap_Size_
     public int y_ppem;
 }
 
-public struct FT_Library
+public partial struct FT_Library
 {
 }
 
-public struct FT_Module
+public partial struct FT_Module
 {
 }
 
-public struct FT_Driver
+public partial struct FT_Driver
 {
 }
 
-public struct FT_Renderer
+public partial struct FT_Renderer
 {
 }
 
-public struct FT_Face
+public partial struct FT_Face
 {
 }
 
-public struct FT_Size
+public partial struct FT_Size
 {
 }
 
-public struct FT_GlyphSlot
+public partial struct FT_GlyphSlot
 {
 }
 
-public struct FT_CharMap
+public partial struct FT_CharMap
 {
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct FT_CharMapRec_
+public unsafe partial struct FT_CharMapRec_
 {
     [FieldOffset(0)]
     public nint face;
@@ -536,12 +538,12 @@ public unsafe struct FT_CharMapRec_
     public ushort encoding_id;
 }
 
-public struct FT_Face_Internal
+public partial struct FT_Face_Internal
 {
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct FT_FaceRec_
+public unsafe partial struct FT_FaceRec_
 {
     [FieldOffset(0)]
     public int num_faces;
@@ -607,12 +609,12 @@ public unsafe struct FT_FaceRec_
     public nint @internal;
 }
 
-public struct FT_Size_Internal
+public partial struct FT_Size_Internal
 {
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct FT_Size_Metrics_
+public unsafe partial struct FT_Size_Metrics_
 {
     [FieldOffset(0)]
     public ushort x_ppem;
@@ -633,7 +635,7 @@ public unsafe struct FT_Size_Metrics_
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct FT_SizeRec_
+public unsafe partial struct FT_SizeRec_
 {
     [FieldOffset(0)]
     public nint face;
@@ -645,16 +647,16 @@ public unsafe struct FT_SizeRec_
     public nint @internal;
 }
 
-public struct FT_SubGlyph
+public partial struct FT_SubGlyph
 {
 }
 
-public struct FT_Slot_Internal
+public partial struct FT_Slot_Internal
 {
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct FT_GlyphSlotRec_
+public unsafe partial struct FT_GlyphSlotRec_
 {
     [FieldOffset(0)]
     public nint library;
@@ -703,7 +705,7 @@ public unsafe struct FT_GlyphSlotRec_
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct FT_Parameter_
+public unsafe partial struct FT_Parameter_
 {
     [FieldOffset(0)]
     public uint tag;
@@ -712,7 +714,7 @@ public unsafe struct FT_Parameter_
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct FT_Open_Args_
+public unsafe partial struct FT_Open_Args_
 {
     [FieldOffset(0)]
     public uint flags;
@@ -733,7 +735,7 @@ public unsafe struct FT_Open_Args_
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct FT_Size_RequestRec_
+public unsafe partial struct FT_Size_RequestRec_
 {
     [FieldOffset(0)]
     public FT_Size_Request_Type_ type;
@@ -747,7 +749,7 @@ public unsafe struct FT_Size_RequestRec_
     public uint vertResolution;
 }
 
-public struct FT_Size_Request
+public partial struct FT_Size_Request
 {
 }
 

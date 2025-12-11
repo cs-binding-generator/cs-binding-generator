@@ -257,7 +257,7 @@ class CodeGenerator:
         fields_str = "\n".join(fields)
         
         code = f'''[StructLayout(LayoutKind.Explicit)]
-public unsafe struct {struct_name}
+public unsafe partial struct {struct_name}
 {{
 {fields_str}
 }}
@@ -271,7 +271,7 @@ public unsafe struct {struct_name}
         
         # Generate an empty struct that can be used as a type-safe handle
         # Note: Cannot use readonly because these are used with unsafe pointers
-        code = f'''public struct {type_name}
+        code = f'''public partial struct {type_name}
 {{
 }}
 '''
@@ -331,7 +331,7 @@ public unsafe struct {struct_name}
         fields_str = "\n".join(fields)
         
         code = f'''[StructLayout(LayoutKind.Explicit)]
-public unsafe struct {union_name}
+public unsafe partial struct {union_name}
 {{
 {fields_str}
 }}
@@ -440,6 +440,10 @@ class OutputBuilder:
         from .constants import REQUIRED_USINGS
         parts.extend(REQUIRED_USINGS)
         
+        parts.append("")
+        
+        # Assembly attribute to disable runtime marshalling for AOT compatibility
+        parts.append("[assembly: System.Runtime.CompilerServices.DisableRuntimeMarshalling]")
         parts.append("")
         
         # Namespace

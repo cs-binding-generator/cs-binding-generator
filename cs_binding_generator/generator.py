@@ -31,7 +31,7 @@ class CSharpBindingsGenerator:
         self.seen_functions = set()  # (name, location)
         self.seen_structs = set()    # (name, location)
         self.seen_unions = set()     # (name, location)
-        self.seen_enums = set()      # (name, location)
+        self.enum_members = {}       # name -> list of (member_name, value) tuples
     
     def _is_system_header(self, file_path: str) -> bool:
         """Check if a file path is a system header that should be excluded"""
@@ -103,7 +103,7 @@ class CSharpBindingsGenerator:
             if cursor.is_definition():
                 # Only generate code for non-system headers
                 if cursor.location.file:
-                    file_path = str(cursor.location.file)
+                    file_path = str(Path(cursor.location.file.name).resolve())
                     if file_path not in self.allowed_files or self._is_system_header(file_path):
                         # Don't generate code but still recurse
                         for child in cursor.get_children():
@@ -124,7 +124,7 @@ class CSharpBindingsGenerator:
             if cursor.is_definition():
                 # Only generate code for non-system headers
                 if cursor.location.file:
-                    file_path = str(cursor.location.file)
+                    file_path = str(Path(cursor.location.file.name).resolve())
                     if file_path not in self.allowed_files or self._is_system_header(file_path):
                         # Don't generate code but still recurse
                         for child in cursor.get_children():
@@ -142,19 +142,14 @@ class CSharpBindingsGenerator:
             if cursor.is_definition():
                 # Only generate code for non-system headers
                 if cursor.location.file:
-                    file_path = str(cursor.location.file)
+                    file_path = str(Path(cursor.location.file.name).resolve())
                     if file_path not in self.allowed_files or self._is_system_header(file_path):
                         # Don't generate code but still recurse
                         for child in cursor.get_children():
                             self.process_cursor(child)
                         return
-                # Check if we've already generated this enum
-                enum_key = (cursor.spelling, str(cursor.location.file), cursor.location.line)
-                if enum_key not in self.seen_enums:
-                    code = self.code_generator.generate_enum(cursor)
-                    if code:
-                        self.generated_enums.append(code)
-                        self.seen_enums.add(enum_key)
+                # Collect enum members for merging (handle duplicate enum names)
+                self._collect_enum_members(cursor)
         
         elif cursor.kind == CursorKind.TYPEDEF_DECL:
             # Build typedef resolution map for ALL typedefs (including system headers)
@@ -235,6 +230,56 @@ class CSharpBindingsGenerator:
         # Recurse into children
         for child in cursor.get_children():
             self.prescan_opaque_types(child)
+    
+    def _collect_enum_members(self, cursor):
+        """Collect enum members for merging duplicate enums"""
+        from clang.cindex import CursorKind
+        
+        enum_name = cursor.spelling
+        
+        # Filter out invalid enum names (anonymous enums with full display name)
+        if enum_name and ("unnamed" in enum_name or "(" in enum_name or "::" in enum_name):
+            enum_name = None
+        
+        # For anonymous enums, derive name from common prefix
+        if not enum_name:
+            member_names = [child.spelling for child in cursor.get_children() 
+                          if child.kind == CursorKind.ENUM_CONSTANT_DECL]
+            
+            if member_names:
+                # Find common prefix using the code generator's method
+                common_prefix = self.code_generator._find_common_prefix(member_names)
+                if common_prefix and len(common_prefix) > 2:
+                    enum_name = common_prefix.rstrip('_')
+                    if not enum_name:
+                        # Will be assigned a unique name later
+                        enum_name = None
+        
+        # Collect members
+        members = []
+        for child in cursor.get_children():
+            if child.kind == CursorKind.ENUM_CONSTANT_DECL:
+                name = child.spelling
+                value = child.enum_value
+                members.append((name, value))
+        
+        if members:
+            # Add to existing enum or create new entry
+            if enum_name:
+                if enum_name not in self.enum_members:
+                    self.enum_members[enum_name] = []
+                # Merge members, avoiding duplicates
+                existing_member_names = {m[0] for m in self.enum_members[enum_name]}
+                for member in members:
+                    if member[0] not in existing_member_names:
+                        self.enum_members[enum_name].append(member)
+            else:
+                # Anonymous enum - assign unique name
+                anonymous_counter = 1
+                while f"AnonymousEnum{anonymous_counter}" in self.enum_members:
+                    anonymous_counter += 1
+                enum_name = f"AnonymousEnum{anonymous_counter}"
+                self.enum_members[enum_name] = members
     
     def _build_file_depth_map(self, tu, root_file: str, max_depth: int) -> dict[str, int]:
         """Build a mapping of file paths to their include depth
@@ -392,6 +437,17 @@ class CSharpBindingsGenerator:
             
             # Process the AST
             self.process_cursor(tu.cursor)
+        
+        # Generate merged enums from collected members
+        for enum_name, members in sorted(self.enum_members.items()):
+            if members:
+                values_str = "\n".join([f"    {name} = {value}," for name, value in members])
+                code = f'''public enum {enum_name}
+{{
+{values_str}
+}}
+'''
+                self.generated_enums.append(code)
         
         # Generate the output
         output = OutputBuilder.build(
