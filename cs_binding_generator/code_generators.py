@@ -133,7 +133,7 @@ class CodeGenerator:
                         field_offset = offset_bytes + (i * element_size)
                         fields.append(f"    [FieldOffset({field_offset})]\n    public {element_csharp} {field_name}_{i};")
                 else:
-                    field_type = self.type_mapper.map_type(field.type)
+                    field_type = self.type_mapper.map_type(field.type, is_struct_field=True)
                     
                     # Skip fields with invalid types (anonymous unions/structs)
                     if not field_type or "unnamed" in field_type or "::" in field_type:
@@ -206,7 +206,7 @@ public unsafe struct {struct_name}
                         field_offset = i * element_size
                         fields.append(f"    [FieldOffset({field_offset})]\n    public {element_csharp} {field_name}_{i};")
                 else:
-                    field_type = self.type_mapper.map_type(field.type)
+                    field_type = self.type_mapper.map_type(field.type, is_struct_field=True)
                     
                     # Skip fields with invalid types
                     if not field_type or "unnamed" in field_type or "::" in field_type:

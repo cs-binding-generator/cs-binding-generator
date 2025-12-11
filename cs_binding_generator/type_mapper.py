@@ -82,12 +82,13 @@ class TypeMapper:
         
         return None
     
-    def map_type(self, ctype, is_return_type: bool = False) -> str:
+    def map_type(self, ctype, is_return_type: bool = False, is_struct_field: bool = False) -> str:
         """Map C type to C# type
         
         Args:
             ctype: The libclang type to map
             is_return_type: True if this is a function return type (affects char* mapping)
+            is_struct_field: True if this is a struct field (affects char* mapping)
         """
         # Check for va_list types (platform-specific variadic argument list)
         # These appear as __va_list_tag or __builtin_va_list and cannot be mapped to C#
@@ -115,9 +116,10 @@ class TypeMapper:
             
             # char* handling depends on context:
             # - Return type: nuint (caller shouldn't free the pointer)
+            # - Struct field: nuint (must be unmanaged)
             # - Parameter: string (for passing C strings as input)
             if pointee.kind in (TypeKind.CHAR_S, TypeKind.CHAR_U):
-                return "nuint" if is_return_type else "string"
+                return "nuint" if (is_return_type or is_struct_field) else "string"
             
             # void* -> nint
             if pointee.kind == TypeKind.VOID:
@@ -127,9 +129,13 @@ class TypeMapper:
             # ELABORATED types can also be typedefs - check typedef chain first
             pointee_name = pointee.spelling if hasattr(pointee, 'spelling') else None
             
-            # Handle double pointers (e.g., Uint8** -> byte**)
+            # Handle double pointers (e.g., Uint8** -> byte**, char** -> nuint)
             if pointee.kind == TypeKind.POINTER:
-                inner_mapped = self.map_type(pointee, is_return_type=False)
+                inner_pointee = pointee.get_pointee()
+                # char** should be nuint (not string*) to keep it unmanaged
+                if inner_pointee.kind in (TypeKind.CHAR_S, TypeKind.CHAR_U):
+                    return "nuint"
+                inner_mapped = self.map_type(pointee, is_return_type=False, is_struct_field=is_struct_field)
                 if inner_mapped and inner_mapped != "nint":
                     return f"{inner_mapped}*"
             

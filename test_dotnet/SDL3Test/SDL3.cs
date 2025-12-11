@@ -1536,13 +1536,13 @@ public unsafe struct SDL_AssertData
     [FieldOffset(4)]
     public uint trigger_count;
     [FieldOffset(8)]
-    public string condition;
+    public nuint condition;
     [FieldOffset(16)]
-    public string filename;
+    public nuint filename;
     [FieldOffset(24)]
     public int linenum;
     [FieldOffset(32)]
-    public string function;
+    public nuint function;
     [FieldOffset(40)]
     public SDL_AssertData* next;
 }
@@ -1862,9 +1862,9 @@ public struct SDL_GLContext
 public unsafe struct SDL_DialogFileFilter
 {
     [FieldOffset(0)]
-    public string name;
+    public nuint name;
     [FieldOffset(8)]
-    public string pattern;
+    public nuint pattern;
 }
 
 [StructLayout(LayoutKind.Explicit)]
@@ -1968,7 +1968,7 @@ public unsafe struct SDL_VirtualJoystickDesc
     [FieldOffset(32)]
     public uint axis_mask;
     [FieldOffset(40)]
-    public string name;
+    public nuint name;
     [FieldOffset(48)]
     public SDL_VirtualJoystickTouchpadDesc* touchpads;
     [FieldOffset(56)]
@@ -2120,7 +2120,7 @@ public unsafe struct SDL_TextEditingEvent
     [FieldOffset(16)]
     public uint windowID;
     [FieldOffset(24)]
-    public string text;
+    public nuint text;
     [FieldOffset(32)]
     public int start;
     [FieldOffset(36)]
@@ -2139,7 +2139,7 @@ public unsafe struct SDL_TextEditingCandidatesEvent
     [FieldOffset(16)]
     public uint windowID;
     [FieldOffset(24)]
-    public string* candidates;
+    public nuint candidates;
     [FieldOffset(32)]
     public int num_candidates;
     [FieldOffset(36)]
@@ -2166,7 +2166,7 @@ public unsafe struct SDL_TextInputEvent
     [FieldOffset(16)]
     public uint windowID;
     [FieldOffset(24)]
-    public string text;
+    public nuint text;
 }
 
 [StructLayout(LayoutKind.Explicit)]
@@ -2691,9 +2691,9 @@ public unsafe struct SDL_DropEvent
     [FieldOffset(24)]
     public float y;
     [FieldOffset(32)]
-    public string source;
+    public nuint source;
     [FieldOffset(40)]
-    public string data;
+    public nuint data;
 }
 
 [StructLayout(LayoutKind.Explicit)]
@@ -2710,7 +2710,7 @@ public unsafe struct SDL_ClipboardEvent
     [FieldOffset(20)]
     public int num_mime_types;
     [FieldOffset(24)]
-    public string* mime_types;
+    public nuint mime_types;
 }
 
 [StructLayout(LayoutKind.Explicit)]
@@ -3118,7 +3118,7 @@ public unsafe struct SDL_GPUShaderCreateInfo
     [FieldOffset(8)]
     public byte* code;
     [FieldOffset(16)]
-    public string entrypoint;
+    public nuint entrypoint;
     [FieldOffset(24)]
     public uint format;
     [FieldOffset(28)]
@@ -3308,7 +3308,7 @@ public unsafe struct SDL_GPUComputePipelineCreateInfo
     [FieldOffset(8)]
     public byte* code;
     [FieldOffset(16)]
-    public string entrypoint;
+    public nuint entrypoint;
     [FieldOffset(24)]
     public uint format;
     [FieldOffset(28)]
@@ -3679,7 +3679,7 @@ public struct SDL_hid_device
 public unsafe struct SDL_hid_device_info
 {
     [FieldOffset(0)]
-    public string path;
+    public nuint path;
     [FieldOffset(8)]
     public ushort vendor_id;
     [FieldOffset(10)]
@@ -3718,9 +3718,9 @@ public struct SDL_SharedObject
 public unsafe struct SDL_Locale
 {
     [FieldOffset(0)]
-    public string language;
+    public nuint language;
     [FieldOffset(8)]
-    public string country;
+    public nuint country;
 }
 
 [StructLayout(LayoutKind.Explicit)]
@@ -3731,7 +3731,7 @@ public unsafe struct SDL_MessageBoxButtonData
     [FieldOffset(4)]
     public int buttonID;
     [FieldOffset(8)]
-    public string text;
+    public nuint text;
 }
 
 [StructLayout(LayoutKind.Explicit)]
@@ -3768,9 +3768,9 @@ public unsafe struct SDL_MessageBoxData
     [FieldOffset(8)]
     public SDL_Window* window;
     [FieldOffset(16)]
-    public string title;
+    public nuint title;
     [FieldOffset(24)]
-    public string message;
+    public nuint message;
     [FieldOffset(32)]
     public int numbuttons;
     [FieldOffset(40)]
@@ -4363,7 +4363,7 @@ public static unsafe partial class NativeMethods
 
     [LibraryImport("SDL3", EntryPoint = "SDL_GetEnvironmentVariables", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial string* SDL_GetEnvironmentVariables(SDL_Environment* env);
+    public static partial nuint SDL_GetEnvironmentVariables(SDL_Environment* env);
 
     [LibraryImport("SDL3", EntryPoint = "SDL_SetEnvironmentVariable", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
@@ -4697,10 +4697,10 @@ public static unsafe partial class NativeMethods
 
     [LibraryImport("SDL3", EntryPoint = "SDL_strtok_r", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial nuint SDL_strtok_r(string str, string delim, string* saveptr);
+    public static partial nuint SDL_strtok_r(string str, string delim, nuint saveptr);
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static string? SDL_strtok_rString(string str, string delim, string* saveptr)
+    public static string? SDL_strtok_rString(string str, string delim, nuint saveptr)
     {
         var ptr = SDL_strtok_r(str, delim, saveptr);
         return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
@@ -4790,23 +4790,23 @@ public static unsafe partial class NativeMethods
 
     [LibraryImport("SDL3", EntryPoint = "SDL_strtol", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial int SDL_strtol(string str, string* endp, int @base);
+    public static partial int SDL_strtol(string str, nuint endp, int @base);
 
     [LibraryImport("SDL3", EntryPoint = "SDL_strtoul", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial uint SDL_strtoul(string str, string* endp, int @base);
+    public static partial uint SDL_strtoul(string str, nuint endp, int @base);
 
     [LibraryImport("SDL3", EntryPoint = "SDL_strtoll", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial long SDL_strtoll(string str, string* endp, int @base);
+    public static partial long SDL_strtoll(string str, nuint endp, int @base);
 
     [LibraryImport("SDL3", EntryPoint = "SDL_strtoull", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial ulong SDL_strtoull(string str, string* endp, int @base);
+    public static partial ulong SDL_strtoull(string str, nuint endp, int @base);
 
     [LibraryImport("SDL3", EntryPoint = "SDL_strtod", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial double SDL_strtod(string str, string* endp);
+    public static partial double SDL_strtod(string str, nuint endp);
 
     [LibraryImport("SDL3", EntryPoint = "SDL_strcmp", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
@@ -4837,11 +4837,11 @@ public static unsafe partial class NativeMethods
 
     [LibraryImport("SDL3", EntryPoint = "SDL_StepUTF8", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial uint SDL_StepUTF8(string* pstr, uint* pslen);
+    public static partial uint SDL_StepUTF8(nuint pstr, uint* pslen);
 
     [LibraryImport("SDL3", EntryPoint = "SDL_StepBackUTF8", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial uint SDL_StepBackUTF8(string start, string* pstr);
+    public static partial uint SDL_StepBackUTF8(string start, nuint pstr);
 
     [LibraryImport("SDL3", EntryPoint = "SDL_UCS4ToUTF8", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
@@ -5084,7 +5084,7 @@ public static unsafe partial class NativeMethods
 
     [LibraryImport("SDL3", EntryPoint = "SDL_iconv", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial uint SDL_iconv(nint cd, string* inbuf, uint* inbytesleft, string* outbuf, uint* outbytesleft);
+    public static partial uint SDL_iconv(nint cd, nuint inbuf, uint* inbytesleft, nuint outbuf, uint* outbytesleft);
 
     [LibraryImport("SDL3", EntryPoint = "SDL_iconv_string", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
@@ -6612,7 +6612,7 @@ public static unsafe partial class NativeMethods
     [LibraryImport("SDL3", EntryPoint = "SDL_SetClipboardData", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
-    public static partial bool SDL_SetClipboardData(nint callback, nint cleanup, nint userdata, string* mime_types, uint num_mime_types);
+    public static partial bool SDL_SetClipboardData(nint callback, nint cleanup, nint userdata, nuint mime_types, uint num_mime_types);
 
     [LibraryImport("SDL3", EntryPoint = "SDL_ClearClipboardData", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
@@ -6630,7 +6630,7 @@ public static unsafe partial class NativeMethods
 
     [LibraryImport("SDL3", EntryPoint = "SDL_GetClipboardMimeTypes", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial string* SDL_GetClipboardMimeTypes(uint* num_mime_types);
+    public static partial nuint SDL_GetClipboardMimeTypes(uint* num_mime_types);
 
     [LibraryImport("SDL3", EntryPoint = "SDL_GetNumLogicalCPUCores", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
@@ -7647,7 +7647,7 @@ public static unsafe partial class NativeMethods
 
     [LibraryImport("SDL3", EntryPoint = "SDL_GetGamepadMappings", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial string* SDL_GetGamepadMappings(nint count);
+    public static partial nuint SDL_GetGamepadMappings(nint count);
 
     [LibraryImport("SDL3", EntryPoint = "SDL_GetGamepadMappingForGUID", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
@@ -8435,7 +8435,7 @@ public static unsafe partial class NativeMethods
 
     [LibraryImport("SDL3", EntryPoint = "SDL_GlobDirectory", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial string* SDL_GlobDirectory(string path, string pattern, uint flags, nint count);
+    public static partial nuint SDL_GlobDirectory(string path, string pattern, uint flags, nint count);
 
     [LibraryImport("SDL3", EntryPoint = "SDL_GetCurrentDirectory", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
@@ -9275,7 +9275,7 @@ public static unsafe partial class NativeMethods
 
     [LibraryImport("SDL3", EntryPoint = "SDL_CreateProcess", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial SDL_Process* SDL_CreateProcess(string* args, [MarshalAs(UnmanagedType.I1)] bool pipe_stdio);
+    public static partial SDL_Process* SDL_CreateProcess(nuint args, [MarshalAs(UnmanagedType.I1)] bool pipe_stdio);
 
     [LibraryImport("SDL3", EntryPoint = "SDL_CreateProcessWithProperties", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
@@ -9821,7 +9821,7 @@ public static unsafe partial class NativeMethods
 
     [LibraryImport("SDL3", EntryPoint = "SDL_GlobStorageDirectory", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial string* SDL_GlobStorageDirectory(SDL_Storage* storage, string path, string pattern, uint flags, nint count);
+    public static partial nuint SDL_GlobStorageDirectory(SDL_Storage* storage, string path, string pattern, uint flags, nint count);
 
     [LibraryImport("SDL3", EntryPoint = "SDL_SetX11EventHook", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
