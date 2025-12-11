@@ -1512,7 +1512,107 @@ public enum SDL_TimeFormat
 
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_alignment_test
+public struct __fsid_t
+{
+    [FieldOffset(0)]
+    public int __val_0;
+    [FieldOffset(4)]
+    public int __val_1;
+}
+
+[StructLayout(LayoutKind.Explicit)]
+public struct __locale_struct
+{
+    [FieldOffset(0)]
+    public nint __locales_0;
+    [FieldOffset(8)]
+    public nint __locales_1;
+    [FieldOffset(16)]
+    public nint __locales_2;
+    [FieldOffset(24)]
+    public nint __locales_3;
+    [FieldOffset(32)]
+    public nint __locales_4;
+    [FieldOffset(40)]
+    public nint __locales_5;
+    [FieldOffset(48)]
+    public nint __locales_6;
+    [FieldOffset(56)]
+    public nint __locales_7;
+    [FieldOffset(64)]
+    public nint __locales_8;
+    [FieldOffset(72)]
+    public nint __locales_9;
+    [FieldOffset(80)]
+    public nint __locales_10;
+    [FieldOffset(88)]
+    public nint __locales_11;
+    [FieldOffset(96)]
+    public nint __locales_12;
+    [FieldOffset(104)]
+    public nint __ctype_b;
+    [FieldOffset(112)]
+    public nint __ctype_tolower;
+    [FieldOffset(120)]
+    public nint __ctype_toupper;
+    [FieldOffset(128)]
+    public string __names_0;
+    [FieldOffset(136)]
+    public string __names_1;
+    [FieldOffset(144)]
+    public string __names_2;
+    [FieldOffset(152)]
+    public string __names_3;
+    [FieldOffset(160)]
+    public string __names_4;
+    [FieldOffset(168)]
+    public string __names_5;
+    [FieldOffset(176)]
+    public string __names_6;
+    [FieldOffset(184)]
+    public string __names_7;
+    [FieldOffset(192)]
+    public string __names_8;
+    [FieldOffset(200)]
+    public string __names_9;
+    [FieldOffset(208)]
+    public string __names_10;
+    [FieldOffset(216)]
+    public string __names_11;
+    [FieldOffset(224)]
+    public string __names_12;
+}
+
+public struct __locale_t
+{
+}
+
+[StructLayout(LayoutKind.Explicit)]
+public struct __mbstate_t
+{
+    [FieldOffset(0)]
+    public int __count;
+}
+
+public struct __FILE
+{
+}
+
+public struct FILE
+{
+}
+
+[StructLayout(LayoutKind.Explicit)]
+public struct imaxdiv_t
+{
+    [FieldOffset(0)]
+    public int quot;
+    [FieldOffset(8)]
+    public int rem;
+}
+
+[StructLayout(LayoutKind.Explicit)]
+public struct SDL_alignment_test
 {
     [FieldOffset(0)]
     public byte a;
@@ -1529,7 +1629,7 @@ public struct SDL_iconv_t
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_AssertData
+public struct SDL_AssertData
 {
     [FieldOffset(0)]
     public bool always_ignore;
@@ -1552,7 +1652,7 @@ public struct SDL_AsyncIO
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_AsyncIOOutcome
+public struct SDL_AsyncIOOutcome
 {
     [FieldOffset(0)]
     public SDL_AsyncIO* asyncio;
@@ -1577,14 +1677,14 @@ public struct SDL_AsyncIOQueue
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_AtomicInt
+public struct SDL_AtomicInt
 {
     [FieldOffset(0)]
     public int value;
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_AtomicU32
+public struct SDL_AtomicU32
 {
     [FieldOffset(0)]
     public uint value;
@@ -1611,7 +1711,7 @@ public struct SDL_Condition
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_InitState
+public struct SDL_InitState
 {
     [FieldOffset(0)]
     public SDL_AtomicInt status;
@@ -1622,7 +1722,7 @@ public unsafe struct SDL_InitState
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_IOStreamInterface
+public struct SDL_IOStreamInterface
 {
     [FieldOffset(0)]
     public uint version;
@@ -1645,7 +1745,7 @@ public struct SDL_IOStream
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_AudioSpec
+public struct SDL_AudioSpec
 {
     [FieldOffset(0)]
     public SDL_AudioFormat format;
@@ -1660,7 +1760,7 @@ public struct SDL_AudioStream
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_Color
+public struct SDL_Color
 {
     [FieldOffset(0)]
     public byte r;
@@ -1673,7 +1773,7 @@ public unsafe struct SDL_Color
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_FColor
+public struct SDL_FColor
 {
     [FieldOffset(0)]
     public float r;
@@ -1686,7 +1786,7 @@ public unsafe struct SDL_FColor
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_Palette
+public struct SDL_Palette
 {
     [FieldOffset(0)]
     public int ncolors;
@@ -1699,7 +1799,7 @@ public unsafe struct SDL_Palette
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_PixelFormatDetails
+public struct SDL_PixelFormatDetails
 {
     [FieldOffset(0)]
     public SDL_PixelFormat format;
@@ -1738,7 +1838,7 @@ public unsafe struct SDL_PixelFormatDetails
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_Point
+public struct SDL_Point
 {
     [FieldOffset(0)]
     public int x;
@@ -1747,7 +1847,7 @@ public unsafe struct SDL_Point
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_FPoint
+public struct SDL_FPoint
 {
     [FieldOffset(0)]
     public float x;
@@ -1756,7 +1856,7 @@ public unsafe struct SDL_FPoint
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_Rect
+public struct SDL_Rect
 {
     [FieldOffset(0)]
     public int x;
@@ -1769,7 +1869,7 @@ public unsafe struct SDL_Rect
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_FRect
+public struct SDL_FRect
 {
     [FieldOffset(0)]
     public float x;
@@ -1782,7 +1882,7 @@ public unsafe struct SDL_FRect
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_Surface
+public struct SDL_Surface
 {
     [FieldOffset(0)]
     public uint flags;
@@ -1807,7 +1907,7 @@ public struct SDL_Camera
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_CameraSpec
+public struct SDL_CameraSpec
 {
     [FieldOffset(0)]
     public SDL_PixelFormat format;
@@ -1828,7 +1928,7 @@ public struct SDL_DisplayModeData
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_DisplayMode
+public struct SDL_DisplayMode
 {
     [FieldOffset(0)]
     public uint displayID;
@@ -1859,7 +1959,7 @@ public struct SDL_GLContext
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_DialogFileFilter
+public struct SDL_DialogFileFilter
 {
     [FieldOffset(0)]
     public string name;
@@ -1868,7 +1968,7 @@ public unsafe struct SDL_DialogFileFilter
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_GUID
+public struct SDL_GUID
 {
     [FieldOffset(0)]
     public byte data_0;
@@ -1913,7 +2013,7 @@ public struct SDL_Joystick
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_VirtualJoystickTouchpadDesc
+public struct SDL_VirtualJoystickTouchpadDesc
 {
     [FieldOffset(0)]
     public ushort nfingers;
@@ -1926,7 +2026,7 @@ public unsafe struct SDL_VirtualJoystickTouchpadDesc
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_VirtualJoystickSensorDesc
+public struct SDL_VirtualJoystickSensorDesc
 {
     [FieldOffset(0)]
     public SDL_SensorType type;
@@ -1935,7 +2035,7 @@ public unsafe struct SDL_VirtualJoystickSensorDesc
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_VirtualJoystickDesc
+public struct SDL_VirtualJoystickDesc
 {
     [FieldOffset(0)]
     public uint version;
@@ -1998,7 +2098,7 @@ public struct SDL_Gamepad
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_GamepadBinding
+public struct SDL_GamepadBinding
 {
     [FieldOffset(0)]
     public SDL_GamepadBindingType input_type;
@@ -2011,7 +2111,7 @@ public struct SDL_Cursor
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_Finger
+public struct SDL_Finger
 {
     [FieldOffset(0)]
     public uint id;
@@ -2024,7 +2124,7 @@ public unsafe struct SDL_Finger
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_CommonEvent
+public struct SDL_CommonEvent
 {
     [FieldOffset(0)]
     public uint type;
@@ -2035,7 +2135,7 @@ public unsafe struct SDL_CommonEvent
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_DisplayEvent
+public struct SDL_DisplayEvent
 {
     [FieldOffset(0)]
     public SDL_EventType type;
@@ -2052,7 +2152,7 @@ public unsafe struct SDL_DisplayEvent
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_WindowEvent
+public struct SDL_WindowEvent
 {
     [FieldOffset(0)]
     public SDL_EventType type;
@@ -2069,7 +2169,7 @@ public unsafe struct SDL_WindowEvent
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_KeyboardDeviceEvent
+public struct SDL_KeyboardDeviceEvent
 {
     [FieldOffset(0)]
     public SDL_EventType type;
@@ -2082,7 +2182,7 @@ public unsafe struct SDL_KeyboardDeviceEvent
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_KeyboardEvent
+public struct SDL_KeyboardEvent
 {
     [FieldOffset(0)]
     public SDL_EventType type;
@@ -2109,7 +2209,7 @@ public unsafe struct SDL_KeyboardEvent
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_TextEditingEvent
+public struct SDL_TextEditingEvent
 {
     [FieldOffset(0)]
     public SDL_EventType type;
@@ -2128,7 +2228,7 @@ public unsafe struct SDL_TextEditingEvent
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_TextEditingCandidatesEvent
+public struct SDL_TextEditingCandidatesEvent
 {
     [FieldOffset(0)]
     public SDL_EventType type;
@@ -2155,7 +2255,7 @@ public unsafe struct SDL_TextEditingCandidatesEvent
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_TextInputEvent
+public struct SDL_TextInputEvent
 {
     [FieldOffset(0)]
     public SDL_EventType type;
@@ -2170,7 +2270,7 @@ public unsafe struct SDL_TextInputEvent
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_MouseDeviceEvent
+public struct SDL_MouseDeviceEvent
 {
     [FieldOffset(0)]
     public SDL_EventType type;
@@ -2183,7 +2283,7 @@ public unsafe struct SDL_MouseDeviceEvent
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_MouseMotionEvent
+public struct SDL_MouseMotionEvent
 {
     [FieldOffset(0)]
     public SDL_EventType type;
@@ -2208,7 +2308,7 @@ public unsafe struct SDL_MouseMotionEvent
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_MouseButtonEvent
+public struct SDL_MouseButtonEvent
 {
     [FieldOffset(0)]
     public SDL_EventType type;
@@ -2235,7 +2335,7 @@ public unsafe struct SDL_MouseButtonEvent
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_MouseWheelEvent
+public struct SDL_MouseWheelEvent
 {
     [FieldOffset(0)]
     public SDL_EventType type;
@@ -2264,7 +2364,7 @@ public unsafe struct SDL_MouseWheelEvent
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_JoyAxisEvent
+public struct SDL_JoyAxisEvent
 {
     [FieldOffset(0)]
     public SDL_EventType type;
@@ -2289,7 +2389,7 @@ public unsafe struct SDL_JoyAxisEvent
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_JoyBallEvent
+public struct SDL_JoyBallEvent
 {
     [FieldOffset(0)]
     public SDL_EventType type;
@@ -2314,7 +2414,7 @@ public unsafe struct SDL_JoyBallEvent
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_JoyHatEvent
+public struct SDL_JoyHatEvent
 {
     [FieldOffset(0)]
     public SDL_EventType type;
@@ -2335,7 +2435,7 @@ public unsafe struct SDL_JoyHatEvent
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_JoyButtonEvent
+public struct SDL_JoyButtonEvent
 {
     [FieldOffset(0)]
     public SDL_EventType type;
@@ -2356,7 +2456,7 @@ public unsafe struct SDL_JoyButtonEvent
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_JoyDeviceEvent
+public struct SDL_JoyDeviceEvent
 {
     [FieldOffset(0)]
     public SDL_EventType type;
@@ -2369,7 +2469,7 @@ public unsafe struct SDL_JoyDeviceEvent
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_JoyBatteryEvent
+public struct SDL_JoyBatteryEvent
 {
     [FieldOffset(0)]
     public SDL_EventType type;
@@ -2386,7 +2486,7 @@ public unsafe struct SDL_JoyBatteryEvent
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_GamepadAxisEvent
+public struct SDL_GamepadAxisEvent
 {
     [FieldOffset(0)]
     public SDL_EventType type;
@@ -2411,7 +2511,7 @@ public unsafe struct SDL_GamepadAxisEvent
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_GamepadButtonEvent
+public struct SDL_GamepadButtonEvent
 {
     [FieldOffset(0)]
     public SDL_EventType type;
@@ -2432,7 +2532,7 @@ public unsafe struct SDL_GamepadButtonEvent
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_GamepadDeviceEvent
+public struct SDL_GamepadDeviceEvent
 {
     [FieldOffset(0)]
     public SDL_EventType type;
@@ -2445,7 +2545,7 @@ public unsafe struct SDL_GamepadDeviceEvent
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_GamepadTouchpadEvent
+public struct SDL_GamepadTouchpadEvent
 {
     [FieldOffset(0)]
     public SDL_EventType type;
@@ -2468,7 +2568,7 @@ public unsafe struct SDL_GamepadTouchpadEvent
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_GamepadSensorEvent
+public struct SDL_GamepadSensorEvent
 {
     [FieldOffset(0)]
     public SDL_EventType type;
@@ -2491,7 +2591,7 @@ public unsafe struct SDL_GamepadSensorEvent
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_AudioDeviceEvent
+public struct SDL_AudioDeviceEvent
 {
     [FieldOffset(0)]
     public SDL_EventType type;
@@ -2512,7 +2612,7 @@ public unsafe struct SDL_AudioDeviceEvent
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_CameraDeviceEvent
+public struct SDL_CameraDeviceEvent
 {
     [FieldOffset(0)]
     public SDL_EventType type;
@@ -2525,7 +2625,7 @@ public unsafe struct SDL_CameraDeviceEvent
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_RenderEvent
+public struct SDL_RenderEvent
 {
     [FieldOffset(0)]
     public SDL_EventType type;
@@ -2538,7 +2638,7 @@ public unsafe struct SDL_RenderEvent
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_TouchFingerEvent
+public struct SDL_TouchFingerEvent
 {
     [FieldOffset(0)]
     public SDL_EventType type;
@@ -2565,7 +2665,7 @@ public unsafe struct SDL_TouchFingerEvent
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_PenProximityEvent
+public struct SDL_PenProximityEvent
 {
     [FieldOffset(0)]
     public SDL_EventType type;
@@ -2580,7 +2680,7 @@ public unsafe struct SDL_PenProximityEvent
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_PenMotionEvent
+public struct SDL_PenMotionEvent
 {
     [FieldOffset(0)]
     public SDL_EventType type;
@@ -2601,7 +2701,7 @@ public unsafe struct SDL_PenMotionEvent
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_PenTouchEvent
+public struct SDL_PenTouchEvent
 {
     [FieldOffset(0)]
     public SDL_EventType type;
@@ -2626,7 +2726,7 @@ public unsafe struct SDL_PenTouchEvent
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_PenButtonEvent
+public struct SDL_PenButtonEvent
 {
     [FieldOffset(0)]
     public SDL_EventType type;
@@ -2651,7 +2751,7 @@ public unsafe struct SDL_PenButtonEvent
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_PenAxisEvent
+public struct SDL_PenAxisEvent
 {
     [FieldOffset(0)]
     public SDL_EventType type;
@@ -2676,7 +2776,7 @@ public unsafe struct SDL_PenAxisEvent
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_DropEvent
+public struct SDL_DropEvent
 {
     [FieldOffset(0)]
     public SDL_EventType type;
@@ -2697,7 +2797,7 @@ public unsafe struct SDL_DropEvent
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_ClipboardEvent
+public struct SDL_ClipboardEvent
 {
     [FieldOffset(0)]
     public SDL_EventType type;
@@ -2714,7 +2814,7 @@ public unsafe struct SDL_ClipboardEvent
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_SensorEvent
+public struct SDL_SensorEvent
 {
     [FieldOffset(0)]
     public SDL_EventType type;
@@ -2741,7 +2841,7 @@ public unsafe struct SDL_SensorEvent
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_QuitEvent
+public struct SDL_QuitEvent
 {
     [FieldOffset(0)]
     public SDL_EventType type;
@@ -2752,7 +2852,7 @@ public unsafe struct SDL_QuitEvent
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_UserEvent
+public struct SDL_UserEvent
 {
     [FieldOffset(0)]
     public uint type;
@@ -2771,7 +2871,7 @@ public unsafe struct SDL_UserEvent
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_Event
+public struct SDL_Event
 {
     [FieldOffset(0)]
     public uint type;
@@ -3108,7 +3208,7 @@ public unsafe struct SDL_Event
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_PathInfo
+public struct SDL_PathInfo
 {
     [FieldOffset(0)]
     public SDL_PathType type;
@@ -3175,7 +3275,7 @@ public struct SDL_GPUFence
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_GPUViewport
+public struct SDL_GPUViewport
 {
     [FieldOffset(0)]
     public float x;
@@ -3192,7 +3292,7 @@ public unsafe struct SDL_GPUViewport
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_GPUTextureTransferInfo
+public struct SDL_GPUTextureTransferInfo
 {
     [FieldOffset(0)]
     public SDL_GPUTransferBuffer* transfer_buffer;
@@ -3205,7 +3305,7 @@ public unsafe struct SDL_GPUTextureTransferInfo
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_GPUTransferBufferLocation
+public struct SDL_GPUTransferBufferLocation
 {
     [FieldOffset(0)]
     public SDL_GPUTransferBuffer* transfer_buffer;
@@ -3214,7 +3314,7 @@ public unsafe struct SDL_GPUTransferBufferLocation
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_GPUTextureLocation
+public struct SDL_GPUTextureLocation
 {
     [FieldOffset(0)]
     public SDL_GPUTexture* texture;
@@ -3231,7 +3331,7 @@ public unsafe struct SDL_GPUTextureLocation
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_GPUTextureRegion
+public struct SDL_GPUTextureRegion
 {
     [FieldOffset(0)]
     public SDL_GPUTexture* texture;
@@ -3254,7 +3354,7 @@ public unsafe struct SDL_GPUTextureRegion
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_GPUBlitRegion
+public struct SDL_GPUBlitRegion
 {
     [FieldOffset(0)]
     public SDL_GPUTexture* texture;
@@ -3273,7 +3373,7 @@ public unsafe struct SDL_GPUBlitRegion
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_GPUBufferLocation
+public struct SDL_GPUBufferLocation
 {
     [FieldOffset(0)]
     public SDL_GPUBuffer* buffer;
@@ -3282,7 +3382,7 @@ public unsafe struct SDL_GPUBufferLocation
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_GPUBufferRegion
+public struct SDL_GPUBufferRegion
 {
     [FieldOffset(0)]
     public SDL_GPUBuffer* buffer;
@@ -3293,7 +3393,7 @@ public unsafe struct SDL_GPUBufferRegion
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_GPUIndirectDrawCommand
+public struct SDL_GPUIndirectDrawCommand
 {
     [FieldOffset(0)]
     public uint num_vertices;
@@ -3306,7 +3406,7 @@ public unsafe struct SDL_GPUIndirectDrawCommand
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_GPUIndexedIndirectDrawCommand
+public struct SDL_GPUIndexedIndirectDrawCommand
 {
     [FieldOffset(0)]
     public uint num_indices;
@@ -3321,7 +3421,7 @@ public unsafe struct SDL_GPUIndexedIndirectDrawCommand
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_GPUIndirectDispatchCommand
+public struct SDL_GPUIndirectDispatchCommand
 {
     [FieldOffset(0)]
     public uint groupcount_x;
@@ -3332,7 +3432,7 @@ public unsafe struct SDL_GPUIndirectDispatchCommand
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_GPUSamplerCreateInfo
+public struct SDL_GPUSamplerCreateInfo
 {
     [FieldOffset(0)]
     public SDL_GPUFilter min_filter;
@@ -3369,7 +3469,7 @@ public unsafe struct SDL_GPUSamplerCreateInfo
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_GPUVertexBufferDescription
+public struct SDL_GPUVertexBufferDescription
 {
     [FieldOffset(0)]
     public uint slot;
@@ -3382,7 +3482,7 @@ public unsafe struct SDL_GPUVertexBufferDescription
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_GPUVertexAttribute
+public struct SDL_GPUVertexAttribute
 {
     [FieldOffset(0)]
     public uint location;
@@ -3395,7 +3495,7 @@ public unsafe struct SDL_GPUVertexAttribute
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_GPUVertexInputState
+public struct SDL_GPUVertexInputState
 {
     [FieldOffset(0)]
     public nint vertex_buffer_descriptions;
@@ -3408,7 +3508,7 @@ public unsafe struct SDL_GPUVertexInputState
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_GPUStencilOpState
+public struct SDL_GPUStencilOpState
 {
     [FieldOffset(0)]
     public SDL_GPUStencilOp fail_op;
@@ -3421,7 +3521,7 @@ public unsafe struct SDL_GPUStencilOpState
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_GPUColorTargetBlendState
+public struct SDL_GPUColorTargetBlendState
 {
     [FieldOffset(0)]
     public SDL_GPUBlendFactor src_color_blendfactor;
@@ -3448,7 +3548,7 @@ public unsafe struct SDL_GPUColorTargetBlendState
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_GPUShaderCreateInfo
+public struct SDL_GPUShaderCreateInfo
 {
     [FieldOffset(0)]
     public nuint code_size;
@@ -3473,7 +3573,7 @@ public unsafe struct SDL_GPUShaderCreateInfo
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_GPUTextureCreateInfo
+public struct SDL_GPUTextureCreateInfo
 {
     [FieldOffset(0)]
     public SDL_GPUTextureType type;
@@ -3496,7 +3596,7 @@ public unsafe struct SDL_GPUTextureCreateInfo
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_GPUBufferCreateInfo
+public struct SDL_GPUBufferCreateInfo
 {
     [FieldOffset(0)]
     public uint usage;
@@ -3507,7 +3607,7 @@ public unsafe struct SDL_GPUBufferCreateInfo
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_GPUTransferBufferCreateInfo
+public struct SDL_GPUTransferBufferCreateInfo
 {
     [FieldOffset(0)]
     public SDL_GPUTransferBufferUsage usage;
@@ -3518,7 +3618,7 @@ public unsafe struct SDL_GPUTransferBufferCreateInfo
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_GPURasterizerState
+public struct SDL_GPURasterizerState
 {
     [FieldOffset(0)]
     public SDL_GPUFillMode fill_mode;
@@ -3543,7 +3643,7 @@ public unsafe struct SDL_GPURasterizerState
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_GPUMultisampleState
+public struct SDL_GPUMultisampleState
 {
     [FieldOffset(0)]
     public SDL_GPUSampleCount sample_count;
@@ -3560,7 +3660,7 @@ public unsafe struct SDL_GPUMultisampleState
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_GPUDepthStencilState
+public struct SDL_GPUDepthStencilState
 {
     [FieldOffset(0)]
     public SDL_GPUCompareOp compare_op;
@@ -3587,7 +3687,7 @@ public unsafe struct SDL_GPUDepthStencilState
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_GPUColorTargetDescription
+public struct SDL_GPUColorTargetDescription
 {
     [FieldOffset(0)]
     public SDL_GPUTextureFormat format;
@@ -3596,7 +3696,7 @@ public unsafe struct SDL_GPUColorTargetDescription
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_GPUGraphicsPipelineTargetInfo
+public struct SDL_GPUGraphicsPipelineTargetInfo
 {
     [FieldOffset(0)]
     public nint color_target_descriptions;
@@ -3615,7 +3715,7 @@ public unsafe struct SDL_GPUGraphicsPipelineTargetInfo
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_GPUGraphicsPipelineCreateInfo
+public struct SDL_GPUGraphicsPipelineCreateInfo
 {
     [FieldOffset(0)]
     public SDL_GPUShader* vertex_shader;
@@ -3638,7 +3738,7 @@ public unsafe struct SDL_GPUGraphicsPipelineCreateInfo
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_GPUComputePipelineCreateInfo
+public struct SDL_GPUComputePipelineCreateInfo
 {
     [FieldOffset(0)]
     public nuint code_size;
@@ -3671,7 +3771,7 @@ public unsafe struct SDL_GPUComputePipelineCreateInfo
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_GPUColorTargetInfo
+public struct SDL_GPUColorTargetInfo
 {
     [FieldOffset(0)]
     public SDL_GPUTexture* texture;
@@ -3702,7 +3802,7 @@ public unsafe struct SDL_GPUColorTargetInfo
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_GPUDepthStencilTargetInfo
+public struct SDL_GPUDepthStencilTargetInfo
 {
     [FieldOffset(0)]
     public SDL_GPUTexture* texture;
@@ -3727,7 +3827,7 @@ public unsafe struct SDL_GPUDepthStencilTargetInfo
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_GPUBlitInfo
+public struct SDL_GPUBlitInfo
 {
     [FieldOffset(0)]
     public SDL_GPUBlitRegion source;
@@ -3752,7 +3852,7 @@ public unsafe struct SDL_GPUBlitInfo
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_GPUBufferBinding
+public struct SDL_GPUBufferBinding
 {
     [FieldOffset(0)]
     public SDL_GPUBuffer* buffer;
@@ -3761,7 +3861,7 @@ public unsafe struct SDL_GPUBufferBinding
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_GPUTextureSamplerBinding
+public struct SDL_GPUTextureSamplerBinding
 {
     [FieldOffset(0)]
     public SDL_GPUTexture* texture;
@@ -3770,7 +3870,7 @@ public unsafe struct SDL_GPUTextureSamplerBinding
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_GPUStorageBufferReadWriteBinding
+public struct SDL_GPUStorageBufferReadWriteBinding
 {
     [FieldOffset(0)]
     public SDL_GPUBuffer* buffer;
@@ -3785,7 +3885,7 @@ public unsafe struct SDL_GPUStorageBufferReadWriteBinding
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_GPUStorageTextureReadWriteBinding
+public struct SDL_GPUStorageTextureReadWriteBinding
 {
     [FieldOffset(0)]
     public SDL_GPUTexture* texture;
@@ -3808,7 +3908,7 @@ public struct SDL_Haptic
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_HapticDirection
+public struct SDL_HapticDirection
 {
     [FieldOffset(0)]
     public byte type;
@@ -3821,7 +3921,7 @@ public unsafe struct SDL_HapticDirection
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_HapticConstant
+public struct SDL_HapticConstant
 {
     [FieldOffset(0)]
     public ushort type;
@@ -3848,7 +3948,7 @@ public unsafe struct SDL_HapticConstant
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_HapticPeriodic
+public struct SDL_HapticPeriodic
 {
     [FieldOffset(0)]
     public ushort type;
@@ -3881,7 +3981,7 @@ public unsafe struct SDL_HapticPeriodic
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_HapticCondition
+public struct SDL_HapticCondition
 {
     [FieldOffset(0)]
     public ushort type;
@@ -3934,7 +4034,7 @@ public unsafe struct SDL_HapticCondition
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_HapticRamp
+public struct SDL_HapticRamp
 {
     [FieldOffset(0)]
     public ushort type;
@@ -3963,7 +4063,7 @@ public unsafe struct SDL_HapticRamp
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_HapticLeftRight
+public struct SDL_HapticLeftRight
 {
     [FieldOffset(0)]
     public ushort type;
@@ -3976,7 +4076,7 @@ public unsafe struct SDL_HapticLeftRight
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_HapticCustom
+public struct SDL_HapticCustom
 {
     [FieldOffset(0)]
     public ushort type;
@@ -4009,7 +4109,7 @@ public unsafe struct SDL_HapticCustom
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_HapticEffect
+public struct SDL_HapticEffect
 {
     [FieldOffset(0)]
     public ushort type;
@@ -4032,7 +4132,7 @@ public struct SDL_hid_device
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_hid_device_info
+public struct SDL_hid_device_info
 {
     [FieldOffset(0)]
     public string path;
@@ -4071,7 +4171,7 @@ public struct SDL_SharedObject
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_Locale
+public struct SDL_Locale
 {
     [FieldOffset(0)]
     public string language;
@@ -4080,7 +4180,7 @@ public unsafe struct SDL_Locale
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_MessageBoxButtonData
+public struct SDL_MessageBoxButtonData
 {
     [FieldOffset(0)]
     public uint flags;
@@ -4091,7 +4191,7 @@ public unsafe struct SDL_MessageBoxButtonData
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_MessageBoxColor
+public struct SDL_MessageBoxColor
 {
     [FieldOffset(0)]
     public byte r;
@@ -4102,7 +4202,7 @@ public unsafe struct SDL_MessageBoxColor
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_MessageBoxColorScheme
+public struct SDL_MessageBoxColorScheme
 {
     [FieldOffset(0)]
     public SDL_MessageBoxColor colors_0;
@@ -4117,7 +4217,7 @@ public unsafe struct SDL_MessageBoxColorScheme
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_MessageBoxData
+public struct SDL_MessageBoxData
 {
     [FieldOffset(0)]
     public uint flags;
@@ -4140,7 +4240,7 @@ public struct SDL_Process
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_Vertex
+public struct SDL_Vertex
 {
     [FieldOffset(0)]
     public SDL_FPoint position;
@@ -4155,7 +4255,7 @@ public struct SDL_Renderer
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_Texture
+public struct SDL_Texture
 {
     [FieldOffset(0)]
     public SDL_PixelFormat format;
@@ -4168,7 +4268,7 @@ public unsafe struct SDL_Texture
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_StorageInterface
+public struct SDL_StorageInterface
 {
     [FieldOffset(0)]
     public uint version;
@@ -4201,7 +4301,7 @@ public struct SDL_Storage
 }
 
 [StructLayout(LayoutKind.Explicit)]
-public unsafe struct SDL_DateTime
+public struct SDL_DateTime
 {
     [FieldOffset(0)]
     public int year;
@@ -4238,6 +4338,693 @@ public struct SDL_TrayEntry
 
 public static unsafe partial class NativeMethods
 {
+    [LibraryImport("SDL3", EntryPoint = "memcpy", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nint memcpy(nint __dest, nint __src, nuint __n);
+
+    [LibraryImport("SDL3", EntryPoint = "memmove", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nint memmove(nint __dest, nint __src, nuint __n);
+
+    [LibraryImport("SDL3", EntryPoint = "memccpy", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nint memccpy(nint __dest, nint __src, int __c, nuint __n);
+
+    [LibraryImport("SDL3", EntryPoint = "memset", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nint memset(nint __s, int __c, nuint __n);
+
+    [LibraryImport("SDL3", EntryPoint = "memcmp", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int memcmp(nint __s1, nint __s2, nuint __n);
+
+    [LibraryImport("SDL3", EntryPoint = "__memcmpeq", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int __memcmpeq(nint __s1, nint __s2, nuint __n);
+
+    [LibraryImport("SDL3", EntryPoint = "memchr", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nint memchr(nint __s, int __c, nuint __n);
+
+    [LibraryImport("SDL3", EntryPoint = "strcpy", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint strcpy(string __dest, string __src);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? strcpyString(string __dest, string __src)
+    {
+        var ptr = strcpy(__dest, __src);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
+
+    [LibraryImport("SDL3", EntryPoint = "strncpy", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint strncpy(string __dest, string __src, nuint __n);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? strncpyString(string __dest, string __src, nuint __n)
+    {
+        var ptr = strncpy(__dest, __src, __n);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
+
+    [LibraryImport("SDL3", EntryPoint = "strcat", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint strcat(string __dest, string __src);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? strcatString(string __dest, string __src)
+    {
+        var ptr = strcat(__dest, __src);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
+
+    [LibraryImport("SDL3", EntryPoint = "strncat", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint strncat(string __dest, string __src, nuint __n);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? strncatString(string __dest, string __src, nuint __n)
+    {
+        var ptr = strncat(__dest, __src, __n);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
+
+    [LibraryImport("SDL3", EntryPoint = "strcmp", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int strcmp(string __s1, string __s2);
+
+    [LibraryImport("SDL3", EntryPoint = "strncmp", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int strncmp(string __s1, string __s2, nuint __n);
+
+    [LibraryImport("SDL3", EntryPoint = "strcoll", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int strcoll(string __s1, string __s2);
+
+    [LibraryImport("SDL3", EntryPoint = "strxfrm", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial uint strxfrm(string __dest, string __src, nuint __n);
+
+    [LibraryImport("SDL3", EntryPoint = "strcoll_l", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int strcoll_l(string __s1, string __s2, nint __l);
+
+    [LibraryImport("SDL3", EntryPoint = "strxfrm_l", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint strxfrm_l(string __dest, string __src, nuint __n, nint __l);
+
+    [LibraryImport("SDL3", EntryPoint = "strdup", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint strdup(string __s);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? strdupString(string __s)
+    {
+        var ptr = strdup(__s);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
+
+    [LibraryImport("SDL3", EntryPoint = "strndup", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint strndup(string __string, nuint __n);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? strndupString(string __string, nuint __n)
+    {
+        var ptr = strndup(__string, __n);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
+
+    [LibraryImport("SDL3", EntryPoint = "strchr", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint strchr(string __s, int __c);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? strchrString(string __s, int __c)
+    {
+        var ptr = strchr(__s, __c);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
+
+    [LibraryImport("SDL3", EntryPoint = "strrchr", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint strrchr(string __s, int __c);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? strrchrString(string __s, int __c)
+    {
+        var ptr = strrchr(__s, __c);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
+
+    [LibraryImport("SDL3", EntryPoint = "strchrnul", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint strchrnul(string __s, int __c);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? strchrnulString(string __s, int __c)
+    {
+        var ptr = strchrnul(__s, __c);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
+
+    [LibraryImport("SDL3", EntryPoint = "strcspn", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial uint strcspn(string __s, string __reject);
+
+    [LibraryImport("SDL3", EntryPoint = "strspn", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial uint strspn(string __s, string __accept);
+
+    [LibraryImport("SDL3", EntryPoint = "strpbrk", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint strpbrk(string __s, string __accept);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? strpbrkString(string __s, string __accept)
+    {
+        var ptr = strpbrk(__s, __accept);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
+
+    [LibraryImport("SDL3", EntryPoint = "strstr", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint strstr(string __haystack, string __needle);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? strstrString(string __haystack, string __needle)
+    {
+        var ptr = strstr(__haystack, __needle);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
+
+    [LibraryImport("SDL3", EntryPoint = "strtok", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint strtok(string __s, string __delim);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? strtokString(string __s, string __delim)
+    {
+        var ptr = strtok(__s, __delim);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
+
+    [LibraryImport("SDL3", EntryPoint = "__strtok_r", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint __strtok_r(string __s, string __delim, nint __save_ptr);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? __strtok_rString(string __s, string __delim, nint __save_ptr)
+    {
+        var ptr = __strtok_r(__s, __delim, __save_ptr);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
+
+    [LibraryImport("SDL3", EntryPoint = "strtok_r", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint strtok_r(string __s, string __delim, nint __save_ptr);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? strtok_rString(string __s, string __delim, nint __save_ptr)
+    {
+        var ptr = strtok_r(__s, __delim, __save_ptr);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
+
+    [LibraryImport("SDL3", EntryPoint = "strcasestr", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint strcasestr(string __haystack, string __needle);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? strcasestrString(string __haystack, string __needle)
+    {
+        var ptr = strcasestr(__haystack, __needle);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
+
+    [LibraryImport("SDL3", EntryPoint = "memmem", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nint memmem(nint __haystack, nuint __haystacklen, nint __needle, nuint __needlelen);
+
+    [LibraryImport("SDL3", EntryPoint = "__mempcpy", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nint __mempcpy(nint __dest, nint __src, nuint __n);
+
+    [LibraryImport("SDL3", EntryPoint = "mempcpy", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nint mempcpy(nint __dest, nint __src, nuint __n);
+
+    [LibraryImport("SDL3", EntryPoint = "strlen", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial uint strlen(string __s);
+
+    [LibraryImport("SDL3", EntryPoint = "strnlen", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint strnlen(string __string, nuint __maxlen);
+
+    [LibraryImport("SDL3", EntryPoint = "strerror", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint strerror(int __errnum);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? strerrorString(int __errnum)
+    {
+        var ptr = strerror(__errnum);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
+
+    [LibraryImport("SDL3", EntryPoint = "strerror_r", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int strerror_r(int __errnum, string __buf, nuint __buflen);
+
+    [LibraryImport("SDL3", EntryPoint = "strerror_l", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint strerror_l(int __errnum, nint __l);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? strerror_lString(int __errnum, nint __l)
+    {
+        var ptr = strerror_l(__errnum, __l);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
+
+    [LibraryImport("SDL3", EntryPoint = "bcmp", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int bcmp(nint __s1, nint __s2, nuint __n);
+
+    [LibraryImport("SDL3", EntryPoint = "bcopy", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void bcopy(nint __src, nint __dest, nuint __n);
+
+    [LibraryImport("SDL3", EntryPoint = "bzero", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void bzero(nint __s, nuint __n);
+
+    [LibraryImport("SDL3", EntryPoint = "index", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint index(string __s, int __c);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? indexString(string __s, int __c)
+    {
+        var ptr = index(__s, __c);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
+
+    [LibraryImport("SDL3", EntryPoint = "rindex", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint rindex(string __s, int __c);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? rindexString(string __s, int __c)
+    {
+        var ptr = rindex(__s, __c);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
+
+    [LibraryImport("SDL3", EntryPoint = "ffs", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int ffs(int __i);
+
+    [LibraryImport("SDL3", EntryPoint = "ffsl", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int ffsl(int __l);
+
+    [LibraryImport("SDL3", EntryPoint = "ffsll", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int ffsll(long __ll);
+
+    [LibraryImport("SDL3", EntryPoint = "strcasecmp", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int strcasecmp(string __s1, string __s2);
+
+    [LibraryImport("SDL3", EntryPoint = "strncasecmp", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int strncasecmp(string __s1, string __s2, nuint __n);
+
+    [LibraryImport("SDL3", EntryPoint = "strcasecmp_l", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int strcasecmp_l(string __s1, string __s2, nint __loc);
+
+    [LibraryImport("SDL3", EntryPoint = "strncasecmp_l", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int strncasecmp_l(string __s1, string __s2, nuint __n, nint __loc);
+
+    [LibraryImport("SDL3", EntryPoint = "explicit_bzero", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void explicit_bzero(nint __s, nuint __n);
+
+    [LibraryImport("SDL3", EntryPoint = "strsep", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint strsep(nint __stringp, string __delim);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? strsepString(nint __stringp, string __delim)
+    {
+        var ptr = strsep(__stringp, __delim);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
+
+    [LibraryImport("SDL3", EntryPoint = "strsignal", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint strsignal(int __sig);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? strsignalString(int __sig)
+    {
+        var ptr = strsignal(__sig);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
+
+    [LibraryImport("SDL3", EntryPoint = "__stpcpy", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint __stpcpy(string __dest, string __src);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? __stpcpyString(string __dest, string __src)
+    {
+        var ptr = __stpcpy(__dest, __src);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
+
+    [LibraryImport("SDL3", EntryPoint = "stpcpy", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint stpcpy(string __dest, string __src);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? stpcpyString(string __dest, string __src)
+    {
+        var ptr = stpcpy(__dest, __src);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
+
+    [LibraryImport("SDL3", EntryPoint = "__stpncpy", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint __stpncpy(string __dest, string __src, nuint __n);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? __stpncpyString(string __dest, string __src, nuint __n)
+    {
+        var ptr = __stpncpy(__dest, __src, __n);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
+
+    [LibraryImport("SDL3", EntryPoint = "stpncpy", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint stpncpy(string __dest, string __src, nuint __n);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? stpncpyString(string __dest, string __src, nuint __n)
+    {
+        var ptr = stpncpy(__dest, __src, __n);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
+
+    [LibraryImport("SDL3", EntryPoint = "strlcpy", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial uint strlcpy(string __dest, string __src, nuint __n);
+
+    [LibraryImport("SDL3", EntryPoint = "strlcat", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial uint strlcat(string __dest, string __src, nuint __n);
+
+    [LibraryImport("SDL3", EntryPoint = "wcscpy", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nint wcscpy(nint __dest, nint __src);
+
+    [LibraryImport("SDL3", EntryPoint = "wcsncpy", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nint wcsncpy(nint __dest, nint __src, nuint __n);
+
+    [LibraryImport("SDL3", EntryPoint = "wcslcpy", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint wcslcpy(nint __dest, nint __src, nuint __n);
+
+    [LibraryImport("SDL3", EntryPoint = "wcslcat", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint wcslcat(nint __dest, nint __src, nuint __n);
+
+    [LibraryImport("SDL3", EntryPoint = "wcscat", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nint wcscat(nint __dest, nint __src);
+
+    [LibraryImport("SDL3", EntryPoint = "wcsncat", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nint wcsncat(nint __dest, nint __src, nuint __n);
+
+    [LibraryImport("SDL3", EntryPoint = "wcscmp", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int wcscmp(nint __s1, nint __s2);
+
+    [LibraryImport("SDL3", EntryPoint = "wcsncmp", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int wcsncmp(nint __s1, nint __s2, nuint __n);
+
+    [LibraryImport("SDL3", EntryPoint = "wcscasecmp", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int wcscasecmp(nint __s1, nint __s2);
+
+    [LibraryImport("SDL3", EntryPoint = "wcsncasecmp", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int wcsncasecmp(nint __s1, nint __s2, nuint __n);
+
+    [LibraryImport("SDL3", EntryPoint = "wcscasecmp_l", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int wcscasecmp_l(nint __s1, nint __s2, nint __loc);
+
+    [LibraryImport("SDL3", EntryPoint = "wcsncasecmp_l", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int wcsncasecmp_l(nint __s1, nint __s2, nuint __n, nint __loc);
+
+    [LibraryImport("SDL3", EntryPoint = "wcscoll", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int wcscoll(nint __s1, nint __s2);
+
+    [LibraryImport("SDL3", EntryPoint = "wcsxfrm", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint wcsxfrm(nint __s1, nint __s2, nuint __n);
+
+    [LibraryImport("SDL3", EntryPoint = "wcscoll_l", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int wcscoll_l(nint __s1, nint __s2, nint __loc);
+
+    [LibraryImport("SDL3", EntryPoint = "wcsxfrm_l", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint wcsxfrm_l(nint __s1, nint __s2, nuint __n, nint __loc);
+
+    [LibraryImport("SDL3", EntryPoint = "wcsdup", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nint wcsdup(nint __s);
+
+    [LibraryImport("SDL3", EntryPoint = "wcschr", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nint wcschr(nint __wcs, char __wc);
+
+    [LibraryImport("SDL3", EntryPoint = "wcsrchr", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nint wcsrchr(nint __wcs, char __wc);
+
+    [LibraryImport("SDL3", EntryPoint = "wcscspn", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint wcscspn(nint __wcs, nint __reject);
+
+    [LibraryImport("SDL3", EntryPoint = "wcsspn", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint wcsspn(nint __wcs, nint __accept);
+
+    [LibraryImport("SDL3", EntryPoint = "wcspbrk", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nint wcspbrk(nint __wcs, nint __accept);
+
+    [LibraryImport("SDL3", EntryPoint = "wcsstr", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nint wcsstr(nint __haystack, nint __needle);
+
+    [LibraryImport("SDL3", EntryPoint = "wcstok", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nint wcstok(nint __s, nint __delim, nint __ptr);
+
+    [LibraryImport("SDL3", EntryPoint = "wcslen", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial uint wcslen(nint __s);
+
+    [LibraryImport("SDL3", EntryPoint = "wcsnlen", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint wcsnlen(nint __s, nuint __maxlen);
+
+    [LibraryImport("SDL3", EntryPoint = "wmemchr", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nint wmemchr(nint __s, char __c, nuint __n);
+
+    [LibraryImport("SDL3", EntryPoint = "wmemcmp", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int wmemcmp(nint __s1, nint __s2, nuint __n);
+
+    [LibraryImport("SDL3", EntryPoint = "wmemcpy", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nint wmemcpy(nint __s1, nint __s2, nuint __n);
+
+    [LibraryImport("SDL3", EntryPoint = "wmemmove", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nint wmemmove(nint __s1, nint __s2, nuint __n);
+
+    [LibraryImport("SDL3", EntryPoint = "wmemset", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nint wmemset(nint __s, char __c, nuint __n);
+
+    [LibraryImport("SDL3", EntryPoint = "btowc", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial uint btowc(int __c);
+
+    [LibraryImport("SDL3", EntryPoint = "wctob", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int wctob(uint __c);
+
+    [LibraryImport("SDL3", EntryPoint = "mbsinit", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int mbsinit(nint __ps);
+
+    [LibraryImport("SDL3", EntryPoint = "mbrtowc", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint mbrtowc(nint __pwc, string __s, nuint __n, nint __p);
+
+    [LibraryImport("SDL3", EntryPoint = "wcrtomb", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint wcrtomb(string __s, char __wc, nint __ps);
+
+    [LibraryImport("SDL3", EntryPoint = "__mbrlen", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint __mbrlen(string __s, nuint __n, nint __ps);
+
+    [LibraryImport("SDL3", EntryPoint = "mbrlen", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint mbrlen(string __s, nuint __n, nint __ps);
+
+    [LibraryImport("SDL3", EntryPoint = "mbsrtowcs", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint mbsrtowcs(nint __dst, nint __src, nuint __len, nint __ps);
+
+    [LibraryImport("SDL3", EntryPoint = "wcsrtombs", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint wcsrtombs(string __dst, nint __src, nuint __len, nint __ps);
+
+    [LibraryImport("SDL3", EntryPoint = "mbsnrtowcs", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint mbsnrtowcs(nint __dst, nint __src, nuint __nmc, nuint __len, nint __ps);
+
+    [LibraryImport("SDL3", EntryPoint = "wcsnrtombs", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint wcsnrtombs(string __dst, nint __src, nuint __nwc, nuint __len, nint __ps);
+
+    [LibraryImport("SDL3", EntryPoint = "wcstod", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial double wcstod(nint __nptr, nint __endptr);
+
+    [LibraryImport("SDL3", EntryPoint = "wcstof", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial float wcstof(nint __nptr, nint __endptr);
+
+    [LibraryImport("SDL3", EntryPoint = "wcstold", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial long double wcstold(nint __nptr, nint __endptr);
+
+    [LibraryImport("SDL3", EntryPoint = "wcstol", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int wcstol(nint __nptr, nint __endptr, int __base);
+
+    [LibraryImport("SDL3", EntryPoint = "wcstoul", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial uint wcstoul(nint __nptr, nint __endptr, int __base);
+
+    [LibraryImport("SDL3", EntryPoint = "wcstoll", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial long wcstoll(nint __nptr, nint __endptr, int __base);
+
+    [LibraryImport("SDL3", EntryPoint = "wcstoull", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial ulong wcstoull(nint __nptr, nint __endptr, int __base);
+
+    [LibraryImport("SDL3", EntryPoint = "wcpcpy", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nint wcpcpy(nint __dest, nint __src);
+
+    [LibraryImport("SDL3", EntryPoint = "wcpncpy", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nint wcpncpy(nint __dest, nint __src, nuint __n);
+
+    [LibraryImport("SDL3", EntryPoint = "open_wmemstream", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial __FILE* open_wmemstream(nint __bufloc, nint __sizeloc);
+
+    [LibraryImport("SDL3", EntryPoint = "fwide", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int fwide(__FILE* __fp, int __mode);
+
+    [LibraryImport("SDL3", EntryPoint = "fgetwc", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial uint fgetwc(__FILE* __stream);
+
+    [LibraryImport("SDL3", EntryPoint = "getwc", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial uint getwc(__FILE* __stream);
+
+    [LibraryImport("SDL3", EntryPoint = "getwchar", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial uint getwchar();
+
+    [LibraryImport("SDL3", EntryPoint = "fputwc", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial uint fputwc(char __wc, __FILE* __stream);
+
+    [LibraryImport("SDL3", EntryPoint = "putwc", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial uint putwc(char __wc, __FILE* __stream);
+
+    [LibraryImport("SDL3", EntryPoint = "putwchar", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial uint putwchar(char __wc);
+
+    [LibraryImport("SDL3", EntryPoint = "fgetws", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nint fgetws(nint __ws, int __n, __FILE* __stream);
+
+    [LibraryImport("SDL3", EntryPoint = "fputws", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int fputws(nint __ws, __FILE* __stream);
+
+    [LibraryImport("SDL3", EntryPoint = "ungetwc", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial uint ungetwc(uint __wc, __FILE* __stream);
+
+    [LibraryImport("SDL3", EntryPoint = "wcsftime", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint wcsftime(nint __s, nuint __maxsize, nint __format, nint __tp);
+
+    [LibraryImport("SDL3", EntryPoint = "imaxabs", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int imaxabs(int __n);
+
+    [LibraryImport("SDL3", EntryPoint = "imaxdiv", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial imaxdiv_t imaxdiv(int __numer, int __denom);
+
+    [LibraryImport("SDL3", EntryPoint = "strtoimax", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int strtoimax(string __nptr, nint __endptr, int __base);
+
+    [LibraryImport("SDL3", EntryPoint = "strtoumax", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial uint strtoumax(string __nptr, nint __endptr, int __base);
+
+    [LibraryImport("SDL3", EntryPoint = "wcstoimax", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int wcstoimax(nint __nptr, nint __endptr, int __base);
+
+    [LibraryImport("SDL3", EntryPoint = "wcstoumax", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial uint wcstoumax(nint __nptr, nint __endptr, int __base);
+
     [LibraryImport("SDL3", EntryPoint = "SDL_malloc", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nint SDL_malloc(nuint size);
@@ -5191,6 +5978,30 @@ public static unsafe partial class NativeMethods
     [LibraryImport("SDL3", EntryPoint = "SDL_GetAtomicPointer", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nint SDL_GetAtomicPointer(nint a);
+
+    [LibraryImport("SDL3", EntryPoint = "__bswap_16", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial ushort __bswap_16(ushort __bsx);
+
+    [LibraryImport("SDL3", EntryPoint = "__bswap_32", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial uint __bswap_32(uint __bsx);
+
+    [LibraryImport("SDL3", EntryPoint = "__bswap_64", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial uint __bswap_64(uint __bsx);
+
+    [LibraryImport("SDL3", EntryPoint = "__uint16_identity", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial ushort __uint16_identity(ushort __x);
+
+    [LibraryImport("SDL3", EntryPoint = "__uint32_identity", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial uint __uint32_identity(uint __x);
+
+    [LibraryImport("SDL3", EntryPoint = "__uint64_identity", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial uint __uint64_identity(uint __x);
 
     [LibraryImport("SDL3", EntryPoint = "SDL_SwapFloat", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]

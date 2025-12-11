@@ -27,7 +27,7 @@ class TestCSharpBindingsGenerator:
         assert "PENDING = 2," in output
         
         # Check struct generation
-        assert "public struct Point" in output
+        assert "public unsafe struct Point" in output
         assert "public int x;" in output
         assert "public int y;" in output
         
@@ -59,7 +59,7 @@ class TestCSharpBindingsGenerator:
         assert "MODE_RELEASE" in output
         
         # Check structs
-        assert "public struct Vector3" in output
+        assert "public unsafe struct Vector3" in output
         assert "public float x;" in output
         assert "public float y;" in output
         assert "public float z;" in output
@@ -84,7 +84,7 @@ class TestCSharpBindingsGenerator:
         # Verify content
         content = output_file.read_text()
         assert "namespace Bindings;" in content
-        assert "public struct Point" in content
+        assert "public unsafe struct Point" in content
     
     def test_generate_multiple_headers(self, temp_header_file, complex_header_file):
         """Test generating bindings from multiple header files"""
@@ -95,8 +95,8 @@ class TestCSharpBindingsGenerator:
         )
         
         # Should contain elements from both headers
-        assert "public struct Point" in output
-        assert "public struct Vector3" in output
+        assert "public unsafe struct Point" in output
+        assert "public unsafe struct Vector3" in output
         assert "public enum Status" in output
         assert "public enum Color" in output
         assert "public static partial int add(int a, int b);" in output
@@ -153,7 +153,7 @@ class TestCSharpBindingsGenerator:
         )
         
         # Should include Window from main.h (uses Config from include)
-        assert "public struct Window" in output
+        assert "public unsafe struct Window" in output
         assert "public Config config;" in output
         
         # Should include function
@@ -190,12 +190,12 @@ class TestCSharpBindingsGenerator:
         )
         
         # Should only include items from root.h
-        assert "public struct RootStruct" in output
+        assert "public unsafe struct RootStruct" in output
         assert "public static partial void root_function();" in output
         
         # Should NOT include items from level1.h or level2.h
-        assert "MiddleStruct" not in output or "public struct MiddleStruct" not in output
-        assert "DeepStruct" not in output or "public struct DeepStruct" not in output
+        assert "MiddleStruct" not in output or "public unsafe struct MiddleStruct" not in output
+        assert "DeepStruct" not in output or "public unsafe struct DeepStruct" not in output
         assert "level1_function" not in output
         assert "level2_function" not in output
     
@@ -210,13 +210,13 @@ class TestCSharpBindingsGenerator:
         )
         
         # Should include items from root.h and level1.h
-        assert "public struct RootStruct" in output
-        assert "public struct MiddleStruct" in output
+        assert "public unsafe struct RootStruct" in output
+        assert "public unsafe struct MiddleStruct" in output
         assert "public static partial void root_function();" in output
         assert "public static partial void level1_function();" in output
         
         # Should NOT include items from level2.h
-        assert "public struct DeepStruct" not in output
+        assert "public unsafe struct DeepStruct" not in output
         assert "level2_function" not in output
     
     def test_include_depth_two(self, nested_includes):
@@ -230,9 +230,9 @@ class TestCSharpBindingsGenerator:
         )
         
         # Should include items from all levels
-        assert "public struct RootStruct" in output
-        assert "public struct MiddleStruct" in output
-        assert "public struct DeepStruct" in output
+        assert "public unsafe struct RootStruct" in output
+        assert "public unsafe struct MiddleStruct" in output
+        assert "public unsafe struct DeepStruct" in output
         assert "public static partial void root_function();" in output
         assert "public static partial void level1_function();" in output
         assert "public static partial void level2_function();" in output
@@ -248,9 +248,9 @@ class TestCSharpBindingsGenerator:
         )
         
         # Should include everything (same as depth 2)
-        assert "public struct RootStruct" in output
-        assert "public struct MiddleStruct" in output
-        assert "public struct DeepStruct" in output
+        assert "public unsafe struct RootStruct" in output
+        assert "public unsafe struct MiddleStruct" in output
+        assert "public unsafe struct DeepStruct" in output
 
 
 class TestGeneratorInternals:
@@ -271,3 +271,20 @@ class TestGeneratorInternals:
         
         assert "namespace Empty;" in output
         assert "using System.Runtime.InteropServices;" in output
+    
+    def test_opaque_types_with_pointers(self, opaque_types_header):
+        """Test that opaque types generate proper pointer types (SDL_Window*)"""
+        generator = CSharpBindingsGenerator("SDL3")
+        output = generator.generate([opaque_types_header], namespace="SDL")
+        
+        # Check that opaque types are generated as structs (not readonly)
+        assert "public struct SDL_Window" in output
+        assert "public struct SDL_Renderer" in output
+        
+        # Check that functions use typed pointers (SDL_Window*) instead of nint
+        assert "public static partial SDL_Window* SDL_CreateWindow" in output
+        assert "public static partial void SDL_DestroyWindow(SDL_Window* window);" in output
+        assert "public static partial nuint SDL_GetWindowTitle(SDL_Window* window);" in output
+        assert "public static partial int SDL_SetWindowTitle(SDL_Window* window, string title);" in output
+        assert "public static partial SDL_Renderer* SDL_CreateRenderer(SDL_Window* window);" in output
+        assert "public static partial void SDL_RenderPresent(SDL_Renderer* renderer);" in output

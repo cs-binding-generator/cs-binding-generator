@@ -147,7 +147,7 @@ class CodeGenerator:
         fields_str = "\n".join(fields)
         
         code = f'''[StructLayout(LayoutKind.Explicit)]
-public struct {struct_name}
+public unsafe struct {struct_name}
 {{
 {fields_str}
 }}
@@ -159,8 +159,9 @@ public struct {struct_name}
         if not type_name or "unnamed" in type_name or "::" in type_name:
             return ""
         
-        # Generate an empty readonly struct that can be used as a type-safe handle
-        code = f'''public readonly struct {type_name}
+        # Generate an empty struct that can be used as a type-safe handle
+        # Note: Cannot use readonly because these are used with unsafe pointers
+        code = f'''public struct {type_name}
 {{
 }}
 '''
@@ -220,7 +221,7 @@ public struct {struct_name}
         fields_str = "\n".join(fields)
         
         code = f'''[StructLayout(LayoutKind.Explicit)]
-public struct {union_name}
+public unsafe struct {union_name}
 {{
 {fields_str}
 }}

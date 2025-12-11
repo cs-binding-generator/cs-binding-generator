@@ -123,7 +123,7 @@ class TestCodeGenerator:
         result = self.generator.generate_struct(mock_cursor)
         
         assert "[StructLayout(LayoutKind.Explicit)]" in result
-        assert "public struct Point" in result
+        assert "public unsafe struct Point" in result
         assert "[FieldOffset(0)]" in result
         assert "[FieldOffset(4)]" in result
         assert "public int x;" in result
@@ -168,7 +168,7 @@ class TestCodeGenerator:
         result = self.generator.generate_union(mock_cursor)
         
         assert "[StructLayout(LayoutKind.Explicit)]" in result
-        assert "public struct Data" in result
+        assert "public unsafe struct Data" in result
         # Both fields should be at offset 0 in a union
         assert result.count("[FieldOffset(0)]") == 2
         assert "public int as_int;" in result

@@ -103,6 +103,8 @@ class CSharpBindingsGenerator:
                                 self.generated_structs.append(code)
                                 self.seen_structs.add(struct_key)
                                 self.seen_structs.add((type_name, None, None))
+                                # Register as opaque type for pointer handling
+                                self.type_mapper.opaque_types.add(type_name)
                 elif child.kind == CursorKind.STRUCT_DECL and not child.is_definition() and child.spelling:
                     # Direct forward declaration
                     struct_key = (child.spelling, str(cursor.location.file), cursor.location.line)
@@ -112,10 +114,40 @@ class CSharpBindingsGenerator:
                             self.generated_structs.append(code)
                             self.seen_structs.add(struct_key)
                             self.seen_structs.add((child.spelling, None, None))
+                            # Register as opaque type for pointer handling
+                            self.type_mapper.opaque_types.add(child.spelling)
         
         # Recurse into children
         for child in cursor.get_children():
             self.process_cursor(child)
+    
+    def prescan_opaque_types(self, cursor):
+        """Pre-scan AST to identify opaque types before processing functions"""
+        # Only process items in allowed files (based on include depth)
+        if cursor.location.file:
+            file_path = str(cursor.location.file)
+            if file_path not in self.allowed_files:
+                return
+        
+        if cursor.kind == CursorKind.TYPEDEF_DECL:
+            # Handle opaque struct typedefs (e.g., typedef struct SDL_Window SDL_Window;)
+            children = list(cursor.get_children())
+            if len(children) == 1:
+                child = children[0]
+                type_name = cursor.spelling
+                
+                # Check if it's a reference to a struct (TYPE_REF) or direct STRUCT_DECL
+                if child.kind == CursorKind.TYPE_REF and child.spelling and 'struct ' in str(child.type.spelling):
+                    # This is an opaque typedef like: typedef struct SDL_Window SDL_Window;
+                    if type_name and type_name not in ['size_t', 'ssize_t', 'ptrdiff_t', 'intptr_t', 'uintptr_t', 'wchar_t']:
+                        self.type_mapper.opaque_types.add(type_name)
+                elif child.kind == CursorKind.STRUCT_DECL and not child.is_definition() and child.spelling:
+                    # Direct forward declaration
+                    self.type_mapper.opaque_types.add(child.spelling)
+        
+        # Recurse into children
+        for child in cursor.get_children():
+            self.prescan_opaque_types(child)
     
     def _build_file_depth_map(self, tu, root_file: str, max_depth: int) -> dict[str, int]:
         """Build a mapping of file paths to their include depth
@@ -261,6 +293,9 @@ class CSharpBindingsGenerator:
                 print(f"Processing {len(file_depth_map)} file(s) (depth {include_depth}):")
                 for file_path, depth in sorted(file_depth_map.items(), key=lambda x: x[1]):
                     print(f"  [depth {depth}] {Path(file_path).name}")
+            
+            # Pre-scan for opaque types before processing functions
+            self.prescan_opaque_types(tu.cursor)
             
             # Process the AST
             self.process_cursor(tu.cursor)

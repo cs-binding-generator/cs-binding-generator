@@ -1,0 +1,14 @@
+/home/robindegen/Development/CsBindingGenerator/test_dotnet/SDL3Test/obj/Debug/net10.0/SDL3Test.GeneratedMSBuildEditorConfig.editorconfig
+/home/robindegen/Development/CsBindingGenerator/test_dotnet/SDL3Test/obj/Debug/net10.0/SDL3Test.AssemblyInfoInputs.cache
+/home/robindegen/Development/CsBindingGenerator/test_dotnet/SDL3Test/obj/Debug/net10.0/SDL3Test.AssemblyInfo.cs
+/home/robindegen/Development/CsBindingGenerator/test_dotnet/SDL3Test/obj/Debug/net10.0/SDL3Test.csproj.CoreCompileInputs.cache
+/home/robindegen/Development/CsBindingGenerator/test_dotnet/SDL3Test/bin/Debug/net10.0/SDL3Test
+/home/robindegen/Development/CsBindingGenerator/test_dotnet/SDL3Test/bin/Debug/net10.0/SDL3Test.deps.json
+/home/robindegen/Development/CsBindingGenerator/test_dotnet/SDL3Test/bin/Debug/net10.0/SDL3Test.runtimeconfig.json
+/home/robindegen/Development/CsBindingGenerator/test_dotnet/SDL3Test/bin/Debug/net10.0/SDL3Test.dll
+/home/robindegen/Development/CsBindingGenerator/test_dotnet/SDL3Test/bin/Debug/net10.0/SDL3Test.pdb
+/home/robindegen/Development/CsBindingGenerator/test_dotnet/SDL3Test/obj/Debug/net10.0/SDL3Test.dll
+/home/robindegen/Development/CsBindingGenerator/test_dotnet/SDL3Test/obj/Debug/net10.0/refint/SDL3Test.dll
+/home/robindegen/Development/CsBindingGenerator/test_dotnet/SDL3Test/obj/Debug/net10.0/SDL3Test.pdb
+/home/robindegen/Development/CsBindingGenerator/test_dotnet/SDL3Test/obj/Debug/net10.0/SDL3Test.genruntimeconfig.cache
+/home/robindegen/Development/CsBindingGenerator/test_dotnet/SDL3Test/obj/Debug/net10.0/ref/SDL3Test.dll

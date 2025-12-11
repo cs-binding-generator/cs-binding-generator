@@ -88,7 +88,7 @@ class TestTypeMapper:
             assert result == "string"
     
     def test_struct_pointer(self):
-        """Test that struct* maps to nint"""
+        """Test that struct* maps to nint by default"""
         mock_type = Mock()
         mock_type.kind = TypeKind.POINTER
         mock_type.spelling = "struct Point *"
@@ -100,6 +100,28 @@ class TestTypeMapper:
         
         result = self.mapper.map_type(mock_type)
         assert result == "nint"
+    
+    def test_opaque_struct_pointer(self):
+        """Test that opaque struct* maps to Type*"""
+        # Register SDL_Window as an opaque type
+        self.mapper.opaque_types.add("SDL_Window")
+        
+        mock_type = Mock()
+        mock_type.kind = TypeKind.POINTER
+        mock_type.spelling = "SDL_Window *"
+        
+        mock_pointee = Mock()
+        mock_pointee.kind = TypeKind.RECORD
+        mock_pointee.spelling = "SDL_Window"
+        mock_type.get_pointee.return_value = mock_pointee
+        
+        result = self.mapper.map_type(mock_type)
+        assert result == "SDL_Window*"
+        
+        # Also test with 'struct ' prefix
+        mock_pointee.spelling = "struct SDL_Window"
+        result = self.mapper.map_type(mock_type)
+        assert result == "SDL_Window*"
     
     def test_generic_pointer(self):
         """Test that other pointers map to nint"""

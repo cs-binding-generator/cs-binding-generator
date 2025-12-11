@@ -20,6 +20,8 @@ class TypeMapper:
             'uintptr_t': 'nuint',
             'wchar_t': 'char',
         }
+        # Track opaque types (empty structs used as handles)
+        self.opaque_types = set()
     
     def map_type(self, ctype, is_return_type: bool = False) -> str:
         """Map C type to C# type
@@ -62,9 +64,27 @@ class TypeMapper:
             if pointee.kind == TypeKind.VOID:
                 return "nint"
             
-            # Pointer to struct -> nint
-            if pointee.kind == TypeKind.RECORD:
-                return "nint"  # Or use ref for by-reference
+            # Check for opaque types (works for both RECORD and ELABORATED types)
+            struct_name = None
+            if pointee.kind == TypeKind.ELABORATED:
+                # For elaborated types, use the spelling directly
+                struct_name = pointee.spelling if hasattr(pointee, 'spelling') else None
+            elif pointee.kind == TypeKind.RECORD:
+                # For record types, strip 'struct ' prefix
+                if hasattr(pointee, 'spelling'):
+                    struct_name = pointee.spelling
+                    for prefix in ['struct ', 'union ', 'class ']:
+                        if struct_name.startswith(prefix):
+                            struct_name = struct_name[len(prefix):]
+                            break
+            
+            # If it's an opaque type, use unsafe pointer
+            if struct_name and struct_name in self.opaque_types:
+                return f"{struct_name}*"
+            
+            # Pointer to struct -> nint (for non-opaque structs)
+            if pointee.kind in (TypeKind.RECORD, TypeKind.ELABORATED):
+                return "nint"
             
             # Other pointers -> nint for safety
             return "nint"

@@ -182,3 +182,28 @@ void root_function();
         'level1': str(level1_header),
         'level2': str(level2_header)
     }
+
+
+@pytest.fixture
+def opaque_types_header():
+    """Create a header with opaque types (like SDL_Window)"""
+    with tempfile.NamedTemporaryFile(mode='w', suffix='.h', delete=False) as f:
+        f.write("""
+// Opaque types header (like SDL)
+typedef struct SDL_Window SDL_Window;
+typedef struct SDL_Renderer SDL_Renderer;
+
+// Functions that use opaque types
+SDL_Window* SDL_CreateWindow(const char* title, int x, int y, int w, int h, unsigned int flags);
+void SDL_DestroyWindow(SDL_Window* window);
+const char* SDL_GetWindowTitle(SDL_Window* window);
+int SDL_SetWindowTitle(SDL_Window* window, const char* title);
+SDL_Renderer* SDL_CreateRenderer(SDL_Window* window);
+void SDL_RenderPresent(SDL_Renderer* renderer);
+""")
+        path = f.name
+    
+    yield path
+    
+    # Cleanup
+    Path(path).unlink(missing_ok=True)
