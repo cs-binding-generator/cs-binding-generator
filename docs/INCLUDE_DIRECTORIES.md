@@ -13,13 +13,13 @@ Without proper include directories, you'll get parse errors and incomplete bindi
 ### Single Include Directory
 
 ```bash
-cs-binding-generator -i mylib.h -I /usr/include -o Bindings.cs -l mylib
+cs_binding_generator -i mylib.h -I /usr/include -o Bindings.cs -l mylib
 ```
 
 ### Multiple Include Directories
 
 ```bash
-cs-binding-generator -i mylib.h \
+cs_binding_generator -i mylib.h \
     -I /usr/include \
     -I /usr/local/include \
     -I ./include \
@@ -31,7 +31,7 @@ cs-binding-generator -i mylib.h \
 Include directories are searched in the order specified:
 ```bash
 # ./include is searched first, then /usr/include
-cs-binding-generator -i mylib.h -I ./include -I /usr/include
+cs_binding_generator -i mylib.h -I ./include -I /usr/include
 ```
 
 This allows you to override system headers with custom versions.
@@ -74,7 +74,7 @@ void close_window(Window* win);
 
 **Generate Bindings:**
 ```bash
-cs-binding-generator \
+cs_binding_generator \
     -i mylib.h \
     -I ./include \
     -o MyLibBindings.cs \
@@ -161,7 +161,7 @@ This means you often don't need to specify system paths manually.
 
 ### Mixed Environment
 ```bash
-cs-binding-generator \
+cs_binding_generator \
   -i mylib.h \
   -I ./include \              # Project headers
   -I /usr/local/include \     # Local libraries
@@ -193,7 +193,7 @@ This usually means libclang couldn't find all dependencies. Add more include dir
 Include directories and include depth work together:
 
 ```bash
-cs-binding-generator \
+cs_binding_generator \
   -i /usr/include/SDL3/SDL.h \
   -I /usr/include \           # Where to find headers
   --include-depth 1 \         # How deep to process them

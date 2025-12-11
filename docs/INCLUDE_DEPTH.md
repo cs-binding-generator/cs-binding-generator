@@ -32,13 +32,13 @@ Only files within the specified depth are processed for code generation.
 
 ```bash
 # Only process main.h (default behavior)
-cs-binding-generator -i main.h -l mylib --include-depth 0
+cs_binding_generator -i main.h -l mylib --include-depth 0
 
 # Process main.h and files it directly includes
-cs-binding-generator -i main.h -l mylib --include-depth 1 -I ./include
+cs_binding_generator -i main.h -l mylib --include-depth 1 -I ./include
 
 # Process up to 2 levels of includes
-cs-binding-generator -i main.h -l mylib --include-depth 2 -I ./include
+cs_binding_generator -i main.h -l mylib --include-depth 2 -I ./include
 ```
 
 ### Programmatic Usage
@@ -107,7 +107,7 @@ void process(MainType* data);
 ### Depth 0 (Default)
 
 ```bash
-cs-binding-generator -i main.h -I ./include -l mylib --include-depth 0
+cs_binding_generator -i main.h -I ./include -l mylib --include-depth 0
 ```
 
 **Generated bindings include:**
@@ -119,7 +119,7 @@ cs-binding-generator -i main.h -I ./include -l mylib --include-depth 0
 ### Depth 1
 
 ```bash
-cs-binding-generator -i main.h -I ./include -l mylib --include-depth 1
+cs_binding_generator -i main.h -I ./include -l mylib --include-depth 1
 ```
 
 **Generated bindings include:**
@@ -131,7 +131,7 @@ cs-binding-generator -i main.h -I ./include -l mylib --include-depth 1
 ### Depth 2
 
 ```bash
-cs-binding-generator -i main.h -I ./include -l mylib --include-depth 2
+cs_binding_generator -i main.h -I ./include -l mylib --include-depth 2
 ```
 
 **Generated bindings include:**
@@ -197,7 +197,7 @@ SDL3 is an excellent example of when include depth is crucial:
 
 ```bash
 # SDL.h is just a meta-header that includes all sub-headers
-cs-binding-generator \
+cs_binding_generator \
   -i /usr/include/SDL3/SDL.h \
   -o SDL3.cs \
   -l SDL3 \
@@ -226,7 +226,7 @@ Processing 87 file(s) (depth 1):
 You can specify multiple input files and use depth to process their includes:
 
 ```bash
-cs-binding-generator \
+cs_binding_generator \
   -i public_api.h internal_api.h \
   --include-depth 1 \
   -I ./include \

@@ -3,7 +3,7 @@ requires = ["setuptools>=61.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "cs-binding-generator"
+name = "cs_binding_generator"
 version = "0.1.0"
 description = "Generate C# bindings from C headers using libclang with modern LibraryImport"
 readme = "README.md"
@@ -38,12 +38,12 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/yourusername/cs-binding-generator"
-Repository = "https://github.com/yourusername/cs-binding-generator"
-Issues = "https://github.com/yourusername/cs-binding-generator/issues"
+Homepage = "https://github.com/yourusername/cs_binding_generator"
+Repository = "https://github.com/yourusername/cs_binding_generator"
+Issues = "https://github.com/yourusername/cs_binding_generator/issues"
 
 [project.scripts]
-cs-binding-generator = "cs_binding_generator.main:main"
+cs_binding_generator = "cs_binding_generator.main:main"
 
 [tool.setuptools]
 packages = ["cs_binding_generator"]

@@ -60,13 +60,13 @@ error CS0246: The type or namespace name 'wchar_t' could not be found
 1. **Include depth is 0 and header only has includes**
    ```bash
    # SDL.h only includes other headers, need depth 1
-   cs-binding-generator -i SDL.h --include-depth 1
+   cs_binding_generator -i SDL.h --include-depth 1
    ```
 
 2. **Header file not found**
    ```bash
    # Add include directories
-   cs-binding-generator -i mylib.h -I /path/to/headers
+   cs_binding_generator -i mylib.h -I /path/to/headers
    ```
 
 3. **Parse errors** - Check stderr for clang diagnostics
@@ -80,7 +80,7 @@ error CS0246: The type or namespace name 'wchar_t' could not be found
 1. **Check file depth:**
    ```bash
    # Run with verbose output to see which files are processed
-   cs-binding-generator -i header.h --include-depth 1
+   cs_binding_generator -i header.h --include-depth 1
    
    # Look for output like:
    # Processing 5 file(s) (depth 1):
@@ -241,7 +241,7 @@ sudo pacman -S clang python-clang
 
 **Manual specification:**
 ```bash
-cs-binding-generator --clang-path /usr/lib/libclang.so ...
+cs_binding_generator --clang-path /usr/lib/libclang.so ...
 ```
 
 ### Parse Errors
@@ -252,7 +252,7 @@ cs-binding-generator --clang-path /usr/lib/libclang.so ...
 
 1. **Add missing include directories:**
    ```bash
-   cs-binding-generator -i header.h \
+   cs_binding_generator -i header.h \
      -I /usr/include \
      -I /usr/lib/clang/21/include
    ```
@@ -297,19 +297,19 @@ cs-binding-generator --clang-path /usr/lib/libclang.so ...
 2. **Split into multiple files:**
    ```bash
    # Generate separate bindings for different subsystems
-   cs-binding-generator -i video.h -o Video.cs
-   cs-binding-generator -i audio.h -o Audio.cs
+   cs_binding_generator -i video.h -o Video.cs
+   cs_binding_generator -i audio.h -o Audio.cs
    ```
 
 3. **Use partial classes** to organize generated code across files
 
 ## Test Failures
 
-### "FileNotFoundError: 'cs-binding-generator'"
+### "FileNotFoundError: 'cs_binding_generator'"
 
 **Error during tests:**
 ```
-FileNotFoundError: [Errno 2] No such file or directory: 'cs-binding-generator'
+FileNotFoundError: [Errno 2] No such file or directory: 'cs_binding_generator'
 ```
 
 **Cause:** CLI tool not installed.

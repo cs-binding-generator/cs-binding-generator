@@ -44,7 +44,7 @@ pip install -e .
 ### Command Line
 
 ```bash
-cs-binding-generator \
+cs_binding_generator \
   -i /usr/include/SDL3/SDL.h \
   -o SDL3.cs \
   -l SDL3 \
@@ -172,7 +172,7 @@ This tool was developed and tested by generating bindings for SDL3. The generate
 
 To regenerate SDL3 bindings:
 ```bash
-cs-binding-generator \
+cs_binding_generator \
   -i /usr/include/SDL3/SDL.h \
   -o SDL3.cs \
   -l SDL3 \

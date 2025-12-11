@@ -177,7 +177,7 @@ def test_sdl3_generates_valid_csharp():
         
         result = subprocess.run(
             [
-                "cs-binding-generator",
+                "cs_binding_generator",
                 "-i", "/usr/include/SDL3/SDL.h",
                 "-l", "SDL3",
                 "-o", str(output_file),
