@@ -32,8 +32,10 @@ class CodeGenerator:
                 return ""  # Skip variadic functions
         
         # Build parameter list with marshalling attributes
+        # Also track which parameters are char** (nuint representing output string pointers)
         params = []
-        for arg in cursor.get_arguments():
+        char_double_ptr_params = []  # Track char** parameters by index and info
+        for i, arg in enumerate(cursor.get_arguments()):
             arg_type = self.type_mapper.map_type(arg.type, is_return_type=False)
             # Skip functions with unmappable parameter types (like va_list)
             if arg_type is None:
@@ -41,6 +43,14 @@ class CodeGenerator:
             arg_name = arg.spelling or f"param{len(params)}"
             # Escape C# keywords in parameter names
             arg_name = self._escape_keyword(arg_name)
+            
+            # Check if this is a char** parameter (now mapped to nuint)
+            if arg_type == "nuint" and self._is_char_double_pointer(arg.type):
+                char_double_ptr_params.append({
+                    'index': i,
+                    'name': arg_name,
+                    'original_type': arg.type
+                })
             
             # Add marshalling attributes for bool parameters
             if arg_type == "bool":
@@ -80,6 +90,66 @@ class CodeGenerator:
     }}
 '''
         
+        # Add helper function for functions with char** parameters (output string pointers)
+        if char_double_ptr_params:
+            # Build new parameter list replacing nuint with out string? for char** params
+            helper_params = []
+            call_params = []
+            setup_code = []
+            cleanup_code = []
+            
+            for i, arg in enumerate(cursor.get_arguments()):
+                arg_type = self.type_mapper.map_type(arg.type, is_return_type=False)
+                if arg_type is None:
+                    continue
+                arg_name = arg.spelling or f"param{i}"
+                arg_name = self._escape_keyword(arg_name)
+                
+                # Check if this parameter is a char** (nuint output parameter)
+                is_char_dbl_ptr = any(p['index'] == i for p in char_double_ptr_params)
+                
+                if is_char_dbl_ptr:
+                    # Replace with out string? parameter
+                    helper_params.append(f"out string? {arg_name}")
+                    # Add setup code for pointer variable
+                    ptr_var = f"{arg_name}Ptr"
+                    setup_code.append(f"        nuint {ptr_var} = 0;")
+                    call_params.append(f"(nuint)(&{ptr_var})")
+                    # Add cleanup code to marshal the pointer back to string
+                    cleanup_code.append(f"""        if ({ptr_var} == 0)
+        {{
+            {arg_name} = null;
+        }}
+        else
+        {{
+            {arg_name} = Marshal.PtrToStringUTF8((nint){ptr_var});
+        }}""")
+                else:
+                    # Keep parameter as-is
+                    if arg_type == "bool":
+                        helper_params.append(f"[MarshalAs(UnmanagedType.I1)] {arg_type} {arg_name}")
+                    else:
+                        helper_params.append(f"{arg_type} {arg_name}")
+                    call_params.append(arg_name)
+            
+            helper_params_str = ", ".join(helper_params)
+            call_params_str = ", ".join(call_params)
+            setup_str = "\n".join(setup_code)
+            cleanup_str = "\n".join(cleanup_code)
+            
+            return_statement = "return result;" if result_type != "void" else ""
+            result_var = f"{result_type} result = " if result_type != "void" else ""
+            
+            code += f'''
+    public static unsafe {result_type} {func_name}String({helper_params_str})
+    {{
+{setup_str}
+        {result_var}{func_name}({call_params_str});
+{cleanup_str}
+        {return_statement}
+    }}
+'''
+        
         return code
     
     def _is_char_pointer(self, ctype) -> bool:
@@ -87,6 +157,15 @@ class CodeGenerator:
         if ctype.kind == TypeKind.POINTER:
             pointee = ctype.get_pointee()
             return pointee.kind in (TypeKind.CHAR_S, TypeKind.CHAR_U)
+        return False
+    
+    def _is_char_double_pointer(self, ctype) -> bool:
+        """Check if a type is char** (pointer to pointer to char)"""
+        if ctype.kind == TypeKind.POINTER:
+            pointee = ctype.get_pointee()
+            if pointee.kind == TypeKind.POINTER:
+                inner_pointee = pointee.get_pointee()
+                return inner_pointee.kind in (TypeKind.CHAR_S, TypeKind.CHAR_U)
         return False
     
     def generate_struct(self, cursor) -> str:

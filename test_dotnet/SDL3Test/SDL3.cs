@@ -4706,6 +4706,21 @@ public static unsafe partial class NativeMethods
         return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
     }
 
+    public static unsafe nuint SDL_strtok_rString(string str, string delim, out string? saveptr)
+    {
+        nuint saveptrPtr = 0;
+        nuint result = SDL_strtok_r(str, delim, (nuint)(&saveptrPtr));
+        if (saveptrPtr == 0)
+        {
+            saveptr = null;
+        }
+        else
+        {
+            saveptr = Marshal.PtrToStringUTF8((nint)saveptrPtr);
+        }
+        return result;
+    }
+
     [LibraryImport("SDL3", EntryPoint = "SDL_utf8strlen", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint SDL_utf8strlen(string str);
@@ -4792,21 +4807,96 @@ public static unsafe partial class NativeMethods
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial int SDL_strtol(string str, nuint endp, int @base);
 
+    public static unsafe int SDL_strtolString(string str, out string? endp, int @base)
+    {
+        nuint endpPtr = 0;
+        int result = SDL_strtol(str, (nuint)(&endpPtr), @base);
+        if (endpPtr == 0)
+        {
+            endp = null;
+        }
+        else
+        {
+            endp = Marshal.PtrToStringUTF8((nint)endpPtr);
+        }
+        return result;
+    }
+
     [LibraryImport("SDL3", EntryPoint = "SDL_strtoul", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint SDL_strtoul(string str, nuint endp, int @base);
+
+    public static unsafe uint SDL_strtoulString(string str, out string? endp, int @base)
+    {
+        nuint endpPtr = 0;
+        uint result = SDL_strtoul(str, (nuint)(&endpPtr), @base);
+        if (endpPtr == 0)
+        {
+            endp = null;
+        }
+        else
+        {
+            endp = Marshal.PtrToStringUTF8((nint)endpPtr);
+        }
+        return result;
+    }
 
     [LibraryImport("SDL3", EntryPoint = "SDL_strtoll", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial long SDL_strtoll(string str, nuint endp, int @base);
 
+    public static unsafe long SDL_strtollString(string str, out string? endp, int @base)
+    {
+        nuint endpPtr = 0;
+        long result = SDL_strtoll(str, (nuint)(&endpPtr), @base);
+        if (endpPtr == 0)
+        {
+            endp = null;
+        }
+        else
+        {
+            endp = Marshal.PtrToStringUTF8((nint)endpPtr);
+        }
+        return result;
+    }
+
     [LibraryImport("SDL3", EntryPoint = "SDL_strtoull", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial ulong SDL_strtoull(string str, nuint endp, int @base);
 
+    public static unsafe ulong SDL_strtoullString(string str, out string? endp, int @base)
+    {
+        nuint endpPtr = 0;
+        ulong result = SDL_strtoull(str, (nuint)(&endpPtr), @base);
+        if (endpPtr == 0)
+        {
+            endp = null;
+        }
+        else
+        {
+            endp = Marshal.PtrToStringUTF8((nint)endpPtr);
+        }
+        return result;
+    }
+
     [LibraryImport("SDL3", EntryPoint = "SDL_strtod", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial double SDL_strtod(string str, nuint endp);
+
+    public static unsafe double SDL_strtodString(string str, out string? endp)
+    {
+        nuint endpPtr = 0;
+        double result = SDL_strtod(str, (nuint)(&endpPtr));
+        if (endpPtr == 0)
+        {
+            endp = null;
+        }
+        else
+        {
+            endp = Marshal.PtrToStringUTF8((nint)endpPtr);
+        }
+        return result;
+    }
 
     [LibraryImport("SDL3", EntryPoint = "SDL_strcmp", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
@@ -4839,9 +4929,39 @@ public static unsafe partial class NativeMethods
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint SDL_StepUTF8(nuint pstr, uint* pslen);
 
+    public static unsafe uint SDL_StepUTF8String(out string? pstr, uint* pslen)
+    {
+        nuint pstrPtr = 0;
+        uint result = SDL_StepUTF8((nuint)(&pstrPtr), pslen);
+        if (pstrPtr == 0)
+        {
+            pstr = null;
+        }
+        else
+        {
+            pstr = Marshal.PtrToStringUTF8((nint)pstrPtr);
+        }
+        return result;
+    }
+
     [LibraryImport("SDL3", EntryPoint = "SDL_StepBackUTF8", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint SDL_StepBackUTF8(string start, nuint pstr);
+
+    public static unsafe uint SDL_StepBackUTF8String(string start, out string? pstr)
+    {
+        nuint pstrPtr = 0;
+        uint result = SDL_StepBackUTF8(start, (nuint)(&pstrPtr));
+        if (pstrPtr == 0)
+        {
+            pstr = null;
+        }
+        else
+        {
+            pstr = Marshal.PtrToStringUTF8((nint)pstrPtr);
+        }
+        return result;
+    }
 
     [LibraryImport("SDL3", EntryPoint = "SDL_UCS4ToUTF8", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
@@ -5085,6 +5205,30 @@ public static unsafe partial class NativeMethods
     [LibraryImport("SDL3", EntryPoint = "SDL_iconv", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint SDL_iconv(nint cd, nuint inbuf, uint* inbytesleft, nuint outbuf, uint* outbytesleft);
+
+    public static unsafe uint SDL_iconvString(nint cd, out string? inbuf, uint* inbytesleft, out string? outbuf, uint* outbytesleft)
+    {
+        nuint inbufPtr = 0;
+        nuint outbufPtr = 0;
+        uint result = SDL_iconv(cd, (nuint)(&inbufPtr), inbytesleft, (nuint)(&outbufPtr), outbytesleft);
+        if (inbufPtr == 0)
+        {
+            inbuf = null;
+        }
+        else
+        {
+            inbuf = Marshal.PtrToStringUTF8((nint)inbufPtr);
+        }
+        if (outbufPtr == 0)
+        {
+            outbuf = null;
+        }
+        else
+        {
+            outbuf = Marshal.PtrToStringUTF8((nint)outbufPtr);
+        }
+        return result;
+    }
 
     [LibraryImport("SDL3", EntryPoint = "SDL_iconv_string", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
@@ -6613,6 +6757,21 @@ public static unsafe partial class NativeMethods
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetClipboardData(nint callback, nint cleanup, nint userdata, nuint mime_types, uint num_mime_types);
+
+    public static unsafe bool SDL_SetClipboardDataString(nint callback, nint cleanup, nint userdata, out string? mime_types, uint num_mime_types)
+    {
+        nuint mime_typesPtr = 0;
+        bool result = SDL_SetClipboardData(callback, cleanup, userdata, (nuint)(&mime_typesPtr), num_mime_types);
+        if (mime_typesPtr == 0)
+        {
+            mime_types = null;
+        }
+        else
+        {
+            mime_types = Marshal.PtrToStringUTF8((nint)mime_typesPtr);
+        }
+        return result;
+    }
 
     [LibraryImport("SDL3", EntryPoint = "SDL_ClearClipboardData", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
@@ -9276,6 +9435,21 @@ public static unsafe partial class NativeMethods
     [LibraryImport("SDL3", EntryPoint = "SDL_CreateProcess", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Process* SDL_CreateProcess(nuint args, [MarshalAs(UnmanagedType.I1)] bool pipe_stdio);
+
+    public static unsafe SDL_Process* SDL_CreateProcessString(out string? args, [MarshalAs(UnmanagedType.I1)] bool pipe_stdio)
+    {
+        nuint argsPtr = 0;
+        SDL_Process* result = SDL_CreateProcess((nuint)(&argsPtr), pipe_stdio);
+        if (argsPtr == 0)
+        {
+            args = null;
+        }
+        else
+        {
+            args = Marshal.PtrToStringUTF8((nint)argsPtr);
+        }
+        return result;
+    }
 
     [LibraryImport("SDL3", EntryPoint = "SDL_CreateProcessWithProperties", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
