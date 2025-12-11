@@ -34,7 +34,7 @@ class TestCSharpBindingsGenerator:
         # Check function generation
         assert "public static partial int add(int a, int b);" in output
         assert "public static partial nint get_data();" in output
-        assert "public static partial string get_name();" in output
+        assert "public static partial nuint get_name();" in output  # char* return -> nuint
         
         # Check LibraryImport attributes
         assert '[LibraryImport("testlib"' in output

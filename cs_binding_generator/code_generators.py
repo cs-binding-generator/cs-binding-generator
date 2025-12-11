@@ -16,7 +16,7 @@ class CodeGenerator:
     def generate_function(self, cursor) -> str:
         """Generate C# LibraryImport for a function"""
         func_name = cursor.spelling
-        result_type = self.type_mapper.map_type(cursor.result_type)
+        result_type = self.type_mapper.map_type(cursor.result_type, is_return_type=True)
         
         # Skip if return type cannot be mapped
         if result_type is None:
@@ -31,7 +31,7 @@ class CodeGenerator:
         # Build parameter list with marshalling attributes
         params = []
         for arg in cursor.get_arguments():
-            arg_type = self.type_mapper.map_type(arg.type)
+            arg_type = self.type_mapper.map_type(arg.type, is_return_type=False)
             # Skip functions with unmappable parameter types (like va_list)
             if arg_type is None:
                 return ""

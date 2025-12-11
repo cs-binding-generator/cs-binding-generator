@@ -21,8 +21,13 @@ class TypeMapper:
             'wchar_t': 'char',
         }
     
-    def map_type(self, ctype) -> str:
-        """Map C type to C# type"""
+    def map_type(self, ctype, is_return_type: bool = False) -> str:
+        """Map C type to C# type
+        
+        Args:
+            ctype: The libclang type to map
+            is_return_type: True if this is a function return type (affects char* mapping)
+        """
         # Check for va_list types (platform-specific variadic argument list)
         # These appear as __va_list_tag or __builtin_va_list and cannot be mapped to C#
         if hasattr(ctype, 'spelling'):
@@ -47,9 +52,11 @@ class TypeMapper:
         if ctype.kind == TypeKind.POINTER:
             pointee = ctype.get_pointee()
             
-            # char* -> string (for C strings)
+            # char* handling depends on context:
+            # - Return type: nuint (caller shouldn't free the pointer)
+            # - Parameter: string (for passing C strings as input)
             if pointee.kind in (TypeKind.CHAR_S, TypeKind.CHAR_U):
-                return "string"
+                return "nuint" if is_return_type else "string"
             
             # void* -> nint
             if pointee.kind == TypeKind.VOID:
