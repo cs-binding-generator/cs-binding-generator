@@ -6,9 +6,14 @@ Generates modern C# code with LibraryImport for P/Invoke
 
 import argparse
 import sys
+import os
 import clang.cindex
 
-from .generator import CSharpBindingsGenerator
+# Add parent directory to sys.path for direct execution
+if __name__ == '__main__' and __package__ is None:
+    sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+from cs_binding_generator.generator import CSharpBindingsGenerator
 
 
 def main():
