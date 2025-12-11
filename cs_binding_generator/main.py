@@ -19,6 +19,7 @@ def main():
 Examples:
   %(prog)s -i mylib.h -o MyBindings.cs -l mylib
   %(prog)s -i header1.h header2.h -o Bindings.cs -l native -n My.Library
+  %(prog)s -i mylib.h -I /usr/include -I ./include -o Bindings.cs -l mylib
         """
     )
     
@@ -51,6 +52,14 @@ Examples:
     )
     
     parser.add_argument(
+        "-I", "--include",
+        action="append",
+        dest="include_dirs",
+        metavar="DIR",
+        help="Add directory to include search path (can be specified multiple times)"
+    )
+    
+    parser.add_argument(
         "--clang-path",
         metavar="PATH",
         help="Path to libclang library (if not in default location)"
@@ -65,7 +74,12 @@ Examples:
     # Generate bindings
     try:
         generator = CSharpBindingsGenerator(args.library)
-        generator.generate(args.input, args.output, args.namespace)
+        generator.generate(
+            args.input, 
+            args.output, 
+            args.namespace,
+            include_dirs=args.include_dirs or []
+        )
     except Exception as e:
         print(f"Error: {e}", file=sys.stderr)
         sys.exit(1)

@@ -78,3 +78,47 @@ unsigned long long get_timestamp();
     
     # Cleanup
     Path(path).unlink(missing_ok=True)
+
+
+@pytest.fixture
+def header_with_include(tmp_path):
+    """Create header files with #include directive"""
+    # Create an include directory
+    include_dir = tmp_path / "include"
+    include_dir.mkdir()
+    
+    # Create a common header in include directory
+    common_header = include_dir / "common.h"
+    common_header.write_text("""
+#ifndef COMMON_H
+#define COMMON_H
+
+typedef struct Config {
+    int width;
+    int height;
+    int depth;
+} Config;
+
+#define MAX_SIZE 1024
+
+#endif
+""")
+    
+    # Create main header that includes common.h
+    main_header = tmp_path / "main.h"
+    main_header.write_text("""
+#include "common.h"
+
+typedef struct Window {
+    Config config;
+    char title[MAX_SIZE];
+} Window;
+
+void init_window(Window* win);
+""")
+    
+    return {
+        'main': str(main_header),
+        'include_dir': str(include_dir),
+        'common': str(common_header)
+    }

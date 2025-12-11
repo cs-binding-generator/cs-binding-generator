@@ -53,8 +53,22 @@ class CSharpBindingsGenerator:
             self.process_cursor(child)
     
     def generate(self, header_files: list[str], output_file: str = None, 
-                 namespace: str = "Bindings") -> str:
-        """Generate C# bindings from C header file(s)"""
+                 namespace: str = "Bindings", include_dirs: list[str] = None) -> str:
+        """Generate C# bindings from C header file(s)
+        
+        Args:
+            header_files: List of C header files to process
+            output_file: Optional output file path (prints to stdout if not specified)
+            namespace: C# namespace for generated code
+            include_dirs: List of directories to search for included headers
+        """
+        if include_dirs is None:
+            include_dirs = []
+        
+        # Build clang arguments
+        clang_args = ['-x', 'c']
+        for include_dir in include_dirs:
+            clang_args.append(f'-I{include_dir}')
         
         # Parse each header file
         index = clang.cindex.Index.create()
@@ -66,8 +80,10 @@ class CSharpBindingsGenerator:
             
             self.source_file = header_file
             print(f"Processing: {header_file}")
+            if include_dirs:
+                print(f"Include directories: {', '.join(include_dirs)}")
             
-            tu = index.parse(header_file, args=['-x', 'c'])
+            tu = index.parse(header_file, args=clang_args)
             
             # Check for parse errors
             has_errors = False

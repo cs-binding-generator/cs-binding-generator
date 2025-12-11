@@ -1,0 +1,110 @@
+"""
+CLI integration tests
+"""
+
+import subprocess
+import tempfile
+from pathlib import Path
+
+
+def test_cli_with_include_directories():
+    """Test CLI with -I flag for include directories"""
+    with tempfile.TemporaryDirectory() as tmpdir:
+        tmppath = Path(tmpdir)
+        
+        # Create include directory
+        include_dir = tmppath / "include"
+        include_dir.mkdir()
+        
+        # Create a header in include directory
+        (include_dir / "types.h").write_text("""
+typedef struct Point {
+    int x;
+    int y;
+} Point;
+""")
+        
+        # Create main header that uses types from include
+        main_header = tmppath / "main.h"
+        main_header.write_text("""
+#include "types.h"
+
+void process_point(Point* p);
+""")
+        
+        # Create output file path
+        output_file = tmppath / "output.cs"
+        
+        # Run the CLI
+        result = subprocess.run(
+            [
+                "python", "-m", "cs_binding_generator.main",
+                "-i", str(main_header),
+                "-I", str(include_dir),
+                "-o", str(output_file),
+                "-l", "testlib",
+                "-n", "Test"
+            ],
+            capture_output=True,
+            text=True
+        )
+        
+        # Check it succeeded
+        assert result.returncode == 0, f"CLI failed: {result.stderr}"
+        
+        # Check output file was created
+        assert output_file.exists(), "Output file not created"
+        
+        # Check content
+        content = output_file.read_text()
+        assert "namespace Test;" in content
+        assert "public static partial void process_point(nint p);" in content
+
+
+def test_cli_multiple_include_dirs():
+    """Test CLI with multiple -I flags"""
+    with tempfile.TemporaryDirectory() as tmpdir:
+        tmppath = Path(tmpdir)
+        
+        # Create multiple include directories
+        include1 = tmppath / "include1"
+        include1.mkdir()
+        include2 = tmppath / "include2"
+        include2.mkdir()
+        
+        (include1 / "types.h").write_text("typedef int MyInt;")
+        (include2 / "config.h").write_text("#define SIZE 100")
+        
+        # Create main header
+        main_header = tmppath / "main.h"
+        main_header.write_text("""
+#include "types.h"
+#include "config.h"
+
+MyInt get_value();
+""")
+        
+        # Run with multiple -I flags
+        result = subprocess.run(
+            [
+                "python", "-m", "cs_binding_generator.main",
+                "-i", str(main_header),
+                "-I", str(include1),
+                "-I", str(include2),
+                "-l", "lib"
+            ],
+            capture_output=True,
+            text=True
+        )
+        
+        # Should succeed
+        assert result.returncode == 0, f"CLI failed: {result.stderr}"
+        
+        # Check output contains function
+        assert "get_value" in result.stdout
+
+
+if __name__ == "__main__":
+    test_cli_with_include_directories()
+    test_cli_multiple_include_dirs()
+    print("CLI tests passed!")

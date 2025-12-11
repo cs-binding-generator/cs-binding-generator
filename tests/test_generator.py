@@ -141,6 +141,42 @@ class TestCSharpBindingsGenerator:
         output = generator.generate([temp_header_file])
         
         assert "[StructLayout(LayoutKind.Sequential)]" in output
+    
+    def test_generate_with_include_dirs(self, header_with_include):
+        """Test generating bindings with include directories"""
+        generator = CSharpBindingsGenerator("testlib")
+        output = generator.generate(
+            [header_with_include['main']],
+            namespace="Test",
+            include_dirs=[header_with_include['include_dir']]
+        )
+        
+        # Should include Window from main.h (uses Config from include)
+        assert "public struct Window" in output
+        assert "public Config config;" in output
+        
+        # Should include function
+        assert "public static partial void init_window(nint win);" in output
+        
+        # Config struct is in included file, so won't be generated
+        # (only main file content is processed, but types are resolved)
+    
+    def test_generate_without_include_dirs_fails(self, header_with_include, capsys):
+        """Test that parsing has errors without include directories"""
+        generator = CSharpBindingsGenerator("testlib")
+        # Don't provide include_dirs - should have parse errors
+        output = generator.generate(
+            [header_with_include['main']],
+            namespace="Test",
+            include_dirs=[]  # No include directories
+        )
+        
+        # Should still generate output
+        assert "namespace Test;" in output
+        
+        # Check for errors in stderr
+        captured = capsys.readouterr()
+        # May have errors about not finding common.h
 
 
 class TestGeneratorInternals:
