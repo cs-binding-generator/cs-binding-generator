@@ -25,6 +25,11 @@ class CSharpBindingsGenerator:
         self.generated_enums = []
         self.source_file = None
         self.allowed_files = set()  # Files allowed based on include depth
+        
+        # Track what we've already generated to avoid duplicates
+        self.seen_functions = set()  # (name, location)
+        self.seen_structs = set()    # (name, location)
+        self.seen_enums = set()      # (name, location)
     
     def process_cursor(self, cursor):
         """Recursively process AST nodes"""
@@ -35,21 +40,33 @@ class CSharpBindingsGenerator:
                 return
         
         if cursor.kind == CursorKind.FUNCTION_DECL:
-            code = self.code_generator.generate_function(cursor)
-            if code:
-                self.generated_functions.append(code)
+            # Check if we've already generated this function
+            func_key = (cursor.spelling, str(cursor.location.file), cursor.location.line)
+            if func_key not in self.seen_functions:
+                code = self.code_generator.generate_function(cursor)
+                if code:
+                    self.generated_functions.append(code)
+                    self.seen_functions.add(func_key)
         
         elif cursor.kind == CursorKind.STRUCT_DECL:
             if cursor.is_definition():
-                code = self.code_generator.generate_struct(cursor)
-                if code:
-                    self.generated_structs.append(code)
+                # Check if we've already generated this struct
+                struct_key = (cursor.spelling, str(cursor.location.file), cursor.location.line)
+                if struct_key not in self.seen_structs:
+                    code = self.code_generator.generate_struct(cursor)
+                    if code:
+                        self.generated_structs.append(code)
+                        self.seen_structs.add(struct_key)
         
         elif cursor.kind == CursorKind.ENUM_DECL:
             if cursor.is_definition():
-                code = self.code_generator.generate_enum(cursor)
-                if code:
-                    self.generated_enums.append(code)
+                # Check if we've already generated this enum
+                enum_key = (cursor.spelling, str(cursor.location.file), cursor.location.line)
+                if enum_key not in self.seen_enums:
+                    code = self.code_generator.generate_enum(cursor)
+                    if code:
+                        self.generated_enums.append(code)
+                        self.seen_enums.add(enum_key)
         
         # Recurse into children
         for child in cursor.get_children():
@@ -148,14 +165,16 @@ class CSharpBindingsGenerator:
             
             tu = index.parse(header_file, args=clang_args, options=parse_options)
             
-            # Check for parse errors
-            has_errors = False
+            # Check for parse errors (warnings don't stop processing)
+            has_fatal_errors = False
             for diag in tu.diagnostics:
                 if diag.severity >= clang.cindex.Diagnostic.Error:
                     print(f"Error in {header_file}: {diag.spelling}", file=sys.stderr)
-                    has_errors = True
+                if diag.severity >= clang.cindex.Diagnostic.Fatal:
+                    has_fatal_errors = True
             
-            if has_errors:
+            if has_fatal_errors:
+                print(f"Fatal errors in {header_file}, skipping", file=sys.stderr)
                 continue
             
             # Build file depth map and update allowed files
