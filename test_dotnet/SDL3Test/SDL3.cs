@@ -4239,6 +4239,68 @@ public unsafe struct SDL_HapticEffect
 
 public static unsafe partial class NativeMethods
 {
+    [LibraryImport("SDL3", EntryPoint = "bcmp", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int bcmp(nint __s1, nint __s2, uint __n);
+
+    [LibraryImport("SDL3", EntryPoint = "bcopy", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void bcopy(nint __src, nint __dest, uint __n);
+
+    [LibraryImport("SDL3", EntryPoint = "bzero", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void bzero(nint __s, uint __n);
+
+    [LibraryImport("SDL3", EntryPoint = "index", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint index(string __s, int __c);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? indexString(string __s, int __c)
+    {
+        var ptr = index(__s, __c);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
+
+    [LibraryImport("SDL3", EntryPoint = "rindex", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint rindex(string __s, int __c);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? rindexString(string __s, int __c)
+    {
+        var ptr = rindex(__s, __c);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
+
+    [LibraryImport("SDL3", EntryPoint = "ffs", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int ffs(int __i);
+
+    [LibraryImport("SDL3", EntryPoint = "ffsl", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int ffsl(int __l);
+
+    [LibraryImport("SDL3", EntryPoint = "ffsll", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int ffsll(long __ll);
+
+    [LibraryImport("SDL3", EntryPoint = "strcasecmp", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int strcasecmp(string __s1, string __s2);
+
+    [LibraryImport("SDL3", EntryPoint = "strncasecmp", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int strncasecmp(string __s1, string __s2, uint __n);
+
+    [LibraryImport("SDL3", EntryPoint = "strcasecmp_l", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int strcasecmp_l(string __s1, string __s2, nint __loc);
+
+    [LibraryImport("SDL3", EntryPoint = "strncasecmp_l", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int strncasecmp_l(string __s1, string __s2, uint __n, nint __loc);
+
     [LibraryImport("SDL3", EntryPoint = "SDL_malloc", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nint SDL_malloc(uint size);
