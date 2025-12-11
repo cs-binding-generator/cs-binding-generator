@@ -63,9 +63,9 @@ Examples:
     parser.add_argument(
         "--include-depth",
         type=int,
-        default=0,
+        default=None,
         metavar="N",
-        help="Process included files up to depth N (0=only input files, 1=direct includes, etc.; default: 0)"
+        help="Process included files up to depth N (0=only input files, 1=direct includes, etc.; default: infinite)"
     )
     
     parser.add_argument(

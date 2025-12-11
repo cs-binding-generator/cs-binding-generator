@@ -242,7 +242,7 @@ class CSharpBindingsGenerator:
         Args:
             tu: Translation unit
             root_file: Root header file path
-            max_depth: Maximum include depth to process
+            max_depth: Maximum include depth to process (None for infinite)
             
         Returns:
             Dictionary mapping absolute file paths to their depth level
@@ -251,6 +251,9 @@ class CSharpBindingsGenerator:
         
         if max_depth == 0:
             return file_depth
+        
+        # If max_depth is None, use a very large number for infinite depth
+        effective_max_depth = float('inf') if max_depth is None else max_depth
         
         # Collect all inclusion directives with their source file
         def collect_inclusions(cursor, inclusions):
@@ -272,7 +275,7 @@ class CSharpBindingsGenerator:
         
         # Build depth map by processing inclusions level by level
         current_depth = 0
-        while current_depth < max_depth:
+        while current_depth < effective_max_depth:
             # Find all files at current depth
             files_at_depth = {f for f, d in file_depth.items() if d == current_depth}
             if not files_at_depth:
@@ -291,7 +294,7 @@ class CSharpBindingsGenerator:
     
     def generate(self, header_files: list[str], output_file: str = None, 
                  namespace: str = "Bindings", include_dirs: list[str] = None,
-                 include_depth: int = 0) -> str:
+                 include_depth: int = None) -> str:
         """Generate C# bindings from C header file(s)
         
         Args:
@@ -299,7 +302,7 @@ class CSharpBindingsGenerator:
             output_file: Optional output file path (prints to stdout if not specified)
             namespace: C# namespace for generated code
             include_dirs: List of directories to search for included headers
-            include_depth: How deep to process included files (0=only input files, 1=direct includes, etc.)
+            include_depth: How deep to process included files (0=only input files, 1=direct includes, etc.; None=infinite)
         """
         if include_dirs is None:
             include_dirs = []
@@ -355,8 +358,10 @@ class CSharpBindingsGenerator:
             print(f"Processing: {header_file}")
             if include_dirs:
                 print(f"Include directories: {', '.join(include_dirs)}")
-            if include_depth > 0:
+            if include_depth is not None:
                 print(f"Include depth: {include_depth}")
+            else:
+                print(f"Include depth: infinite")
             
             tu = index.parse(header_file, args=clang_args, options=parse_options)
             
@@ -376,8 +381,9 @@ class CSharpBindingsGenerator:
             file_depth_map = self._build_file_depth_map(tu, header_file, include_depth)
             self.allowed_files.update(file_depth_map.keys())
             
-            if include_depth > 0 and len(file_depth_map) > 1:
-                print(f"Processing {len(file_depth_map)} file(s) (depth {include_depth}):")
+            if include_depth != 0 and len(file_depth_map) > 1:
+                depth_str = str(include_depth) if include_depth is not None else 'infinite'
+                print(f"Processing {len(file_depth_map)} file(s) (depth {depth_str}):")
                 for file_path, depth in sorted(file_depth_map.items(), key=lambda x: x[1]):
                     print(f"  [depth {depth}] {Path(file_path).name}")
             

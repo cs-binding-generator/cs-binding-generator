@@ -181,7 +181,6 @@ def test_sdl3_generates_valid_csharp():
                 "-i", "/usr/include/SDL3/SDL.h",
                 "-l", "SDL3",
                 "-o", str(output_file),
-                "--include-depth", "2",
                 "-I", "/usr/include",
                 "-I", "/usr/lib/clang/21/include"
             ],
