@@ -6,12 +6,25 @@ The C# Bindings Generator allows you to control how deep into the include hierar
 
 By default (`--include-depth 0`), the generator only processes definitions from the input header files you specify. With include depth control, you can also generate bindings for types and functions defined in included headers.
 
+This feature is essential when working with libraries like SDL3, which have a main header that includes many sub-headers containing the actual API definitions.
+
 ## Include Depth Levels
 
 - **Depth 0** (default): Only process the input header file(s)
 - **Depth 1**: Process input files + their direct includes
 - **Depth 2**: Process input files + includes + includes of those includes
 - **Depth N**: Process up to N levels deep in the include hierarchy
+
+## How It Works
+
+The generator uses libclang to track `#include` directives and builds a file depth map:
+
+1. Input files are marked as depth 0
+2. Files directly included by depth 0 files are marked as depth 1
+3. Files included by depth 1 files are marked as depth 2
+4. And so on...
+
+Only files within the specified depth are processed for code generation.
 
 ## Usage
 
@@ -177,3 +190,58 @@ The generator processes all includes up to the specified depth, including system
 2. Use header guards to prevent duplication
 3. Filter input files carefully
 4. Consider processing system types separately if needed
+
+## Real-World Example: SDL3
+
+SDL3 is an excellent example of when include depth is crucial:
+
+```bash
+# SDL.h is just a meta-header that includes all sub-headers
+cs-binding-generator \
+  -i /usr/include/SDL3/SDL.h \
+  -o SDL3.cs \
+  -l SDL3 \
+  -n SDL \
+  --include-depth 1 \
+  -I /usr/include
+```
+
+**Result with depth 0**: Only a few common definitions from SDL.h itself
+**Result with depth 1**: Complete SDL3 API from all included headers (SDL_video.h, SDL_audio.h, etc.)
+
+The generator will print which files are being processed:
+```
+Processing 87 file(s) (depth 1):
+  [depth 0] SDL.h
+  [depth 1] SDL_assert.h
+  [depth 1] SDL_atomic.h
+  [depth 1] SDL_audio.h
+  ...
+```
+
+## Advanced Usage
+
+### Combining Multiple Input Files with Depth
+
+You can specify multiple input files and use depth to process their includes:
+
+```bash
+cs-binding-generator \
+  -i public_api.h internal_api.h \
+  --include-depth 1 \
+  -I ./include \
+  -o Bindings.cs \
+  -l mylib
+```
+
+Both `public_api.h` and `internal_api.h` will be treated as depth 0, and their direct includes will be processed as depth 1.
+
+### Preventing System Header Pollution
+
+When processing libraries, you may encounter unwanted system headers. The generator automatically tries to limit this by:
+
+1. Only processing files in specified include directories
+2. Tracking explicit include relationships
+3. Skipping certain platform-specific headers
+
+However, at higher depths (2+), you may see standard library types. Consider keeping depth at 1 for most use cases.
