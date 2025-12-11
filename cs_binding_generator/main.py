@@ -1,0 +1,75 @@
+#!/usr/bin/env python3
+"""
+CLI entry point for C# bindings generator
+Generates modern C# code with LibraryImport for P/Invoke
+"""
+
+import argparse
+import sys
+import clang.cindex
+
+from .generator import CSharpBindingsGenerator
+
+
+def main():
+    parser = argparse.ArgumentParser(
+        description="Generate C# bindings from C header files using LibraryImport",
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+Examples:
+  %(prog)s -i mylib.h -o MyBindings.cs -l mylib
+  %(prog)s -i header1.h header2.h -o Bindings.cs -l native -n My.Library
+        """
+    )
+    
+    parser.add_argument(
+        "-i", "--input",
+        nargs="+",
+        required=True,
+        metavar="HEADER",
+        help="Input C header file(s) to process"
+    )
+    
+    parser.add_argument(
+        "-o", "--output",
+        metavar="FILE",
+        help="Output C# file (if not specified, prints to stdout)"
+    )
+    
+    parser.add_argument(
+        "-l", "--library",
+        required=True,
+        metavar="NAME",
+        help="Name of the native library (e.g., 'mylib' for mylib.dll/libmylib.so)"
+    )
+    
+    parser.add_argument(
+        "-n", "--namespace",
+        default="Bindings",
+        metavar="NAMESPACE",
+        help="C# namespace for generated code (default: Bindings)"
+    )
+    
+    parser.add_argument(
+        "--clang-path",
+        metavar="PATH",
+        help="Path to libclang library (if not in default location)"
+    )
+    
+    args = parser.parse_args()
+    
+    # Set clang library path if provided
+    if args.clang_path:
+        clang.cindex.Config.set_library_path(args.clang_path)
+    
+    # Generate bindings
+    try:
+        generator = CSharpBindingsGenerator(args.library)
+        generator.generate(args.input, args.output, args.namespace)
+    except Exception as e:
+        print(f"Error: {e}", file=sys.stderr)
+        sys.exit(1)
+
+
+if __name__ == "__main__":
+    main()
