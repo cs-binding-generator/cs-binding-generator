@@ -64,25 +64,41 @@ class TypeMapper:
             if pointee.kind == TypeKind.VOID:
                 return "nint"
             
-            # Check for opaque types (works for both RECORD and ELABORATED types)
+            # Get struct name for pointer to struct (handles RECORD and ELABORATED types)
             struct_name = None
             if pointee.kind == TypeKind.ELABORATED:
                 # For elaborated types, use the spelling directly
-                struct_name = pointee.spelling if hasattr(pointee, 'spelling') else None
-            elif pointee.kind == TypeKind.RECORD:
-                # For record types, strip 'struct ' prefix
                 if hasattr(pointee, 'spelling'):
                     struct_name = pointee.spelling
-                    for prefix in ['struct ', 'union ', 'class ']:
-                        if struct_name.startswith(prefix):
-                            struct_name = struct_name[len(prefix):]
+                    # Strip const and other qualifiers - may need multiple passes
+                    while True:
+                        stripped = False
+                        for prefix in ['const ', 'volatile ', 'restrict ', 'struct ', 'union ', 'class ']:
+                            if struct_name.startswith(prefix):
+                                struct_name = struct_name[len(prefix):]
+                                stripped = True
+                                break
+                        if not stripped:
+                            break
+            elif pointee.kind == TypeKind.RECORD:
+                # For record types, strip 'struct ', 'const ' prefixes - may need multiple passes
+                if hasattr(pointee, 'spelling'):
+                    struct_name = pointee.spelling
+                    while True:
+                        stripped = False
+                        for prefix in ['const ', 'volatile ', 'struct ', 'union ', 'class ']:
+                            if struct_name.startswith(prefix):
+                                struct_name = struct_name[len(prefix):]
+                                stripped = True
+                                break
+                        if not stripped:
                             break
             
-            # If it's an opaque type, use unsafe pointer
-            if struct_name and struct_name in self.opaque_types:
+            # All struct/union pointers use typed pointers (Type*)
+            if struct_name:
                 return f"{struct_name}*"
             
-            # Pointer to struct -> nint (for non-opaque structs)
+            # Pointer to struct/union with ELABORATED type but no name
             if pointee.kind in (TypeKind.RECORD, TypeKind.ELABORATED):
                 return "nint"
             

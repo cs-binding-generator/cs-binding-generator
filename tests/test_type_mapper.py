@@ -88,7 +88,7 @@ class TestTypeMapper:
             assert result == "string"
     
     def test_struct_pointer(self):
-        """Test that struct* maps to nint by default"""
+        """Test that struct* maps to Type* (typed pointer)"""
         mock_type = Mock()
         mock_type.kind = TypeKind.POINTER
         mock_type.spelling = "struct Point *"
@@ -99,7 +99,7 @@ class TestTypeMapper:
         mock_type.get_pointee.return_value = mock_pointee
         
         result = self.mapper.map_type(mock_type)
-        assert result == "nint"
+        assert result == "Point*"
     
     def test_opaque_struct_pointer(self):
         """Test that opaque struct* maps to Type*"""

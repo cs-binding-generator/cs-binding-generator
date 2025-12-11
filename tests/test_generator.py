@@ -66,9 +66,9 @@ class TestCSharpBindingsGenerator:
         
         # Check functions
         assert "public static partial void init_engine(string config_path);" in output
-        assert "public static partial nint create_vector(float x, float y, float z);" in output
-        assert "public static partial void destroy_vector(nint vec);" in output
-        assert "public static partial float dot_product(nint a, nint b);" in output
+        assert "public static partial Vector3* create_vector(float x, float y, float z);" in output
+        assert "public static partial void destroy_vector(Vector3* vec);" in output
+        assert "public static partial float dot_product(Vector3* a, Vector3* b);" in output
         assert "public static partial ulong get_timestamp();" in output
     
     def test_generate_to_file(self, temp_header_file, tmp_path):
@@ -157,7 +157,7 @@ class TestCSharpBindingsGenerator:
         assert "public Config config;" in output
         
         # Should include function
-        assert "public static partial void init_window(nint win);" in output
+        assert "public static partial void init_window(Window* win);" in output
         
         # Config struct is in included file, so won't be generated
         # (only main file content is processed, but types are resolved)

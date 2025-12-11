@@ -58,10 +58,7 @@ void process_point(Point* p);
         # Check content
         content = output_file.read_text()
         assert "namespace Test;" in content
-        assert "public static partial void process_point(nint p);" in content
-
-
-def test_cli_multiple_include_dirs():
+    assert "public static partial void process_point(Point* p);" in content
     """Test CLI with multiple -I flags"""
     with tempfile.TemporaryDirectory() as tmpdir:
         tmppath = Path(tmpdir)
