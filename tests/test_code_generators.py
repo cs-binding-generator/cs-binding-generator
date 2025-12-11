@@ -97,6 +97,7 @@ class TestCodeGenerator:
         field1_type = Mock()
         field1_type.kind = TypeKind.INT
         field1.type = field1_type
+        field1.get_field_offsetof.return_value = 0  # offset in bits
         
         field2 = Mock()
         field2.kind = CursorKind.FIELD_DECL
@@ -104,13 +105,16 @@ class TestCodeGenerator:
         field2_type = Mock()
         field2_type.kind = TypeKind.INT
         field2.type = field2_type
+        field2.get_field_offsetof.return_value = 32  # offset in bits (4 bytes * 8)
         
         mock_cursor.get_children.return_value = [field1, field2]
         
         result = self.generator.generate_struct(mock_cursor)
         
-        assert "[StructLayout(LayoutKind.Sequential)]" in result
+        assert "[StructLayout(LayoutKind.Explicit)]" in result
         assert "public struct Point" in result
+        assert "[FieldOffset(0)]" in result
+        assert "[FieldOffset(4)]" in result
         assert "public int x;" in result
         assert "public int y;" in result
     
@@ -182,7 +186,7 @@ class TestOutputBuilder:
     def test_build_complete_output(self):
         """Test building complete C# output"""
         enums = ['public enum Status\n{\n    OK = 0,\n}\n']
-        structs = ['[StructLayout(LayoutKind.Sequential)]\npublic struct Point\n{\n    public int x;\n}\n']
+        structs = ['[StructLayout(LayoutKind.Explicit)]\npublic struct Point\n{\n    [FieldOffset(0)]\n    public int x;\n}\n']
         functions = ['    [LibraryImport("mylib")]\n    public static partial int add(int a, int b);\n']
         
         result = OutputBuilder.build(

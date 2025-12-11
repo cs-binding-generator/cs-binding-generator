@@ -60,14 +60,14 @@ class CodeGenerator:
         return code
     
     def generate_struct(self, cursor) -> str:
-        """Generate C# struct"""
+        """Generate C# struct with explicit layout"""
         struct_name = cursor.spelling
         
         # Skip anonymous/unnamed structs (they often appear in unions)
         if not struct_name or "unnamed" in struct_name or "::" in struct_name:
             return ""
         
-        # Collect fields
+        # Collect fields with their offsets
         fields = []
         for field in cursor.get_children():
             if field.kind == CursorKind.FIELD_DECL:
@@ -80,6 +80,10 @@ class CodeGenerator:
                 # Escape C# keywords
                 field_name = self._escape_keyword(field_name)
                 
+                # Get field offset in bytes (libclang returns bits)
+                offset_bits = field.get_field_offsetof()
+                offset_bytes = offset_bits // 8
+                
                 # Check if this is a constant array (fixed-size array in struct)
                 if field.type.kind == TypeKind.CONSTANTARRAY:
                     element_type = field.type.get_array_element_type()
@@ -90,10 +94,14 @@ class CodeGenerator:
                     if not element_csharp:
                         continue
                     
-                    # Use fixed buffer for primitive types in unsafe struct
-                    # For now, manually expand arrays as individual fields
+                    # Get element size (assume byte-sized elements for now)
+                    # For proper alignment, we need to know the element size
+                    element_size = element_type.get_size()  # size in bytes
+                    
+                    # Expand arrays as individual fields with proper offsets
                     for i in range(array_size):
-                        fields.append(f"    public {element_csharp} {field_name}_{i};")
+                        field_offset = offset_bytes + (i * element_size)
+                        fields.append(f"    [FieldOffset({field_offset})]\n    public {element_csharp} {field_name}_{i};")
                 else:
                     field_type = self.type_mapper.map_type(field.type)
                     
@@ -101,14 +109,14 @@ class CodeGenerator:
                     if not field_type or "unnamed" in field_type or "::" in field_type:
                         continue
                     
-                    fields.append(f"    public {field_type} {field_name};")
+                    fields.append(f"    [FieldOffset({offset_bytes})]\n    public {field_type} {field_name};")
         
         if not fields:
             return ""
         
         fields_str = "\n".join(fields)
         
-        code = f'''[StructLayout(LayoutKind.Sequential)]
+        code = f'''[StructLayout(LayoutKind.Explicit)]
 public struct {struct_name}
 {{
 {fields_str}
