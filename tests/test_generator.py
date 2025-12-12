@@ -383,13 +383,31 @@ class TestGeneratorInternals:
             output=str(temp_dir)
         )
         
-        # Multi output should have one file
+        # Multi output should have bindings.cs and testlib.cs
         assert isinstance(multi_output, dict)
-        assert len(multi_output) == 1
+        assert len(multi_output) == 2
+        assert "bindings.cs" in multi_output
         assert "testlib.cs" in multi_output
         
-        # Content should be essentially the same (ignoring whitespace differences)
+        # Combine multi-file content (bindings.cs contains assembly attributes, testlib.cs contains the rest)
+        # The single file should be equivalent to the combined content minus duplicated headers
         single_lines = [line.strip() for line in single_output.split('\n') if line.strip()]
-        multi_lines = [line.strip() for line in multi_output["testlib.cs"].split('\n') if line.strip()]
         
-        assert single_lines == multi_lines
+        # Get assembly attributes from bindings.cs (skip the header comment)
+        bindings_lines = [line.strip() for line in multi_output["bindings.cs"].split('\n') if line.strip()]
+        assembly_attrs_start = next(i for i, line in enumerate(bindings_lines) if line.startswith('[assembly:'))
+        assembly_attrs = bindings_lines[assembly_attrs_start:]
+        
+        # Get main content from testlib.cs (skip header comment and using statements that are duplicated)  
+        testlib_lines = [line.strip() for line in multi_output["testlib.cs"].split('\n') if line.strip()]
+        content_start = next(i for i, line in enumerate(testlib_lines) if line.startswith('namespace'))
+        main_content = testlib_lines[content_start:]
+        
+        # The single file should contain both assembly attributes and main content
+        # Check that assembly attributes are in single file
+        for attr_line in assembly_attrs:
+            assert attr_line in single_lines
+        
+        # Check that main content is in single file  
+        for content_line in main_content:
+            assert content_line in single_lines
