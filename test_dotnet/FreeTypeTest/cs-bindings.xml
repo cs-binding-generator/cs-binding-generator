@@ -1,0 +1,6 @@
+<bindings>
+    <library name="freetype">
+        <namespace name="FreeType"/>
+        <include file="/usr/include/freetype2/freetype/freetype.h"/>
+    </library>
+</bindings>

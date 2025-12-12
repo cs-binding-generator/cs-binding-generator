@@ -5,16 +5,15 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
 OUTPUT_FILE="$SCRIPT_DIR/FreeType.cs"
 
-echo "Regenerating FreeType C# bindings..."
+echo "Regenerating FreeType C# bindings using XML configuration..."
+echo "Config file: $SCRIPT_DIR/cs-bindings.xml"
 echo "Output file: $OUTPUT_FILE"
 echo ""
 
 python3 "$PROJECT_ROOT/cs_binding_generator/main.py" \
-    -i /usr/include/freetype2/freetype/freetype.h:freetype \
+    --config "$SCRIPT_DIR/cs-bindings.xml" \
     -o "$OUTPUT_FILE" \
-    -n FreeType \
-    -I /usr/include/freetype2 \
-    -I /usr/include
+    -I /usr/include/freetype2
 
 echo ""
 echo "✓ FreeType.cs regenerated successfully"

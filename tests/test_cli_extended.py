@@ -161,6 +161,66 @@ class TestCLIIntegration:
         content = output_file.read_text()
         assert "namespace ComplexNamespace;" in content
         assert "complex_func" in content
+    
+    def test_cli_with_config_file(self, temp_dir):
+        """Test CLI with XML configuration file"""
+        # Create config file
+        config_content = """
+        <bindings>
+            <library name="testlib">
+                <namespace name="ConfigNamespace"/>
+                <include file="{header_path}"/>
+            </library>
+        </bindings>
+        """
+        
+        header = temp_dir / "test.h"
+        header.write_text("int config_test_func();")
+        
+        config_file = temp_dir / "config.xml"
+        config_file.write_text(config_content.format(header_path=str(header)))
+        
+        output_file = temp_dir / "output.cs"
+        
+        result = subprocess.run([
+            "python", "-m", "cs_binding_generator.main",
+            "--config", str(config_file),
+            "-o", str(output_file)
+        ], capture_output=True, text=True)
+        
+        assert result.returncode == 0
+        assert output_file.exists()
+        
+        content = output_file.read_text()
+        assert "namespace ConfigNamespace;" in content
+        assert "config_test_func" in content
+    
+    def test_cli_config_and_input_conflict(self, temp_dir):
+        """Test that --config and --input cannot be used together"""
+        config_file = temp_dir / "config.xml"
+        config_file.write_text("<bindings></bindings>")
+        
+        header_file = temp_dir / "test.h"
+        header_file.write_text("int test();")
+        
+        result = subprocess.run([
+            "python", "-m", "cs_binding_generator.main",
+            "--config", str(config_file),
+            "-i", f"{header_file}:testlib"
+        ], capture_output=True, text=True)
+        
+        assert result.returncode != 0
+        assert "Cannot specify both --config and --input" in result.stderr
+    
+    def test_cli_missing_input_and_config(self, temp_dir):
+        """Test that either --config or --input must be specified"""
+        result = subprocess.run([
+            "python", "-m", "cs_binding_generator.main",
+            "-o", str(temp_dir / "output.cs")
+        ], capture_output=True, text=True)
+        
+        assert result.returncode != 0
+        assert "Must specify either --config or --input" in result.stderr
 
 
 class TestMultiFileGeneration:

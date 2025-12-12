@@ -1,0 +1,6 @@
+<bindings>
+    <library name="SDL3">
+        <namespace name="SDL"/>
+        <include file="/usr/include/SDL3/SDL.h"/>
+    </library>
+</bindings>

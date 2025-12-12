@@ -1,0 +1,10 @@
+<bindings>
+    <library name="libtcod">
+        <namespace name="Libtcod"/>
+        <include file="/usr/include/libtcod/libtcod.h"/>
+    </library>
+    <library name="SDL3">
+        <namespace name="SDL3"/>
+        <include file="/usr/include/SDL3/SDL.h"/>
+    </library>
+</bindings>
