@@ -266,6 +266,29 @@ class TestXMLConfigParsing:
         with pytest.raises(ValueError, match="Include directory element missing 'path' attribute"):
             parse_config_file(str(config_file))
     
+    def test_fatal_parse_errors_cause_immediate_failure(self, temp_dir):
+        """Test that fatal parsing errors cause immediate failure with clear error messages"""
+        from cs_binding_generator.generator import CSharpBindingsGenerator
+        
+        # Create a header that includes a non-existent file
+        header_file = temp_dir / "test.h"
+        header_file.write_text('#include "nonexistent.h"\\nint test_func();')
+        
+        generator = CSharpBindingsGenerator()
+        
+        # Should fail immediately with RuntimeError
+        with pytest.raises(RuntimeError) as exc_info:
+            generator.generate(
+                [(str(header_file), "testlib")],
+                namespace="Test",
+                include_dirs=[str(temp_dir)]  # Include dir provided but file still missing
+            )
+        
+        error_msg = str(exc_info.value)
+        assert "Fatal parsing errors" in error_msg
+        assert "nonexistent.h" in error_msg
+        assert "Check include directories" in error_msg
+    
     @pytest.fixture
     def temp_dir(self):
         """Fixture for temporary directory"""

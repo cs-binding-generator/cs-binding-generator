@@ -193,21 +193,26 @@ class TestCSharpBindingsGenerator:
         # (only main file content is processed, but types are resolved)
     
     def test_generate_without_include_dirs_fails(self, header_with_include, capsys):
-        """Test that parsing has errors without include directories"""
+        """Test that parsing fails immediately with fatal errors when include directories are missing"""
         generator = CSharpBindingsGenerator()
-        # Don't provide include_dirs - should have parse errors
-        output = generator.generate(
-            [(header_with_include['main'], "testlib")],
-            namespace="Test",
-            include_dirs=[]  # No include directories
-        )
+        # Don't provide include_dirs - should have fatal parse errors
         
-        # Should still generate output
-        assert "namespace Test;" in output
+        with pytest.raises(RuntimeError) as exc_info:
+            generator.generate(
+                [(header_with_include['main'], "testlib")],
+                namespace="Test",
+                include_dirs=[]  # No include directories
+            )
+        
+        # Should get a clear error message about missing includes
+        error_msg = str(exc_info.value)
+        assert "Fatal parsing errors" in error_msg
+        assert "Check include directories" in error_msg
+        assert "common.h" in error_msg  # The missing include file
         
         # Check for errors in stderr
         captured = capsys.readouterr()
-        # May have errors about not finding common.h
+        assert "common.h' file not found" in captured.err
     
     def test_include_depth_zero(self, nested_includes):
         """Test include depth 0 (only root file)"""

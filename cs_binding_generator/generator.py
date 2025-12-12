@@ -436,7 +436,6 @@ class CSharpBindingsGenerator:
                     print(f"Error: Header file not found: {header_file}", file=sys.stderr)
                     raise FileNotFoundError(f"Header file not found: {header_file}")
             
-            successfully_processed += 1
             self.source_file = header_file
             self.current_library = library_name
             print(f"Processing: {header_file} -> {library_name}")
@@ -451,15 +450,21 @@ class CSharpBindingsGenerator:
             
             # Check for parse errors (warnings don't stop processing)
             has_fatal_errors = False
+            error_messages = []
             for diag in tu.diagnostics:
                 if diag.severity >= clang.cindex.Diagnostic.Error:
-                    print(f"Error in {header_file}: {diag.spelling}", file=sys.stderr)
+                    error_msg = f"Error in {header_file}: {diag.spelling}"
+                    print(error_msg, file=sys.stderr)
+                    error_messages.append(diag.spelling)
                 if diag.severity >= clang.cindex.Diagnostic.Fatal:
                     has_fatal_errors = True
             
             if has_fatal_errors:
-                print(f"Fatal errors in {header_file}, skipping", file=sys.stderr)
-                continue
+                print(f"Fatal errors in {header_file}, cannot continue", file=sys.stderr)
+                if error_messages:
+                    raise RuntimeError(f"Fatal parsing errors in {header_file}. Errors: {'; '.join(error_messages)}. Check include directories and header file accessibility.")
+                else:
+                    raise RuntimeError(f"Fatal parsing errors in {header_file}. Check include directories and header file accessibility.")
             
             # Build file depth map and update allowed files
             file_depth_map = self._build_file_depth_map(tu, header_file, include_depth)
@@ -476,11 +481,14 @@ class CSharpBindingsGenerator:
             
             # Process the AST
             self.process_cursor(tu.cursor)
+            
+            # Only count as successfully processed after parsing succeeds
+            successfully_processed += 1
         
         # Check if any files were successfully processed
         if successfully_processed == 0 and not ignore_missing:
             header_files = [pair[0] for pair in header_library_pairs]
-            raise FileNotFoundError(f"No valid header files found. Checked: {', '.join(header_files)}")
+            raise RuntimeError(f"No header files could be processed successfully. Files attempted: {', '.join(header_files)}. This usually indicates missing include directories or inaccessible header files.")
         
         # Generate merged enums from collected members
         for enum_name, (library, members, underlying_type) in sorted(self.enum_members.items()):
