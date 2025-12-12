@@ -35,16 +35,16 @@ Only files within the specified depth are processed for code generation.
 
 ```bash
 # Process all includes recursively (default behavior)
-cs_binding_generator -i main.h -l mylib -I ./include
+cs_binding_generator -i main.h:mylib -I ./include
 
 # Only process main.h, no includes
-cs_binding_generator -i main.h -l mylib --include-depth 0
+cs_binding_generator -i main.h:mylib --include-depth 0
 
 # Process main.h and files it directly includes
-cs_binding_generator -i main.h -l mylib --include-depth 1 -I ./include
+cs_binding_generator -i main.h:mylib --include-depth 1 -I ./include
 
 # Process up to 2 levels of includes
-cs_binding_generator -i main.h -l mylib --include-depth 2 -I ./include
+cs_binding_generator -i main.h:mylib --include-depth 2 -I ./include
 ```
 
 ### Programmatic Usage
@@ -122,7 +122,7 @@ void process(MainType* data);
 ### Depth 0 (Default)
 
 ```bash
-cs_binding_generator -i main.h -I ./include -l mylib --include-depth 0
+cs_binding_generator -i main.h:mylib -I ./include --include-depth 0
 ```
 
 **Generated bindings include:**
@@ -134,7 +134,7 @@ cs_binding_generator -i main.h -I ./include -l mylib --include-depth 0
 ### Depth 1
 
 ```bash
-cs_binding_generator -i main.h -I ./include -l mylib --include-depth 1
+cs_binding_generator -i main.h:mylib -I ./include --include-depth 1
 ```
 
 **Generated bindings include:**
@@ -146,7 +146,7 @@ cs_binding_generator -i main.h -I ./include -l mylib --include-depth 1
 ### Depth 2
 
 ```bash
-cs_binding_generator -i main.h -I ./include -l mylib --include-depth 2
+cs_binding_generator -i main.h:mylib -I ./include --include-depth 2
 ```
 
 **Generated bindings include:**
@@ -213,9 +213,8 @@ SDL3 is an excellent example of when include depth is crucial:
 ```bash
 # SDL.h is just a meta-header that includes all sub-headers
 cs_binding_generator \
-  -i /usr/include/SDL3/SDL.h \
+  -i /usr/include/SDL3/SDL.h:SDL3 \
   -o SDL3.cs \
-  -l SDL3 \
   -n SDL \
   --include-depth 1 \
   -I /usr/include
@@ -245,8 +244,7 @@ cs_binding_generator \
   -i public_api.h internal_api.h \
   --include-depth 1 \
   -I ./include \
-  -o Bindings.cs \
-  -l mylib
+  -o Bindings.cs
 ```
 
 Both `public_api.h` and `internal_api.h` will be treated as depth 0, and their direct includes will be processed as depth 1.

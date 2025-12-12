@@ -10,9 +10,8 @@ echo "Output file: $OUTPUT_FILE"
 echo ""
 
 python3 "$PROJECT_ROOT/cs_binding_generator/main.py" \
-    -i /usr/include/freetype2/freetype/freetype.h \
+    -i /usr/include/freetype2/freetype/freetype.h:freetype \
     -o "$OUTPUT_FILE" \
-    -l freetype \
     -n FreeType \
     -I /usr/include/freetype2 \
     -I /usr/include

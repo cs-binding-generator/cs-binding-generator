@@ -15,8 +15,7 @@ echo ""
 
 # Generate bindings by calling main.py directly (no dependencies needed)
 python3 "$PROJECT_ROOT/cs_binding_generator/main.py" \
-    -i /usr/include/SDL3/SDL.h \
-    -l SDL3 \
+    -i /usr/include/SDL3/SDL.h:SDL3 \
     -o "$OUTPUT_FILE" \
     -I /usr/include \
     -I /usr/lib/clang/21/include

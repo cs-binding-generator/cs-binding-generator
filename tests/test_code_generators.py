@@ -16,7 +16,7 @@ class TestCodeGenerator:
     def setup_method(self):
         """Set up test fixtures"""
         self.type_mapper = TypeMapper()
-        self.generator = CodeGenerator("mylib", self.type_mapper)
+        self.generator = CodeGenerator(self.type_mapper)
     
     def test_generate_simple_function(self):
         """Test generating a simple function with no parameters"""
@@ -30,7 +30,7 @@ class TestCodeGenerator:
         
         mock_cursor.get_arguments.return_value = []
         
-        result = self.generator.generate_function(mock_cursor)
+        result = self.generator.generate_function(mock_cursor, "mylib")
         
         assert 'LibraryImport("mylib", EntryPoint = "get_version"' in result
         assert 'StringMarshalling = StringMarshalling.Utf8' in result
@@ -64,7 +64,7 @@ class TestCodeGenerator:
         
         mock_cursor.get_arguments.return_value = [arg1, arg2]
         
-        result = self.generator.generate_function(mock_cursor)
+        result = self.generator.generate_function(mock_cursor, "mylib")
         
         assert 'LibraryImport("mylib", EntryPoint = "add"' in result
         assert 'StringMarshalling = StringMarshalling.Utf8' in result
@@ -90,7 +90,7 @@ class TestCodeGenerator:
         
         mock_cursor.get_arguments.return_value = [arg1]
         
-        result = self.generator.generate_function(mock_cursor)
+        result = self.generator.generate_function(mock_cursor, "mylib")
         
         assert "void process(int param0);" in result
     

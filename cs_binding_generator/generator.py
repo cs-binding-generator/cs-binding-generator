@@ -15,10 +15,9 @@ from .constants import NATIVE_METHODS_CLASS
 class CSharpBindingsGenerator:
     """Main orchestrator for generating C# bindings from C headers"""
     
-    def __init__(self, library_name: str):
-        self.library_name = library_name
+    def __init__(self):
         self.type_mapper = TypeMapper()
-        self.code_generator = CodeGenerator(library_name, self.type_mapper)
+        self.code_generator = CodeGenerator(self.type_mapper)
         
         self.generated_functions = []
         self.generated_structs = []
@@ -94,7 +93,7 @@ class CSharpBindingsGenerator:
             # Check if we've already generated this function
             func_key = (cursor.spelling, str(cursor.location.file), cursor.location.line)
             if func_key not in self.seen_functions:
-                code = self.code_generator.generate_function(cursor)
+                code = self.code_generator.generate_function(cursor, self.current_library)
                 if code:
                     self.generated_functions.append(code)
                     self.seen_functions.add(func_key)
@@ -337,7 +336,7 @@ class CSharpBindingsGenerator:
         
         return file_depth
     
-    def generate(self, header_files: list[str], output_file: str = None, 
+    def generate(self, header_library_pairs: list[tuple[str, str]], output_file: str = None, 
                  namespace: str = "Bindings", include_dirs: list[str] = None,
                  include_depth: int = None, ignore_missing: bool = False) -> str:
         """Generate C# bindings from C header file(s)
@@ -396,7 +395,7 @@ class CSharpBindingsGenerator:
         
         successfully_processed = 0
         
-        for header_file in header_files:
+        for header_file, library_name in header_library_pairs:
             if not Path(header_file).exists():
                 if ignore_missing:
                     print(f"Warning: Header file not found: {header_file}", file=sys.stderr)
@@ -407,7 +406,8 @@ class CSharpBindingsGenerator:
             
             successfully_processed += 1
             self.source_file = header_file
-            print(f"Processing: {header_file}")
+            self.current_library = library_name
+            print(f"Processing: {header_file} -> {library_name}")
             if include_dirs:
                 print(f"Include directories: {', '.join(include_dirs)}")
             if include_depth is not None:
@@ -447,6 +447,7 @@ class CSharpBindingsGenerator:
         
         # Check if any files were successfully processed
         if successfully_processed == 0 and not ignore_missing:
+            header_files = [pair[0] for pair in header_library_pairs]
             raise FileNotFoundError(f"No valid header files found. Checked: {', '.join(header_files)}")
         
         # Generate merged enums from collected members

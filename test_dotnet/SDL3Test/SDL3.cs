@@ -93,6 +93,13 @@ public enum SDL_BlendOperation
     SDL_BLENDOPERATION_MAXIMUM = 5,
 }
 
+public enum SDL_CameraPermissionState
+{
+    SDL_CAMERA_PERMISSION_STATE_DENIED = -1,
+    SDL_CAMERA_PERMISSION_STATE_PENDING = 0,
+    SDL_CAMERA_PERMISSION_STATE_APPROVED = 1,
+}
+
 public enum SDL_CameraPosition
 {
     SDL_CAMERA_POSITION_UNKNOWN = 0,
@@ -162,7 +169,7 @@ public enum SDL_Colorspace
     SDL_COLORSPACE_BT2020_LIMITED = 554706441,
     SDL_COLORSPACE_BT2020_FULL = 571483657,
     SDL_COLORSPACE_RGB_DEFAULT = 301991328,
-    SDL_COLORSPACE_YUV_DEFAULT = 570426566,
+    SDL_COLORSPACE_YUV_DEFAULT = 554703046,
 }
 
 public enum SDL_DUMMY_ENUM
@@ -219,8 +226,9 @@ public enum SDL_EventType
     SDL_EVENT_DISPLAY_DESKTOP_MODE_CHANGED = 341,
     SDL_EVENT_DISPLAY_CURRENT_MODE_CHANGED = 342,
     SDL_EVENT_DISPLAY_CONTENT_SCALE_CHANGED = 343,
+    SDL_EVENT_DISPLAY_USABLE_BOUNDS_CHANGED = 344,
     SDL_EVENT_DISPLAY_FIRST = 337,
-    SDL_EVENT_DISPLAY_LAST = 343,
+    SDL_EVENT_DISPLAY_LAST = 344,
     SDL_EVENT_WINDOW_SHOWN = 514,
     SDL_EVENT_WINDOW_HIDDEN = 515,
     SDL_EVENT_WINDOW_EXPOSED = 516,
@@ -256,6 +264,8 @@ public enum SDL_EventType
     SDL_EVENT_KEYBOARD_ADDED = 773,
     SDL_EVENT_KEYBOARD_REMOVED = 774,
     SDL_EVENT_TEXT_EDITING_CANDIDATES = 775,
+    SDL_EVENT_SCREEN_KEYBOARD_SHOWN = 776,
+    SDL_EVENT_SCREEN_KEYBOARD_HIDDEN = 777,
     SDL_EVENT_MOUSE_MOTION = 1024,
     SDL_EVENT_MOUSE_BUTTON_DOWN = 1025,
     SDL_EVENT_MOUSE_BUTTON_UP = 1026,
@@ -287,6 +297,9 @@ public enum SDL_EventType
     SDL_EVENT_FINGER_UP = 1793,
     SDL_EVENT_FINGER_MOTION = 1794,
     SDL_EVENT_FINGER_CANCELED = 1795,
+    SDL_EVENT_PINCH_BEGIN = 1808,
+    SDL_EVENT_PINCH_UPDATE = 1809,
+    SDL_EVENT_PINCH_END = 1810,
     SDL_EVENT_CLIPBOARD_UPDATE = 2304,
     SDL_EVENT_DROP_FILE = 4096,
     SDL_EVENT_DROP_TEXT = 4097,
@@ -341,6 +354,7 @@ public enum SDL_FlipMode
     SDL_FLIP_NONE = 0,
     SDL_FLIP_HORIZONTAL = 1,
     SDL_FLIP_VERTICAL = 2,
+    SDL_FLIP_HORIZONTAL_AND_VERTICAL = 3,
 }
 
 public enum SDL_Folder
@@ -795,7 +809,8 @@ public enum SDL_GamepadType
     SDL_GAMEPAD_TYPE_NINTENDO_SWITCH_JOYCON_LEFT = 8,
     SDL_GAMEPAD_TYPE_NINTENDO_SWITCH_JOYCON_RIGHT = 9,
     SDL_GAMEPAD_TYPE_NINTENDO_SWITCH_JOYCON_PAIR = 10,
-    SDL_GAMEPAD_TYPE_COUNT = 11,
+    SDL_GAMEPAD_TYPE_GAMECUBE = 11,
+    SDL_GAMEPAD_TYPE_COUNT = 12,
 }
 
 public enum SDL_HintPriority
@@ -985,6 +1000,14 @@ public enum SDL_PenAxis
     SDL_PEN_AXIS_COUNT = 7,
 }
 
+public enum SDL_PenDeviceType
+{
+    SDL_PEN_DEVICE_TYPE_INVALID = -1,
+    SDL_PEN_DEVICE_TYPE_UNKNOWN = 0,
+    SDL_PEN_DEVICE_TYPE_DIRECT = 1,
+    SDL_PEN_DEVICE_TYPE_INDIRECT = 2,
+}
+
 public enum SDL_PixelFormat
 {
     SDL_PIXELFORMAT_UNKNOWN = 0,
@@ -1097,6 +1120,16 @@ public enum SDL_ProcessIO
     SDL_PROCESS_STDIO_REDIRECT = 3,
 }
 
+public enum SDL_ProgressState
+{
+    SDL_PROGRESS_STATE_INVALID = -1,
+    SDL_PROGRESS_STATE_NONE = 0,
+    SDL_PROGRESS_STATE_INDETERMINATE = 1,
+    SDL_PROGRESS_STATE_NORMAL = 2,
+    SDL_PROGRESS_STATE_PAUSED = 3,
+    SDL_PROGRESS_STATE_ERROR = 4,
+}
+
 public enum SDL_PropertyType
 {
     SDL_PROPERTY_TYPE_INVALID = 0,
@@ -1130,6 +1163,7 @@ public enum SDL_ScaleMode
     SDL_SCALEMODE_INVALID = -1,
     SDL_SCALEMODE_NEAREST = 0,
     SDL_SCALEMODE_LINEAR = 1,
+    SDL_SCALEMODE_PIXELART = 2,
 }
 
 public enum SDL_Scancode
@@ -1448,6 +1482,14 @@ public enum SDL_TextureAccess
     SDL_TEXTUREACCESS_STATIC = 0,
     SDL_TEXTUREACCESS_STREAMING = 1,
     SDL_TEXTUREACCESS_TARGET = 2,
+}
+
+public enum SDL_TextureAddressMode
+{
+    SDL_TEXTURE_ADDRESS_INVALID = -1,
+    SDL_TEXTURE_ADDRESS_AUTO = 0,
+    SDL_TEXTURE_ADDRESS_CLAMP = 1,
+    SDL_TEXTURE_ADDRESS_WRAP = 2,
 }
 
 public enum SDL_ThreadPriority
@@ -1972,6 +2014,15 @@ public unsafe partial struct SDL_GamepadBinding
 
 public partial struct SDL_Cursor
 {
+}
+
+[StructLayout(LayoutKind.Explicit)]
+public unsafe partial struct SDL_CursorFrameInfo
+{
+    [FieldOffset(0)]
+    public SDL_Surface* surface;
+    [FieldOffset(8)]
+    public uint duration;
 }
 
 [StructLayout(LayoutKind.Explicit)]
@@ -2521,6 +2572,21 @@ public unsafe partial struct SDL_TouchFingerEvent
     [FieldOffset(48)]
     public float pressure;
     [FieldOffset(52)]
+    public uint windowID;
+}
+
+[StructLayout(LayoutKind.Explicit)]
+public unsafe partial struct SDL_PinchFingerEvent
+{
+    [FieldOffset(0)]
+    public SDL_EventType type;
+    [FieldOffset(4)]
+    public uint reserved;
+    [FieldOffset(8)]
+    public uint timestamp;
+    [FieldOffset(16)]
+    public float scale;
+    [FieldOffset(20)]
     public uint windowID;
 }
 
@@ -3165,7 +3231,7 @@ public unsafe partial struct SDL_GPUMultisampleState
     [FieldOffset(8)]
     public bool enable_mask;
     [FieldOffset(9)]
-    public byte padding1;
+    public bool enable_alpha_to_coverage;
     [FieldOffset(10)]
     public byte padding2;
     [FieldOffset(11)]
@@ -3334,9 +3400,9 @@ public unsafe partial struct SDL_GPUDepthStencilTargetInfo
     [FieldOffset(29)]
     public byte clear_stencil;
     [FieldOffset(30)]
-    public byte padding1;
+    public byte mip_level;
     [FieldOffset(31)]
-    public byte padding2;
+    public byte layer;
 }
 
 [StructLayout(LayoutKind.Explicit)]
@@ -3414,6 +3480,25 @@ public unsafe partial struct SDL_GPUStorageTextureReadWriteBinding
     public byte padding2;
     [FieldOffset(19)]
     public byte padding3;
+}
+
+[StructLayout(LayoutKind.Explicit)]
+public unsafe partial struct SDL_GPUVulkanOptions
+{
+    [FieldOffset(0)]
+    public uint vulkan_api_version;
+    [FieldOffset(8)]
+    public nint feature_list;
+    [FieldOffset(16)]
+    public nint vulkan_10_physical_device_features;
+    [FieldOffset(24)]
+    public uint device_extension_count;
+    [FieldOffset(32)]
+    public nuint device_extension_names;
+    [FieldOffset(40)]
+    public uint instance_extension_count;
+    [FieldOffset(48)]
+    public nuint instance_extension_names;
 }
 
 public partial struct SDL_Haptic
@@ -3734,6 +3819,31 @@ public unsafe partial struct SDL_Texture
 }
 
 [StructLayout(LayoutKind.Explicit)]
+public unsafe partial struct SDL_GPURenderStateCreateInfo
+{
+    [FieldOffset(0)]
+    public SDL_GPUShader* fragment_shader;
+    [FieldOffset(8)]
+    public int num_sampler_bindings;
+    [FieldOffset(16)]
+    public SDL_GPUTextureSamplerBinding* sampler_bindings;
+    [FieldOffset(24)]
+    public int num_storage_textures;
+    [FieldOffset(32)]
+    public SDL_GPUTexture** storage_textures;
+    [FieldOffset(40)]
+    public int num_storage_buffers;
+    [FieldOffset(48)]
+    public SDL_GPUBuffer** storage_buffers;
+    [FieldOffset(56)]
+    public uint props;
+}
+
+public partial struct SDL_GPURenderState
+{
+}
+
+[StructLayout(LayoutKind.Explicit)]
 public unsafe partial struct SDL_StorageInterface
 {
     [FieldOffset(0)]
@@ -3865,6 +3975,8 @@ public unsafe partial struct SDL_Event
     public SDL_UserEvent user;
     [FieldOffset(0)]
     public SDL_TouchFingerEvent tfinger;
+    [FieldOffset(0)]
+    public SDL_PinchFingerEvent pinch;
     [FieldOffset(0)]
     public SDL_PenProximityEvent pproximity;
     [FieldOffset(0)]
@@ -5054,6 +5166,10 @@ public static unsafe partial class NativeMethods
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint SDL_GetAtomicU32(SDL_AtomicU32* a);
 
+    [LibraryImport("SDL3", EntryPoint = "SDL_AddAtomicU32", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial uint SDL_AddAtomicU32(SDL_AtomicU32* a, int v);
+
     [LibraryImport("SDL3", EntryPoint = "SDL_CompareAndSwapAtomicPointer", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
@@ -5765,6 +5881,16 @@ public static unsafe partial class NativeMethods
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_PutAudioStreamData(SDL_AudioStream* stream, nint buf, int len);
 
+    [LibraryImport("SDL3", EntryPoint = "SDL_PutAudioStreamDataNoCopy", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool SDL_PutAudioStreamDataNoCopy(SDL_AudioStream* stream, nint buf, int len, nint callback, nint userdata);
+
+    [LibraryImport("SDL3", EntryPoint = "SDL_PutAudioStreamPlanarData", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool SDL_PutAudioStreamPlanarData(SDL_AudioStream* stream, nint channel_buffers, int num_channels, int num_samples);
+
     [LibraryImport("SDL3", EntryPoint = "SDL_GetAudioStreamData", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial int SDL_GetAudioStreamData(SDL_AudioStream* stream, nint buf, int len);
@@ -5930,11 +6056,11 @@ public static unsafe partial class NativeMethods
 
     [LibraryImport("SDL3", EntryPoint = "SDL_GetRGB", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void SDL_GetRGB(uint pixel, SDL_PixelFormatDetails* format, SDL_Palette* palette, byte* r, byte* g, byte* b);
+    public static partial void SDL_GetRGB(uint pixelvalue, SDL_PixelFormatDetails* format, SDL_Palette* palette, byte* r, byte* g, byte* b);
 
     [LibraryImport("SDL3", EntryPoint = "SDL_GetRGBA", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void SDL_GetRGBA(uint pixel, SDL_PixelFormatDetails* format, SDL_Palette* palette, byte* r, byte* g, byte* b, byte* a);
+    public static partial void SDL_GetRGBA(uint pixelvalue, SDL_PixelFormatDetails* format, SDL_Palette* palette, byte* r, byte* g, byte* b, byte* a);
 
     [LibraryImport("SDL3", EntryPoint = "SDL_RectToFRect", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
@@ -6090,6 +6216,14 @@ public static unsafe partial class NativeMethods
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_UnlockSurface(SDL_Surface* surface);
 
+    [LibraryImport("SDL3", EntryPoint = "SDL_LoadSurface_IO", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial SDL_Surface* SDL_LoadSurface_IO(SDL_IOStream* src, [MarshalAs(UnmanagedType.I1)] bool closeio);
+
+    [LibraryImport("SDL3", EntryPoint = "SDL_LoadSurface", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial SDL_Surface* SDL_LoadSurface(string file);
+
     [LibraryImport("SDL3", EntryPoint = "SDL_LoadBMP_IO", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Surface* SDL_LoadBMP_IO(SDL_IOStream* src, [MarshalAs(UnmanagedType.I1)] bool closeio);
@@ -6107,6 +6241,24 @@ public static unsafe partial class NativeMethods
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SaveBMP(SDL_Surface* surface, string file);
+
+    [LibraryImport("SDL3", EntryPoint = "SDL_LoadPNG_IO", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial SDL_Surface* SDL_LoadPNG_IO(SDL_IOStream* src, [MarshalAs(UnmanagedType.I1)] bool closeio);
+
+    [LibraryImport("SDL3", EntryPoint = "SDL_LoadPNG", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial SDL_Surface* SDL_LoadPNG(string file);
+
+    [LibraryImport("SDL3", EntryPoint = "SDL_SavePNG_IO", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool SDL_SavePNG_IO(SDL_Surface* surface, SDL_IOStream* dst, [MarshalAs(UnmanagedType.I1)] bool closeio);
+
+    [LibraryImport("SDL3", EntryPoint = "SDL_SavePNG", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool SDL_SavePNG(SDL_Surface* surface, string file);
 
     [LibraryImport("SDL3", EntryPoint = "SDL_SetSurfaceRLE", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
@@ -6177,6 +6329,10 @@ public static unsafe partial class NativeMethods
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_FlipSurface(SDL_Surface* surface, SDL_FlipMode flip);
+
+    [LibraryImport("SDL3", EntryPoint = "SDL_RotateSurface", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial SDL_Surface* SDL_RotateSurface(SDL_Surface* surface, float angle);
 
     [LibraryImport("SDL3", EntryPoint = "SDL_DuplicateSurface", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
@@ -6352,7 +6508,7 @@ public static unsafe partial class NativeMethods
 
     [LibraryImport("SDL3", EntryPoint = "SDL_GetCameraPermissionState", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial int SDL_GetCameraPermissionState(SDL_Camera* camera);
+    public static partial SDL_CameraPermissionState SDL_GetCameraPermissionState(SDL_Camera* camera);
 
     [LibraryImport("SDL3", EntryPoint = "SDL_GetCameraID", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
@@ -6544,6 +6700,10 @@ public static unsafe partial class NativeMethods
     [LibraryImport("SDL3", EntryPoint = "SDL_GetSIMDAlignment", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint SDL_GetSIMDAlignment();
+
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetSystemPageSize", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int SDL_GetSystemPageSize();
 
     [LibraryImport("SDL3", EntryPoint = "SDL_GetNumVideoDrivers", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
@@ -6811,6 +6971,11 @@ public static unsafe partial class NativeMethods
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetWindowAlwaysOnTop(SDL_Window* window, [MarshalAs(UnmanagedType.I1)] bool on_top);
 
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetWindowFillDocument", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool SDL_SetWindowFillDocument(SDL_Window* window, [MarshalAs(UnmanagedType.I1)] bool fill);
+
     [LibraryImport("SDL3", EntryPoint = "SDL_ShowWindow", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
@@ -6961,6 +7126,24 @@ public static unsafe partial class NativeMethods
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_FlashWindow(SDL_Window* window, SDL_FlashOperation operation);
+
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetWindowProgressState", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool SDL_SetWindowProgressState(SDL_Window* window, SDL_ProgressState state);
+
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetWindowProgressState", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial SDL_ProgressState SDL_GetWindowProgressState(SDL_Window* window);
+
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetWindowProgressValue", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool SDL_SetWindowProgressValue(SDL_Window* window, float value);
+
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetWindowProgressValue", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial float SDL_GetWindowProgressValue(SDL_Window* window);
 
     [LibraryImport("SDL3", EntryPoint = "SDL_DestroyWindow", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
@@ -8058,6 +8241,11 @@ public static unsafe partial class NativeMethods
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_WarpMouseGlobal(float x, float y);
 
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetRelativeMouseTransform", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool SDL_SetRelativeMouseTransform(nint callback, nint userdata);
+
     [LibraryImport("SDL3", EntryPoint = "SDL_SetWindowRelativeMouseMode", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
@@ -8080,6 +8268,10 @@ public static unsafe partial class NativeMethods
     [LibraryImport("SDL3", EntryPoint = "SDL_CreateColorCursor", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Cursor* SDL_CreateColorCursor(SDL_Surface* surface, int hot_x, int hot_y);
+
+    [LibraryImport("SDL3", EntryPoint = "SDL_CreateAnimatedCursor", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial SDL_Cursor* SDL_CreateAnimatedCursor(SDL_CursorFrameInfo* frames, int frame_count, int hot_x, int hot_y);
 
     [LibraryImport("SDL3", EntryPoint = "SDL_CreateSystemCursor", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
@@ -8139,6 +8331,10 @@ public static unsafe partial class NativeMethods
     [LibraryImport("SDL3", EntryPoint = "SDL_GetTouchFingers", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Finger** SDL_GetTouchFingers(uint touchID, nint count);
+
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetPenDeviceType", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial SDL_PenDeviceType SDL_GetPenDeviceType(uint instance_id);
 
     [LibraryImport("SDL3", EntryPoint = "SDL_PumpEvents", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
@@ -8224,6 +8420,10 @@ public static unsafe partial class NativeMethods
     [LibraryImport("SDL3", EntryPoint = "SDL_GetWindowFromEvent", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Window* SDL_GetWindowFromEvent(SDL_Event* @event);
+
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetEventDescription", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int SDL_GetEventDescription(SDL_Event* @event, string buf, int buflen);
 
     [LibraryImport("SDL3", EntryPoint = "SDL_GetBasePath", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
@@ -8354,6 +8554,10 @@ public static unsafe partial class NativeMethods
     [LibraryImport("SDL3", EntryPoint = "SDL_GetGPUShaderFormats", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint SDL_GetGPUShaderFormats(SDL_GPUDevice* device);
+
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetGPUDeviceProperties", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial uint SDL_GetGPUDeviceProperties(SDL_GPUDevice* device);
 
     [LibraryImport("SDL3", EntryPoint = "SDL_CreateGPUComputePipeline", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
@@ -8702,6 +8906,14 @@ public static unsafe partial class NativeMethods
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint SDL_CalculateGPUTextureFormatSize(SDL_GPUTextureFormat format, uint width, uint height, uint depth_or_layer_count);
 
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetPixelFormatFromGPUTextureFormat", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial SDL_PixelFormat SDL_GetPixelFormatFromGPUTextureFormat(SDL_GPUTextureFormat format);
+
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetGPUTextureFormatFromPixelFormat", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial SDL_GPUTextureFormat SDL_GetGPUTextureFormatFromPixelFormat(SDL_PixelFormat format);
+
     [LibraryImport("SDL3", EntryPoint = "SDL_GetHaptics", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint* SDL_GetHaptics(nint count);
@@ -8883,6 +9095,10 @@ public static unsafe partial class NativeMethods
     [LibraryImport("SDL3", EntryPoint = "SDL_hid_open_path", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_hid_device* SDL_hid_open_path(string path);
+
+    [LibraryImport("SDL3", EntryPoint = "SDL_hid_get_properties", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial uint SDL_hid_get_properties(SDL_hid_device* dev);
 
     [LibraryImport("SDL3", EntryPoint = "SDL_hid_write", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
@@ -9209,6 +9425,14 @@ public static unsafe partial class NativeMethods
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Renderer* SDL_CreateRendererWithProperties(uint props);
 
+    [LibraryImport("SDL3", EntryPoint = "SDL_CreateGPURenderer", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial SDL_Renderer* SDL_CreateGPURenderer(SDL_GPUDevice* device, SDL_Window* window);
+
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetGPURendererDevice", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial SDL_GPUDevice* SDL_GetGPURendererDevice(SDL_Renderer* renderer);
+
     [LibraryImport("SDL3", EntryPoint = "SDL_CreateSoftwareRenderer", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Renderer* SDL_CreateSoftwareRenderer(SDL_Surface* surface);
@@ -9270,6 +9494,15 @@ public static unsafe partial class NativeMethods
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GetTextureSize(SDL_Texture* texture, nint w, nint h);
+
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetTexturePalette", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool SDL_SetTexturePalette(SDL_Texture* texture, SDL_Palette* palette);
+
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetTexturePalette", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial SDL_Palette* SDL_GetTexturePalette(SDL_Texture* texture);
 
     [LibraryImport("SDL3", EntryPoint = "SDL_SetTextureColorMod", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
@@ -9554,6 +9787,11 @@ public static unsafe partial class NativeMethods
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_RenderTexture9Grid(SDL_Renderer* renderer, SDL_Texture* texture, SDL_FRect* srcrect, float left_width, float right_width, float top_height, float bottom_height, float scale, SDL_FRect* dstrect);
 
+    [LibraryImport("SDL3", EntryPoint = "SDL_RenderTexture9GridTiled", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool SDL_RenderTexture9GridTiled(SDL_Renderer* renderer, SDL_Texture* texture, SDL_FRect* srcrect, float left_width, float right_width, float top_height, float bottom_height, float scale, SDL_FRect* dstrect, float tileScale);
+
     [LibraryImport("SDL3", EntryPoint = "SDL_RenderGeometry", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
@@ -9563,6 +9801,16 @@ public static unsafe partial class NativeMethods
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_RenderGeometryRaw(SDL_Renderer* renderer, SDL_Texture* texture, nint xy, int xy_stride, SDL_FColor* color, int color_stride, nint uv, int uv_stride, int num_vertices, nint indices, int num_indices, int size_indices);
+
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetRenderTextureAddressMode", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool SDL_SetRenderTextureAddressMode(SDL_Renderer* renderer, SDL_TextureAddressMode u_mode, SDL_TextureAddressMode v_mode);
+
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetRenderTextureAddressMode", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool SDL_GetRenderTextureAddressMode(SDL_Renderer* renderer, SDL_TextureAddressMode* u_mode, SDL_TextureAddressMode* v_mode);
 
     [LibraryImport("SDL3", EntryPoint = "SDL_RenderReadPixels", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
@@ -9613,6 +9861,34 @@ public static unsafe partial class NativeMethods
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_RenderDebugText(SDL_Renderer* renderer, float x, float y, string str);
+
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetDefaultTextureScaleMode", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool SDL_SetDefaultTextureScaleMode(SDL_Renderer* renderer, SDL_ScaleMode scale_mode);
+
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetDefaultTextureScaleMode", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool SDL_GetDefaultTextureScaleMode(SDL_Renderer* renderer, SDL_ScaleMode* scale_mode);
+
+    [LibraryImport("SDL3", EntryPoint = "SDL_CreateGPURenderState", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial SDL_GPURenderState* SDL_CreateGPURenderState(SDL_Renderer* renderer, SDL_GPURenderStateCreateInfo* createinfo);
+
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetGPURenderStateFragmentUniforms", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool SDL_SetGPURenderStateFragmentUniforms(SDL_GPURenderState* state, uint slot_index, nint data, uint length);
+
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetGPURenderState", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool SDL_SetGPURenderState(SDL_Renderer* renderer, SDL_GPURenderState* state);
+
+    [LibraryImport("SDL3", EntryPoint = "SDL_DestroyGPURenderState", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void SDL_DestroyGPURenderState(SDL_GPURenderState* state);
 
     [LibraryImport("SDL3", EntryPoint = "SDL_OpenTitleStorage", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]

@@ -22,10 +22,10 @@ def main():
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
-  %(prog)s -i mylib.h -o MyBindings.cs -l mylib
-  %(prog)s -i header1.h header2.h -o Bindings.cs -l native -n My.Library
-  %(prog)s -i mylib.h -I /usr/include -I ./include -o Bindings.cs -l mylib
-  %(prog)s -i mylib.h --include-depth 1 -o Bindings.cs -l mylib
+  %(prog)s -i mylib.h:mylib -o MyBindings.cs
+  %(prog)s -i header1.h:native -i header2.h:native -o Bindings.cs -n My.Library  
+  %(prog)s -i SDL.h:SDL3 -i libtcod.h:libtcod -o Bindings.cs
+  %(prog)s -i mylib.h:mylib -I /usr/include --include-depth 1 -o Bindings.cs
         """
     )
     
@@ -33,8 +33,8 @@ Examples:
         "-i", "--input",
         action="append",
         required=True,
-        metavar="HEADER",
-        help="Input C header file(s) to process (can be specified multiple times)"
+        metavar="HEADER:LIBRARY",
+        help="Input C header file(s) to process as 'header.h:libname' pairs (can be specified multiple times)"
     )
     
     parser.add_argument(
@@ -43,12 +43,7 @@ Examples:
         help="Output C# file (if not specified, prints to stdout)"
     )
     
-    parser.add_argument(
-        "-l", "--library",
-        required=True,
-        metavar="NAME",
-        help="Name of the native library (e.g., 'mylib' for mylib.dll/libmylib.so)"
-    )
+
     
     parser.add_argument(
         "-n", "--namespace",
@@ -86,16 +81,26 @@ Examples:
     )
     
     args = parser.parse_args()
-    
+
+    # Parse header:library pairs
+    header_library_pairs = []
+    for input_spec in args.input:
+        if ':' not in input_spec:
+            print(f"Error: Input must be in format 'header.h:library'. Got: {input_spec}", file=sys.stderr)
+            sys.exit(1)
+        
+        header_path, library_name = input_spec.split(':', 1)
+        header_library_pairs.append((header_path.strip(), library_name.strip()))
+
     # Set clang library path if provided
     if args.clang_path:
         clang.cindex.Config.set_library_path(args.clang_path)
-    
+
     # Generate bindings
     try:
-        generator = CSharpBindingsGenerator(args.library)
+        generator = CSharpBindingsGenerator()
         generator.generate(
-            args.input, 
+            header_library_pairs,
             args.output, 
             args.namespace,
             include_dirs=args.include_dirs or [],

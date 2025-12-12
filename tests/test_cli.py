@@ -39,10 +39,9 @@ void process_point(Point* p);
         result = subprocess.run(
             [
                 "python", "-m", "cs_binding_generator.main",
-                "-i", str(main_header),
+                "-i", f"{str(main_header)}:testlib",
                 "-I", str(include_dir),
                 "-o", str(output_file),
-                "-l", "testlib",
                 "-n", "Test"
             ],
             capture_output=True,
@@ -85,10 +84,9 @@ MyInt get_value();
         result = subprocess.run(
             [
                 "python", "-m", "cs_binding_generator.main",
-                "-i", str(main_header),
+                "-i", f"{str(main_header)}:lib",
                 "-I", str(include1),
-                "-I", str(include2),
-                "-l", "lib"
+                "-I", str(include2)
             ],
             capture_output=True,
             text=True
@@ -133,9 +131,8 @@ void main_function();
         result = subprocess.run(
             [
                 "python", "-m", "cs_binding_generator.main",
-                "-i", str(main_header),
+                "-i", f"{str(main_header)}:lib",
                 "-I", str(include_dir),
-                "-l", "lib",
                 "--include-depth", "0"
             ],
             capture_output=True,
@@ -152,9 +149,8 @@ void main_function();
         result = subprocess.run(
             [
                 "python", "-m", "cs_binding_generator.main",
-                "-i", str(main_header),
+                "-i", f"{str(main_header)}:lib",
                 "-I", str(include_dir),
-                "-l", "lib",
                 "--include-depth", "1"
             ],
             capture_output=True,
@@ -178,8 +174,7 @@ def test_sdl3_generates_valid_csharp():
         result = subprocess.run(
             [
                 "cs_binding_generator",
-                "-i", "/usr/include/SDL3/SDL.h",
-                "-l", "SDL3",
+                "-i", "/usr/include/SDL3/SDL.h:SDL3",
                 "-o", str(output_file),
                 "-I", "/usr/include",
                 "-I", "/usr/lib/clang/21/include"
@@ -224,8 +219,7 @@ def test_cli_missing_header_files():
     result = subprocess.run(
         [
             "python", "-m", "cs_binding_generator.main",
-            "-i", "/nonexistent/file.h",
-            "-l", "testlib"
+            "-i", "/nonexistent/file.h:testlib"
         ],
         capture_output=True,
         text=True
@@ -239,8 +233,7 @@ def test_cli_missing_header_files():
     result = subprocess.run(
         [
             "python", "-m", "cs_binding_generator.main",
-            "-i", "/nonexistent/file.h",
-            "-l", "testlib",
+            "-i", "/nonexistent/file.h:testlib",
             "--ignore-missing"
         ],
         capture_output=True,

@@ -50,6 +50,37 @@ error CS0246: The type or namespace name 'wchar_t' could not be found
 2. Add `wchar_t` mapping to type mapper (if needed for your platform)
 3. Filter out system headers
 
+## Multiple Libraries
+
+### Using Different Libraries
+
+The generator supports specifying different library names for different headers:
+
+```bash
+# Each function gets the correct LibraryImport attribute
+cs_binding_generator \
+  -i /usr/include/SDL3/SDL.h:SDL3 \
+  -i /usr/include/libtcod/libtcod.h:libtcod \
+  -o GameBindings.cs
+```
+
+**Generated output:**
+```csharp
+[LibraryImport("SDL3", EntryPoint = "SDL_Init", ...)]
+public static partial int SDL_Init(uint flags);
+
+[LibraryImport("libtcod", EntryPoint = "TCOD_init", ...)]
+public static partial void TCOD_init(int w, int h, nuint title);
+```
+
+### Common Issues
+
+**Problem:** All functions show wrong library name  
+**Solution:** Use the `header.h:library` format for each input file
+
+**Problem:** Mixed functions in wrong libraries  
+**Solution:** Regenerate bindings using separate header:library pairs for each library
+
 ## Generation Issues
 
 ### Empty Output File
@@ -60,13 +91,13 @@ error CS0246: The type or namespace name 'wchar_t' could not be found
 1. **Include depth is 0 and header only has includes**
    ```bash
    # SDL.h only includes other headers, need depth 1
-   cs_binding_generator -i SDL.h --include-depth 1
+   cs_binding_generator -i SDL.h:SDL3 --include-depth 1
    ```
 
 2. **Header file not found**
    ```bash
    # Add include directories
-   cs_binding_generator -i mylib.h -I /path/to/headers
+   cs_binding_generator -i mylib.h:mylib -I /path/to/headers
    ```
 
 3. **Parse errors** - Check stderr for clang diagnostics
@@ -80,7 +111,7 @@ error CS0246: The type or namespace name 'wchar_t' could not be found
 1. **Check file depth:**
    ```bash
    # Run with verbose output to see which files are processed
-   cs_binding_generator -i header.h --include-depth 1
+   cs_binding_generator -i header.h:mylib --include-depth 1
    
    # Look for output like:
    # Processing 5 file(s) (depth 1):
@@ -252,7 +283,7 @@ cs_binding_generator --clang-path /usr/lib/libclang.so ...
 
 1. **Add missing include directories:**
    ```bash
-   cs_binding_generator -i header.h \
+   cs_binding_generator -i header.h:mylib \
      -I /usr/include \
      -I /usr/lib/clang/21/include
    ```
@@ -297,8 +328,8 @@ cs_binding_generator --clang-path /usr/lib/libclang.so ...
 2. **Split into multiple files:**
    ```bash
    # Generate separate bindings for different subsystems
-   cs_binding_generator -i video.h -o Video.cs
-   cs_binding_generator -i audio.h -o Audio.cs
+   cs_binding_generator -i video.h:mylib -o Video.cs
+   cs_binding_generator -i audio.h:mylib -o Audio.cs
    ```
 
 3. **Use partial classes** to organize generated code across files

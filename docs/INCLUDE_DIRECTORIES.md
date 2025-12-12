@@ -13,17 +13,17 @@ Without proper include directories, you'll get parse errors and incomplete bindi
 ### Single Include Directory
 
 ```bash
-cs_binding_generator -i mylib.h -I /usr/include -o Bindings.cs -l mylib
+cs_binding_generator -i mylib.h:mylib -I /usr/include -o Bindings.cs
 ```
 
 ### Multiple Include Directories
 
 ```bash
-cs_binding_generator -i mylib.h \
+cs_binding_generator -i mylib.h:mylib \
     -I /usr/include \
     -I /usr/local/include \
     -I ./include \
-    -o Bindings.cs -l mylib
+    -o Bindings.cs
 ```
 
 ### Order Matters
@@ -31,7 +31,7 @@ cs_binding_generator -i mylib.h \
 Include directories are searched in the order specified:
 ```bash
 # ./include is searched first, then /usr/include
-cs_binding_generator -i mylib.h -I ./include -I /usr/include
+cs_binding_generator -i mylib.h:mylib -I ./include -I /usr/include
 ```
 
 This allows you to override system headers with custom versions.
@@ -75,10 +75,9 @@ void close_window(Window* win);
 **Generate Bindings:**
 ```bash
 cs_binding_generator \
-    -i mylib.h \
+    -i mylib.h:mylib \
     -I ./include \
     -o MyLibBindings.cs \
-    -l mylib \
     -n MyApp.Interop
 ```
 
@@ -166,8 +165,7 @@ cs_binding_generator \
   -I ./include \              # Project headers
   -I /usr/local/include \     # Local libraries
   -I /usr/include \           # System headers
-  -o Bindings.cs \
-  -l mylib
+  -o Bindings.cs
 ```
 
 ## Troubleshooting
@@ -194,11 +192,10 @@ Include directories and include depth work together:
 
 ```bash
 cs_binding_generator \
-  -i /usr/include/SDL3/SDL.h \
+  -i /usr/include/SDL3/SDL.h:SDL3 \
   -I /usr/include \           # Where to find headers
   --include-depth 1 \         # How deep to process them
-  -o SDL3.cs \
-  -l SDL3
+  -o SDL3.cs
 ```
 
 The include directories tell libclang where to find files, while include depth controls which of those files get processed for binding generation.

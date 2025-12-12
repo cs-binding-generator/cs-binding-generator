@@ -9,6 +9,7 @@ A Python-based tool that automatically generates C# P/Invoke bindings from C hea
 ## Features
 
 - **Modern C# Code Generation**: Uses `LibraryImport` (not deprecated `DllImport`)
+- **Per-Library Binding**: Each header can specify its own library name for correct P/Invoke attributes
 - **Type-Safe Pointers**: Generates typed pointers (`SDL_Window*`) instead of generic `nint`
 - **Automatic Type Mapping**: Intelligently maps C types to C# equivalents
 - **String Handling**: Provides both raw pointer and helper string methods for `char*` returns
@@ -18,6 +19,7 @@ A Python-based tool that automatically generates C# P/Invoke bindings from C hea
 - **Include Depth Control**: Process headers with configurable include file depth (default: infinite; see [docs/INCLUDE_DEPTH.md](docs/INCLUDE_DEPTH.md))
 - **Include Directory Support**: Specify additional header search paths (see [docs/INCLUDE_DIRECTORIES.md](docs/INCLUDE_DIRECTORIES.md))
 - **Opaque Type Support**: Handles opaque struct typedefs (like `SDL_Window`)
+- **Missing File Handling**: Fails fast when header files are missing (use `--ignore-missing` to continue)
 
 ## Documentation
 
@@ -45,23 +47,33 @@ pip install -e .
 
 ### Command Line
 
+#### Single Library
 ```bash
 cs_binding_generator \
-  -i /usr/include/SDL3/SDL.h \
+  -i /usr/include/SDL3/SDL.h:SDL3 \
   -o SDL3.cs \
-  -l SDL3 \
   -n SDL \
+  -I /usr/include
+```
+
+#### Multiple Libraries
+```bash
+cs_binding_generator \
+  -i /usr/include/SDL3/SDL.h:SDL3 \
+  -i /usr/include/libtcod/libtcod.h:libtcod \
+  -o Bindings.cs \
+  -n GameLibs \
   -I /usr/include
 ```
 
 ### Options
 
-- `-i, --input`: Input C header file(s) (required, can specify multiple)
+- `-i, --input`: Input C header file(s) as `header.h:library` pairs (required, can specify multiple)
 - `-o, --output`: Output C# file (optional, defaults to stdout)
-- `-l, --library`: Native library name (required)
 - `-n, --namespace`: C# namespace (default: "Bindings")
 - `-I, --include-dir`: Additional include directories for clang
 - `--include-depth`: Maximum include file depth to process (default: infinite)
+- `--ignore-missing`: Continue processing even if some header files are not found
 - `--clang-path`: Path to libclang library (optional)
 
 ### Python API
@@ -69,13 +81,28 @@ cs_binding_generator \
 ```python
 from cs_binding_generator.generator import CSharpBindingsGenerator
 
-generator = CSharpBindingsGenerator("SDL3")
+generator = CSharpBindingsGenerator()
 output = generator.generate(
-    header_files=["/usr/include/SDL3/SDL.h"],
+    header_library_pairs=[("/usr/include/SDL3/SDL.h", "SDL3")],
     namespace="SDL",
     include_dirs=["/usr/include"]
 )
 print(output)
+```
+
+### Generated Output Example
+
+When processing multiple libraries, each function gets the correct `LibraryImport` attribute:
+
+```csharp
+public static unsafe partial class NativeMethods
+{
+    [LibraryImport("SDL3", EntryPoint = "SDL_Init", StringMarshalling = StringMarshalling.Utf8)]
+    public static partial int SDL_Init(uint flags);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_init", StringMarshalling = StringMarshalling.Utf8)]
+    public static partial void TCOD_init(int w, int h, nuint title);
+}
 ```
 
 ## How It Works

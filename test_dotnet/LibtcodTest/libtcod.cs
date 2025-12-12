@@ -1554,6 +1554,1137 @@ public enum SDL_hid_bus_type
     SDL_HID_API_BUS_SPI = 4,
 }
 
+public enum TCOD_COLOR
+{
+    TCOD_COLOR_RED = 0,
+    TCOD_COLOR_FLAME = 1,
+    TCOD_COLOR_ORANGE = 2,
+    TCOD_COLOR_AMBER = 3,
+    TCOD_COLOR_YELLOW = 4,
+    TCOD_COLOR_LIME = 5,
+    TCOD_COLOR_CHARTREUSE = 6,
+    TCOD_COLOR_GREEN = 7,
+    TCOD_COLOR_SEA = 8,
+    TCOD_COLOR_TURQUOISE = 9,
+    TCOD_COLOR_CYAN = 10,
+    TCOD_COLOR_SKY = 11,
+    TCOD_COLOR_AZURE = 12,
+    TCOD_COLOR_BLUE = 13,
+    TCOD_COLOR_HAN = 14,
+    TCOD_COLOR_VIOLET = 15,
+    TCOD_COLOR_PURPLE = 16,
+    TCOD_COLOR_FUCHSIA = 17,
+    TCOD_COLOR_MAGENTA = 18,
+    TCOD_COLOR_PINK = 19,
+    TCOD_COLOR_CRIMSON = 20,
+    TCOD_COLOR_NB = 21,
+    TCOD_COLOR_DESATURATED = 0,
+    TCOD_COLOR_LIGHTEST = 1,
+    TCOD_COLOR_LIGHTER = 2,
+    TCOD_COLOR_LIGHT = 3,
+    TCOD_COLOR_NORMAL = 4,
+    TCOD_COLOR_DARK = 5,
+    TCOD_COLOR_DARKER = 6,
+    TCOD_COLOR_DARKEST = 7,
+    TCOD_COLOR_LEVELS = 8,
+}
+
+public enum TCOD_Error
+{
+    TCOD_E_OK = 0,
+    TCOD_E_ERROR = -1,
+    TCOD_E_INVALID_ARGUMENT = -2,
+    TCOD_E_OUT_OF_MEMORY = -3,
+    TCOD_E_REQUIRES_ATTENTION = -4,
+    TCOD_E_WARN = 1,
+}
+
+public enum TCOD_LogLevel
+{
+    TCOD_LOG_DEBUG = 10,
+    TCOD_LOG_INFO = 20,
+    TCOD_LOG_WARNING = 30,
+    TCOD_LOG_ERROR = 40,
+    TCOD_LOG_CRITICAL = 50,
+}
+
+public enum TCOD_alignment_t
+{
+    TCOD_LEFT = 0,
+    TCOD_RIGHT = 1,
+    TCOD_CENTER = 2,
+}
+
+public enum TCOD_bkgnd_flag_t
+{
+    TCOD_BKGND_NONE = 0,
+    TCOD_BKGND_SET = 1,
+    TCOD_BKGND_MULTIPLY = 2,
+    TCOD_BKGND_LIGHTEN = 3,
+    TCOD_BKGND_DARKEN = 4,
+    TCOD_BKGND_SCREEN = 5,
+    TCOD_BKGND_COLOR_DODGE = 6,
+    TCOD_BKGND_COLOR_BURN = 7,
+    TCOD_BKGND_ADD = 8,
+    TCOD_BKGND_ADDA = 9,
+    TCOD_BKGND_BURN = 10,
+    TCOD_BKGND_OVERLAY = 11,
+    TCOD_BKGND_ALPH = 12,
+    TCOD_BKGND_DEFAULT = 13,
+}
+
+public enum TCOD_chars_t
+{
+    TCOD_CHAR_HLINE = 196,
+    TCOD_CHAR_VLINE = 179,
+    TCOD_CHAR_NE = 191,
+    TCOD_CHAR_NW = 218,
+    TCOD_CHAR_SE = 217,
+    TCOD_CHAR_SW = 192,
+    TCOD_CHAR_TEEW = 180,
+    TCOD_CHAR_TEEE = 195,
+    TCOD_CHAR_TEEN = 193,
+    TCOD_CHAR_TEES = 194,
+    TCOD_CHAR_CROSS = 197,
+    TCOD_CHAR_DHLINE = 205,
+    TCOD_CHAR_DVLINE = 186,
+    TCOD_CHAR_DNE = 187,
+    TCOD_CHAR_DNW = 201,
+    TCOD_CHAR_DSE = 188,
+    TCOD_CHAR_DSW = 200,
+    TCOD_CHAR_DTEEW = 185,
+    TCOD_CHAR_DTEEE = 204,
+    TCOD_CHAR_DTEEN = 202,
+    TCOD_CHAR_DTEES = 203,
+    TCOD_CHAR_DCROSS = 206,
+    TCOD_CHAR_BLOCK1 = 176,
+    TCOD_CHAR_BLOCK2 = 177,
+    TCOD_CHAR_BLOCK3 = 178,
+    TCOD_CHAR_ARROW_N = 24,
+    TCOD_CHAR_ARROW_S = 25,
+    TCOD_CHAR_ARROW_E = 26,
+    TCOD_CHAR_ARROW_W = 27,
+    TCOD_CHAR_ARROW2_N = 30,
+    TCOD_CHAR_ARROW2_S = 31,
+    TCOD_CHAR_ARROW2_E = 16,
+    TCOD_CHAR_ARROW2_W = 17,
+    TCOD_CHAR_DARROW_H = 29,
+    TCOD_CHAR_DARROW_V = 18,
+    TCOD_CHAR_CHECKBOX_UNSET = 224,
+    TCOD_CHAR_CHECKBOX_SET = 225,
+    TCOD_CHAR_RADIO_UNSET = 9,
+    TCOD_CHAR_RADIO_SET = 10,
+    TCOD_CHAR_SUBP_NW = 226,
+    TCOD_CHAR_SUBP_NE = 227,
+    TCOD_CHAR_SUBP_N = 228,
+    TCOD_CHAR_SUBP_SE = 229,
+    TCOD_CHAR_SUBP_DIAG = 230,
+    TCOD_CHAR_SUBP_E = 231,
+    TCOD_CHAR_SUBP_SW = 232,
+    TCOD_CHAR_SMILIE = 1,
+    TCOD_CHAR_SMILIE_INV = 2,
+    TCOD_CHAR_HEART = 3,
+    TCOD_CHAR_DIAMOND = 4,
+    TCOD_CHAR_CLUB = 5,
+    TCOD_CHAR_SPADE = 6,
+    TCOD_CHAR_BULLET = 7,
+    TCOD_CHAR_BULLET_INV = 8,
+    TCOD_CHAR_MALE = 11,
+    TCOD_CHAR_FEMALE = 12,
+    TCOD_CHAR_NOTE = 13,
+    TCOD_CHAR_NOTE_DOUBLE = 14,
+    TCOD_CHAR_LIGHT = 15,
+    TCOD_CHAR_EXCLAM_DOUBLE = 19,
+    TCOD_CHAR_PILCROW = 20,
+    TCOD_CHAR_SECTION = 21,
+    TCOD_CHAR_POUND = 156,
+    TCOD_CHAR_MULTIPLICATION = 158,
+    TCOD_CHAR_FUNCTION = 159,
+    TCOD_CHAR_RESERVED = 169,
+    TCOD_CHAR_HALF = 171,
+    TCOD_CHAR_ONE_QUARTER = 172,
+    TCOD_CHAR_COPYRIGHT = 184,
+    TCOD_CHAR_CENT = 189,
+    TCOD_CHAR_YEN = 190,
+    TCOD_CHAR_CURRENCY = 207,
+    TCOD_CHAR_THREE_QUARTERS = 243,
+    TCOD_CHAR_DIVISION = 246,
+    TCOD_CHAR_GRADE = 248,
+    TCOD_CHAR_UMLAUT = 249,
+    TCOD_CHAR_POW1 = 251,
+    TCOD_CHAR_POW3 = 252,
+    TCOD_CHAR_POW2 = 253,
+    TCOD_CHAR_BULLET_SQUARE = 254,
+}
+
+public enum TCOD_colctrl_t
+{
+    TCOD_COLCTRL_1 = 1,
+    TCOD_COLCTRL_2 = 2,
+    TCOD_COLCTRL_3 = 3,
+    TCOD_COLCTRL_4 = 4,
+    TCOD_COLCTRL_5 = 5,
+    TCOD_COLCTRL_NUMBER = 5,
+    TCOD_COLCTRL_FORE_RGB = 6,
+    TCOD_COLCTRL_BACK_RGB = 7,
+    TCOD_COLCTRL_STOP = 8,
+}
+
+public enum TCOD_distribution_t
+{
+    TCOD_DISTRIBUTION_LINEAR = 0,
+    TCOD_DISTRIBUTION_GAUSSIAN = 1,
+    TCOD_DISTRIBUTION_GAUSSIAN_RANGE = 2,
+    TCOD_DISTRIBUTION_GAUSSIAN_INVERSE = 3,
+    TCOD_DISTRIBUTION_GAUSSIAN_RANGE_INVERSE = 4,
+}
+
+public enum TCOD_event_t
+{
+    TCOD_EVENT_NONE = 0,
+    TCOD_EVENT_KEY_PRESS = 1,
+    TCOD_EVENT_KEY_RELEASE = 2,
+    TCOD_EVENT_KEY = 3,
+    TCOD_EVENT_MOUSE_MOVE = 4,
+    TCOD_EVENT_MOUSE_PRESS = 8,
+    TCOD_EVENT_MOUSE_RELEASE = 16,
+    TCOD_EVENT_MOUSE = 28,
+    TCOD_EVENT_FINGER_MOVE = 32,
+    TCOD_EVENT_FINGER_PRESS = 64,
+    TCOD_EVENT_FINGER_RELEASE = 128,
+    TCOD_EVENT_FINGER = 224,
+    TCOD_EVENT_ANY = 255,
+}
+
+public enum TCOD_font_flags_t
+{
+    TCOD_FONT_LAYOUT_ASCII_INCOL = 1,
+    TCOD_FONT_LAYOUT_ASCII_INROW = 2,
+    TCOD_FONT_TYPE_GREYSCALE = 4,
+    TCOD_FONT_TYPE_GRAYSCALE = 4,
+    TCOD_FONT_LAYOUT_TCOD = 8,
+    TCOD_FONT_LAYOUT_CP437 = 16,
+}
+
+public enum TCOD_fov_algorithm_t
+{
+    FOV_BASIC = 0,
+    FOV_DIAMOND = 1,
+    FOV_SHADOW = 2,
+    FOV_PERMISSIVE_0 = 3,
+    FOV_PERMISSIVE_1 = 4,
+    FOV_PERMISSIVE_2 = 5,
+    FOV_PERMISSIVE_3 = 6,
+    FOV_PERMISSIVE_4 = 7,
+    FOV_PERMISSIVE_5 = 8,
+    FOV_PERMISSIVE_6 = 9,
+    FOV_PERMISSIVE_7 = 10,
+    FOV_PERMISSIVE_8 = 11,
+    FOV_RESTRICTIVE = 12,
+    FOV_SYMMETRIC_SHADOWCAST = 13,
+    NB_FOV_ALGORITHMS = 14,
+}
+
+public enum TCOD_key_status_t
+{
+    TCOD_KEY_PRESSED = 1,
+    TCOD_KEY_RELEASED = 2,
+}
+
+public enum TCOD_keycode_t
+{
+    TCODK_NONE = 0,
+    TCODK_ESCAPE = 1,
+    TCODK_BACKSPACE = 2,
+    TCODK_TAB = 3,
+    TCODK_ENTER = 4,
+    TCODK_SHIFT = 5,
+    TCODK_CONTROL = 6,
+    TCODK_ALT = 7,
+    TCODK_PAUSE = 8,
+    TCODK_CAPSLOCK = 9,
+    TCODK_PAGEUP = 10,
+    TCODK_PAGEDOWN = 11,
+    TCODK_END = 12,
+    TCODK_HOME = 13,
+    TCODK_UP = 14,
+    TCODK_LEFT = 15,
+    TCODK_RIGHT = 16,
+    TCODK_DOWN = 17,
+    TCODK_PRINTSCREEN = 18,
+    TCODK_INSERT = 19,
+    TCODK_DELETE = 20,
+    TCODK_LWIN = 21,
+    TCODK_RWIN = 22,
+    TCODK_APPS = 23,
+    TCODK_0 = 24,
+    TCODK_1 = 25,
+    TCODK_2 = 26,
+    TCODK_3 = 27,
+    TCODK_4 = 28,
+    TCODK_5 = 29,
+    TCODK_6 = 30,
+    TCODK_7 = 31,
+    TCODK_8 = 32,
+    TCODK_9 = 33,
+    TCODK_KP0 = 34,
+    TCODK_KP1 = 35,
+    TCODK_KP2 = 36,
+    TCODK_KP3 = 37,
+    TCODK_KP4 = 38,
+    TCODK_KP5 = 39,
+    TCODK_KP6 = 40,
+    TCODK_KP7 = 41,
+    TCODK_KP8 = 42,
+    TCODK_KP9 = 43,
+    TCODK_KPADD = 44,
+    TCODK_KPSUB = 45,
+    TCODK_KPDIV = 46,
+    TCODK_KPMUL = 47,
+    TCODK_KPDEC = 48,
+    TCODK_KPENTER = 49,
+    TCODK_F1 = 50,
+    TCODK_F2 = 51,
+    TCODK_F3 = 52,
+    TCODK_F4 = 53,
+    TCODK_F5 = 54,
+    TCODK_F6 = 55,
+    TCODK_F7 = 56,
+    TCODK_F8 = 57,
+    TCODK_F9 = 58,
+    TCODK_F10 = 59,
+    TCODK_F11 = 60,
+    TCODK_F12 = 61,
+    TCODK_NUMLOCK = 62,
+    TCODK_SCROLLLOCK = 63,
+    TCODK_SPACE = 64,
+    TCODK_CHAR = 65,
+    TCODK_TEXT = 66,
+}
+
+public enum TCOD_noise_type_t
+{
+    TCOD_NOISE_PERLIN = 1,
+    TCOD_NOISE_SIMPLEX = 2,
+    TCOD_NOISE_WAVELET = 4,
+    TCOD_NOISE_DEFAULT = 0,
+}
+
+public enum TCOD_random_algo_t
+{
+    TCOD_RNG_MT = 0,
+    TCOD_RNG_CMWC = 1,
+}
+
+public enum TCOD_renderer_t
+{
+    TCOD_RENDERER_GLSL = 0,
+    TCOD_RENDERER_OPENGL = 1,
+    TCOD_RENDERER_SDL = 2,
+    TCOD_RENDERER_SDL2 = 3,
+    TCOD_RENDERER_OPENGL2 = 4,
+    TCOD_RENDERER_XTERM = 5,
+    TCOD_NB_RENDERERS = 6,
+}
+
+public enum TCOD_value_type_t
+{
+    TCOD_TYPE_NONE = 0,
+    TCOD_TYPE_BOOL = 1,
+    TCOD_TYPE_CHAR = 2,
+    TCOD_TYPE_INT = 3,
+    TCOD_TYPE_FLOAT = 4,
+    TCOD_TYPE_STRING = 5,
+    TCOD_TYPE_COLOR = 6,
+    TCOD_TYPE_DICE = 7,
+    TCOD_TYPE_VALUELIST00 = 8,
+    TCOD_TYPE_VALUELIST01 = 9,
+    TCOD_TYPE_VALUELIST02 = 10,
+    TCOD_TYPE_VALUELIST03 = 11,
+    TCOD_TYPE_VALUELIST04 = 12,
+    TCOD_TYPE_VALUELIST05 = 13,
+    TCOD_TYPE_VALUELIST06 = 14,
+    TCOD_TYPE_VALUELIST07 = 15,
+    TCOD_TYPE_VALUELIST08 = 16,
+    TCOD_TYPE_VALUELIST09 = 17,
+    TCOD_TYPE_VALUELIST10 = 18,
+    TCOD_TYPE_VALUELIST11 = 19,
+    TCOD_TYPE_VALUELIST12 = 20,
+    TCOD_TYPE_VALUELIST13 = 21,
+    TCOD_TYPE_VALUELIST14 = 22,
+    TCOD_TYPE_VALUELIST15 = 23,
+    TCOD_TYPE_CUSTOM00 = 24,
+    TCOD_TYPE_CUSTOM01 = 25,
+    TCOD_TYPE_CUSTOM02 = 26,
+    TCOD_TYPE_CUSTOM03 = 27,
+    TCOD_TYPE_CUSTOM04 = 28,
+    TCOD_TYPE_CUSTOM05 = 29,
+    TCOD_TYPE_CUSTOM06 = 30,
+    TCOD_TYPE_CUSTOM07 = 31,
+    TCOD_TYPE_CUSTOM08 = 32,
+    TCOD_TYPE_CUSTOM09 = 33,
+    TCOD_TYPE_CUSTOM10 = 34,
+    TCOD_TYPE_CUSTOM11 = 35,
+    TCOD_TYPE_CUSTOM12 = 36,
+    TCOD_TYPE_CUSTOM13 = 37,
+    TCOD_TYPE_CUSTOM14 = 38,
+    TCOD_TYPE_CUSTOM15 = 39,
+    TCOD_TYPE_LIST = 1024,
+}
+
+
+[StructLayout(LayoutKind.Explicit)]
+public unsafe partial struct TCOD_bresenham_data_t
+{
+    [FieldOffset(0)]
+    public int stepx;
+    [FieldOffset(4)]
+    public int stepy;
+    [FieldOffset(8)]
+    public int e;
+    [FieldOffset(12)]
+    public int deltax;
+    [FieldOffset(16)]
+    public int deltay;
+    [FieldOffset(20)]
+    public int origx;
+    [FieldOffset(24)]
+    public int origy;
+    [FieldOffset(28)]
+    public int destx;
+    [FieldOffset(32)]
+    public int desty;
+}
+
+[StructLayout(LayoutKind.Explicit)]
+public unsafe partial struct TCOD_dice_t
+{
+    [FieldOffset(0)]
+    public int nb_rolls;
+    [FieldOffset(4)]
+    public int nb_faces;
+    [FieldOffset(8)]
+    public float multiplier;
+    [FieldOffset(12)]
+    public float addsub;
+}
+
+[StructLayout(LayoutKind.Explicit)]
+public unsafe partial struct TCOD_Random_MT_CMWC
+{
+    [FieldOffset(0)]
+    public TCOD_random_algo_t algorithm;
+    [FieldOffset(4)]
+    public TCOD_distribution_t distribution;
+    [FieldOffset(8)]
+    public fixed uint mt[624];
+    [FieldOffset(2504)]
+    public int cur_mt;
+    [FieldOffset(2508)]
+    public fixed uint Q[4096];
+    [FieldOffset(18892)]
+    public uint c;
+    [FieldOffset(18896)]
+    public int cur;
+}
+
+[StructLayout(LayoutKind.Explicit)]
+public unsafe partial struct TCOD_tree_t
+{
+    [FieldOffset(0)]
+    public TCOD_tree_t* next;
+    [FieldOffset(8)]
+    public TCOD_tree_t* father;
+    [FieldOffset(16)]
+    public TCOD_tree_t* sons;
+}
+
+[StructLayout(LayoutKind.Explicit)]
+public unsafe partial struct TCOD_bsp_t
+{
+    [FieldOffset(0)]
+    public TCOD_tree_t tree;
+    [FieldOffset(24)]
+    public int x;
+    [FieldOffset(28)]
+    public int y;
+    [FieldOffset(32)]
+    public int w;
+    [FieldOffset(36)]
+    public int h;
+    [FieldOffset(40)]
+    public int position;
+    [FieldOffset(44)]
+    public byte level;
+    [FieldOffset(45)]
+    public bool horizontal;
+}
+
+[StructLayout(LayoutKind.Explicit)]
+public unsafe partial struct TCOD_ColorRGB
+{
+    [FieldOffset(0)]
+    public byte r;
+    [FieldOffset(1)]
+    public byte g;
+    [FieldOffset(2)]
+    public byte b;
+}
+
+public partial struct TCOD_color_t
+{
+}
+
+[StructLayout(LayoutKind.Explicit)]
+public unsafe partial struct TCOD_ColorRGBA
+{
+    [FieldOffset(0)]
+    public byte r;
+    [FieldOffset(1)]
+    public byte g;
+    [FieldOffset(2)]
+    public byte b;
+    [FieldOffset(3)]
+    public byte a;
+}
+
+[StructLayout(LayoutKind.Explicit)]
+public unsafe partial struct TCOD_TilesetObserver
+{
+    [FieldOffset(0)]
+    public TCOD_Tileset* tileset;
+    [FieldOffset(8)]
+    public TCOD_TilesetObserver* next;
+    [FieldOffset(16)]
+    public nint userdata;
+    [FieldOffset(24)]
+    public nint on_observer_delete;
+    [FieldOffset(32)]
+    public nint on_tile_changed;
+}
+
+[StructLayout(LayoutKind.Explicit)]
+public unsafe partial struct TCOD_Tileset
+{
+    [FieldOffset(0)]
+    public int tile_width;
+    [FieldOffset(4)]
+    public int tile_height;
+    [FieldOffset(8)]
+    public int tile_length;
+    [FieldOffset(12)]
+    public int tiles_capacity;
+    [FieldOffset(16)]
+    public int tiles_count;
+    [FieldOffset(24)]
+    public TCOD_ColorRGBA* pixels;
+    [FieldOffset(32)]
+    public int character_map_length;
+    [FieldOffset(40)]
+    public nint character_map;
+    [FieldOffset(48)]
+    public TCOD_TilesetObserver* observer_list;
+    [FieldOffset(56)]
+    public int virtual_columns;
+    [FieldOffset(60)]
+    public int ref_count;
+}
+
+[StructLayout(LayoutKind.Explicit)]
+public unsafe partial struct TCOD_ConsoleTile
+{
+    [FieldOffset(0)]
+    public int ch;
+    [FieldOffset(4)]
+    public TCOD_ColorRGBA fg;
+    [FieldOffset(8)]
+    public TCOD_ColorRGBA bg;
+}
+
+[StructLayout(LayoutKind.Explicit)]
+public unsafe partial struct TCOD_Console
+{
+    [FieldOffset(0)]
+    public int w;
+    [FieldOffset(4)]
+    public int h;
+    [FieldOffset(8)]
+    public TCOD_ConsoleTile* tiles;
+    [FieldOffset(16)]
+    public TCOD_bkgnd_flag_t bkgnd_flag;
+    [FieldOffset(20)]
+    public TCOD_alignment_t alignment;
+    [FieldOffset(24)]
+    public TCOD_ColorRGB fore;
+    [FieldOffset(27)]
+    public TCOD_ColorRGB back;
+    [FieldOffset(30)]
+    public bool has_key_color;
+    [FieldOffset(31)]
+    public TCOD_ColorRGB key_color;
+    [FieldOffset(36)]
+    public int elements;
+    [FieldOffset(40)]
+    public nint userdata;
+    [FieldOffset(48)]
+    public nint on_delete;
+}
+
+public partial struct TCOD_console_t
+{
+}
+
+[StructLayout(LayoutKind.Explicit)]
+public unsafe partial struct TCOD_key_t
+{
+    [FieldOffset(0)]
+    public TCOD_keycode_t vk;
+    [FieldOffset(4)]
+    public sbyte c;
+    [FieldOffset(5)]
+    public fixed sbyte text[32];
+    [FieldOffset(37)]
+    public bool pressed;
+    [FieldOffset(38)]
+    public bool lalt;
+    [FieldOffset(39)]
+    public bool lctrl;
+    [FieldOffset(40)]
+    public bool lmeta;
+    [FieldOffset(41)]
+    public bool ralt;
+    [FieldOffset(42)]
+    public bool rctrl;
+    [FieldOffset(43)]
+    public bool rmeta;
+    [FieldOffset(44)]
+    public bool shift;
+}
+
+[StructLayout(LayoutKind.Explicit)]
+public unsafe partial struct TCOD_ViewportOptions
+{
+    [FieldOffset(0)]
+    public int tcod_version;
+    [FieldOffset(4)]
+    public bool keep_aspect;
+    [FieldOffset(5)]
+    public bool integer_scaling;
+    [FieldOffset(6)]
+    public TCOD_ColorRGBA clear_color;
+    [FieldOffset(12)]
+    public float align_x;
+    [FieldOffset(16)]
+    public float align_y;
+}
+
+[StructLayout(LayoutKind.Explicit)]
+public unsafe partial struct TCOD_mouse_t
+{
+    [FieldOffset(0)]
+    public int x;
+    [FieldOffset(4)]
+    public int y;
+    [FieldOffset(8)]
+    public int dx;
+    [FieldOffset(12)]
+    public int dy;
+    [FieldOffset(16)]
+    public int cx;
+    [FieldOffset(20)]
+    public int cy;
+    [FieldOffset(24)]
+    public int dcx;
+    [FieldOffset(28)]
+    public int dcy;
+    [FieldOffset(32)]
+    public bool lbutton;
+    [FieldOffset(33)]
+    public bool rbutton;
+    [FieldOffset(34)]
+    public bool mbutton;
+    [FieldOffset(35)]
+    public bool lbutton_pressed;
+    [FieldOffset(36)]
+    public bool rbutton_pressed;
+    [FieldOffset(37)]
+    public bool mbutton_pressed;
+    [FieldOffset(38)]
+    public bool wheel_up;
+    [FieldOffset(39)]
+    public bool wheel_down;
+}
+
+[StructLayout(LayoutKind.Explicit)]
+public unsafe partial struct TCOD_MouseTransform
+{
+    [FieldOffset(0)]
+    public double offset_x;
+    [FieldOffset(8)]
+    public double offset_y;
+    [FieldOffset(16)]
+    public double scale_x;
+    [FieldOffset(24)]
+    public double scale_y;
+}
+
+public partial struct TCOD_Context
+{
+}
+
+[StructLayout(LayoutKind.Explicit)]
+public unsafe partial struct TCOD_ContextParams
+{
+    [FieldOffset(0)]
+    public int tcod_version;
+    [FieldOffset(4)]
+    public int window_x;
+    [FieldOffset(8)]
+    public int window_y;
+    [FieldOffset(12)]
+    public int pixel_width;
+    [FieldOffset(16)]
+    public int pixel_height;
+    [FieldOffset(20)]
+    public int columns;
+    [FieldOffset(24)]
+    public int rows;
+    [FieldOffset(28)]
+    public int renderer_type;
+    [FieldOffset(32)]
+    public TCOD_Tileset* tileset;
+    [FieldOffset(40)]
+    public int vsync;
+    [FieldOffset(44)]
+    public int sdl_window_flags;
+    [FieldOffset(48)]
+    public nuint window_title;
+    [FieldOffset(56)]
+    public int argc;
+    [FieldOffset(64)]
+    public nuint argv;
+    [FieldOffset(72)]
+    public nint cli_output;
+    [FieldOffset(80)]
+    public nint cli_userdata;
+    [FieldOffset(88)]
+    public bool window_xy_defined;
+    [FieldOffset(96)]
+    public TCOD_Console* console;
+}
+
+[StructLayout(LayoutKind.Explicit)]
+public unsafe partial struct TCOD_Context
+{
+    [FieldOffset(0)]
+    public int type;
+    [FieldOffset(8)]
+    public nint contextdata_;
+    [FieldOffset(16)]
+    public nint c_destructor_;
+    [FieldOffset(24)]
+    public nint c_present_;
+    [FieldOffset(32)]
+    public nint c_pixel_to_tile_;
+    [FieldOffset(40)]
+    public nint c_save_screenshot_;
+    [FieldOffset(48)]
+    public nint c_get_sdl_window_;
+    [FieldOffset(56)]
+    public nint c_get_sdl_renderer_;
+    [FieldOffset(64)]
+    public nint c_accumulate_;
+    [FieldOffset(72)]
+    public nint c_set_tileset_;
+    [FieldOffset(80)]
+    public nint c_recommended_console_size_;
+    [FieldOffset(88)]
+    public nint c_screen_capture_;
+    [FieldOffset(96)]
+    public nint c_set_mouse_transform_;
+}
+
+[StructLayout(LayoutKind.Explicit)]
+public unsafe partial struct TCOD_mipmap_
+{
+    [FieldOffset(0)]
+    public int width;
+    [FieldOffset(4)]
+    public int height;
+    [FieldOffset(8)]
+    public float fwidth;
+    [FieldOffset(12)]
+    public float fheight;
+    [FieldOffset(16)]
+    public TCOD_ColorRGB* buf;
+    [FieldOffset(24)]
+    public bool dirty;
+}
+
+[StructLayout(LayoutKind.Explicit)]
+public unsafe partial struct TCOD_Image
+{
+    [FieldOffset(0)]
+    public int nb_mipmaps;
+    [FieldOffset(8)]
+    public TCOD_mipmap_* mipmaps;
+    [FieldOffset(16)]
+    public TCOD_ColorRGB key_color;
+    [FieldOffset(19)]
+    public bool has_key_color;
+}
+
+public partial struct TCOD_list_t
+{
+}
+
+[StructLayout(LayoutKind.Explicit)]
+public unsafe partial struct TCOD_PrintParamsRGB
+{
+    [FieldOffset(0)]
+    public int x;
+    [FieldOffset(4)]
+    public int y;
+    [FieldOffset(8)]
+    public int width;
+    [FieldOffset(12)]
+    public int height;
+    [FieldOffset(16)]
+    public TCOD_ColorRGB* fg;
+    [FieldOffset(24)]
+    public TCOD_ColorRGB* bg;
+    [FieldOffset(32)]
+    public TCOD_bkgnd_flag_t flag;
+    [FieldOffset(36)]
+    public TCOD_alignment_t alignment;
+}
+
+[StructLayout(LayoutKind.Explicit)]
+public unsafe partial struct TCOD_MapCell
+{
+    [FieldOffset(0)]
+    public bool transparent;
+    [FieldOffset(1)]
+    public bool walkable;
+    [FieldOffset(2)]
+    public bool fov;
+}
+
+[StructLayout(LayoutKind.Explicit)]
+public unsafe partial struct TCOD_Map
+{
+    [FieldOffset(0)]
+    public int width;
+    [FieldOffset(4)]
+    public int height;
+    [FieldOffset(8)]
+    public int nbcells;
+    [FieldOffset(16)]
+    public TCOD_MapCell* cells;
+}
+
+[StructLayout(LayoutKind.Explicit)]
+public unsafe partial struct TCOD_Noise
+{
+    [FieldOffset(0)]
+    public int ndim;
+    [FieldOffset(4)]
+    public fixed byte map[256];
+    [FieldOffset(4356)]
+    public float H;
+    [FieldOffset(4360)]
+    public float lacunarity;
+    [FieldOffset(4364)]
+    public fixed float exponent[128];
+    [FieldOffset(4880)]
+    public nint waveletTileData;
+    [FieldOffset(4888)]
+    public TCOD_Random* rand;
+    [FieldOffset(4896)]
+    public TCOD_noise_type_t noise_type;
+}
+
+[StructLayout(LayoutKind.Explicit)]
+public unsafe partial struct TCOD_heightmap_t
+{
+    [FieldOffset(0)]
+    public int w;
+    [FieldOffset(4)]
+    public int h;
+    [FieldOffset(8)]
+    public nint values;
+}
+
+[StructLayout(LayoutKind.Explicit)]
+public unsafe partial struct TCOD_lex_t
+{
+    [FieldOffset(0)]
+    public int file_line;
+    [FieldOffset(4)]
+    public int token_type;
+    [FieldOffset(8)]
+    public int token_int_val;
+    [FieldOffset(12)]
+    public int token_idx;
+    [FieldOffset(16)]
+    public float token_float_val;
+    [FieldOffset(24)]
+    public nuint tok;
+    [FieldOffset(32)]
+    public int toklen;
+    [FieldOffset(36)]
+    public sbyte lastStringDelim;
+    [FieldOffset(40)]
+    public nuint pos;
+    [FieldOffset(48)]
+    public nuint buf;
+    [FieldOffset(56)]
+    public nuint filename;
+    [FieldOffset(64)]
+    public nuint last_javadoc_comment;
+    [FieldOffset(72)]
+    public int nb_symbols;
+    [FieldOffset(76)]
+    public int nb_keywords;
+    [FieldOffset(80)]
+    public int flags;
+    [FieldOffset(2584)]
+    public nuint simple_comment;
+    [FieldOffset(2592)]
+    public nuint comment_start;
+    [FieldOffset(2600)]
+    public nuint comment_stop;
+    [FieldOffset(2608)]
+    public nuint javadoc_comment_start;
+    [FieldOffset(2616)]
+    public nuint stringDelim;
+    [FieldOffset(2624)]
+    public bool javadoc_read;
+    [FieldOffset(2625)]
+    public bool allocBuf;
+    [FieldOffset(2626)]
+    public bool is_savepoint;
+}
+
+[StructLayout(LayoutKind.Explicit)]
+public unsafe partial struct TCOD_LogMessage
+{
+    [FieldOffset(0)]
+    public nuint message;
+    [FieldOffset(8)]
+    public int level;
+    [FieldOffset(16)]
+    public nuint source;
+    [FieldOffset(24)]
+    public int lineno;
+}
+
+public partial struct TCOD_namegen_t
+{
+}
+
+[StructLayout(LayoutKind.Explicit)]
+public unsafe partial struct TCOD_ParserStruct
+{
+    [FieldOffset(0)]
+    public nuint name;
+    [FieldOffset(8)]
+    public nint flags;
+    [FieldOffset(16)]
+    public nint props;
+    [FieldOffset(24)]
+    public nint lists;
+    [FieldOffset(32)]
+    public nint structs;
+}
+
+public partial struct TCOD_struct_int_t
+{
+}
+
+public partial struct TCOD_parser_struct_t
+{
+}
+
+[StructLayout(LayoutKind.Explicit)]
+public unsafe partial struct TCOD_Parser
+{
+    [FieldOffset(0)]
+    public nint structs;
+    [FieldOffset(8)]
+    public nint customs_0;
+    [FieldOffset(16)]
+    public nint customs_1;
+    [FieldOffset(24)]
+    public nint customs_2;
+    [FieldOffset(32)]
+    public nint customs_3;
+    [FieldOffset(40)]
+    public nint customs_4;
+    [FieldOffset(48)]
+    public nint customs_5;
+    [FieldOffset(56)]
+    public nint customs_6;
+    [FieldOffset(64)]
+    public nint customs_7;
+    [FieldOffset(72)]
+    public nint customs_8;
+    [FieldOffset(80)]
+    public nint customs_9;
+    [FieldOffset(88)]
+    public nint customs_10;
+    [FieldOffset(96)]
+    public nint customs_11;
+    [FieldOffset(104)]
+    public nint customs_12;
+    [FieldOffset(112)]
+    public nint customs_13;
+    [FieldOffset(120)]
+    public nint customs_14;
+    [FieldOffset(128)]
+    public nint customs_15;
+    [FieldOffset(136)]
+    public bool fatal;
+    [FieldOffset(144)]
+    public nint props;
+}
+
+public partial struct TCOD_parser_int_t
+{
+}
+
+[StructLayout(LayoutKind.Explicit)]
+public unsafe partial struct TCOD_parser_listener_t
+{
+    [FieldOffset(0)]
+    public nint new_struct;
+    [FieldOffset(8)]
+    public nint new_flag;
+    [FieldOffset(16)]
+    public nint new_property;
+    [FieldOffset(24)]
+    public nint end_struct;
+    [FieldOffset(32)]
+    public nint error;
+}
+
+public partial struct TCOD_parser_t
+{
+}
+
+public partial struct TCOD_path_t
+{
+}
+
+[StructLayout(LayoutKind.Explicit)]
+public unsafe partial struct TCOD_Dijkstra
+{
+    [FieldOffset(0)]
+    public int diagonal_cost;
+    [FieldOffset(4)]
+    public int width;
+    [FieldOffset(8)]
+    public int height;
+    [FieldOffset(12)]
+    public int nodes_max;
+    [FieldOffset(16)]
+    public TCOD_Map* map;
+    [FieldOffset(24)]
+    public nint func;
+    [FieldOffset(32)]
+    public nint user_data;
+    [FieldOffset(40)]
+    public nint distances;
+    [FieldOffset(48)]
+    public nint nodes;
+    [FieldOffset(56)]
+    public nint path;
+}
+
+public partial struct TCOD_dijkstra_t
+{
+}
+
+[StructLayout(LayoutKind.Explicit)]
+public unsafe partial struct TCOD_Heap
+{
+    [FieldOffset(0)]
+    public nint heap;
+    [FieldOffset(8)]
+    public int size;
+    [FieldOffset(12)]
+    public int capacity;
+    [FieldOffset(16)]
+    public uint node_size;
+    [FieldOffset(24)]
+    public uint data_size;
+    [FieldOffset(32)]
+    public uint data_offset;
+    [FieldOffset(40)]
+    public int priority_type;
+}
+
+[StructLayout(LayoutKind.Explicit)]
+public unsafe partial struct TCOD_ArrayData
+{
+    [FieldOffset(0)]
+    public sbyte ndim;
+    [FieldOffset(4)]
+    public int int_type;
+    [FieldOffset(8)]
+    public fixed uint shape[5];
+    [FieldOffset(48)]
+    public fixed uint strides[5];
+    [FieldOffset(88)]
+    public nint data;
+}
+
+[StructLayout(LayoutKind.Explicit)]
+public unsafe partial struct TCOD_BasicGraph2D
+{
+    [FieldOffset(0)]
+    public TCOD_ArrayData cost;
+    [FieldOffset(96)]
+    public int cardinal;
+    [FieldOffset(100)]
+    public int diagonal;
+}
+
+[StructLayout(LayoutKind.Explicit)]
+public unsafe partial struct TCOD_Pathfinder
+{
+    [FieldOffset(0)]
+    public sbyte ndim;
+    [FieldOffset(8)]
+    public fixed uint shape[4];
+    [FieldOffset(40)]
+    public bool owns_distance;
+    [FieldOffset(41)]
+    public bool owns_graph;
+    [FieldOffset(42)]
+    public bool owns_traversal;
+    [FieldOffset(48)]
+    public TCOD_ArrayData distance;
+    [FieldOffset(144)]
+    public TCOD_BasicGraph2D graph;
+    [FieldOffset(248)]
+    public TCOD_ArrayData traversal;
+    [FieldOffset(344)]
+    public TCOD_Heap heap;
+}
+
+[StructLayout(LayoutKind.Explicit)]
+public unsafe partial struct TCOD_Frontier
+{
+    [FieldOffset(0)]
+    public sbyte ndim;
+    [FieldOffset(4)]
+    public int active_dist;
+    [FieldOffset(8)]
+    public fixed int active_index[4];
+    [FieldOffset(24)]
+    public TCOD_Heap heap;
+}
 
 [StructLayout(LayoutKind.Explicit)]
 public unsafe partial struct SDL_alignment_test
@@ -1569,6 +2700,48 @@ public partial struct SDL_Environment
 }
 
 public partial struct SDL_iconv_t
+{
+}
+
+[StructLayout(LayoutKind.Explicit)]
+public unsafe partial struct TCOD_TilesetAtlasSDL2
+{
+    [FieldOffset(0)]
+    public SDL_Renderer* renderer;
+    [FieldOffset(8)]
+    public SDL_Texture* texture;
+    [FieldOffset(16)]
+    public TCOD_Tileset* tileset;
+    [FieldOffset(24)]
+    public TCOD_TilesetObserver* observer;
+    [FieldOffset(32)]
+    public int texture_columns;
+}
+
+[StructLayout(LayoutKind.Explicit)]
+public unsafe partial struct TCOD_RendererSDL2
+{
+    [FieldOffset(0)]
+    public SDL_Window* window;
+    [FieldOffset(8)]
+    public SDL_Renderer* renderer;
+    [FieldOffset(16)]
+    public TCOD_TilesetAtlasSDL2* atlas;
+    [FieldOffset(24)]
+    public TCOD_Console* cache_console;
+    [FieldOffset(32)]
+    public SDL_Texture* cache_texture;
+    [FieldOffset(40)]
+    public uint sdl_subsystems;
+    [FieldOffset(48)]
+    public TCOD_MouseTransform cursor_transform;
+}
+
+public partial struct TCOD_text_t
+{
+}
+
+public partial struct TCOD_zip_t
 {
 }
 
@@ -3913,6 +5086,38 @@ public partial struct SDL_TrayEntry
 
 
 [StructLayout(LayoutKind.Explicit)]
+public unsafe partial struct TCOD_Random
+{
+    [FieldOffset(0)]
+    public TCOD_random_algo_t algorithm;
+    [FieldOffset(0)]
+    public TCOD_Random_MT_CMWC mt_cmwc;
+}
+
+[StructLayout(LayoutKind.Explicit)]
+public unsafe partial struct TCOD_value_t
+{
+    [FieldOffset(0)]
+    public bool b;
+    [FieldOffset(0)]
+    public sbyte c;
+    [FieldOffset(0)]
+    public int i;
+    [FieldOffset(0)]
+    public float f;
+    [FieldOffset(0)]
+    public nuint s;
+    [FieldOffset(0)]
+    public TCOD_ColorRGB col;
+    [FieldOffset(0)]
+    public TCOD_dice_t dice;
+    [FieldOffset(0)]
+    public nint list;
+    [FieldOffset(0)]
+    public nint custom;
+}
+
+[StructLayout(LayoutKind.Explicit)]
 public unsafe partial struct SDL_Event
 {
     [FieldOffset(0)]
@@ -4019,6 +5224,1933 @@ public unsafe partial struct SDL_HapticEffect
 
 public static unsafe partial class NativeMethods
 {
+    [LibraryImport("libtcod", EntryPoint = "TCOD_strdup", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint TCOD_strdup(string s);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? TCOD_strdupString(string s)
+    {
+        var ptr = TCOD_strdup(s);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_strcasecmp", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int TCOD_strcasecmp(string s1, string s2);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_strncasecmp", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int TCOD_strncasecmp(string s1, string s2, uint n);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_line_init", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_line_init(int xFrom, int yFrom, int xTo, int yTo);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_line_step", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool TCOD_line_step(nint xCur, nint yCur);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_line", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool TCOD_line(int xFrom, int yFrom, int xTo, int yTo, nint listener);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_line_init_mt", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_line_init_mt(int xFrom, int yFrom, int xTo, int yTo, TCOD_bresenham_data_t* data);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_line_step_mt", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool TCOD_line_step_mt(nint xCur, nint yCur, TCOD_bresenham_data_t* data);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_line_mt", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool TCOD_line_mt(int xFrom, int yFrom, int xTo, int yTo, nint listener, TCOD_bresenham_data_t* data);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_tree_new", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_tree_t* TCOD_tree_new();
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_tree_add_son", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_tree_add_son(TCOD_tree_t* node, TCOD_tree_t* son);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_bsp_new", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_bsp_t* TCOD_bsp_new();
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_bsp_new_with_size", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_bsp_t* TCOD_bsp_new_with_size(int x, int y, int w, int h);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_bsp_delete", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_bsp_delete(TCOD_bsp_t* node);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_bsp_left", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_bsp_t* TCOD_bsp_left(TCOD_bsp_t* node);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_bsp_right", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_bsp_t* TCOD_bsp_right(TCOD_bsp_t* node);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_bsp_father", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_bsp_t* TCOD_bsp_father(TCOD_bsp_t* node);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_bsp_is_leaf", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool TCOD_bsp_is_leaf(TCOD_bsp_t* node);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_bsp_traverse_pre_order", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool TCOD_bsp_traverse_pre_order(TCOD_bsp_t* node, nint listener, nint userData);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_bsp_traverse_in_order", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool TCOD_bsp_traverse_in_order(TCOD_bsp_t* node, nint listener, nint userData);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_bsp_traverse_post_order", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool TCOD_bsp_traverse_post_order(TCOD_bsp_t* node, nint listener, nint userData);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_bsp_traverse_level_order", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool TCOD_bsp_traverse_level_order(TCOD_bsp_t* node, nint listener, nint userData);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_bsp_traverse_inverted_level_order", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool TCOD_bsp_traverse_inverted_level_order(TCOD_bsp_t* node, nint listener, nint userData);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_bsp_contains", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool TCOD_bsp_contains(TCOD_bsp_t* node, int x, int y);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_bsp_find_node", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_bsp_t* TCOD_bsp_find_node(TCOD_bsp_t* node, int x, int y);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_bsp_resize", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_bsp_resize(TCOD_bsp_t* node, int x, int y, int w, int h);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_bsp_split_once", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_bsp_split_once(TCOD_bsp_t* node, [MarshalAs(UnmanagedType.I1)] bool horizontal, int position);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_bsp_split_recursive", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_bsp_split_recursive(TCOD_bsp_t* node, TCOD_Random* randomizer, int nb, int minHSize, int minVSize, float maxHRatio, float maxVRatio);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_bsp_remove_sons", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_bsp_remove_sons(TCOD_bsp_t* node);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_color_RGB", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint TCOD_color_RGB(byte r, byte g, byte b);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static unsafe TCOD_ColorRGB TCOD_color_RGBStruct(byte r, byte g, byte b)
+    {
+        var ptr = TCOD_color_RGB(r, g, b);
+        return Marshal.PtrToStructure<TCOD_ColorRGB>((nint)ptr);
+    }
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_color_HSV", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint TCOD_color_HSV(float hue, float saturation, float value);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static unsafe TCOD_ColorRGB TCOD_color_HSVStruct(float hue, float saturation, float value)
+    {
+        var ptr = TCOD_color_HSV(hue, saturation, value);
+        return Marshal.PtrToStructure<TCOD_ColorRGB>((nint)ptr);
+    }
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_color_equals", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool TCOD_color_equals(TCOD_ColorRGB c1, TCOD_ColorRGB c2);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_color_add", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint TCOD_color_add(TCOD_ColorRGB c1, TCOD_ColorRGB c2);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static unsafe TCOD_ColorRGB TCOD_color_addStruct(TCOD_ColorRGB c1, TCOD_ColorRGB c2)
+    {
+        var ptr = TCOD_color_add(c1, c2);
+        return Marshal.PtrToStructure<TCOD_ColorRGB>((nint)ptr);
+    }
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_color_subtract", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint TCOD_color_subtract(TCOD_ColorRGB c1, TCOD_ColorRGB c2);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static unsafe TCOD_ColorRGB TCOD_color_subtractStruct(TCOD_ColorRGB c1, TCOD_ColorRGB c2)
+    {
+        var ptr = TCOD_color_subtract(c1, c2);
+        return Marshal.PtrToStructure<TCOD_ColorRGB>((nint)ptr);
+    }
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_color_multiply", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint TCOD_color_multiply(TCOD_ColorRGB c1, TCOD_ColorRGB c2);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static unsafe TCOD_ColorRGB TCOD_color_multiplyStruct(TCOD_ColorRGB c1, TCOD_ColorRGB c2)
+    {
+        var ptr = TCOD_color_multiply(c1, c2);
+        return Marshal.PtrToStructure<TCOD_ColorRGB>((nint)ptr);
+    }
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_color_multiply_scalar", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint TCOD_color_multiply_scalar(TCOD_ColorRGB c1, float value);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static unsafe TCOD_ColorRGB TCOD_color_multiply_scalarStruct(TCOD_ColorRGB c1, float value)
+    {
+        var ptr = TCOD_color_multiply_scalar(c1, value);
+        return Marshal.PtrToStructure<TCOD_ColorRGB>((nint)ptr);
+    }
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_color_lerp", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint TCOD_color_lerp(TCOD_ColorRGB c1, TCOD_ColorRGB c2, float coef);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static unsafe TCOD_ColorRGB TCOD_color_lerpStruct(TCOD_ColorRGB c1, TCOD_ColorRGB c2, float coef)
+    {
+        var ptr = TCOD_color_lerp(c1, c2, coef);
+        return Marshal.PtrToStructure<TCOD_ColorRGB>((nint)ptr);
+    }
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_color_alpha_blend", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_color_alpha_blend(TCOD_ColorRGBA* dst, TCOD_ColorRGBA* src);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_color_set_HSV", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_color_set_HSV(TCOD_ColorRGB* color, float hue, float saturation, float value);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_color_get_HSV", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_color_get_HSV(TCOD_ColorRGB color, nint hue, nint saturation, nint value);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_color_get_hue", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial float TCOD_color_get_hue(TCOD_ColorRGB color);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_color_set_hue", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_color_set_hue(TCOD_ColorRGB* color, float hue);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_color_get_saturation", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial float TCOD_color_get_saturation(TCOD_ColorRGB color);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_color_set_saturation", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_color_set_saturation(TCOD_ColorRGB* color, float saturation);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_color_get_value", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial float TCOD_color_get_value(TCOD_ColorRGB color);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_color_set_value", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_color_set_value(TCOD_ColorRGB* color, float value);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_color_shift_hue", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_color_shift_hue(TCOD_ColorRGB* color, float shift);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_color_scale_HSV", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_color_scale_HSV(TCOD_ColorRGB* color, float saturation_coef, float value_coef);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_color_gen_map", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_color_gen_map(TCOD_ColorRGB* map, int nb_key, TCOD_ColorRGB* key_color, nint key_index);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_get_error", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint TCOD_get_error();
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? TCOD_get_errorString()
+    {
+        var ptr = TCOD_get_error();
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_set_error", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_Error TCOD_set_error(string msg);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_clear_error", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_clear_error();
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_tileset_new", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_Tileset* TCOD_tileset_new(int tile_width, int tile_height);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_tileset_delete", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_tileset_delete(TCOD_Tileset* tileset);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_tileset_get_tile_width_", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int TCOD_tileset_get_tile_width_(TCOD_Tileset* tileset);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_tileset_get_tile_height_", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int TCOD_tileset_get_tile_height_(TCOD_Tileset* tileset);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_tileset_get_tile_", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_Error TCOD_tileset_get_tile_(TCOD_Tileset* tileset, int codepoint, TCOD_ColorRGBA* buffer);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_tileset_set_tile_", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_Error TCOD_tileset_set_tile_(TCOD_Tileset* tileset, int codepoint, TCOD_ColorRGBA* buffer);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_tileset_load", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_Tileset* TCOD_tileset_load(string filename, int columns, int rows, int n, nint charmap);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_tileset_load_mem", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_Tileset* TCOD_tileset_load_mem(uint buffer_length, nint buffer, int columns, int rows, int n, nint charmap);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_tileset_load_raw", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_Tileset* TCOD_tileset_load_raw(int width, int height, TCOD_ColorRGBA* pixels, int columns, int rows, int n, nint charmap);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_tileset_assign_tile", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int TCOD_tileset_assign_tile(TCOD_Tileset* tileset, int tile_id, int codepoint);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_tileset_get_tile", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_ColorRGBA* TCOD_tileset_get_tile(TCOD_Tileset* tileset, int codepoint);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_tileset_observer_new", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_TilesetObserver* TCOD_tileset_observer_new(TCOD_Tileset* tileset);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_tileset_observer_delete", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_tileset_observer_delete(TCOD_TilesetObserver* observer);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_tileset_notify_tile_changed", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_tileset_notify_tile_changed(TCOD_Tileset* tileset, int tile_id);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_tileset_reserve", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_Error TCOD_tileset_reserve(TCOD_Tileset* tileset, int desired);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_console_new", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_Console* TCOD_console_new(int w, int h);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_console_get_width", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int TCOD_console_get_width(TCOD_Console* con);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_console_get_height", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int TCOD_console_get_height(TCOD_Console* con);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_console_set_key_color", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_console_set_key_color(TCOD_Console* con, TCOD_ColorRGB col);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_console_blit", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_console_blit(TCOD_Console* src, int xSrc, int ySrc, int wSrc, int hSrc, TCOD_Console* dst, int xDst, int yDst, float foreground_alpha, float background_alpha);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_console_blit_key_color", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_console_blit_key_color(TCOD_Console* src, int xSrc, int ySrc, int wSrc, int hSrc, TCOD_Console* dst, int xDst, int yDst, float foreground_alpha, float background_alpha, TCOD_ColorRGB* key_color);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_console_delete", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_console_delete(TCOD_Console* console);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_console_set_default_background", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_console_set_default_background(TCOD_Console* con, TCOD_ColorRGB col);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_console_set_default_foreground", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_console_set_default_foreground(TCOD_Console* con, TCOD_ColorRGB col);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_console_clear", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_console_clear(TCOD_Console* con);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_console_set_char_background", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_console_set_char_background(TCOD_Console* con, int x, int y, TCOD_ColorRGB col, TCOD_bkgnd_flag_t flag);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_console_set_char_foreground", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_console_set_char_foreground(TCOD_Console* con, int x, int y, TCOD_ColorRGB col);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_console_set_char", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_console_set_char(TCOD_Console* con, int x, int y, int c);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_console_put_char", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_console_put_char(TCOD_Console* con, int x, int y, int c, TCOD_bkgnd_flag_t flag);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_console_put_char_ex", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_console_put_char_ex(TCOD_Console* con, int x, int y, int c, TCOD_ColorRGB fore, TCOD_ColorRGB back);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_console_set_background_flag", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_console_set_background_flag(TCOD_Console* con, TCOD_bkgnd_flag_t flag);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_console_get_background_flag", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_bkgnd_flag_t TCOD_console_get_background_flag(TCOD_Console* con);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_console_set_alignment", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_console_set_alignment(TCOD_Console* con, TCOD_alignment_t alignment);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_console_get_alignment", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_alignment_t TCOD_console_get_alignment(TCOD_Console* con);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_console_get_default_background", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint TCOD_console_get_default_background(TCOD_Console* con);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static unsafe TCOD_ColorRGB TCOD_console_get_default_backgroundStruct(TCOD_Console* con)
+    {
+        var ptr = TCOD_console_get_default_background(con);
+        return Marshal.PtrToStructure<TCOD_ColorRGB>((nint)ptr);
+    }
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_console_get_default_foreground", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint TCOD_console_get_default_foreground(TCOD_Console* con);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static unsafe TCOD_ColorRGB TCOD_console_get_default_foregroundStruct(TCOD_Console* con)
+    {
+        var ptr = TCOD_console_get_default_foreground(con);
+        return Marshal.PtrToStructure<TCOD_ColorRGB>((nint)ptr);
+    }
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_console_get_char_background", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint TCOD_console_get_char_background(TCOD_Console* con, int x, int y);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static unsafe TCOD_ColorRGB TCOD_console_get_char_backgroundStruct(TCOD_Console* con, int x, int y)
+    {
+        var ptr = TCOD_console_get_char_background(con, x, y);
+        return Marshal.PtrToStructure<TCOD_ColorRGB>((nint)ptr);
+    }
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_console_get_char_foreground", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint TCOD_console_get_char_foreground(TCOD_Console* con, int x, int y);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static unsafe TCOD_ColorRGB TCOD_console_get_char_foregroundStruct(TCOD_Console* con, int x, int y)
+    {
+        var ptr = TCOD_console_get_char_foreground(con, x, y);
+        return Marshal.PtrToStructure<TCOD_ColorRGB>((nint)ptr);
+    }
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_console_get_char", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int TCOD_console_get_char(TCOD_Console* con, int x, int y);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_console_set_fade", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_console_set_fade(byte val, TCOD_ColorRGB fade_color);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_console_get_fade", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial byte TCOD_console_get_fade();
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_console_get_fading_color", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint TCOD_console_get_fading_color();
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static unsafe TCOD_ColorRGB TCOD_console_get_fading_colorStruct()
+    {
+        var ptr = TCOD_console_get_fading_color();
+        return Marshal.PtrToStructure<TCOD_ColorRGB>((nint)ptr);
+    }
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_console_resize_", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_console_resize_(TCOD_Console* console, int width, int height);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_console_rect", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_console_rect(TCOD_Console* con, int x, int y, int rw, int rh, [MarshalAs(UnmanagedType.I1)] bool clear, TCOD_bkgnd_flag_t flag);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_console_hline", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_console_hline(TCOD_Console* con, int x, int y, int l, TCOD_bkgnd_flag_t flag);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_console_vline", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_console_vline(TCOD_Console* con, int x, int y, int l, TCOD_bkgnd_flag_t flag);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_console_put_rgb", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_console_put_rgb(TCOD_Console* console, int x, int y, int ch, TCOD_ColorRGB* fg, TCOD_ColorRGB* bg, TCOD_bkgnd_flag_t flag);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_console_draw_rect_rgb", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_Error TCOD_console_draw_rect_rgb(TCOD_Console* console, int x, int y, int width, int height, int ch, TCOD_ColorRGB* fg, TCOD_ColorRGB* bg, TCOD_bkgnd_flag_t flag);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_console_draw_frame_rgb", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_Error TCOD_console_draw_frame_rgb(TCOD_Console* con, int x, int y, int width, int height, nint decoration, TCOD_ColorRGB* fg, TCOD_ColorRGB* bg, TCOD_bkgnd_flag_t flag, [MarshalAs(UnmanagedType.I1)] bool clear);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_viewport_new", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_ViewportOptions* TCOD_viewport_new();
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_viewport_delete", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_viewport_delete(TCOD_ViewportOptions* viewport);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_context_delete", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_context_delete(TCOD_Context* renderer);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_context_new_", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_Context* TCOD_context_new_();
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_context_present", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_Error TCOD_context_present(TCOD_Context* context, TCOD_Console* console, TCOD_ViewportOptions* viewport);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_context_screen_pixel_to_tile_d", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_Error TCOD_context_screen_pixel_to_tile_d(TCOD_Context* context, nint x, nint y);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_context_screen_pixel_to_tile_i", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_Error TCOD_context_screen_pixel_to_tile_i(TCOD_Context* context, nint x, nint y);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_context_convert_event_coordinates", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_Error TCOD_context_convert_event_coordinates(TCOD_Context* context, SDL_Event* @event);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_context_save_screenshot", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_Error TCOD_context_save_screenshot(TCOD_Context* context, string filename);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_context_get_sdl_window", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial SDL_Window* TCOD_context_get_sdl_window(TCOD_Context* context);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_context_get_sdl_renderer", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial SDL_Renderer* TCOD_context_get_sdl_renderer(TCOD_Context* context);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_context_change_tileset", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_Error TCOD_context_change_tileset(TCOD_Context* self, TCOD_Tileset* tileset);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_context_get_renderer_type", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int TCOD_context_get_renderer_type(TCOD_Context* context);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_context_recommended_console_size", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_Error TCOD_context_recommended_console_size(TCOD_Context* context, float magnification, nint columns, nint rows);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_context_screen_capture", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_Error TCOD_context_screen_capture(TCOD_Context* context, TCOD_ColorRGBA* out_pixels, nint width, nint height);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_context_screen_capture_alloc", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_ColorRGBA* TCOD_context_screen_capture_alloc(TCOD_Context* context, nint width, nint height);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_context_set_mouse_transform", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_Error TCOD_context_set_mouse_transform(TCOD_Context* context, TCOD_MouseTransform* transform);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_image_new", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_Image* TCOD_image_new(int width, int height);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_image_from_console", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_Image* TCOD_image_from_console(TCOD_Console* console);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_image_refresh_console", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_image_refresh_console(TCOD_Image* image, TCOD_Console* console);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_image_clear", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_image_clear(TCOD_Image* image, TCOD_ColorRGB color);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_image_invert", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_image_invert(TCOD_Image* image);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_image_hflip", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_image_hflip(TCOD_Image* image);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_image_rotate90", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_image_rotate90(TCOD_Image* image, int numRotations);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_image_vflip", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_image_vflip(TCOD_Image* image);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_image_scale", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_image_scale(TCOD_Image* image, int new_w, int new_h);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_image_load", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_Image* TCOD_image_load(string filename);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_image_save", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_Error TCOD_image_save(TCOD_Image* image, string filename);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_image_get_size", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_image_get_size(TCOD_Image* image, nint w, nint h);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_image_get_pixel", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint TCOD_image_get_pixel(TCOD_Image* image, int x, int y);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static unsafe TCOD_ColorRGB TCOD_image_get_pixelStruct(TCOD_Image* image, int x, int y)
+    {
+        var ptr = TCOD_image_get_pixel(image, x, y);
+        return Marshal.PtrToStructure<TCOD_ColorRGB>((nint)ptr);
+    }
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_image_get_alpha", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int TCOD_image_get_alpha(TCOD_Image* image, int x, int y);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_image_get_mipmap_pixel", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint TCOD_image_get_mipmap_pixel(TCOD_Image* image, float x0, float y0, float x1, float y1);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static unsafe TCOD_ColorRGB TCOD_image_get_mipmap_pixelStruct(TCOD_Image* image, float x0, float y0, float x1, float y1)
+    {
+        var ptr = TCOD_image_get_mipmap_pixel(image, x0, y0, x1, y1);
+        return Marshal.PtrToStructure<TCOD_ColorRGB>((nint)ptr);
+    }
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_image_put_pixel", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_image_put_pixel(TCOD_Image* image, int x, int y, TCOD_ColorRGB col);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_image_blit", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_image_blit(TCOD_Image* image, nint console, float x, float y, TCOD_bkgnd_flag_t bkgnd_flag, float scale_x, float scale_y, float angle);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_image_blit_rect", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_image_blit_rect(TCOD_Image* image, nint console, int x, int y, int w, int h, TCOD_bkgnd_flag_t bkgnd_flag);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_image_blit_2x", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_image_blit_2x(TCOD_Image* image, TCOD_Console* dest, int dx, int dy, int sx, int sy, int w, int h);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_image_delete", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_image_delete(TCOD_Image* image);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_image_set_key_color", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_image_set_key_color(TCOD_Image* image, TCOD_ColorRGB key_color);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_image_is_pixel_transparent", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool TCOD_image_is_pixel_transparent(TCOD_Image* image, int x, int y);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_list_new", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nint TCOD_list_new();
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_list_allocate", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nint TCOD_list_allocate(int nb_elements);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_list_duplicate", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nint TCOD_list_duplicate(nint l);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_list_delete", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_list_delete(nint l);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_list_push", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_list_push(nint l, nint elt);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_list_pop", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nint TCOD_list_pop(nint l);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_list_peek", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nint TCOD_list_peek(nint l);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_list_add_all", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_list_add_all(nint l, nint l2);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_list_get", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nint TCOD_list_get(nint l, int idx);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_list_set", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_list_set(nint l, nint elt, int idx);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_list_begin", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nint TCOD_list_begin(nint l);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_list_end", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nint TCOD_list_end(nint l);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_list_reverse", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_list_reverse(nint l);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_list_remove_iterator", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nint TCOD_list_remove_iterator(nint l, nint elt);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_list_remove", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_list_remove(nint l, nint elt);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_list_remove_iterator_fast", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nint TCOD_list_remove_iterator_fast(nint l, nint elt);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_list_remove_fast", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_list_remove_fast(nint l, nint elt);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_list_contains", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool TCOD_list_contains(nint l, nint elt);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_list_clear", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_list_clear(nint l);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_list_clear_and_delete", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_list_clear_and_delete(nint l);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_list_size", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int TCOD_list_size(nint l);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_list_insert_before", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nint TCOD_list_insert_before(nint l, nint elt, int before);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_list_is_empty", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool TCOD_list_is_empty(nint l);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_console_set_custom_font", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_Error TCOD_console_set_custom_font(string fontFile, int flags, int nb_char_horiz, int nb_char_vertic);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_console_map_ascii_code_to_font", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_console_map_ascii_code_to_font(int asciiCode, int fontCharX, int fontCharY);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_console_map_ascii_codes_to_font", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_console_map_ascii_codes_to_font(int asciiCode, int nbCodes, int fontCharX, int fontCharY);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_console_map_string_to_font", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_console_map_string_to_font(string s, int fontCharX, int fontCharY);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_console_map_string_to_font_utf", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_console_map_string_to_font_utf(int* s, int fontCharX, int fontCharY);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_console_set_dirty", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_console_set_dirty(int x, int y, int w, int h);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_console_flush_ex", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_Error TCOD_console_flush_ex(TCOD_Console* console, TCOD_ViewportOptions* viewport);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_console_flush", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_Error TCOD_console_flush();
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_console_is_key_pressed", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool TCOD_console_is_key_pressed(TCOD_keycode_t key);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_console_from_file", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nint TCOD_console_from_file(string filename);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_console_load_asc", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool TCOD_console_load_asc(nint con, string filename);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_console_load_apf", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool TCOD_console_load_apf(nint con, string filename);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_console_save_asc", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool TCOD_console_save_asc(nint con, string filename);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_console_save_apf", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool TCOD_console_save_apf(nint con, string filename);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_console_check_for_keypress", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint TCOD_console_check_for_keypress(int flags);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static unsafe TCOD_key_t TCOD_console_check_for_keypressStruct(int flags)
+    {
+        var ptr = TCOD_console_check_for_keypress(flags);
+        return Marshal.PtrToStructure<TCOD_key_t>((nint)ptr);
+    }
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_console_wait_for_keypress", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint TCOD_console_wait_for_keypress([MarshalAs(UnmanagedType.I1)] bool flush);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static unsafe TCOD_key_t TCOD_console_wait_for_keypressStruct([MarshalAs(UnmanagedType.I1)] bool flush)
+    {
+        var ptr = TCOD_console_wait_for_keypress(flush);
+        return Marshal.PtrToStructure<TCOD_key_t>((nint)ptr);
+    }
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_console_credits", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_console_credits();
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_console_credits_reset", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_console_credits_reset();
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_console_credits_render", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool TCOD_console_credits_render(int x, int y, [MarshalAs(UnmanagedType.I1)] bool alpha);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_console_credits_render_ex", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool TCOD_console_credits_render_ex(TCOD_Console* console, int x, int y, [MarshalAs(UnmanagedType.I1)] bool alpha, float delta_time);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_console_set_keyboard_repeat", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_console_set_keyboard_repeat(int initial_delay, int interval);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_console_disable_keyboard_repeat", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_console_disable_keyboard_repeat();
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_console_init_root", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_Error TCOD_console_init_root(int w, int h, string title, [MarshalAs(UnmanagedType.I1)] bool fullscreen, TCOD_renderer_t renderer);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_console_init_root_", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_Error TCOD_console_init_root_(int w, int h, string title, [MarshalAs(UnmanagedType.I1)] bool fullscreen, TCOD_renderer_t renderer, [MarshalAs(UnmanagedType.I1)] bool vsync);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_console_set_window_title", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_console_set_window_title(string title);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_console_set_fullscreen", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_console_set_fullscreen([MarshalAs(UnmanagedType.I1)] bool fullscreen);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_console_is_fullscreen", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool TCOD_console_is_fullscreen();
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_console_has_mouse_focus", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool TCOD_console_has_mouse_focus();
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_console_is_active", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool TCOD_console_is_active();
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_console_is_window_closed", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool TCOD_console_is_window_closed();
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_sys_get_sdl_window", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial SDL_Window* TCOD_sys_get_sdl_window();
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_sys_get_sdl_renderer", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial SDL_Renderer* TCOD_sys_get_sdl_renderer();
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_sys_accumulate_console", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int TCOD_sys_accumulate_console(TCOD_Console* console);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_sys_accumulate_console_", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int TCOD_sys_accumulate_console_(TCOD_Console* console, SDL_Rect* viewport);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_sys_get_internal_context", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_Context* TCOD_sys_get_internal_context();
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_sys_get_internal_console", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_Console* TCOD_sys_get_internal_console();
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_quit", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_quit();
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_console_set_color_control", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_console_set_color_control(TCOD_colctrl_t con, TCOD_ColorRGB fore, TCOD_ColorRGB back);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_console_printn", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_Error TCOD_console_printn(TCOD_Console* console, int x, int y, uint n, string str, TCOD_ColorRGB* fg, TCOD_ColorRGB* bg, TCOD_bkgnd_flag_t flag, TCOD_alignment_t alignment);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_console_printn_rect", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int TCOD_console_printn_rect(TCOD_Console* console, int x, int y, int width, int height, uint n, string str, TCOD_ColorRGB* fg, TCOD_ColorRGB* bg, TCOD_bkgnd_flag_t flag, TCOD_alignment_t alignment);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_console_get_height_rect_n", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int TCOD_console_get_height_rect_n(TCOD_Console* console, int x, int y, int width, int height, uint n, string str);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_console_get_height_rect_wn", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int TCOD_console_get_height_rect_wn(int width, uint n, string str);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_console_printn_frame", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_Error TCOD_console_printn_frame(TCOD_Console* console, int x, int y, int width, int height, uint n, string title, TCOD_ColorRGB* fg, TCOD_ColorRGB* bg, TCOD_bkgnd_flag_t flag, [MarshalAs(UnmanagedType.I1)] bool clear);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_printn_rgb", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int TCOD_printn_rgb(TCOD_Console* console, TCOD_PrintParamsRGB @params, int n, string str);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_console_from_xp", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nint TCOD_console_from_xp(string filename);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_console_load_xp", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool TCOD_console_load_xp(TCOD_Console* con, string filename);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_console_save_xp", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool TCOD_console_save_xp(TCOD_Console* con, string filename, int compress_level);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_console_list_from_xp", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nint TCOD_console_list_from_xp(string filename);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_console_list_save_xp", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool TCOD_console_list_save_xp(nint console_list, string filename, int compress_level);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_load_xp_from_memory", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int TCOD_load_xp_from_memory(int n_data, nint data, int n_out, TCOD_Console** @out);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_save_xp_to_memory", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int TCOD_save_xp_to_memory(int n_consoles, TCOD_Console** consoles, int n_out, nint @out, int compression_level);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_load_xp", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int TCOD_load_xp(string path, int n, TCOD_Console** @out);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_save_xp", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_Error TCOD_save_xp(int n, TCOD_Console** consoles, string path, int compress_level);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_context_new", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_Error TCOD_context_new(TCOD_ContextParams* @params, TCOD_Context** @out);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_map_new", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_Map* TCOD_map_new(int width, int height);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_map_clear", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_map_clear(TCOD_Map* map, [MarshalAs(UnmanagedType.I1)] bool transparent, [MarshalAs(UnmanagedType.I1)] bool walkable);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_map_copy", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_Error TCOD_map_copy(TCOD_Map* source, TCOD_Map* dest);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_map_set_properties", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_map_set_properties(TCOD_Map* map, int x, int y, [MarshalAs(UnmanagedType.I1)] bool is_transparent, [MarshalAs(UnmanagedType.I1)] bool is_walkable);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_map_delete", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_map_delete(TCOD_Map* map);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_map_compute_fov", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_Error TCOD_map_compute_fov(TCOD_Map* map, int pov_x, int pov_y, int max_radius, [MarshalAs(UnmanagedType.I1)] bool light_walls, TCOD_fov_algorithm_t algo);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_map_is_in_fov", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool TCOD_map_is_in_fov(TCOD_Map* map, int x, int y);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_map_set_in_fov", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_map_set_in_fov(TCOD_Map* map, int x, int y, [MarshalAs(UnmanagedType.I1)] bool fov);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_map_is_transparent", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool TCOD_map_is_transparent(TCOD_Map* map, int x, int y);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_map_is_walkable", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool TCOD_map_is_walkable(TCOD_Map* map, int x, int y);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_map_get_width", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int TCOD_map_get_width(TCOD_Map* map);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_map_get_height", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int TCOD_map_get_height(TCOD_Map* map);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_map_get_nb_cells", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int TCOD_map_get_nb_cells(TCOD_Map* map);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_get_default_tileset", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_Tileset* TCOD_get_default_tileset();
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_set_default_tileset", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_set_default_tileset(TCOD_Tileset* tileset);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_noise_new", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_Noise* TCOD_noise_new(int dimensions, float hurst, float lacunarity, TCOD_Random* random);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_noise_set_type", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_noise_set_type(TCOD_Noise* noise, TCOD_noise_type_t type);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_noise_get_ex", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial float TCOD_noise_get_ex(TCOD_Noise* noise, nint f, TCOD_noise_type_t type);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_noise_get_fbm_ex", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial float TCOD_noise_get_fbm_ex(TCOD_Noise* noise, nint f, float octaves, TCOD_noise_type_t type);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_noise_get_turbulence_ex", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial float TCOD_noise_get_turbulence_ex(TCOD_Noise* noise, nint f, float octaves, TCOD_noise_type_t type);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_noise_get", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial float TCOD_noise_get(TCOD_Noise* noise, nint f);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_noise_get_fbm", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial float TCOD_noise_get_fbm(TCOD_Noise* noise, nint f, float octaves);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_noise_get_turbulence", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial float TCOD_noise_get_turbulence(TCOD_Noise* noise, nint f, float octaves);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_noise_delete", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_noise_delete(TCOD_Noise* noise);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_noise_get_vectorized", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_noise_get_vectorized(TCOD_Noise* noise, TCOD_noise_type_t type, int n, nint x, nint y, nint z, nint w, nint @out);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_noise_get_fbm_vectorized", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_noise_get_fbm_vectorized(TCOD_Noise* noise, TCOD_noise_type_t type, float octaves, int n, nint x, nint y, nint z, nint w, nint @out);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_noise_get_turbulence_vectorized", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_noise_get_turbulence_vectorized(TCOD_Noise* noise, TCOD_noise_type_t type, float octaves, int n, nint x, nint y, nint z, nint w, nint @out);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_heightmap_new", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_heightmap_t* TCOD_heightmap_new(int w, int h);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_heightmap_delete", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_heightmap_delete(TCOD_heightmap_t* hm);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_heightmap_get_value", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial float TCOD_heightmap_get_value(TCOD_heightmap_t* hm, int x, int y);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_heightmap_get_interpolated_value", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial float TCOD_heightmap_get_interpolated_value(TCOD_heightmap_t* hm, float x, float y);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_heightmap_set_value", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_heightmap_set_value(TCOD_heightmap_t* hm, int x, int y, float value);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_heightmap_get_slope", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial float TCOD_heightmap_get_slope(TCOD_heightmap_t* hm, int x, int y);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_heightmap_count_cells", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int TCOD_heightmap_count_cells(TCOD_heightmap_t* hm, float min, float max);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_heightmap_has_land_on_border", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool TCOD_heightmap_has_land_on_border(TCOD_heightmap_t* hm, float waterLevel);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_heightmap_get_minmax", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_heightmap_get_minmax(TCOD_heightmap_t* hm, nint min, nint max);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_heightmap_copy", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_heightmap_copy(TCOD_heightmap_t* hm_source, TCOD_heightmap_t* hm_dest);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_heightmap_add", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_heightmap_add(TCOD_heightmap_t* hm, float value);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_heightmap_scale", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_heightmap_scale(TCOD_heightmap_t* hm, float value);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_heightmap_clamp", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_heightmap_clamp(TCOD_heightmap_t* hm, float min, float max);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_heightmap_normalize", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_heightmap_normalize(TCOD_heightmap_t* hm, float min, float max);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_heightmap_clear", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_heightmap_clear(TCOD_heightmap_t* hm);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_heightmap_lerp_hm", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_heightmap_lerp_hm(TCOD_heightmap_t* hm1, TCOD_heightmap_t* hm2, TCOD_heightmap_t* @out, float coef);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_heightmap_add_hm", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_heightmap_add_hm(TCOD_heightmap_t* hm1, TCOD_heightmap_t* hm2, TCOD_heightmap_t* @out);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_heightmap_multiply_hm", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_heightmap_multiply_hm(TCOD_heightmap_t* hm1, TCOD_heightmap_t* hm2, TCOD_heightmap_t* @out);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_heightmap_add_hill", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_heightmap_add_hill(TCOD_heightmap_t* hm, float hx, float hy, float h_radius, float h_height);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_heightmap_dig_hill", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_heightmap_dig_hill(TCOD_heightmap_t* hm, float hx, float hy, float h_radius, float h_height);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_heightmap_rain_erosion", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_heightmap_rain_erosion(TCOD_heightmap_t* hm, int nbDrops, float erosionCoef, float sedimentationCoef, TCOD_Random* rnd);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_heightmap_kernel_transform", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_heightmap_kernel_transform(TCOD_heightmap_t* hm, int kernel_size, nint dx, nint dy, nint weight, float minLevel, float maxLevel);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_heightmap_add_voronoi", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_heightmap_add_voronoi(TCOD_heightmap_t* hm, int nbPoints, int nbCoef, nint coef, TCOD_Random* rnd);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_heightmap_mid_point_displacement", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_heightmap_mid_point_displacement(TCOD_heightmap_t* hm, TCOD_Random* rnd, float roughness);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_heightmap_add_fbm", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_heightmap_add_fbm(TCOD_heightmap_t* hm, nint noise, float mul_x, float mul_y, float add_x, float add_y, float octaves, float delta, float scale);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_heightmap_scale_fbm", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_heightmap_scale_fbm(TCOD_heightmap_t* hm, nint noise, float mul_x, float mul_y, float add_x, float add_y, float octaves, float delta, float scale);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_heightmap_islandify", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_heightmap_islandify(TCOD_heightmap_t* hm, float seaLevel, TCOD_Random* rnd);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_lex_new_intern", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_lex_t* TCOD_lex_new_intern();
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_lex_new", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_lex_t* TCOD_lex_new(nuint symbols, nuint keywords, string simpleComment, string commentStart, string commentStop, string javadocCommentStart, string stringDelim, int flags);
+
+    public static unsafe TCOD_lex_t* TCOD_lex_newString(out string? symbols, out string? keywords, string simpleComment, string commentStart, string commentStop, string javadocCommentStart, string stringDelim, int flags)
+    {
+        nuint symbolsPtr = 0;
+        nuint keywordsPtr = 0;
+        TCOD_lex_t* result = TCOD_lex_new((nuint)(&symbolsPtr), (nuint)(&keywordsPtr), simpleComment, commentStart, commentStop, javadocCommentStart, stringDelim, flags);
+        if (symbolsPtr == 0)
+        {
+            symbols = null;
+        }
+        else
+        {
+            symbols = Marshal.PtrToStringUTF8((nint)symbolsPtr);
+        }
+        if (keywordsPtr == 0)
+        {
+            keywords = null;
+        }
+        else
+        {
+            keywords = Marshal.PtrToStringUTF8((nint)keywordsPtr);
+        }
+        return result;
+    }
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_lex_delete", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_lex_delete(TCOD_lex_t* lex);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_lex_set_data_buffer", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_lex_set_data_buffer(TCOD_lex_t* lex, string dat);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_lex_set_data_file", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool TCOD_lex_set_data_file(TCOD_lex_t* lex, string filename);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_lex_parse", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int TCOD_lex_parse(TCOD_lex_t* lex);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_lex_parse_until_token_type", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int TCOD_lex_parse_until_token_type(TCOD_lex_t* lex, int token_type);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_lex_parse_until_token_value", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int TCOD_lex_parse_until_token_value(TCOD_lex_t* lex, string token_value);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_lex_expect_token_type", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool TCOD_lex_expect_token_type(TCOD_lex_t* lex, int token_type);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_lex_expect_token_value", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool TCOD_lex_expect_token_value(TCOD_lex_t* lex, int token_type, string token_value);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_lex_savepoint", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_lex_savepoint(TCOD_lex_t* lex, TCOD_lex_t* savepoint);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_lex_restore", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_lex_restore(TCOD_lex_t* lex, TCOD_lex_t* savepoint);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_lex_get_last_javadoc", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint TCOD_lex_get_last_javadoc(TCOD_lex_t* lex);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? TCOD_lex_get_last_javadocString(TCOD_lex_t* lex)
+    {
+        var ptr = TCOD_lex_get_last_javadoc(lex);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_lex_get_token_name", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint TCOD_lex_get_token_name(int token_type);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? TCOD_lex_get_token_nameString(int token_type)
+    {
+        var ptr = TCOD_lex_get_token_name(token_type);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_lex_hextoint", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int TCOD_lex_hextoint(sbyte c);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_set_log_level", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_set_log_level(int level);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_set_log_callback", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_set_log_callback(nint callback, nint userdata);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_log_verbose_", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_log_verbose_(string msg, int level, string source, int line);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_random_get_instance", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_Random* TCOD_random_get_instance();
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_random_new", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_Random* TCOD_random_new(TCOD_random_algo_t algo);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_random_save", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_Random* TCOD_random_save(TCOD_Random* mersenne);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_random_restore", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_random_restore(TCOD_Random* mersenne, TCOD_Random* backup);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_random_new_from_seed", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_Random* TCOD_random_new_from_seed(TCOD_random_algo_t algo, uint seed);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_random_delete", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_random_delete(TCOD_Random* mersenne);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_random_set_distribution", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_random_set_distribution(TCOD_Random* mersenne, TCOD_distribution_t distribution);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_random_get_int", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int TCOD_random_get_int(TCOD_Random* mersenne, int min, int max);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_random_get_float", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial float TCOD_random_get_float(TCOD_Random* mersenne, float min, float max);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_random_get_double", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial double TCOD_random_get_double(TCOD_Random* mersenne, double min, double max);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_random_get_int_mean", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int TCOD_random_get_int_mean(TCOD_Random* mersenne, int min, int max, int mean);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_random_get_float_mean", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial float TCOD_random_get_float_mean(TCOD_Random* mersenne, float min, float max, float mean);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_random_get_double_mean", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial double TCOD_random_get_double_mean(TCOD_Random* mersenne, double min, double max, double mean);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_random_dice_new", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint TCOD_random_dice_new(string s);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static unsafe TCOD_dice_t TCOD_random_dice_newStruct(string s)
+    {
+        var ptr = TCOD_random_dice_new(s);
+        return Marshal.PtrToStructure<TCOD_dice_t>((nint)ptr);
+    }
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_random_dice_roll", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int TCOD_random_dice_roll(TCOD_Random* mersenne, TCOD_dice_t dice);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_random_dice_roll_s", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int TCOD_random_dice_roll_s(TCOD_Random* mersenne, string s);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_mouse_show_cursor", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_mouse_show_cursor([MarshalAs(UnmanagedType.I1)] bool visible);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_mouse_get_status", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint TCOD_mouse_get_status();
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static unsafe TCOD_mouse_t TCOD_mouse_get_statusStruct()
+    {
+        var ptr = TCOD_mouse_get_status();
+        return Marshal.PtrToStructure<TCOD_mouse_t>((nint)ptr);
+    }
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_mouse_is_cursor_visible", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool TCOD_mouse_is_cursor_visible();
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_mouse_move", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_mouse_move(int x, int y);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_mouse_includes_touch", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_mouse_includes_touch([MarshalAs(UnmanagedType.I1)] bool enable);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_namegen_parse", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_namegen_parse(string filename, TCOD_Random* random);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_namegen_generate", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint TCOD_namegen_generate(string name, [MarshalAs(UnmanagedType.I1)] bool allocate);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? TCOD_namegen_generateString(string name, [MarshalAs(UnmanagedType.I1)] bool allocate)
+    {
+        var ptr = TCOD_namegen_generate(name, allocate);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_namegen_generate_custom", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint TCOD_namegen_generate_custom(string name, string rule, [MarshalAs(UnmanagedType.I1)] bool allocate);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? TCOD_namegen_generate_customString(string name, string rule, [MarshalAs(UnmanagedType.I1)] bool allocate)
+    {
+        var ptr = TCOD_namegen_generate_custom(name, rule, allocate);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_namegen_get_sets", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nint TCOD_namegen_get_sets();
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_namegen_destroy", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_namegen_destroy();
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_struct_get_name", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint TCOD_struct_get_name(TCOD_ParserStruct* def);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? TCOD_struct_get_nameString(TCOD_ParserStruct* def)
+    {
+        var ptr = TCOD_struct_get_name(def);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_struct_add_property", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_struct_add_property(TCOD_ParserStruct* def, string name, TCOD_value_type_t type, [MarshalAs(UnmanagedType.I1)] bool mandatory);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_struct_add_list_property", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_struct_add_list_property(TCOD_ParserStruct* def, string name, TCOD_value_type_t type, [MarshalAs(UnmanagedType.I1)] bool mandatory);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_struct_add_value_list", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_struct_add_value_list(TCOD_ParserStruct* def, string name, nuint value_list, [MarshalAs(UnmanagedType.I1)] bool mandatory);
+
+    public static unsafe void TCOD_struct_add_value_listString(TCOD_ParserStruct* def, string name, out string? value_list, [MarshalAs(UnmanagedType.I1)] bool mandatory)
+    {
+        nuint value_listPtr = 0;
+        TCOD_struct_add_value_list(def, name, (nuint)(&value_listPtr), mandatory);
+        if (value_listPtr == 0)
+        {
+            value_list = null;
+        }
+        else
+        {
+            value_list = Marshal.PtrToStringUTF8((nint)value_listPtr);
+        }
+        
+    }
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_struct_add_value_list_sized", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_struct_add_value_list_sized(TCOD_ParserStruct* def, string name, nuint value_list, int size, [MarshalAs(UnmanagedType.I1)] bool mandatory);
+
+    public static unsafe void TCOD_struct_add_value_list_sizedString(TCOD_ParserStruct* def, string name, out string? value_list, int size, [MarshalAs(UnmanagedType.I1)] bool mandatory)
+    {
+        nuint value_listPtr = 0;
+        TCOD_struct_add_value_list_sized(def, name, (nuint)(&value_listPtr), size, mandatory);
+        if (value_listPtr == 0)
+        {
+            value_list = null;
+        }
+        else
+        {
+            value_list = Marshal.PtrToStringUTF8((nint)value_listPtr);
+        }
+        
+    }
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_struct_add_flag", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_struct_add_flag(TCOD_ParserStruct* def, string propname);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_struct_add_structure", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_struct_add_structure(TCOD_ParserStruct* def, TCOD_ParserStruct* sub_structure);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_struct_is_mandatory", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool TCOD_struct_is_mandatory(TCOD_ParserStruct* def, string propname);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_struct_get_type", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_value_type_t TCOD_struct_get_type(TCOD_ParserStruct* def, string propname);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_parser_new", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_Parser* TCOD_parser_new();
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_parser_new_struct", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_ParserStruct* TCOD_parser_new_struct(TCOD_Parser* parser, string name);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_parser_new_custom_type", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_value_type_t TCOD_parser_new_custom_type(TCOD_Parser* parser, nint custom_type_parser);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_parser_run", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_parser_run(TCOD_Parser* parser, string filename, TCOD_parser_listener_t* listener);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_parser_delete", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_parser_delete(TCOD_Parser* parser);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_parser_has_property", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool TCOD_parser_has_property(TCOD_Parser* parser, string name);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_parser_get_bool_property", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool TCOD_parser_get_bool_property(TCOD_Parser* parser, string name);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_parser_get_char_property", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int TCOD_parser_get_char_property(TCOD_Parser* parser, string name);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_parser_get_int_property", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int TCOD_parser_get_int_property(TCOD_Parser* parser, string name);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_parser_get_float_property", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial float TCOD_parser_get_float_property(TCOD_Parser* parser, string name);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_parser_get_string_property", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint TCOD_parser_get_string_property(TCOD_Parser* parser, string name);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? TCOD_parser_get_string_propertyString(TCOD_Parser* parser, string name)
+    {
+        var ptr = TCOD_parser_get_string_property(parser, name);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_parser_get_color_property", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint TCOD_parser_get_color_property(TCOD_Parser* parser, string name);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static unsafe TCOD_ColorRGB TCOD_parser_get_color_propertyStruct(TCOD_Parser* parser, string name)
+    {
+        var ptr = TCOD_parser_get_color_property(parser, name);
+        return Marshal.PtrToStructure<TCOD_ColorRGB>((nint)ptr);
+    }
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_parser_get_dice_property", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint TCOD_parser_get_dice_property(TCOD_Parser* parser, string name);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static unsafe TCOD_dice_t TCOD_parser_get_dice_propertyStruct(TCOD_Parser* parser, string name)
+    {
+        var ptr = TCOD_parser_get_dice_property(parser, name);
+        return Marshal.PtrToStructure<TCOD_dice_t>((nint)ptr);
+    }
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_parser_get_dice_property_py", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_parser_get_dice_property_py(TCOD_Parser* parser, string name, TCOD_dice_t* dice);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_parser_get_custom_property", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nint TCOD_parser_get_custom_property(TCOD_Parser* parser, string name);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_parser_get_list_property", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nint TCOD_parser_get_list_property(TCOD_Parser* parser, string name, TCOD_value_type_t type);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_parse_bool_value", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint TCOD_parse_bool_value();
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static unsafe TCOD_value_t TCOD_parse_bool_valueStruct()
+    {
+        var ptr = TCOD_parse_bool_value();
+        return Marshal.PtrToStructure<TCOD_value_t>((nint)ptr);
+    }
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_parse_char_value", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint TCOD_parse_char_value();
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static unsafe TCOD_value_t TCOD_parse_char_valueStruct()
+    {
+        var ptr = TCOD_parse_char_value();
+        return Marshal.PtrToStructure<TCOD_value_t>((nint)ptr);
+    }
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_parse_integer_value", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint TCOD_parse_integer_value();
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static unsafe TCOD_value_t TCOD_parse_integer_valueStruct()
+    {
+        var ptr = TCOD_parse_integer_value();
+        return Marshal.PtrToStructure<TCOD_value_t>((nint)ptr);
+    }
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_parse_float_value", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint TCOD_parse_float_value();
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static unsafe TCOD_value_t TCOD_parse_float_valueStruct()
+    {
+        var ptr = TCOD_parse_float_value();
+        return Marshal.PtrToStructure<TCOD_value_t>((nint)ptr);
+    }
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_parse_string_value", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint TCOD_parse_string_value();
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static unsafe TCOD_value_t TCOD_parse_string_valueStruct()
+    {
+        var ptr = TCOD_parse_string_value();
+        return Marshal.PtrToStructure<TCOD_value_t>((nint)ptr);
+    }
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_parse_color_value", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint TCOD_parse_color_value();
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static unsafe TCOD_value_t TCOD_parse_color_valueStruct()
+    {
+        var ptr = TCOD_parse_color_value();
+        return Marshal.PtrToStructure<TCOD_value_t>((nint)ptr);
+    }
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_parse_dice_value", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint TCOD_parse_dice_value();
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static unsafe TCOD_value_t TCOD_parse_dice_valueStruct()
+    {
+        var ptr = TCOD_parse_dice_value();
+        return Marshal.PtrToStructure<TCOD_value_t>((nint)ptr);
+    }
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_parse_value_list_value", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint TCOD_parse_value_list_value(TCOD_ParserStruct* def, int list_num);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static unsafe TCOD_value_t TCOD_parse_value_list_valueStruct(TCOD_ParserStruct* def, int list_num)
+    {
+        var ptr = TCOD_parse_value_list_value(def, list_num);
+        return Marshal.PtrToStructure<TCOD_value_t>((nint)ptr);
+    }
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_parse_property_value", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint TCOD_parse_property_value(TCOD_Parser* parser, TCOD_ParserStruct* def, string propname, [MarshalAs(UnmanagedType.I1)] bool list);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static unsafe TCOD_value_t TCOD_parse_property_valueStruct(TCOD_Parser* parser, TCOD_ParserStruct* def, string propname, [MarshalAs(UnmanagedType.I1)] bool list)
+    {
+        var ptr = TCOD_parse_property_value(parser, def, propname, list);
+        return Marshal.PtrToStructure<TCOD_value_t>((nint)ptr);
+    }
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_path_new_using_map", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nint TCOD_path_new_using_map(TCOD_Map* map, float diagonalCost);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_path_new_using_function", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nint TCOD_path_new_using_function(int map_width, int map_height, nint func, nint user_data, float diagonalCost);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_path_compute", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool TCOD_path_compute(nint path, int ox, int oy, int dx, int dy);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_path_walk", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool TCOD_path_walk(nint path, nint x, nint y, [MarshalAs(UnmanagedType.I1)] bool recalculate_when_needed);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_path_is_empty", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool TCOD_path_is_empty(nint path);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_path_size", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int TCOD_path_size(nint path);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_path_reverse", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_path_reverse(nint path);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_path_get", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_path_get(nint path, int index, nint x, nint y);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_path_get_origin", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_path_get_origin(nint path, nint x, nint y);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_path_get_destination", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_path_get_destination(nint path, nint x, nint y);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_path_delete", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_path_delete(nint path);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_dijkstra_new", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_Dijkstra* TCOD_dijkstra_new(TCOD_Map* map, float diagonalCost);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_dijkstra_new_using_function", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_Dijkstra* TCOD_dijkstra_new_using_function(int map_width, int map_height, nint func, nint user_data, float diagonalCost);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_dijkstra_compute", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_dijkstra_compute(TCOD_Dijkstra* dijkstra, int root_x, int root_y);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_dijkstra_get_distance", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial float TCOD_dijkstra_get_distance(TCOD_Dijkstra* dijkstra, int x, int y);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_dijkstra_path_set", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool TCOD_dijkstra_path_set(TCOD_Dijkstra* dijkstra, int x, int y);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_dijkstra_is_empty", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool TCOD_dijkstra_is_empty(TCOD_Dijkstra* path);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_dijkstra_size", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int TCOD_dijkstra_size(TCOD_Dijkstra* path);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_dijkstra_reverse", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_dijkstra_reverse(TCOD_Dijkstra* path);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_dijkstra_get", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_dijkstra_get(TCOD_Dijkstra* path, int index, nint x, nint y);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_dijkstra_path_walk", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool TCOD_dijkstra_path_walk(TCOD_Dijkstra* dijkstra, nint x, nint y);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_dijkstra_delete", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_dijkstra_delete(TCOD_Dijkstra* dijkstra);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_heap_init", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int TCOD_heap_init(TCOD_Heap* heap, uint data_size);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_heap_uninit", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_heap_uninit(TCOD_Heap* heap);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_heap_clear", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_heap_clear(TCOD_Heap* heap);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_minheap_push", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int TCOD_minheap_push(TCOD_Heap* minheap, int priority, nint data);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_minheap_pop", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_minheap_pop(TCOD_Heap* minheap, nint @out);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_minheap_heapify", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_minheap_heapify(TCOD_Heap* minheap);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_pf_new", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_Pathfinder* TCOD_pf_new(int ndim, uint* shape);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_pf_delete", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_pf_delete(TCOD_Pathfinder* path);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_pf_set_distance_pointer", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_pf_set_distance_pointer(TCOD_Pathfinder* path, nint data, int int_type, uint* strides);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_pf_set_graph2d_pointer", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_pf_set_graph2d_pointer(TCOD_Pathfinder* path, nint data, int int_type, uint* strides, int cardinal, int diagonal);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_pf_set_traversal_pointer", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_pf_set_traversal_pointer(TCOD_Pathfinder* path, nint data, int int_type, uint* strides);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_pf_recompile", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int TCOD_pf_recompile(TCOD_Pathfinder* path);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_pf_compute", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int TCOD_pf_compute(TCOD_Pathfinder* path);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_pf_compute_step", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int TCOD_pf_compute_step(TCOD_Pathfinder* path);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_frontier_new", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_Frontier* TCOD_frontier_new(int ndim);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_frontier_delete", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_frontier_delete(TCOD_Frontier* frontier);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_frontier_pop", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_Error TCOD_frontier_pop(TCOD_Frontier* frontier);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_frontier_push", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_Error TCOD_frontier_push(TCOD_Frontier* frontier, nint index, int dist, int heuristic);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_frontier_size", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int TCOD_frontier_size(TCOD_Frontier* frontier);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_frontier_clear", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_Error TCOD_frontier_clear(TCOD_Frontier* frontier);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_rng_splitmix64_next", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial uint TCOD_rng_splitmix64_next(uint* state);
+
     [LibraryImport("libtcod", EntryPoint = "bcmp", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial int bcmp(nint __s1, nint __s2, uint __n);
@@ -5041,152 +8173,6 @@ public static unsafe partial class NativeMethods
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_size_add_check_overflow_builtin(uint a, uint b, uint* ret);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_ReportAssertion", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial SDL_AssertState SDL_ReportAssertion(SDL_AssertData* data, string func, string file, int line);
-
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetAssertionHandler", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void SDL_SetAssertionHandler(nint handler, nint userdata);
-
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetDefaultAssertionHandler", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial nint SDL_GetDefaultAssertionHandler();
-
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetAssertionHandler", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial nint SDL_GetAssertionHandler(nint puserdata);
-
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetAssertionReport", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial SDL_AssertData* SDL_GetAssertionReport();
-
-    [LibraryImport("libtcod", EntryPoint = "SDL_ResetAssertionReport", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void SDL_ResetAssertionReport();
-
-    [LibraryImport("libtcod", EntryPoint = "SDL_AsyncIOFromFile", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial SDL_AsyncIO* SDL_AsyncIOFromFile(string file, string mode);
-
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetAsyncIOSize", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial int SDL_GetAsyncIOSize(SDL_AsyncIO* asyncio);
-
-    [LibraryImport("libtcod", EntryPoint = "SDL_ReadAsyncIO", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    [return: MarshalAs(UnmanagedType.I1)]
-    public static partial bool SDL_ReadAsyncIO(SDL_AsyncIO* asyncio, nint ptr, uint offset, uint size, SDL_AsyncIOQueue* queue, nint userdata);
-
-    [LibraryImport("libtcod", EntryPoint = "SDL_WriteAsyncIO", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    [return: MarshalAs(UnmanagedType.I1)]
-    public static partial bool SDL_WriteAsyncIO(SDL_AsyncIO* asyncio, nint ptr, uint offset, uint size, SDL_AsyncIOQueue* queue, nint userdata);
-
-    [LibraryImport("libtcod", EntryPoint = "SDL_CloseAsyncIO", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    [return: MarshalAs(UnmanagedType.I1)]
-    public static partial bool SDL_CloseAsyncIO(SDL_AsyncIO* asyncio, [MarshalAs(UnmanagedType.I1)] bool flush, SDL_AsyncIOQueue* queue, nint userdata);
-
-    [LibraryImport("libtcod", EntryPoint = "SDL_CreateAsyncIOQueue", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial SDL_AsyncIOQueue* SDL_CreateAsyncIOQueue();
-
-    [LibraryImport("libtcod", EntryPoint = "SDL_DestroyAsyncIOQueue", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void SDL_DestroyAsyncIOQueue(SDL_AsyncIOQueue* queue);
-
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetAsyncIOResult", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    [return: MarshalAs(UnmanagedType.I1)]
-    public static partial bool SDL_GetAsyncIOResult(SDL_AsyncIOQueue* queue, SDL_AsyncIOOutcome* outcome);
-
-    [LibraryImport("libtcod", EntryPoint = "SDL_WaitAsyncIOResult", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    [return: MarshalAs(UnmanagedType.I1)]
-    public static partial bool SDL_WaitAsyncIOResult(SDL_AsyncIOQueue* queue, SDL_AsyncIOOutcome* outcome, int timeoutMS);
-
-    [LibraryImport("libtcod", EntryPoint = "SDL_SignalAsyncIOQueue", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void SDL_SignalAsyncIOQueue(SDL_AsyncIOQueue* queue);
-
-    [LibraryImport("libtcod", EntryPoint = "SDL_LoadFileAsync", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    [return: MarshalAs(UnmanagedType.I1)]
-    public static partial bool SDL_LoadFileAsync(string file, SDL_AsyncIOQueue* queue, nint userdata);
-
-    [LibraryImport("libtcod", EntryPoint = "SDL_TryLockSpinlock", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    [return: MarshalAs(UnmanagedType.I1)]
-    public static partial bool SDL_TryLockSpinlock(int* @lock);
-
-    [LibraryImport("libtcod", EntryPoint = "SDL_LockSpinlock", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void SDL_LockSpinlock(int* @lock);
-
-    [LibraryImport("libtcod", EntryPoint = "SDL_UnlockSpinlock", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void SDL_UnlockSpinlock(int* @lock);
-
-    [LibraryImport("libtcod", EntryPoint = "SDL_MemoryBarrierReleaseFunction", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void SDL_MemoryBarrierReleaseFunction();
-
-    [LibraryImport("libtcod", EntryPoint = "SDL_MemoryBarrierAcquireFunction", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial void SDL_MemoryBarrierAcquireFunction();
-
-    [LibraryImport("libtcod", EntryPoint = "SDL_CompareAndSwapAtomicInt", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    [return: MarshalAs(UnmanagedType.I1)]
-    public static partial bool SDL_CompareAndSwapAtomicInt(SDL_AtomicInt* a, int oldval, int newval);
-
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetAtomicInt", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial int SDL_SetAtomicInt(SDL_AtomicInt* a, int v);
-
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetAtomicInt", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial int SDL_GetAtomicInt(SDL_AtomicInt* a);
-
-    [LibraryImport("libtcod", EntryPoint = "SDL_AddAtomicInt", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial int SDL_AddAtomicInt(SDL_AtomicInt* a, int v);
-
-    [LibraryImport("libtcod", EntryPoint = "SDL_CompareAndSwapAtomicU32", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    [return: MarshalAs(UnmanagedType.I1)]
-    public static partial bool SDL_CompareAndSwapAtomicU32(SDL_AtomicU32* a, uint oldval, uint newval);
-
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetAtomicU32", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial uint SDL_SetAtomicU32(SDL_AtomicU32* a, uint v);
-
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetAtomicU32", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial uint SDL_GetAtomicU32(SDL_AtomicU32* a);
-
-    [LibraryImport("libtcod", EntryPoint = "SDL_AddAtomicU32", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial uint SDL_AddAtomicU32(SDL_AtomicU32* a, int v);
-
-    [LibraryImport("libtcod", EntryPoint = "SDL_CompareAndSwapAtomicPointer", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    [return: MarshalAs(UnmanagedType.I1)]
-    public static partial bool SDL_CompareAndSwapAtomicPointer(nint a, nint oldval, nint newval);
-
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetAtomicPointer", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial nint SDL_SetAtomicPointer(nint a, nint v);
-
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetAtomicPointer", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial nint SDL_GetAtomicPointer(nint a);
-
-    [LibraryImport("libtcod", EntryPoint = "SDL_SwapFloat", StringMarshalling = StringMarshalling.Utf8)]
-    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-    public static partial float SDL_SwapFloat(float x);
-
     [LibraryImport("libtcod", EntryPoint = "SDL_OutOfMemory", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
@@ -5311,15 +8297,379 @@ public static unsafe partial class NativeMethods
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_DestroyProperties(uint props);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_CreateThreadRuntime", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("libtcod", EntryPoint = "TCOD_renderer_init_sdl2", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_Context* TCOD_renderer_init_sdl2(int x, int y, int width, int height, string title, int window_flags, int vsync, TCOD_Tileset* tileset);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_renderer_init_sdl3", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_Context* TCOD_renderer_init_sdl3(uint window_props, uint renderer_props, TCOD_Tileset* tileset);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_sdl2_atlas_new", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_TilesetAtlasSDL2* TCOD_sdl2_atlas_new(SDL_Renderer* renderer, TCOD_Tileset* tileset);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_sdl2_atlas_delete", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_sdl2_atlas_delete(TCOD_TilesetAtlasSDL2* atlas);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_sdl2_render_texture_setup", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_Error TCOD_sdl2_render_texture_setup(TCOD_TilesetAtlasSDL2* atlas, TCOD_Console* console, TCOD_Console** cache, SDL_Texture** target);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_sdl2_render_texture", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_Error TCOD_sdl2_render_texture(TCOD_TilesetAtlasSDL2* atlas, TCOD_Console* console, TCOD_Console* cache, SDL_Texture* target);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_sys_process_key_event", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_event_t TCOD_sys_process_key_event(SDL_Event* @in, TCOD_key_t* @out);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_sys_process_mouse_event", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_event_t TCOD_sys_process_mouse_event(SDL_Event* @in, TCOD_mouse_t* @out);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_load_bdf", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_Tileset* TCOD_load_bdf(string path);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_load_bdf_memory", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_Tileset* TCOD_load_bdf_memory(int size, nint buffer);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_tileset_load_fallback_font_", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_Tileset* TCOD_tileset_load_fallback_font_(int tile_width, int tile_height);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_tileset_render_to_surface", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_Error TCOD_tileset_render_to_surface(TCOD_Tileset* tileset, TCOD_Console* console, TCOD_Console** cache, SDL_Surface** surface_out);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_load_truetype_font_", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_Tileset* TCOD_load_truetype_font_(string path, int tile_width, int tile_height);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_tileset_load_truetype_", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_Error TCOD_tileset_load_truetype_(string path, int tile_width, int tile_height);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_text_init", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nint TCOD_text_init(int x, int y, int w, int h, int max_chars);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_text_init2", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nint TCOD_text_init2(int w, int h, int max_chars);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_text_set_pos", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_text_set_pos(nint txt, int x, int y);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_text_set_properties", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_text_set_properties(nint txt, int cursor_char, int blink_interval, string prompt, int tab_size);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_text_set_colors", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_text_set_colors(nint txt, TCOD_ColorRGB fore, TCOD_ColorRGB back, float back_transparency);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_text_update", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool TCOD_text_update(nint txt, TCOD_key_t key);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_text_render", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_text_render(nint txt, nint con);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_text_get", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint TCOD_text_get(nint txt);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? TCOD_text_getString(nint txt)
+    {
+        var ptr = TCOD_text_get(txt);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_text_reset", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_text_reset(nint txt);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_text_delete", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_text_delete(nint txt);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_zip_new", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nint TCOD_zip_new();
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_zip_delete", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_zip_delete(nint zip);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_zip_put_char", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_zip_put_char(nint zip, sbyte val);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_zip_put_int", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_zip_put_int(nint zip, int val);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_zip_put_float", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_zip_put_float(nint zip, float val);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_zip_put_string", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_zip_put_string(nint zip, string val);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_zip_put_color", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_zip_put_color(nint zip, TCOD_ColorRGB val);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_zip_put_image", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_zip_put_image(nint zip, TCOD_Image* val);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_zip_put_console", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_zip_put_console(nint zip, TCOD_Console* val);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_zip_put_random", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_zip_put_random(nint zip, TCOD_Random* val);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_zip_put_data", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_zip_put_data(nint zip, int nbBytes, nint data);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_zip_get_current_bytes", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial uint TCOD_zip_get_current_bytes(nint zip);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_zip_save_to_file", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int TCOD_zip_save_to_file(nint zip, string filename);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_zip_load_from_file", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int TCOD_zip_load_from_file(nint zip, string filename);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_zip_get_char", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial sbyte TCOD_zip_get_char(nint zip);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_zip_get_int", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int TCOD_zip_get_int(nint zip);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_zip_get_float", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial float TCOD_zip_get_float(nint zip);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_zip_get_string", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint TCOD_zip_get_string(nint zip);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static string? TCOD_zip_get_stringString(nint zip)
+    {
+        var ptr = TCOD_zip_get_string(zip);
+        return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
+    }
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_zip_get_color", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nuint TCOD_zip_get_color(nint zip);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static unsafe TCOD_ColorRGB TCOD_zip_get_colorStruct(nint zip)
+    {
+        var ptr = TCOD_zip_get_color(zip);
+        return Marshal.PtrToStructure<TCOD_ColorRGB>((nint)ptr);
+    }
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_zip_get_image", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_Image* TCOD_zip_get_image(nint zip);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_zip_get_console", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nint TCOD_zip_get_console(nint zip);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_zip_get_random", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial TCOD_Random* TCOD_zip_get_random(nint zip);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_zip_get_data", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int TCOD_zip_get_data(nint zip, int nbBytes, nint data);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_zip_get_remaining_bytes", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial uint TCOD_zip_get_remaining_bytes(nint zip);
+
+    [LibraryImport("libtcod", EntryPoint = "TCOD_zip_skip_bytes", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void TCOD_zip_skip_bytes(nint zip, uint nbBytes);
+
+    [LibraryImport("SDL3", EntryPoint = "SDL_ReportAssertion", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial SDL_AssertState SDL_ReportAssertion(SDL_AssertData* data, string func, string file, int line);
+
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetAssertionHandler", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void SDL_SetAssertionHandler(nint handler, nint userdata);
+
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetDefaultAssertionHandler", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nint SDL_GetDefaultAssertionHandler();
+
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetAssertionHandler", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nint SDL_GetAssertionHandler(nint puserdata);
+
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetAssertionReport", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial SDL_AssertData* SDL_GetAssertionReport();
+
+    [LibraryImport("SDL3", EntryPoint = "SDL_ResetAssertionReport", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void SDL_ResetAssertionReport();
+
+    [LibraryImport("SDL3", EntryPoint = "SDL_AsyncIOFromFile", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial SDL_AsyncIO* SDL_AsyncIOFromFile(string file, string mode);
+
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetAsyncIOSize", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int SDL_GetAsyncIOSize(SDL_AsyncIO* asyncio);
+
+    [LibraryImport("SDL3", EntryPoint = "SDL_ReadAsyncIO", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool SDL_ReadAsyncIO(SDL_AsyncIO* asyncio, nint ptr, uint offset, uint size, SDL_AsyncIOQueue* queue, nint userdata);
+
+    [LibraryImport("SDL3", EntryPoint = "SDL_WriteAsyncIO", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool SDL_WriteAsyncIO(SDL_AsyncIO* asyncio, nint ptr, uint offset, uint size, SDL_AsyncIOQueue* queue, nint userdata);
+
+    [LibraryImport("SDL3", EntryPoint = "SDL_CloseAsyncIO", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool SDL_CloseAsyncIO(SDL_AsyncIO* asyncio, [MarshalAs(UnmanagedType.I1)] bool flush, SDL_AsyncIOQueue* queue, nint userdata);
+
+    [LibraryImport("SDL3", EntryPoint = "SDL_CreateAsyncIOQueue", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial SDL_AsyncIOQueue* SDL_CreateAsyncIOQueue();
+
+    [LibraryImport("SDL3", EntryPoint = "SDL_DestroyAsyncIOQueue", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void SDL_DestroyAsyncIOQueue(SDL_AsyncIOQueue* queue);
+
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetAsyncIOResult", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool SDL_GetAsyncIOResult(SDL_AsyncIOQueue* queue, SDL_AsyncIOOutcome* outcome);
+
+    [LibraryImport("SDL3", EntryPoint = "SDL_WaitAsyncIOResult", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool SDL_WaitAsyncIOResult(SDL_AsyncIOQueue* queue, SDL_AsyncIOOutcome* outcome, int timeoutMS);
+
+    [LibraryImport("SDL3", EntryPoint = "SDL_SignalAsyncIOQueue", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void SDL_SignalAsyncIOQueue(SDL_AsyncIOQueue* queue);
+
+    [LibraryImport("SDL3", EntryPoint = "SDL_LoadFileAsync", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool SDL_LoadFileAsync(string file, SDL_AsyncIOQueue* queue, nint userdata);
+
+    [LibraryImport("SDL3", EntryPoint = "SDL_TryLockSpinlock", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool SDL_TryLockSpinlock(int* @lock);
+
+    [LibraryImport("SDL3", EntryPoint = "SDL_LockSpinlock", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void SDL_LockSpinlock(int* @lock);
+
+    [LibraryImport("SDL3", EntryPoint = "SDL_UnlockSpinlock", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void SDL_UnlockSpinlock(int* @lock);
+
+    [LibraryImport("SDL3", EntryPoint = "SDL_MemoryBarrierReleaseFunction", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void SDL_MemoryBarrierReleaseFunction();
+
+    [LibraryImport("SDL3", EntryPoint = "SDL_MemoryBarrierAcquireFunction", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void SDL_MemoryBarrierAcquireFunction();
+
+    [LibraryImport("SDL3", EntryPoint = "SDL_CompareAndSwapAtomicInt", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool SDL_CompareAndSwapAtomicInt(SDL_AtomicInt* a, int oldval, int newval);
+
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetAtomicInt", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int SDL_SetAtomicInt(SDL_AtomicInt* a, int v);
+
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetAtomicInt", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int SDL_GetAtomicInt(SDL_AtomicInt* a);
+
+    [LibraryImport("SDL3", EntryPoint = "SDL_AddAtomicInt", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial int SDL_AddAtomicInt(SDL_AtomicInt* a, int v);
+
+    [LibraryImport("SDL3", EntryPoint = "SDL_CompareAndSwapAtomicU32", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool SDL_CompareAndSwapAtomicU32(SDL_AtomicU32* a, uint oldval, uint newval);
+
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetAtomicU32", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial uint SDL_SetAtomicU32(SDL_AtomicU32* a, uint v);
+
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetAtomicU32", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial uint SDL_GetAtomicU32(SDL_AtomicU32* a);
+
+    [LibraryImport("SDL3", EntryPoint = "SDL_AddAtomicU32", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial uint SDL_AddAtomicU32(SDL_AtomicU32* a, int v);
+
+    [LibraryImport("SDL3", EntryPoint = "SDL_CompareAndSwapAtomicPointer", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    [return: MarshalAs(UnmanagedType.I1)]
+    public static partial bool SDL_CompareAndSwapAtomicPointer(nint a, nint oldval, nint newval);
+
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetAtomicPointer", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nint SDL_SetAtomicPointer(nint a, nint v);
+
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetAtomicPointer", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial nint SDL_GetAtomicPointer(nint a);
+
+    [LibraryImport("SDL3", EntryPoint = "SDL_SwapFloat", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial float SDL_SwapFloat(float x);
+
+    [LibraryImport("SDL3", EntryPoint = "SDL_CreateThreadRuntime", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Thread* SDL_CreateThreadRuntime(nint fn, string name, nint data, nint pfnBeginThread, nint pfnEndThread);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_CreateThreadWithPropertiesRuntime", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_CreateThreadWithPropertiesRuntime", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Thread* SDL_CreateThreadWithPropertiesRuntime(uint props, nint pfnBeginThread, nint pfnEndThread);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetThreadName", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetThreadName", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetThreadName(SDL_Thread* thread);
 
@@ -5330,385 +8680,385 @@ public static unsafe partial class NativeMethods
         return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
     }
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetCurrentThreadID", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetCurrentThreadID", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint SDL_GetCurrentThreadID();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetThreadID", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetThreadID", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint SDL_GetThreadID(SDL_Thread* thread);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetCurrentThreadPriority", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetCurrentThreadPriority", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetCurrentThreadPriority(SDL_ThreadPriority priority);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_WaitThread", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_WaitThread", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_WaitThread(SDL_Thread* thread, nint status);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetThreadState", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetThreadState", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_ThreadState SDL_GetThreadState(SDL_Thread* thread);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_DetachThread", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_DetachThread", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_DetachThread(SDL_Thread* thread);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetTLS", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetTLS", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nint SDL_GetTLS(SDL_AtomicInt* id);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetTLS", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetTLS", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetTLS(SDL_AtomicInt* id, nint value, nint destructor);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_CleanupTLS", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_CleanupTLS", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_CleanupTLS();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_CreateMutex", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_CreateMutex", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Mutex* SDL_CreateMutex();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_LockMutex", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_LockMutex", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_LockMutex(SDL_Mutex* mutex);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_TryLockMutex", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_TryLockMutex", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_TryLockMutex(SDL_Mutex* mutex);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_UnlockMutex", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_UnlockMutex", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_UnlockMutex(SDL_Mutex* mutex);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_DestroyMutex", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_DestroyMutex", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_DestroyMutex(SDL_Mutex* mutex);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_CreateRWLock", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_CreateRWLock", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_RWLock* SDL_CreateRWLock();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_LockRWLockForReading", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_LockRWLockForReading", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_LockRWLockForReading(SDL_RWLock* rwlock);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_LockRWLockForWriting", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_LockRWLockForWriting", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_LockRWLockForWriting(SDL_RWLock* rwlock);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_TryLockRWLockForReading", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_TryLockRWLockForReading", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_TryLockRWLockForReading(SDL_RWLock* rwlock);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_TryLockRWLockForWriting", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_TryLockRWLockForWriting", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_TryLockRWLockForWriting(SDL_RWLock* rwlock);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_UnlockRWLock", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_UnlockRWLock", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_UnlockRWLock(SDL_RWLock* rwlock);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_DestroyRWLock", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_DestroyRWLock", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_DestroyRWLock(SDL_RWLock* rwlock);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_CreateSemaphore", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_CreateSemaphore", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Semaphore* SDL_CreateSemaphore(uint initial_value);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_DestroySemaphore", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_DestroySemaphore", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_DestroySemaphore(SDL_Semaphore* sem);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_WaitSemaphore", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_WaitSemaphore", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_WaitSemaphore(SDL_Semaphore* sem);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_TryWaitSemaphore", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_TryWaitSemaphore", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_TryWaitSemaphore(SDL_Semaphore* sem);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_WaitSemaphoreTimeout", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_WaitSemaphoreTimeout", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_WaitSemaphoreTimeout(SDL_Semaphore* sem, int timeoutMS);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SignalSemaphore", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SignalSemaphore", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_SignalSemaphore(SDL_Semaphore* sem);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetSemaphoreValue", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetSemaphoreValue", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint SDL_GetSemaphoreValue(SDL_Semaphore* sem);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_CreateCondition", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_CreateCondition", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Condition* SDL_CreateCondition();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_DestroyCondition", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_DestroyCondition", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_DestroyCondition(SDL_Condition* cond);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SignalCondition", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SignalCondition", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_SignalCondition(SDL_Condition* cond);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_BroadcastCondition", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_BroadcastCondition", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_BroadcastCondition(SDL_Condition* cond);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_WaitCondition", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_WaitCondition", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_WaitCondition(SDL_Condition* cond, SDL_Mutex* mutex);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_WaitConditionTimeout", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_WaitConditionTimeout", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_WaitConditionTimeout(SDL_Condition* cond, SDL_Mutex* mutex, int timeoutMS);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_ShouldInit", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_ShouldInit", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_ShouldInit(SDL_InitState* state);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_ShouldQuit", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_ShouldQuit", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_ShouldQuit(SDL_InitState* state);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetInitialized", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetInitialized", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_SetInitialized(SDL_InitState* state, [MarshalAs(UnmanagedType.I1)] bool initialized);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_IOFromFile", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_IOFromFile", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_IOStream* SDL_IOFromFile(string file, string mode);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_IOFromMem", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_IOFromMem", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_IOStream* SDL_IOFromMem(nint mem, uint size);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_IOFromConstMem", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_IOFromConstMem", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_IOStream* SDL_IOFromConstMem(nint mem, uint size);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_IOFromDynamicMem", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_IOFromDynamicMem", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_IOStream* SDL_IOFromDynamicMem();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_OpenIO", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_OpenIO", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_IOStream* SDL_OpenIO(SDL_IOStreamInterface* iface, nint userdata);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_CloseIO", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_CloseIO", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_CloseIO(SDL_IOStream* context);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetIOProperties", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetIOProperties", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint SDL_GetIOProperties(SDL_IOStream* context);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetIOStatus", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetIOStatus", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_IOStatus SDL_GetIOStatus(SDL_IOStream* context);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetIOSize", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetIOSize", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial int SDL_GetIOSize(SDL_IOStream* context);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SeekIO", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SeekIO", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial int SDL_SeekIO(SDL_IOStream* context, int offset, SDL_IOWhence whence);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_TellIO", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_TellIO", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial int SDL_TellIO(SDL_IOStream* context);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_ReadIO", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_ReadIO", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint SDL_ReadIO(SDL_IOStream* context, nint ptr, uint size);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_WriteIO", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_WriteIO", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint SDL_WriteIO(SDL_IOStream* context, nint ptr, uint size);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_FlushIO", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_FlushIO", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_FlushIO(SDL_IOStream* context);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_LoadFile_IO", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_LoadFile_IO", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nint SDL_LoadFile_IO(SDL_IOStream* src, uint* datasize, [MarshalAs(UnmanagedType.I1)] bool closeio);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_LoadFile", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_LoadFile", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nint SDL_LoadFile(string file, uint* datasize);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SaveFile_IO", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SaveFile_IO", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SaveFile_IO(SDL_IOStream* src, nint data, uint datasize, [MarshalAs(UnmanagedType.I1)] bool closeio);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SaveFile", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SaveFile", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SaveFile(string file, nint data, uint datasize);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_ReadU8", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_ReadU8", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_ReadU8(SDL_IOStream* src, byte* value);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_ReadS8", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_ReadS8", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_ReadS8(SDL_IOStream* src, sbyte* value);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_ReadU16LE", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_ReadU16LE", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_ReadU16LE(SDL_IOStream* src, ushort* value);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_ReadS16LE", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_ReadS16LE", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_ReadS16LE(SDL_IOStream* src, short* value);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_ReadU16BE", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_ReadU16BE", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_ReadU16BE(SDL_IOStream* src, ushort* value);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_ReadS16BE", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_ReadS16BE", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_ReadS16BE(SDL_IOStream* src, short* value);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_ReadU32LE", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_ReadU32LE", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_ReadU32LE(SDL_IOStream* src, uint* value);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_ReadS32LE", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_ReadS32LE", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_ReadS32LE(SDL_IOStream* src, int* value);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_ReadU32BE", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_ReadU32BE", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_ReadU32BE(SDL_IOStream* src, uint* value);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_ReadS32BE", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_ReadS32BE", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_ReadS32BE(SDL_IOStream* src, int* value);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_ReadU64LE", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_ReadU64LE", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_ReadU64LE(SDL_IOStream* src, uint* value);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_ReadS64LE", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_ReadS64LE", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_ReadS64LE(SDL_IOStream* src, int* value);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_ReadU64BE", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_ReadU64BE", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_ReadU64BE(SDL_IOStream* src, uint* value);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_ReadS64BE", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_ReadS64BE", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_ReadS64BE(SDL_IOStream* src, int* value);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_WriteU8", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_WriteU8", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_WriteU8(SDL_IOStream* dst, byte value);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_WriteS8", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_WriteS8", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_WriteS8(SDL_IOStream* dst, sbyte value);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_WriteU16LE", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_WriteU16LE", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_WriteU16LE(SDL_IOStream* dst, ushort value);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_WriteS16LE", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_WriteS16LE", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_WriteS16LE(SDL_IOStream* dst, short value);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_WriteU16BE", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_WriteU16BE", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_WriteU16BE(SDL_IOStream* dst, ushort value);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_WriteS16BE", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_WriteS16BE", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_WriteS16BE(SDL_IOStream* dst, short value);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_WriteU32LE", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_WriteU32LE", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_WriteU32LE(SDL_IOStream* dst, uint value);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_WriteS32LE", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_WriteS32LE", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_WriteS32LE(SDL_IOStream* dst, int value);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_WriteU32BE", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_WriteU32BE", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_WriteU32BE(SDL_IOStream* dst, uint value);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_WriteS32BE", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_WriteS32BE", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_WriteS32BE(SDL_IOStream* dst, int value);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_WriteU64LE", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_WriteU64LE", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_WriteU64LE(SDL_IOStream* dst, uint value);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_WriteS64LE", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_WriteS64LE", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_WriteS64LE(SDL_IOStream* dst, int value);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_WriteU64BE", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_WriteU64BE", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_WriteU64BE(SDL_IOStream* dst, uint value);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_WriteS64BE", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_WriteS64BE", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_WriteS64BE(SDL_IOStream* dst, int value);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetNumAudioDrivers", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetNumAudioDrivers", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial int SDL_GetNumAudioDrivers();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetAudioDriver", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetAudioDriver", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetAudioDriver(int index);
 
@@ -5719,7 +9069,7 @@ public static unsafe partial class NativeMethods
         return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
     }
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetCurrentAudioDriver", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetCurrentAudioDriver", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetCurrentAudioDriver();
 
@@ -5730,15 +9080,15 @@ public static unsafe partial class NativeMethods
         return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
     }
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetAudioPlaybackDevices", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetAudioPlaybackDevices", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint* SDL_GetAudioPlaybackDevices(nint count);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetAudioRecordingDevices", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetAudioRecordingDevices", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint* SDL_GetAudioRecordingDevices(nint count);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetAudioDeviceName", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetAudioDeviceName", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetAudioDeviceName(uint devid);
 
@@ -5749,239 +9099,239 @@ public static unsafe partial class NativeMethods
         return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
     }
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetAudioDeviceFormat", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetAudioDeviceFormat", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GetAudioDeviceFormat(uint devid, SDL_AudioSpec* spec, nint sample_frames);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetAudioDeviceChannelMap", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetAudioDeviceChannelMap", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nint SDL_GetAudioDeviceChannelMap(uint devid, nint count);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_OpenAudioDevice", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_OpenAudioDevice", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint SDL_OpenAudioDevice(uint devid, SDL_AudioSpec* spec);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_IsAudioDevicePhysical", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_IsAudioDevicePhysical", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_IsAudioDevicePhysical(uint devid);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_IsAudioDevicePlayback", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_IsAudioDevicePlayback", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_IsAudioDevicePlayback(uint devid);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_PauseAudioDevice", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_PauseAudioDevice", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_PauseAudioDevice(uint devid);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_ResumeAudioDevice", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_ResumeAudioDevice", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_ResumeAudioDevice(uint devid);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_AudioDevicePaused", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_AudioDevicePaused", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_AudioDevicePaused(uint devid);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetAudioDeviceGain", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetAudioDeviceGain", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial float SDL_GetAudioDeviceGain(uint devid);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetAudioDeviceGain", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetAudioDeviceGain", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetAudioDeviceGain(uint devid, float gain);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_CloseAudioDevice", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_CloseAudioDevice", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_CloseAudioDevice(uint devid);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_BindAudioStreams", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_BindAudioStreams", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_BindAudioStreams(uint devid, SDL_AudioStream** streams, int num_streams);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_BindAudioStream", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_BindAudioStream", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_BindAudioStream(uint devid, SDL_AudioStream* stream);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_UnbindAudioStreams", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_UnbindAudioStreams", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_UnbindAudioStreams(SDL_AudioStream** streams, int num_streams);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_UnbindAudioStream", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_UnbindAudioStream", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_UnbindAudioStream(SDL_AudioStream* stream);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetAudioStreamDevice", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetAudioStreamDevice", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint SDL_GetAudioStreamDevice(SDL_AudioStream* stream);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_CreateAudioStream", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_CreateAudioStream", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_AudioStream* SDL_CreateAudioStream(SDL_AudioSpec* src_spec, SDL_AudioSpec* dst_spec);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetAudioStreamProperties", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetAudioStreamProperties", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint SDL_GetAudioStreamProperties(SDL_AudioStream* stream);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetAudioStreamFormat", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetAudioStreamFormat", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GetAudioStreamFormat(SDL_AudioStream* stream, SDL_AudioSpec* src_spec, SDL_AudioSpec* dst_spec);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetAudioStreamFormat", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetAudioStreamFormat", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetAudioStreamFormat(SDL_AudioStream* stream, SDL_AudioSpec* src_spec, SDL_AudioSpec* dst_spec);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetAudioStreamFrequencyRatio", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetAudioStreamFrequencyRatio", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial float SDL_GetAudioStreamFrequencyRatio(SDL_AudioStream* stream);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetAudioStreamFrequencyRatio", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetAudioStreamFrequencyRatio", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetAudioStreamFrequencyRatio(SDL_AudioStream* stream, float ratio);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetAudioStreamGain", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetAudioStreamGain", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial float SDL_GetAudioStreamGain(SDL_AudioStream* stream);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetAudioStreamGain", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetAudioStreamGain", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetAudioStreamGain(SDL_AudioStream* stream, float gain);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetAudioStreamInputChannelMap", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetAudioStreamInputChannelMap", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nint SDL_GetAudioStreamInputChannelMap(SDL_AudioStream* stream, nint count);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetAudioStreamOutputChannelMap", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetAudioStreamOutputChannelMap", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nint SDL_GetAudioStreamOutputChannelMap(SDL_AudioStream* stream, nint count);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetAudioStreamInputChannelMap", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetAudioStreamInputChannelMap", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetAudioStreamInputChannelMap(SDL_AudioStream* stream, nint chmap, int count);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetAudioStreamOutputChannelMap", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetAudioStreamOutputChannelMap", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetAudioStreamOutputChannelMap(SDL_AudioStream* stream, nint chmap, int count);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_PutAudioStreamData", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_PutAudioStreamData", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_PutAudioStreamData(SDL_AudioStream* stream, nint buf, int len);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_PutAudioStreamDataNoCopy", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_PutAudioStreamDataNoCopy", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_PutAudioStreamDataNoCopy(SDL_AudioStream* stream, nint buf, int len, nint callback, nint userdata);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_PutAudioStreamPlanarData", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_PutAudioStreamPlanarData", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_PutAudioStreamPlanarData(SDL_AudioStream* stream, nint channel_buffers, int num_channels, int num_samples);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetAudioStreamData", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetAudioStreamData", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial int SDL_GetAudioStreamData(SDL_AudioStream* stream, nint buf, int len);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetAudioStreamAvailable", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetAudioStreamAvailable", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial int SDL_GetAudioStreamAvailable(SDL_AudioStream* stream);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetAudioStreamQueued", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetAudioStreamQueued", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial int SDL_GetAudioStreamQueued(SDL_AudioStream* stream);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_FlushAudioStream", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_FlushAudioStream", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_FlushAudioStream(SDL_AudioStream* stream);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_ClearAudioStream", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_ClearAudioStream", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_ClearAudioStream(SDL_AudioStream* stream);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_PauseAudioStreamDevice", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_PauseAudioStreamDevice", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_PauseAudioStreamDevice(SDL_AudioStream* stream);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_ResumeAudioStreamDevice", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_ResumeAudioStreamDevice", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_ResumeAudioStreamDevice(SDL_AudioStream* stream);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_AudioStreamDevicePaused", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_AudioStreamDevicePaused", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_AudioStreamDevicePaused(SDL_AudioStream* stream);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_LockAudioStream", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_LockAudioStream", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_LockAudioStream(SDL_AudioStream* stream);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_UnlockAudioStream", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_UnlockAudioStream", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_UnlockAudioStream(SDL_AudioStream* stream);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetAudioStreamGetCallback", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetAudioStreamGetCallback", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetAudioStreamGetCallback(SDL_AudioStream* stream, nint callback, nint userdata);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetAudioStreamPutCallback", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetAudioStreamPutCallback", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetAudioStreamPutCallback(SDL_AudioStream* stream, nint callback, nint userdata);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_DestroyAudioStream", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_DestroyAudioStream", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_DestroyAudioStream(SDL_AudioStream* stream);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_OpenAudioDeviceStream", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_OpenAudioDeviceStream", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_AudioStream* SDL_OpenAudioDeviceStream(uint devid, SDL_AudioSpec* spec, nint callback, nint userdata);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetAudioPostmixCallback", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetAudioPostmixCallback", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetAudioPostmixCallback(uint devid, nint callback, nint userdata);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_LoadWAV_IO", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_LoadWAV_IO", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_LoadWAV_IO(SDL_IOStream* src, [MarshalAs(UnmanagedType.I1)] bool closeio, SDL_AudioSpec* spec, byte** audio_buf, uint* audio_len);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_LoadWAV", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_LoadWAV", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_LoadWAV(string path, SDL_AudioSpec* spec, byte** audio_buf, uint* audio_len);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_MixAudio", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_MixAudio", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_MixAudio(byte* dst, byte* src, SDL_AudioFormat format, uint len, float volume);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_ConvertAudioSamples", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_ConvertAudioSamples", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_ConvertAudioSamples(SDL_AudioSpec* src_spec, byte* src_data, int src_len, SDL_AudioSpec* dst_spec, byte** dst_data, nint dst_len);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetAudioFormatName", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetAudioFormatName", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetAudioFormatName(SDL_AudioFormat format);
 
@@ -5992,24 +9342,24 @@ public static unsafe partial class NativeMethods
         return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
     }
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetSilenceValueForFormat", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetSilenceValueForFormat", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial int SDL_GetSilenceValueForFormat(SDL_AudioFormat format);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_MostSignificantBitIndex32", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_MostSignificantBitIndex32", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial int SDL_MostSignificantBitIndex32(uint x);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_HasExactlyOneBitSet32", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_HasExactlyOneBitSet32", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_HasExactlyOneBitSet32(uint x);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_ComposeCustomBlendMode", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_ComposeCustomBlendMode", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint SDL_ComposeCustomBlendMode(SDL_BlendFactor srcColorFactor, SDL_BlendFactor dstColorFactor, SDL_BlendOperation colorOperation, SDL_BlendFactor srcAlphaFactor, SDL_BlendFactor dstAlphaFactor, SDL_BlendOperation alphaOperation);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetPixelFormatName", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetPixelFormatName", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetPixelFormatName(SDL_PixelFormat format);
 
@@ -6020,444 +9370,444 @@ public static unsafe partial class NativeMethods
         return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
     }
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetMasksForPixelFormat", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetMasksForPixelFormat", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GetMasksForPixelFormat(SDL_PixelFormat format, nint bpp, uint* Rmask, uint* Gmask, uint* Bmask, uint* Amask);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetPixelFormatForMasks", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetPixelFormatForMasks", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_PixelFormat SDL_GetPixelFormatForMasks(int bpp, uint Rmask, uint Gmask, uint Bmask, uint Amask);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetPixelFormatDetails", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetPixelFormatDetails", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_PixelFormatDetails* SDL_GetPixelFormatDetails(SDL_PixelFormat format);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_CreatePalette", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_CreatePalette", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Palette* SDL_CreatePalette(int ncolors);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetPaletteColors", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetPaletteColors", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetPaletteColors(SDL_Palette* palette, SDL_Color* colors, int firstcolor, int ncolors);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_DestroyPalette", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_DestroyPalette", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_DestroyPalette(SDL_Palette* palette);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_MapRGB", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_MapRGB", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint SDL_MapRGB(SDL_PixelFormatDetails* format, SDL_Palette* palette, byte r, byte g, byte b);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_MapRGBA", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_MapRGBA", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint SDL_MapRGBA(SDL_PixelFormatDetails* format, SDL_Palette* palette, byte r, byte g, byte b, byte a);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetRGB", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetRGB", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_GetRGB(uint pixelvalue, SDL_PixelFormatDetails* format, SDL_Palette* palette, byte* r, byte* g, byte* b);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetRGBA", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetRGBA", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_GetRGBA(uint pixelvalue, SDL_PixelFormatDetails* format, SDL_Palette* palette, byte* r, byte* g, byte* b, byte* a);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_RectToFRect", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_RectToFRect", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_RectToFRect(SDL_Rect* rect, SDL_FRect* frect);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_PointInRect", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_PointInRect", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_PointInRect(SDL_Point* p, SDL_Rect* r);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_RectEmpty", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_RectEmpty", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_RectEmpty(SDL_Rect* r);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_RectsEqual", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_RectsEqual", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_RectsEqual(SDL_Rect* a, SDL_Rect* b);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_HasRectIntersection", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_HasRectIntersection", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_HasRectIntersection(SDL_Rect* A, SDL_Rect* B);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetRectIntersection", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetRectIntersection", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GetRectIntersection(SDL_Rect* A, SDL_Rect* B, SDL_Rect* result);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetRectUnion", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetRectUnion", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GetRectUnion(SDL_Rect* A, SDL_Rect* B, SDL_Rect* result);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetRectEnclosingPoints", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetRectEnclosingPoints", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GetRectEnclosingPoints(SDL_Point* points, int count, SDL_Rect* clip, SDL_Rect* result);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetRectAndLineIntersection", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetRectAndLineIntersection", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GetRectAndLineIntersection(SDL_Rect* rect, nint X1, nint Y1, nint X2, nint Y2);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_PointInRectFloat", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_PointInRectFloat", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_PointInRectFloat(SDL_FPoint* p, SDL_FRect* r);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_RectEmptyFloat", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_RectEmptyFloat", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_RectEmptyFloat(SDL_FRect* r);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_RectsEqualEpsilon", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_RectsEqualEpsilon", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_RectsEqualEpsilon(SDL_FRect* a, SDL_FRect* b, float epsilon);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_RectsEqualFloat", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_RectsEqualFloat", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_RectsEqualFloat(SDL_FRect* a, SDL_FRect* b);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_HasRectIntersectionFloat", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_HasRectIntersectionFloat", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_HasRectIntersectionFloat(SDL_FRect* A, SDL_FRect* B);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetRectIntersectionFloat", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetRectIntersectionFloat", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GetRectIntersectionFloat(SDL_FRect* A, SDL_FRect* B, SDL_FRect* result);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetRectUnionFloat", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetRectUnionFloat", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GetRectUnionFloat(SDL_FRect* A, SDL_FRect* B, SDL_FRect* result);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetRectEnclosingPointsFloat", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetRectEnclosingPointsFloat", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GetRectEnclosingPointsFloat(SDL_FPoint* points, int count, SDL_FRect* clip, SDL_FRect* result);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetRectAndLineIntersectionFloat", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetRectAndLineIntersectionFloat", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GetRectAndLineIntersectionFloat(SDL_FRect* rect, nint X1, nint Y1, nint X2, nint Y2);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_CreateSurface", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_CreateSurface", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Surface* SDL_CreateSurface(int width, int height, SDL_PixelFormat format);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_CreateSurfaceFrom", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_CreateSurfaceFrom", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Surface* SDL_CreateSurfaceFrom(int width, int height, SDL_PixelFormat format, nint pixels, int pitch);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_DestroySurface", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_DestroySurface", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_DestroySurface(SDL_Surface* surface);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetSurfaceProperties", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetSurfaceProperties", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint SDL_GetSurfaceProperties(SDL_Surface* surface);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetSurfaceColorspace", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetSurfaceColorspace", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetSurfaceColorspace(SDL_Surface* surface, SDL_Colorspace colorspace);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetSurfaceColorspace", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetSurfaceColorspace", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Colorspace SDL_GetSurfaceColorspace(SDL_Surface* surface);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_CreateSurfacePalette", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_CreateSurfacePalette", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Palette* SDL_CreateSurfacePalette(SDL_Surface* surface);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetSurfacePalette", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetSurfacePalette", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetSurfacePalette(SDL_Surface* surface, SDL_Palette* palette);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetSurfacePalette", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetSurfacePalette", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Palette* SDL_GetSurfacePalette(SDL_Surface* surface);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_AddSurfaceAlternateImage", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_AddSurfaceAlternateImage", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_AddSurfaceAlternateImage(SDL_Surface* surface, SDL_Surface* image);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SurfaceHasAlternateImages", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SurfaceHasAlternateImages", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SurfaceHasAlternateImages(SDL_Surface* surface);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetSurfaceImages", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetSurfaceImages", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Surface** SDL_GetSurfaceImages(SDL_Surface* surface, nint count);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_RemoveSurfaceAlternateImages", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_RemoveSurfaceAlternateImages", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_RemoveSurfaceAlternateImages(SDL_Surface* surface);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_LockSurface", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_LockSurface", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_LockSurface(SDL_Surface* surface);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_UnlockSurface", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_UnlockSurface", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_UnlockSurface(SDL_Surface* surface);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_LoadSurface_IO", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_LoadSurface_IO", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Surface* SDL_LoadSurface_IO(SDL_IOStream* src, [MarshalAs(UnmanagedType.I1)] bool closeio);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_LoadSurface", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_LoadSurface", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Surface* SDL_LoadSurface(string file);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_LoadBMP_IO", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_LoadBMP_IO", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Surface* SDL_LoadBMP_IO(SDL_IOStream* src, [MarshalAs(UnmanagedType.I1)] bool closeio);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_LoadBMP", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_LoadBMP", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Surface* SDL_LoadBMP(string file);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SaveBMP_IO", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SaveBMP_IO", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SaveBMP_IO(SDL_Surface* surface, SDL_IOStream* dst, [MarshalAs(UnmanagedType.I1)] bool closeio);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SaveBMP", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SaveBMP", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SaveBMP(SDL_Surface* surface, string file);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_LoadPNG_IO", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_LoadPNG_IO", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Surface* SDL_LoadPNG_IO(SDL_IOStream* src, [MarshalAs(UnmanagedType.I1)] bool closeio);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_LoadPNG", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_LoadPNG", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Surface* SDL_LoadPNG(string file);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SavePNG_IO", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SavePNG_IO", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SavePNG_IO(SDL_Surface* surface, SDL_IOStream* dst, [MarshalAs(UnmanagedType.I1)] bool closeio);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SavePNG", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SavePNG", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SavePNG(SDL_Surface* surface, string file);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetSurfaceRLE", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetSurfaceRLE", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetSurfaceRLE(SDL_Surface* surface, [MarshalAs(UnmanagedType.I1)] bool enabled);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SurfaceHasRLE", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SurfaceHasRLE", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SurfaceHasRLE(SDL_Surface* surface);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetSurfaceColorKey", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetSurfaceColorKey", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetSurfaceColorKey(SDL_Surface* surface, [MarshalAs(UnmanagedType.I1)] bool enabled, uint key);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SurfaceHasColorKey", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SurfaceHasColorKey", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SurfaceHasColorKey(SDL_Surface* surface);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetSurfaceColorKey", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetSurfaceColorKey", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GetSurfaceColorKey(SDL_Surface* surface, uint* key);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetSurfaceColorMod", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetSurfaceColorMod", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetSurfaceColorMod(SDL_Surface* surface, byte r, byte g, byte b);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetSurfaceColorMod", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetSurfaceColorMod", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GetSurfaceColorMod(SDL_Surface* surface, byte* r, byte* g, byte* b);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetSurfaceAlphaMod", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetSurfaceAlphaMod", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetSurfaceAlphaMod(SDL_Surface* surface, byte alpha);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetSurfaceAlphaMod", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetSurfaceAlphaMod", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GetSurfaceAlphaMod(SDL_Surface* surface, byte* alpha);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetSurfaceBlendMode", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetSurfaceBlendMode", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetSurfaceBlendMode(SDL_Surface* surface, uint blendMode);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetSurfaceBlendMode", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetSurfaceBlendMode", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GetSurfaceBlendMode(SDL_Surface* surface, uint* blendMode);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetSurfaceClipRect", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetSurfaceClipRect", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetSurfaceClipRect(SDL_Surface* surface, SDL_Rect* rect);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetSurfaceClipRect", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetSurfaceClipRect", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GetSurfaceClipRect(SDL_Surface* surface, SDL_Rect* rect);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_FlipSurface", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_FlipSurface", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_FlipSurface(SDL_Surface* surface, SDL_FlipMode flip);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_RotateSurface", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_RotateSurface", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Surface* SDL_RotateSurface(SDL_Surface* surface, float angle);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_DuplicateSurface", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_DuplicateSurface", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Surface* SDL_DuplicateSurface(SDL_Surface* surface);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_ScaleSurface", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_ScaleSurface", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Surface* SDL_ScaleSurface(SDL_Surface* surface, int width, int height, SDL_ScaleMode scaleMode);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_ConvertSurface", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_ConvertSurface", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Surface* SDL_ConvertSurface(SDL_Surface* surface, SDL_PixelFormat format);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_ConvertSurfaceAndColorspace", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_ConvertSurfaceAndColorspace", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Surface* SDL_ConvertSurfaceAndColorspace(SDL_Surface* surface, SDL_PixelFormat format, SDL_Palette* palette, SDL_Colorspace colorspace, uint props);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_ConvertPixels", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_ConvertPixels", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_ConvertPixels(int width, int height, SDL_PixelFormat src_format, nint src, int src_pitch, SDL_PixelFormat dst_format, nint dst, int dst_pitch);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_ConvertPixelsAndColorspace", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_ConvertPixelsAndColorspace", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_ConvertPixelsAndColorspace(int width, int height, SDL_PixelFormat src_format, SDL_Colorspace src_colorspace, uint src_properties, nint src, int src_pitch, SDL_PixelFormat dst_format, SDL_Colorspace dst_colorspace, uint dst_properties, nint dst, int dst_pitch);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_PremultiplyAlpha", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_PremultiplyAlpha", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_PremultiplyAlpha(int width, int height, SDL_PixelFormat src_format, nint src, int src_pitch, SDL_PixelFormat dst_format, nint dst, int dst_pitch, [MarshalAs(UnmanagedType.I1)] bool linear);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_PremultiplySurfaceAlpha", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_PremultiplySurfaceAlpha", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_PremultiplySurfaceAlpha(SDL_Surface* surface, [MarshalAs(UnmanagedType.I1)] bool linear);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_ClearSurface", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_ClearSurface", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_ClearSurface(SDL_Surface* surface, float r, float g, float b, float a);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_FillSurfaceRect", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_FillSurfaceRect", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_FillSurfaceRect(SDL_Surface* dst, SDL_Rect* rect, uint color);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_FillSurfaceRects", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_FillSurfaceRects", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_FillSurfaceRects(SDL_Surface* dst, SDL_Rect* rects, int count, uint color);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_BlitSurface", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_BlitSurface", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_BlitSurface(SDL_Surface* src, SDL_Rect* srcrect, SDL_Surface* dst, SDL_Rect* dstrect);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_BlitSurfaceUnchecked", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_BlitSurfaceUnchecked", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_BlitSurfaceUnchecked(SDL_Surface* src, SDL_Rect* srcrect, SDL_Surface* dst, SDL_Rect* dstrect);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_BlitSurfaceScaled", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_BlitSurfaceScaled", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_BlitSurfaceScaled(SDL_Surface* src, SDL_Rect* srcrect, SDL_Surface* dst, SDL_Rect* dstrect, SDL_ScaleMode scaleMode);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_BlitSurfaceUncheckedScaled", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_BlitSurfaceUncheckedScaled", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_BlitSurfaceUncheckedScaled(SDL_Surface* src, SDL_Rect* srcrect, SDL_Surface* dst, SDL_Rect* dstrect, SDL_ScaleMode scaleMode);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_StretchSurface", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_StretchSurface", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_StretchSurface(SDL_Surface* src, SDL_Rect* srcrect, SDL_Surface* dst, SDL_Rect* dstrect, SDL_ScaleMode scaleMode);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_BlitSurfaceTiled", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_BlitSurfaceTiled", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_BlitSurfaceTiled(SDL_Surface* src, SDL_Rect* srcrect, SDL_Surface* dst, SDL_Rect* dstrect);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_BlitSurfaceTiledWithScale", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_BlitSurfaceTiledWithScale", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_BlitSurfaceTiledWithScale(SDL_Surface* src, SDL_Rect* srcrect, float scale, SDL_ScaleMode scaleMode, SDL_Surface* dst, SDL_Rect* dstrect);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_BlitSurface9Grid", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_BlitSurface9Grid", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_BlitSurface9Grid(SDL_Surface* src, SDL_Rect* srcrect, int left_width, int right_width, int top_height, int bottom_height, float scale, SDL_ScaleMode scaleMode, SDL_Surface* dst, SDL_Rect* dstrect);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_MapSurfaceRGB", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_MapSurfaceRGB", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint SDL_MapSurfaceRGB(SDL_Surface* surface, byte r, byte g, byte b);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_MapSurfaceRGBA", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_MapSurfaceRGBA", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint SDL_MapSurfaceRGBA(SDL_Surface* surface, byte r, byte g, byte b, byte a);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_ReadSurfacePixel", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_ReadSurfacePixel", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_ReadSurfacePixel(SDL_Surface* surface, int x, int y, byte* r, byte* g, byte* b, byte* a);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_ReadSurfacePixelFloat", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_ReadSurfacePixelFloat", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_ReadSurfacePixelFloat(SDL_Surface* surface, int x, int y, nint r, nint g, nint b, nint a);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_WriteSurfacePixel", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_WriteSurfacePixel", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_WriteSurfacePixel(SDL_Surface* surface, int x, int y, byte r, byte g, byte b, byte a);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_WriteSurfacePixelFloat", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_WriteSurfacePixelFloat", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_WriteSurfacePixelFloat(SDL_Surface* surface, int x, int y, float r, float g, float b, float a);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetNumCameraDrivers", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetNumCameraDrivers", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial int SDL_GetNumCameraDrivers();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetCameraDriver", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetCameraDriver", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetCameraDriver(int index);
 
@@ -6468,7 +9818,7 @@ public static unsafe partial class NativeMethods
         return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
     }
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetCurrentCameraDriver", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetCurrentCameraDriver", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetCurrentCameraDriver();
 
@@ -6479,15 +9829,15 @@ public static unsafe partial class NativeMethods
         return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
     }
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetCameras", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetCameras", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint* SDL_GetCameras(nint count);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetCameraSupportedFormats", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetCameraSupportedFormats", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_CameraSpec** SDL_GetCameraSupportedFormats(uint instance_id, nint count);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetCameraName", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetCameraName", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetCameraName(uint instance_id);
 
@@ -6498,49 +9848,49 @@ public static unsafe partial class NativeMethods
         return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
     }
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetCameraPosition", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetCameraPosition", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_CameraPosition SDL_GetCameraPosition(uint instance_id);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_OpenCamera", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_OpenCamera", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Camera* SDL_OpenCamera(uint instance_id, SDL_CameraSpec* spec);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetCameraPermissionState", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetCameraPermissionState", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_CameraPermissionState SDL_GetCameraPermissionState(SDL_Camera* camera);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetCameraID", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetCameraID", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint SDL_GetCameraID(SDL_Camera* camera);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetCameraProperties", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetCameraProperties", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint SDL_GetCameraProperties(SDL_Camera* camera);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetCameraFormat", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetCameraFormat", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GetCameraFormat(SDL_Camera* camera, SDL_CameraSpec* spec);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_AcquireCameraFrame", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_AcquireCameraFrame", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Surface* SDL_AcquireCameraFrame(SDL_Camera* camera, uint* timestampNS);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_ReleaseCameraFrame", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_ReleaseCameraFrame", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_ReleaseCameraFrame(SDL_Camera* camera, SDL_Surface* frame);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_CloseCamera", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_CloseCamera", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_CloseCamera(SDL_Camera* camera);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetClipboardText", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetClipboardText", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetClipboardText(string text);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetClipboardText", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetClipboardText", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetClipboardText();
 
@@ -6551,17 +9901,17 @@ public static unsafe partial class NativeMethods
         return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
     }
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_HasClipboardText", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_HasClipboardText", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_HasClipboardText();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetPrimarySelectionText", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetPrimarySelectionText", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetPrimarySelectionText(string text);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetPrimarySelectionText", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetPrimarySelectionText", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetPrimarySelectionText();
 
@@ -6572,12 +9922,12 @@ public static unsafe partial class NativeMethods
         return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
     }
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_HasPrimarySelectionText", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_HasPrimarySelectionText", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_HasPrimarySelectionText();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetClipboardData", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetClipboardData", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetClipboardData(nint callback, nint cleanup, nint userdata, nuint mime_types, uint num_mime_types);
@@ -6597,119 +9947,119 @@ public static unsafe partial class NativeMethods
         return result;
     }
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_ClearClipboardData", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_ClearClipboardData", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_ClearClipboardData();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetClipboardData", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetClipboardData", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nint SDL_GetClipboardData(string mime_type, uint* size);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_HasClipboardData", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_HasClipboardData", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_HasClipboardData(string mime_type);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetClipboardMimeTypes", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetClipboardMimeTypes", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetClipboardMimeTypes(uint* num_mime_types);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetNumLogicalCPUCores", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetNumLogicalCPUCores", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial int SDL_GetNumLogicalCPUCores();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetCPUCacheLineSize", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetCPUCacheLineSize", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial int SDL_GetCPUCacheLineSize();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_HasAltiVec", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_HasAltiVec", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_HasAltiVec();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_HasMMX", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_HasMMX", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_HasMMX();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_HasSSE", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_HasSSE", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_HasSSE();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_HasSSE2", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_HasSSE2", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_HasSSE2();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_HasSSE3", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_HasSSE3", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_HasSSE3();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_HasSSE41", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_HasSSE41", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_HasSSE41();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_HasSSE42", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_HasSSE42", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_HasSSE42();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_HasAVX", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_HasAVX", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_HasAVX();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_HasAVX2", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_HasAVX2", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_HasAVX2();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_HasAVX512F", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_HasAVX512F", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_HasAVX512F();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_HasARMSIMD", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_HasARMSIMD", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_HasARMSIMD();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_HasNEON", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_HasNEON", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_HasNEON();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_HasLSX", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_HasLSX", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_HasLSX();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_HasLASX", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_HasLASX", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_HasLASX();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetSystemRAM", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetSystemRAM", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial int SDL_GetSystemRAM();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetSIMDAlignment", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetSIMDAlignment", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint SDL_GetSIMDAlignment();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetSystemPageSize", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetSystemPageSize", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial int SDL_GetSystemPageSize();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetNumVideoDrivers", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetNumVideoDrivers", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial int SDL_GetNumVideoDrivers();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetVideoDriver", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetVideoDriver", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetVideoDriver(int index);
 
@@ -6720,7 +10070,7 @@ public static unsafe partial class NativeMethods
         return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
     }
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetCurrentVideoDriver", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetCurrentVideoDriver", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetCurrentVideoDriver();
 
@@ -6731,23 +10081,23 @@ public static unsafe partial class NativeMethods
         return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
     }
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetSystemTheme", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetSystemTheme", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_SystemTheme SDL_GetSystemTheme();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetDisplays", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetDisplays", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint* SDL_GetDisplays(nint count);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetPrimaryDisplay", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetPrimaryDisplay", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint SDL_GetPrimaryDisplay();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetDisplayProperties", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetDisplayProperties", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint SDL_GetDisplayProperties(uint displayID);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetDisplayName", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetDisplayName", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetDisplayName(uint displayID);
 
@@ -6758,124 +10108,124 @@ public static unsafe partial class NativeMethods
         return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
     }
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetDisplayBounds", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetDisplayBounds", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GetDisplayBounds(uint displayID, SDL_Rect* rect);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetDisplayUsableBounds", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetDisplayUsableBounds", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GetDisplayUsableBounds(uint displayID, SDL_Rect* rect);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetNaturalDisplayOrientation", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetNaturalDisplayOrientation", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_DisplayOrientation SDL_GetNaturalDisplayOrientation(uint displayID);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetCurrentDisplayOrientation", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetCurrentDisplayOrientation", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_DisplayOrientation SDL_GetCurrentDisplayOrientation(uint displayID);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetDisplayContentScale", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetDisplayContentScale", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial float SDL_GetDisplayContentScale(uint displayID);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetFullscreenDisplayModes", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetFullscreenDisplayModes", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_DisplayMode** SDL_GetFullscreenDisplayModes(uint displayID, nint count);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetClosestFullscreenDisplayMode", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetClosestFullscreenDisplayMode", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GetClosestFullscreenDisplayMode(uint displayID, int w, int h, float refresh_rate, [MarshalAs(UnmanagedType.I1)] bool include_high_density_modes, SDL_DisplayMode* closest);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetDesktopDisplayMode", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetDesktopDisplayMode", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_DisplayMode* SDL_GetDesktopDisplayMode(uint displayID);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetCurrentDisplayMode", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetCurrentDisplayMode", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_DisplayMode* SDL_GetCurrentDisplayMode(uint displayID);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetDisplayForPoint", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetDisplayForPoint", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint SDL_GetDisplayForPoint(SDL_Point* point);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetDisplayForRect", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetDisplayForRect", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint SDL_GetDisplayForRect(SDL_Rect* rect);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetDisplayForWindow", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetDisplayForWindow", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint SDL_GetDisplayForWindow(SDL_Window* window);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetWindowPixelDensity", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetWindowPixelDensity", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial float SDL_GetWindowPixelDensity(SDL_Window* window);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetWindowDisplayScale", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetWindowDisplayScale", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial float SDL_GetWindowDisplayScale(SDL_Window* window);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetWindowFullscreenMode", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetWindowFullscreenMode", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetWindowFullscreenMode(SDL_Window* window, SDL_DisplayMode* mode);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetWindowFullscreenMode", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetWindowFullscreenMode", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_DisplayMode* SDL_GetWindowFullscreenMode(SDL_Window* window);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetWindowICCProfile", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetWindowICCProfile", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nint SDL_GetWindowICCProfile(SDL_Window* window, uint* size);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetWindowPixelFormat", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetWindowPixelFormat", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_PixelFormat SDL_GetWindowPixelFormat(SDL_Window* window);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetWindows", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetWindows", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Window** SDL_GetWindows(nint count);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_CreateWindow", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_CreateWindow", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Window* SDL_CreateWindow(string title, int w, int h, uint flags);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_CreatePopupWindow", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_CreatePopupWindow", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Window* SDL_CreatePopupWindow(SDL_Window* parent, int offset_x, int offset_y, int w, int h, uint flags);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_CreateWindowWithProperties", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_CreateWindowWithProperties", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Window* SDL_CreateWindowWithProperties(uint props);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetWindowID", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetWindowID", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint SDL_GetWindowID(SDL_Window* window);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetWindowFromID", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetWindowFromID", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Window* SDL_GetWindowFromID(uint id);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetWindowParent", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetWindowParent", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Window* SDL_GetWindowParent(SDL_Window* window);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetWindowProperties", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetWindowProperties", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint SDL_GetWindowProperties(SDL_Window* window);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetWindowFlags", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetWindowFlags", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint SDL_GetWindowFlags(SDL_Window* window);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetWindowTitle", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetWindowTitle", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetWindowTitle(SDL_Window* window, string title);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetWindowTitle", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetWindowTitle", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetWindowTitle(SDL_Window* window);
 
@@ -6886,394 +10236,394 @@ public static unsafe partial class NativeMethods
         return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
     }
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetWindowIcon", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetWindowIcon", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetWindowIcon(SDL_Window* window, SDL_Surface* icon);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetWindowPosition", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetWindowPosition", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetWindowPosition(SDL_Window* window, int x, int y);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetWindowPosition", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetWindowPosition", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GetWindowPosition(SDL_Window* window, nint x, nint y);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetWindowSize", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetWindowSize", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetWindowSize(SDL_Window* window, int w, int h);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetWindowSize", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetWindowSize", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GetWindowSize(SDL_Window* window, nint w, nint h);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetWindowSafeArea", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetWindowSafeArea", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GetWindowSafeArea(SDL_Window* window, SDL_Rect* rect);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetWindowAspectRatio", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetWindowAspectRatio", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetWindowAspectRatio(SDL_Window* window, float min_aspect, float max_aspect);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetWindowAspectRatio", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetWindowAspectRatio", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GetWindowAspectRatio(SDL_Window* window, nint min_aspect, nint max_aspect);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetWindowBordersSize", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetWindowBordersSize", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GetWindowBordersSize(SDL_Window* window, nint top, nint left, nint bottom, nint right);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetWindowSizeInPixels", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetWindowSizeInPixels", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GetWindowSizeInPixels(SDL_Window* window, nint w, nint h);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetWindowMinimumSize", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetWindowMinimumSize", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetWindowMinimumSize(SDL_Window* window, int min_w, int min_h);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetWindowMinimumSize", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetWindowMinimumSize", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GetWindowMinimumSize(SDL_Window* window, nint w, nint h);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetWindowMaximumSize", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetWindowMaximumSize", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetWindowMaximumSize(SDL_Window* window, int max_w, int max_h);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetWindowMaximumSize", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetWindowMaximumSize", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GetWindowMaximumSize(SDL_Window* window, nint w, nint h);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetWindowBordered", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetWindowBordered", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetWindowBordered(SDL_Window* window, [MarshalAs(UnmanagedType.I1)] bool bordered);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetWindowResizable", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetWindowResizable", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetWindowResizable(SDL_Window* window, [MarshalAs(UnmanagedType.I1)] bool resizable);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetWindowAlwaysOnTop", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetWindowAlwaysOnTop", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetWindowAlwaysOnTop(SDL_Window* window, [MarshalAs(UnmanagedType.I1)] bool on_top);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetWindowFillDocument", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetWindowFillDocument", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetWindowFillDocument(SDL_Window* window, [MarshalAs(UnmanagedType.I1)] bool fill);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_ShowWindow", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_ShowWindow", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_ShowWindow(SDL_Window* window);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_HideWindow", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_HideWindow", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_HideWindow(SDL_Window* window);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_RaiseWindow", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_RaiseWindow", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_RaiseWindow(SDL_Window* window);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_MaximizeWindow", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_MaximizeWindow", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_MaximizeWindow(SDL_Window* window);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_MinimizeWindow", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_MinimizeWindow", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_MinimizeWindow(SDL_Window* window);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_RestoreWindow", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_RestoreWindow", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_RestoreWindow(SDL_Window* window);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetWindowFullscreen", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetWindowFullscreen", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetWindowFullscreen(SDL_Window* window, [MarshalAs(UnmanagedType.I1)] bool fullscreen);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SyncWindow", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SyncWindow", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SyncWindow(SDL_Window* window);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_WindowHasSurface", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_WindowHasSurface", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_WindowHasSurface(SDL_Window* window);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetWindowSurface", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetWindowSurface", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Surface* SDL_GetWindowSurface(SDL_Window* window);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetWindowSurfaceVSync", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetWindowSurfaceVSync", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetWindowSurfaceVSync(SDL_Window* window, int vsync);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetWindowSurfaceVSync", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetWindowSurfaceVSync", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GetWindowSurfaceVSync(SDL_Window* window, nint vsync);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_UpdateWindowSurface", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_UpdateWindowSurface", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_UpdateWindowSurface(SDL_Window* window);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_UpdateWindowSurfaceRects", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_UpdateWindowSurfaceRects", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_UpdateWindowSurfaceRects(SDL_Window* window, SDL_Rect* rects, int numrects);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_DestroyWindowSurface", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_DestroyWindowSurface", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_DestroyWindowSurface(SDL_Window* window);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetWindowKeyboardGrab", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetWindowKeyboardGrab", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetWindowKeyboardGrab(SDL_Window* window, [MarshalAs(UnmanagedType.I1)] bool grabbed);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetWindowMouseGrab", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetWindowMouseGrab", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetWindowMouseGrab(SDL_Window* window, [MarshalAs(UnmanagedType.I1)] bool grabbed);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetWindowKeyboardGrab", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetWindowKeyboardGrab", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GetWindowKeyboardGrab(SDL_Window* window);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetWindowMouseGrab", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetWindowMouseGrab", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GetWindowMouseGrab(SDL_Window* window);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetGrabbedWindow", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetGrabbedWindow", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Window* SDL_GetGrabbedWindow();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetWindowMouseRect", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetWindowMouseRect", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetWindowMouseRect(SDL_Window* window, SDL_Rect* rect);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetWindowMouseRect", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetWindowMouseRect", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Rect* SDL_GetWindowMouseRect(SDL_Window* window);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetWindowOpacity", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetWindowOpacity", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetWindowOpacity(SDL_Window* window, float opacity);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetWindowOpacity", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetWindowOpacity", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial float SDL_GetWindowOpacity(SDL_Window* window);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetWindowParent", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetWindowParent", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetWindowParent(SDL_Window* window, SDL_Window* parent);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetWindowModal", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetWindowModal", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetWindowModal(SDL_Window* window, [MarshalAs(UnmanagedType.I1)] bool modal);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetWindowFocusable", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetWindowFocusable", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetWindowFocusable(SDL_Window* window, [MarshalAs(UnmanagedType.I1)] bool focusable);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_ShowWindowSystemMenu", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_ShowWindowSystemMenu", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_ShowWindowSystemMenu(SDL_Window* window, int x, int y);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetWindowHitTest", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetWindowHitTest", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetWindowHitTest(SDL_Window* window, nint callback, nint callback_data);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetWindowShape", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetWindowShape", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetWindowShape(SDL_Window* window, SDL_Surface* shape);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_FlashWindow", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_FlashWindow", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_FlashWindow(SDL_Window* window, SDL_FlashOperation operation);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetWindowProgressState", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetWindowProgressState", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetWindowProgressState(SDL_Window* window, SDL_ProgressState state);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetWindowProgressState", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetWindowProgressState", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_ProgressState SDL_GetWindowProgressState(SDL_Window* window);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetWindowProgressValue", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetWindowProgressValue", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetWindowProgressValue(SDL_Window* window, float value);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetWindowProgressValue", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetWindowProgressValue", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial float SDL_GetWindowProgressValue(SDL_Window* window);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_DestroyWindow", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_DestroyWindow", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_DestroyWindow(SDL_Window* window);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_ScreenSaverEnabled", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_ScreenSaverEnabled", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_ScreenSaverEnabled();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_EnableScreenSaver", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_EnableScreenSaver", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_EnableScreenSaver();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_DisableScreenSaver", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_DisableScreenSaver", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_DisableScreenSaver();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GL_LoadLibrary", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GL_LoadLibrary", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GL_LoadLibrary(string path);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GL_GetProcAddress", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GL_GetProcAddress", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nint SDL_GL_GetProcAddress(string proc);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_EGL_GetProcAddress", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_EGL_GetProcAddress", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nint SDL_EGL_GetProcAddress(string proc);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GL_UnloadLibrary", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GL_UnloadLibrary", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_GL_UnloadLibrary();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GL_ExtensionSupported", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GL_ExtensionSupported", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GL_ExtensionSupported(string extension);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GL_ResetAttributes", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GL_ResetAttributes", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_GL_ResetAttributes();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GL_SetAttribute", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GL_SetAttribute", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GL_SetAttribute(SDL_GLAttr attr, int value);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GL_GetAttribute", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GL_GetAttribute", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GL_GetAttribute(SDL_GLAttr attr, nint value);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GL_CreateContext", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GL_CreateContext", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nint SDL_GL_CreateContext(SDL_Window* window);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GL_MakeCurrent", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GL_MakeCurrent", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GL_MakeCurrent(SDL_Window* window, nint context);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GL_GetCurrentWindow", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GL_GetCurrentWindow", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Window* SDL_GL_GetCurrentWindow();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GL_GetCurrentContext", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GL_GetCurrentContext", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nint SDL_GL_GetCurrentContext();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_EGL_GetCurrentDisplay", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_EGL_GetCurrentDisplay", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nint SDL_EGL_GetCurrentDisplay();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_EGL_GetCurrentConfig", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_EGL_GetCurrentConfig", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nint SDL_EGL_GetCurrentConfig();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_EGL_GetWindowSurface", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_EGL_GetWindowSurface", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nint SDL_EGL_GetWindowSurface(SDL_Window* window);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_EGL_SetAttributeCallbacks", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_EGL_SetAttributeCallbacks", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_EGL_SetAttributeCallbacks(nint platformAttribCallback, nint surfaceAttribCallback, nint contextAttribCallback, nint userdata);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GL_SetSwapInterval", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GL_SetSwapInterval", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GL_SetSwapInterval(int interval);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GL_GetSwapInterval", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GL_GetSwapInterval", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GL_GetSwapInterval(nint interval);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GL_SwapWindow", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GL_SwapWindow", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GL_SwapWindow(SDL_Window* window);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GL_DestroyContext", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GL_DestroyContext", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GL_DestroyContext(nint context);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_ShowOpenFileDialog", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_ShowOpenFileDialog", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_ShowOpenFileDialog(nint callback, nint userdata, SDL_Window* window, SDL_DialogFileFilter* filters, int nfilters, string default_location, [MarshalAs(UnmanagedType.I1)] bool allow_many);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_ShowSaveFileDialog", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_ShowSaveFileDialog", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_ShowSaveFileDialog(nint callback, nint userdata, SDL_Window* window, SDL_DialogFileFilter* filters, int nfilters, string default_location);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_ShowOpenFolderDialog", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_ShowOpenFolderDialog", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_ShowOpenFolderDialog(nint callback, nint userdata, SDL_Window* window, string default_location, [MarshalAs(UnmanagedType.I1)] bool allow_many);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_ShowFileDialogWithProperties", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_ShowFileDialogWithProperties", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_ShowFileDialogWithProperties(SDL_FileDialogType type, nint callback, nint userdata, uint props);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GUIDToString", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GUIDToString", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_GUIDToString(SDL_GUID guid, string pszGUID, int cbGUID);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_StringToGUID", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_StringToGUID", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_StringToGUID(string pchGUID);
 
@@ -7284,15 +10634,15 @@ public static unsafe partial class NativeMethods
         return Marshal.PtrToStructure<SDL_GUID>((nint)ptr);
     }
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetPowerInfo", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetPowerInfo", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_PowerState SDL_GetPowerInfo(nint seconds, nint percent);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetSensors", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetSensors", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint* SDL_GetSensors(nint count);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetSensorNameForID", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetSensorNameForID", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetSensorNameForID(uint instance_id);
 
@@ -7303,27 +10653,27 @@ public static unsafe partial class NativeMethods
         return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
     }
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetSensorTypeForID", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetSensorTypeForID", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_SensorType SDL_GetSensorTypeForID(uint instance_id);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetSensorNonPortableTypeForID", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetSensorNonPortableTypeForID", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial int SDL_GetSensorNonPortableTypeForID(uint instance_id);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_OpenSensor", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_OpenSensor", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Sensor* SDL_OpenSensor(uint instance_id);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetSensorFromID", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetSensorFromID", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Sensor* SDL_GetSensorFromID(uint instance_id);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetSensorProperties", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetSensorProperties", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint SDL_GetSensorProperties(SDL_Sensor* sensor);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetSensorName", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetSensorName", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetSensorName(SDL_Sensor* sensor);
 
@@ -7334,49 +10684,49 @@ public static unsafe partial class NativeMethods
         return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
     }
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetSensorType", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetSensorType", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_SensorType SDL_GetSensorType(SDL_Sensor* sensor);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetSensorNonPortableType", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetSensorNonPortableType", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial int SDL_GetSensorNonPortableType(SDL_Sensor* sensor);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetSensorID", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetSensorID", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint SDL_GetSensorID(SDL_Sensor* sensor);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetSensorData", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetSensorData", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GetSensorData(SDL_Sensor* sensor, nint data, int num_values);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_CloseSensor", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_CloseSensor", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_CloseSensor(SDL_Sensor* sensor);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_UpdateSensors", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_UpdateSensors", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_UpdateSensors();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_LockJoysticks", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_LockJoysticks", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_LockJoysticks();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_UnlockJoysticks", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_UnlockJoysticks", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_UnlockJoysticks();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_HasJoystick", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_HasJoystick", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_HasJoystick();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetJoysticks", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetJoysticks", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint* SDL_GetJoysticks(nint count);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetJoystickNameForID", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetJoystickNameForID", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetJoystickNameForID(uint instance_id);
 
@@ -7387,7 +10737,7 @@ public static unsafe partial class NativeMethods
         return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
     }
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetJoystickPathForID", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetJoystickPathForID", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetJoystickPathForID(uint instance_id);
 
@@ -7398,11 +10748,11 @@ public static unsafe partial class NativeMethods
         return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
     }
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetJoystickPlayerIndexForID", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetJoystickPlayerIndexForID", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial int SDL_GetJoystickPlayerIndexForID(uint instance_id);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetJoystickGUIDForID", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetJoystickGUIDForID", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetJoystickGUIDForID(uint instance_id);
 
@@ -7413,83 +10763,83 @@ public static unsafe partial class NativeMethods
         return Marshal.PtrToStructure<SDL_GUID>((nint)ptr);
     }
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetJoystickVendorForID", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetJoystickVendorForID", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial ushort SDL_GetJoystickVendorForID(uint instance_id);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetJoystickProductForID", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetJoystickProductForID", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial ushort SDL_GetJoystickProductForID(uint instance_id);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetJoystickProductVersionForID", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetJoystickProductVersionForID", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial ushort SDL_GetJoystickProductVersionForID(uint instance_id);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetJoystickTypeForID", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetJoystickTypeForID", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_JoystickType SDL_GetJoystickTypeForID(uint instance_id);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_OpenJoystick", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_OpenJoystick", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Joystick* SDL_OpenJoystick(uint instance_id);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetJoystickFromID", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetJoystickFromID", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Joystick* SDL_GetJoystickFromID(uint instance_id);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetJoystickFromPlayerIndex", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetJoystickFromPlayerIndex", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Joystick* SDL_GetJoystickFromPlayerIndex(int player_index);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_AttachVirtualJoystick", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_AttachVirtualJoystick", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint SDL_AttachVirtualJoystick(SDL_VirtualJoystickDesc* desc);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_DetachVirtualJoystick", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_DetachVirtualJoystick", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_DetachVirtualJoystick(uint instance_id);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_IsJoystickVirtual", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_IsJoystickVirtual", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_IsJoystickVirtual(uint instance_id);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetJoystickVirtualAxis", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetJoystickVirtualAxis", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetJoystickVirtualAxis(SDL_Joystick* joystick, int axis, short value);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetJoystickVirtualBall", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetJoystickVirtualBall", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetJoystickVirtualBall(SDL_Joystick* joystick, int ball, short xrel, short yrel);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetJoystickVirtualButton", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetJoystickVirtualButton", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetJoystickVirtualButton(SDL_Joystick* joystick, int button, [MarshalAs(UnmanagedType.I1)] bool down);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetJoystickVirtualHat", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetJoystickVirtualHat", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetJoystickVirtualHat(SDL_Joystick* joystick, int hat, byte value);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetJoystickVirtualTouchpad", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetJoystickVirtualTouchpad", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetJoystickVirtualTouchpad(SDL_Joystick* joystick, int touchpad, int finger, [MarshalAs(UnmanagedType.I1)] bool down, float x, float y, float pressure);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SendJoystickVirtualSensorData", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SendJoystickVirtualSensorData", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SendJoystickVirtualSensorData(SDL_Joystick* joystick, SDL_SensorType type, uint sensor_timestamp, nint data, int num_values);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetJoystickProperties", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetJoystickProperties", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint SDL_GetJoystickProperties(SDL_Joystick* joystick);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetJoystickName", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetJoystickName", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetJoystickName(SDL_Joystick* joystick);
 
@@ -7500,7 +10850,7 @@ public static unsafe partial class NativeMethods
         return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
     }
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetJoystickPath", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetJoystickPath", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetJoystickPath(SDL_Joystick* joystick);
 
@@ -7511,16 +10861,16 @@ public static unsafe partial class NativeMethods
         return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
     }
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetJoystickPlayerIndex", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetJoystickPlayerIndex", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial int SDL_GetJoystickPlayerIndex(SDL_Joystick* joystick);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetJoystickPlayerIndex", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetJoystickPlayerIndex", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetJoystickPlayerIndex(SDL_Joystick* joystick, int player_index);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetJoystickGUID", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetJoystickGUID", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetJoystickGUID(SDL_Joystick* joystick);
 
@@ -7531,23 +10881,23 @@ public static unsafe partial class NativeMethods
         return Marshal.PtrToStructure<SDL_GUID>((nint)ptr);
     }
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetJoystickVendor", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetJoystickVendor", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial ushort SDL_GetJoystickVendor(SDL_Joystick* joystick);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetJoystickProduct", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetJoystickProduct", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial ushort SDL_GetJoystickProduct(SDL_Joystick* joystick);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetJoystickProductVersion", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetJoystickProductVersion", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial ushort SDL_GetJoystickProductVersion(SDL_Joystick* joystick);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetJoystickFirmwareVersion", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetJoystickFirmwareVersion", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial ushort SDL_GetJoystickFirmwareVersion(SDL_Joystick* joystick);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetJoystickSerial", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetJoystickSerial", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetJoystickSerial(SDL_Joystick* joystick);
 
@@ -7558,129 +10908,129 @@ public static unsafe partial class NativeMethods
         return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
     }
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetJoystickType", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetJoystickType", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_JoystickType SDL_GetJoystickType(SDL_Joystick* joystick);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetJoystickGUIDInfo", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetJoystickGUIDInfo", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_GetJoystickGUIDInfo(SDL_GUID guid, ushort* vendor, ushort* product, ushort* version, ushort* crc16);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_JoystickConnected", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_JoystickConnected", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_JoystickConnected(SDL_Joystick* joystick);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetJoystickID", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetJoystickID", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint SDL_GetJoystickID(SDL_Joystick* joystick);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetNumJoystickAxes", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetNumJoystickAxes", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial int SDL_GetNumJoystickAxes(SDL_Joystick* joystick);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetNumJoystickBalls", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetNumJoystickBalls", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial int SDL_GetNumJoystickBalls(SDL_Joystick* joystick);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetNumJoystickHats", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetNumJoystickHats", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial int SDL_GetNumJoystickHats(SDL_Joystick* joystick);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetNumJoystickButtons", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetNumJoystickButtons", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial int SDL_GetNumJoystickButtons(SDL_Joystick* joystick);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetJoystickEventsEnabled", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetJoystickEventsEnabled", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_SetJoystickEventsEnabled([MarshalAs(UnmanagedType.I1)] bool enabled);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_JoystickEventsEnabled", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_JoystickEventsEnabled", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_JoystickEventsEnabled();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_UpdateJoysticks", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_UpdateJoysticks", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_UpdateJoysticks();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetJoystickAxis", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetJoystickAxis", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial short SDL_GetJoystickAxis(SDL_Joystick* joystick, int axis);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetJoystickAxisInitialState", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetJoystickAxisInitialState", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GetJoystickAxisInitialState(SDL_Joystick* joystick, int axis, short* state);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetJoystickBall", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetJoystickBall", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GetJoystickBall(SDL_Joystick* joystick, int ball, nint dx, nint dy);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetJoystickHat", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetJoystickHat", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial byte SDL_GetJoystickHat(SDL_Joystick* joystick, int hat);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetJoystickButton", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetJoystickButton", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GetJoystickButton(SDL_Joystick* joystick, int button);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_RumbleJoystick", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_RumbleJoystick", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_RumbleJoystick(SDL_Joystick* joystick, ushort low_frequency_rumble, ushort high_frequency_rumble, uint duration_ms);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_RumbleJoystickTriggers", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_RumbleJoystickTriggers", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_RumbleJoystickTriggers(SDL_Joystick* joystick, ushort left_rumble, ushort right_rumble, uint duration_ms);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetJoystickLED", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetJoystickLED", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetJoystickLED(SDL_Joystick* joystick, byte red, byte green, byte blue);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SendJoystickEffect", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SendJoystickEffect", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SendJoystickEffect(SDL_Joystick* joystick, nint data, int size);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_CloseJoystick", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_CloseJoystick", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_CloseJoystick(SDL_Joystick* joystick);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetJoystickConnectionState", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetJoystickConnectionState", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_JoystickConnectionState SDL_GetJoystickConnectionState(SDL_Joystick* joystick);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetJoystickPowerInfo", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetJoystickPowerInfo", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_PowerState SDL_GetJoystickPowerInfo(SDL_Joystick* joystick, nint percent);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_AddGamepadMapping", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_AddGamepadMapping", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial int SDL_AddGamepadMapping(string mapping);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_AddGamepadMappingsFromIO", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_AddGamepadMappingsFromIO", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial int SDL_AddGamepadMappingsFromIO(SDL_IOStream* src, [MarshalAs(UnmanagedType.I1)] bool closeio);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_AddGamepadMappingsFromFile", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_AddGamepadMappingsFromFile", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial int SDL_AddGamepadMappingsFromFile(string file);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_ReloadGamepadMappings", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_ReloadGamepadMappings", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_ReloadGamepadMappings();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetGamepadMappings", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetGamepadMappings", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetGamepadMappings(nint count);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetGamepadMappingForGUID", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetGamepadMappingForGUID", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetGamepadMappingForGUID(SDL_GUID guid);
 
@@ -7691,7 +11041,7 @@ public static unsafe partial class NativeMethods
         return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
     }
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetGamepadMapping", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetGamepadMapping", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetGamepadMapping(SDL_Gamepad* gamepad);
 
@@ -7702,26 +11052,26 @@ public static unsafe partial class NativeMethods
         return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
     }
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetGamepadMapping", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetGamepadMapping", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetGamepadMapping(uint instance_id, string mapping);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_HasGamepad", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_HasGamepad", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_HasGamepad();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetGamepads", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetGamepads", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint* SDL_GetGamepads(nint count);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_IsGamepad", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_IsGamepad", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_IsGamepad(uint instance_id);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetGamepadNameForID", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetGamepadNameForID", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetGamepadNameForID(uint instance_id);
 
@@ -7732,7 +11082,7 @@ public static unsafe partial class NativeMethods
         return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
     }
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetGamepadPathForID", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetGamepadPathForID", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetGamepadPathForID(uint instance_id);
 
@@ -7743,11 +11093,11 @@ public static unsafe partial class NativeMethods
         return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
     }
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetGamepadPlayerIndexForID", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetGamepadPlayerIndexForID", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial int SDL_GetGamepadPlayerIndexForID(uint instance_id);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetGamepadGUIDForID", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetGamepadGUIDForID", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetGamepadGUIDForID(uint instance_id);
 
@@ -7758,27 +11108,27 @@ public static unsafe partial class NativeMethods
         return Marshal.PtrToStructure<SDL_GUID>((nint)ptr);
     }
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetGamepadVendorForID", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetGamepadVendorForID", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial ushort SDL_GetGamepadVendorForID(uint instance_id);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetGamepadProductForID", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetGamepadProductForID", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial ushort SDL_GetGamepadProductForID(uint instance_id);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetGamepadProductVersionForID", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetGamepadProductVersionForID", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial ushort SDL_GetGamepadProductVersionForID(uint instance_id);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetGamepadTypeForID", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetGamepadTypeForID", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_GamepadType SDL_GetGamepadTypeForID(uint instance_id);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetRealGamepadTypeForID", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetRealGamepadTypeForID", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_GamepadType SDL_GetRealGamepadTypeForID(uint instance_id);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetGamepadMappingForID", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetGamepadMappingForID", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetGamepadMappingForID(uint instance_id);
 
@@ -7789,27 +11139,27 @@ public static unsafe partial class NativeMethods
         return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
     }
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_OpenGamepad", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_OpenGamepad", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Gamepad* SDL_OpenGamepad(uint instance_id);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetGamepadFromID", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetGamepadFromID", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Gamepad* SDL_GetGamepadFromID(uint instance_id);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetGamepadFromPlayerIndex", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetGamepadFromPlayerIndex", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Gamepad* SDL_GetGamepadFromPlayerIndex(int player_index);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetGamepadProperties", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetGamepadProperties", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint SDL_GetGamepadProperties(SDL_Gamepad* gamepad);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetGamepadID", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetGamepadID", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint SDL_GetGamepadID(SDL_Gamepad* gamepad);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetGamepadName", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetGamepadName", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetGamepadName(SDL_Gamepad* gamepad);
 
@@ -7820,7 +11170,7 @@ public static unsafe partial class NativeMethods
         return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
     }
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetGamepadPath", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetGamepadPath", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetGamepadPath(SDL_Gamepad* gamepad);
 
@@ -7831,40 +11181,40 @@ public static unsafe partial class NativeMethods
         return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
     }
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetGamepadType", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetGamepadType", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_GamepadType SDL_GetGamepadType(SDL_Gamepad* gamepad);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetRealGamepadType", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetRealGamepadType", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_GamepadType SDL_GetRealGamepadType(SDL_Gamepad* gamepad);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetGamepadPlayerIndex", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetGamepadPlayerIndex", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial int SDL_GetGamepadPlayerIndex(SDL_Gamepad* gamepad);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetGamepadPlayerIndex", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetGamepadPlayerIndex", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetGamepadPlayerIndex(SDL_Gamepad* gamepad, int player_index);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetGamepadVendor", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetGamepadVendor", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial ushort SDL_GetGamepadVendor(SDL_Gamepad* gamepad);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetGamepadProduct", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetGamepadProduct", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial ushort SDL_GetGamepadProduct(SDL_Gamepad* gamepad);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetGamepadProductVersion", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetGamepadProductVersion", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial ushort SDL_GetGamepadProductVersion(SDL_Gamepad* gamepad);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetGamepadFirmwareVersion", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetGamepadFirmwareVersion", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial ushort SDL_GetGamepadFirmwareVersion(SDL_Gamepad* gamepad);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetGamepadSerial", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetGamepadSerial", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetGamepadSerial(SDL_Gamepad* gamepad);
 
@@ -7875,49 +11225,49 @@ public static unsafe partial class NativeMethods
         return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
     }
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetGamepadSteamHandle", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetGamepadSteamHandle", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint SDL_GetGamepadSteamHandle(SDL_Gamepad* gamepad);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetGamepadConnectionState", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetGamepadConnectionState", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_JoystickConnectionState SDL_GetGamepadConnectionState(SDL_Gamepad* gamepad);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetGamepadPowerInfo", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetGamepadPowerInfo", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_PowerState SDL_GetGamepadPowerInfo(SDL_Gamepad* gamepad, nint percent);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GamepadConnected", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GamepadConnected", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GamepadConnected(SDL_Gamepad* gamepad);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetGamepadJoystick", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetGamepadJoystick", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Joystick* SDL_GetGamepadJoystick(SDL_Gamepad* gamepad);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetGamepadEventsEnabled", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetGamepadEventsEnabled", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_SetGamepadEventsEnabled([MarshalAs(UnmanagedType.I1)] bool enabled);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GamepadEventsEnabled", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GamepadEventsEnabled", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GamepadEventsEnabled();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetGamepadBindings", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetGamepadBindings", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_GamepadBinding** SDL_GetGamepadBindings(SDL_Gamepad* gamepad, nint count);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_UpdateGamepads", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_UpdateGamepads", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_UpdateGamepads();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetGamepadTypeFromString", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetGamepadTypeFromString", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_GamepadType SDL_GetGamepadTypeFromString(string str);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetGamepadStringForType", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetGamepadStringForType", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetGamepadStringForType(SDL_GamepadType type);
 
@@ -7928,11 +11278,11 @@ public static unsafe partial class NativeMethods
         return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
     }
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetGamepadAxisFromString", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetGamepadAxisFromString", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_GamepadAxis SDL_GetGamepadAxisFromString(string str);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetGamepadStringForAxis", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetGamepadStringForAxis", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetGamepadStringForAxis(SDL_GamepadAxis axis);
 
@@ -7943,20 +11293,20 @@ public static unsafe partial class NativeMethods
         return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
     }
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GamepadHasAxis", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GamepadHasAxis", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GamepadHasAxis(SDL_Gamepad* gamepad, SDL_GamepadAxis axis);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetGamepadAxis", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetGamepadAxis", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial short SDL_GetGamepadAxis(SDL_Gamepad* gamepad, SDL_GamepadAxis axis);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetGamepadButtonFromString", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetGamepadButtonFromString", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_GamepadButton SDL_GetGamepadButtonFromString(string str);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetGamepadStringForButton", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetGamepadStringForButton", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetGamepadStringForButton(SDL_GamepadButton button);
 
@@ -7967,86 +11317,86 @@ public static unsafe partial class NativeMethods
         return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
     }
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GamepadHasButton", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GamepadHasButton", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GamepadHasButton(SDL_Gamepad* gamepad, SDL_GamepadButton button);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetGamepadButton", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetGamepadButton", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GetGamepadButton(SDL_Gamepad* gamepad, SDL_GamepadButton button);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetGamepadButtonLabelForType", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetGamepadButtonLabelForType", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_GamepadButtonLabel SDL_GetGamepadButtonLabelForType(SDL_GamepadType type, SDL_GamepadButton button);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetGamepadButtonLabel", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetGamepadButtonLabel", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_GamepadButtonLabel SDL_GetGamepadButtonLabel(SDL_Gamepad* gamepad, SDL_GamepadButton button);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetNumGamepadTouchpads", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetNumGamepadTouchpads", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial int SDL_GetNumGamepadTouchpads(SDL_Gamepad* gamepad);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetNumGamepadTouchpadFingers", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetNumGamepadTouchpadFingers", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial int SDL_GetNumGamepadTouchpadFingers(SDL_Gamepad* gamepad, int touchpad);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetGamepadTouchpadFinger", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetGamepadTouchpadFinger", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GetGamepadTouchpadFinger(SDL_Gamepad* gamepad, int touchpad, int finger, nint down, nint x, nint y, nint pressure);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GamepadHasSensor", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GamepadHasSensor", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GamepadHasSensor(SDL_Gamepad* gamepad, SDL_SensorType type);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetGamepadSensorEnabled", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetGamepadSensorEnabled", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetGamepadSensorEnabled(SDL_Gamepad* gamepad, SDL_SensorType type, [MarshalAs(UnmanagedType.I1)] bool enabled);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GamepadSensorEnabled", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GamepadSensorEnabled", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GamepadSensorEnabled(SDL_Gamepad* gamepad, SDL_SensorType type);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetGamepadSensorDataRate", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetGamepadSensorDataRate", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial float SDL_GetGamepadSensorDataRate(SDL_Gamepad* gamepad, SDL_SensorType type);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetGamepadSensorData", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetGamepadSensorData", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GetGamepadSensorData(SDL_Gamepad* gamepad, SDL_SensorType type, nint data, int num_values);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_RumbleGamepad", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_RumbleGamepad", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_RumbleGamepad(SDL_Gamepad* gamepad, ushort low_frequency_rumble, ushort high_frequency_rumble, uint duration_ms);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_RumbleGamepadTriggers", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_RumbleGamepadTriggers", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_RumbleGamepadTriggers(SDL_Gamepad* gamepad, ushort left_rumble, ushort right_rumble, uint duration_ms);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetGamepadLED", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetGamepadLED", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetGamepadLED(SDL_Gamepad* gamepad, byte red, byte green, byte blue);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SendGamepadEffect", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SendGamepadEffect", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SendGamepadEffect(SDL_Gamepad* gamepad, nint data, int size);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_CloseGamepad", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_CloseGamepad", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_CloseGamepad(SDL_Gamepad* gamepad);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetGamepadAppleSFSymbolsNameForButton", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetGamepadAppleSFSymbolsNameForButton", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetGamepadAppleSFSymbolsNameForButton(SDL_Gamepad* gamepad, SDL_GamepadButton button);
 
@@ -8057,7 +11407,7 @@ public static unsafe partial class NativeMethods
         return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
     }
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetGamepadAppleSFSymbolsNameForAxis", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetGamepadAppleSFSymbolsNameForAxis", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetGamepadAppleSFSymbolsNameForAxis(SDL_Gamepad* gamepad, SDL_GamepadAxis axis);
 
@@ -8068,16 +11418,16 @@ public static unsafe partial class NativeMethods
         return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
     }
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_HasKeyboard", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_HasKeyboard", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_HasKeyboard();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetKeyboards", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetKeyboards", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint* SDL_GetKeyboards(nint count);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetKeyboardNameForID", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetKeyboardNameForID", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetKeyboardNameForID(uint instance_id);
 
@@ -8088,40 +11438,40 @@ public static unsafe partial class NativeMethods
         return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
     }
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetKeyboardFocus", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetKeyboardFocus", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Window* SDL_GetKeyboardFocus();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetKeyboardState", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetKeyboardState", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nint SDL_GetKeyboardState(nint numkeys);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_ResetKeyboard", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_ResetKeyboard", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_ResetKeyboard();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetModState", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetModState", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial ushort SDL_GetModState();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetModState", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetModState", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_SetModState(ushort modstate);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetKeyFromScancode", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetKeyFromScancode", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint SDL_GetKeyFromScancode(SDL_Scancode scancode, ushort modstate, [MarshalAs(UnmanagedType.I1)] bool key_event);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetScancodeFromKey", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetScancodeFromKey", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Scancode SDL_GetScancodeFromKey(uint key, ushort* modstate);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetScancodeName", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetScancodeName", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetScancodeName(SDL_Scancode scancode, string name);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetScancodeName", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetScancodeName", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetScancodeName(SDL_Scancode scancode);
 
@@ -8132,11 +11482,11 @@ public static unsafe partial class NativeMethods
         return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
     }
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetScancodeFromName", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetScancodeFromName", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Scancode SDL_GetScancodeFromName(string name);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetKeyName", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetKeyName", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetKeyName(uint key);
 
@@ -8147,65 +11497,65 @@ public static unsafe partial class NativeMethods
         return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
     }
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetKeyFromName", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetKeyFromName", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint SDL_GetKeyFromName(string name);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_StartTextInput", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_StartTextInput", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_StartTextInput(SDL_Window* window);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_StartTextInputWithProperties", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_StartTextInputWithProperties", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_StartTextInputWithProperties(SDL_Window* window, uint props);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_TextInputActive", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_TextInputActive", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_TextInputActive(SDL_Window* window);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_StopTextInput", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_StopTextInput", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_StopTextInput(SDL_Window* window);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_ClearComposition", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_ClearComposition", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_ClearComposition(SDL_Window* window);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetTextInputArea", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetTextInputArea", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetTextInputArea(SDL_Window* window, SDL_Rect* rect, int cursor);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetTextInputArea", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetTextInputArea", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GetTextInputArea(SDL_Window* window, SDL_Rect* rect, nint cursor);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_HasScreenKeyboardSupport", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_HasScreenKeyboardSupport", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_HasScreenKeyboardSupport();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_ScreenKeyboardShown", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_ScreenKeyboardShown", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_ScreenKeyboardShown(SDL_Window* window);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_HasMouse", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_HasMouse", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_HasMouse();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetMice", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetMice", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint* SDL_GetMice(nint count);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetMouseNameForID", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetMouseNameForID", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetMouseNameForID(uint instance_id);
 
@@ -8216,104 +11566,104 @@ public static unsafe partial class NativeMethods
         return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
     }
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetMouseFocus", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetMouseFocus", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Window* SDL_GetMouseFocus();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetMouseState", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetMouseState", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint SDL_GetMouseState(nint x, nint y);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetGlobalMouseState", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetGlobalMouseState", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint SDL_GetGlobalMouseState(nint x, nint y);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetRelativeMouseState", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetRelativeMouseState", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint SDL_GetRelativeMouseState(nint x, nint y);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_WarpMouseInWindow", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_WarpMouseInWindow", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_WarpMouseInWindow(SDL_Window* window, float x, float y);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_WarpMouseGlobal", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_WarpMouseGlobal", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_WarpMouseGlobal(float x, float y);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetRelativeMouseTransform", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetRelativeMouseTransform", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetRelativeMouseTransform(nint callback, nint userdata);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetWindowRelativeMouseMode", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetWindowRelativeMouseMode", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetWindowRelativeMouseMode(SDL_Window* window, [MarshalAs(UnmanagedType.I1)] bool enabled);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetWindowRelativeMouseMode", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetWindowRelativeMouseMode", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GetWindowRelativeMouseMode(SDL_Window* window);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_CaptureMouse", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_CaptureMouse", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_CaptureMouse([MarshalAs(UnmanagedType.I1)] bool enabled);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_CreateCursor", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_CreateCursor", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Cursor* SDL_CreateCursor(byte* data, byte* mask, int w, int h, int hot_x, int hot_y);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_CreateColorCursor", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_CreateColorCursor", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Cursor* SDL_CreateColorCursor(SDL_Surface* surface, int hot_x, int hot_y);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_CreateAnimatedCursor", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_CreateAnimatedCursor", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Cursor* SDL_CreateAnimatedCursor(SDL_CursorFrameInfo* frames, int frame_count, int hot_x, int hot_y);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_CreateSystemCursor", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_CreateSystemCursor", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Cursor* SDL_CreateSystemCursor(SDL_SystemCursor id);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetCursor", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetCursor", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetCursor(SDL_Cursor* cursor);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetCursor", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetCursor", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Cursor* SDL_GetCursor();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetDefaultCursor", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetDefaultCursor", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Cursor* SDL_GetDefaultCursor();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_DestroyCursor", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_DestroyCursor", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_DestroyCursor(SDL_Cursor* cursor);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_ShowCursor", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_ShowCursor", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_ShowCursor();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_HideCursor", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_HideCursor", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_HideCursor();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_CursorVisible", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_CursorVisible", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_CursorVisible();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetTouchDevices", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetTouchDevices", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint* SDL_GetTouchDevices(nint count);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetTouchDeviceName", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetTouchDeviceName", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetTouchDeviceName(uint touchID);
 
@@ -8324,108 +11674,108 @@ public static unsafe partial class NativeMethods
         return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
     }
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetTouchDeviceType", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetTouchDeviceType", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_TouchDeviceType SDL_GetTouchDeviceType(uint touchID);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetTouchFingers", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetTouchFingers", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Finger** SDL_GetTouchFingers(uint touchID, nint count);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetPenDeviceType", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetPenDeviceType", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_PenDeviceType SDL_GetPenDeviceType(uint instance_id);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_PumpEvents", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_PumpEvents", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_PumpEvents();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_PeepEvents", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_PeepEvents", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial int SDL_PeepEvents(SDL_Event* events, int numevents, SDL_EventAction action, uint minType, uint maxType);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_HasEvent", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_HasEvent", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_HasEvent(uint type);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_HasEvents", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_HasEvents", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_HasEvents(uint minType, uint maxType);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_FlushEvent", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_FlushEvent", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_FlushEvent(uint type);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_FlushEvents", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_FlushEvents", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_FlushEvents(uint minType, uint maxType);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_PollEvent", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_PollEvent", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_PollEvent(SDL_Event* @event);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_WaitEvent", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_WaitEvent", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_WaitEvent(SDL_Event* @event);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_WaitEventTimeout", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_WaitEventTimeout", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_WaitEventTimeout(SDL_Event* @event, int timeoutMS);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_PushEvent", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_PushEvent", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_PushEvent(SDL_Event* @event);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetEventFilter", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetEventFilter", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_SetEventFilter(nint filter, nint userdata);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetEventFilter", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetEventFilter", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GetEventFilter(nint* filter, nint userdata);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_AddEventWatch", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_AddEventWatch", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_AddEventWatch(nint filter, nint userdata);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_RemoveEventWatch", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_RemoveEventWatch", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_RemoveEventWatch(nint filter, nint userdata);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_FilterEvents", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_FilterEvents", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_FilterEvents(nint filter, nint userdata);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetEventEnabled", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetEventEnabled", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_SetEventEnabled(uint type, [MarshalAs(UnmanagedType.I1)] bool enabled);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_EventEnabled", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_EventEnabled", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_EventEnabled(uint type);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_RegisterEvents", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_RegisterEvents", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint SDL_RegisterEvents(int numevents);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetWindowFromEvent", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetWindowFromEvent", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Window* SDL_GetWindowFromEvent(SDL_Event* @event);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetEventDescription", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetEventDescription", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial int SDL_GetEventDescription(SDL_Event* @event, string buf, int buflen);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetBasePath", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetBasePath", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetBasePath();
 
@@ -8436,7 +11786,7 @@ public static unsafe partial class NativeMethods
         return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
     }
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetPrefPath", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetPrefPath", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetPrefPath(string org, string app);
 
@@ -8447,7 +11797,7 @@ public static unsafe partial class NativeMethods
         return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
     }
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetUserFolder", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetUserFolder", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetUserFolder(SDL_Folder folder);
 
@@ -8458,41 +11808,41 @@ public static unsafe partial class NativeMethods
         return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
     }
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_CreateDirectory", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_CreateDirectory", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_CreateDirectory(string path);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_EnumerateDirectory", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_EnumerateDirectory", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_EnumerateDirectory(string path, nint callback, nint userdata);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_RemovePath", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_RemovePath", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_RemovePath(string path);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_RenamePath", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_RenamePath", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_RenamePath(string oldpath, string newpath);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_CopyFile", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_CopyFile", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_CopyFile(string oldpath, string newpath);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetPathInfo", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetPathInfo", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GetPathInfo(string path, SDL_PathInfo* info);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GlobDirectory", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GlobDirectory", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GlobDirectory(string path, string pattern, uint flags, nint count);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetCurrentDirectory", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetCurrentDirectory", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetCurrentDirectory();
 
@@ -8503,33 +11853,33 @@ public static unsafe partial class NativeMethods
         return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
     }
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GPUSupportsShaderFormats", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GPUSupportsShaderFormats", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GPUSupportsShaderFormats(uint format_flags, string name);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GPUSupportsProperties", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GPUSupportsProperties", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GPUSupportsProperties(uint props);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_CreateGPUDevice", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_CreateGPUDevice", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_GPUDevice* SDL_CreateGPUDevice(uint format_flags, [MarshalAs(UnmanagedType.I1)] bool debug_mode, string name);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_CreateGPUDeviceWithProperties", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_CreateGPUDeviceWithProperties", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_GPUDevice* SDL_CreateGPUDeviceWithProperties(uint props);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_DestroyGPUDevice", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_DestroyGPUDevice", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_DestroyGPUDevice(SDL_GPUDevice* device);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetNumGPUDrivers", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetNumGPUDrivers", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial int SDL_GetNumGPUDrivers();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetGPUDriver", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetGPUDriver", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetGPUDriver(int index);
 
@@ -8540,7 +11890,7 @@ public static unsafe partial class NativeMethods
         return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
     }
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetGPUDeviceDriver", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetGPUDeviceDriver", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetGPUDeviceDriver(SDL_GPUDevice* device);
 
@@ -8551,374 +11901,374 @@ public static unsafe partial class NativeMethods
         return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
     }
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetGPUShaderFormats", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetGPUShaderFormats", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint SDL_GetGPUShaderFormats(SDL_GPUDevice* device);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetGPUDeviceProperties", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetGPUDeviceProperties", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint SDL_GetGPUDeviceProperties(SDL_GPUDevice* device);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_CreateGPUComputePipeline", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_CreateGPUComputePipeline", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_GPUComputePipeline* SDL_CreateGPUComputePipeline(SDL_GPUDevice* device, SDL_GPUComputePipelineCreateInfo* createinfo);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_CreateGPUGraphicsPipeline", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_CreateGPUGraphicsPipeline", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_GPUGraphicsPipeline* SDL_CreateGPUGraphicsPipeline(SDL_GPUDevice* device, SDL_GPUGraphicsPipelineCreateInfo* createinfo);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_CreateGPUSampler", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_CreateGPUSampler", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_GPUSampler* SDL_CreateGPUSampler(SDL_GPUDevice* device, SDL_GPUSamplerCreateInfo* createinfo);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_CreateGPUShader", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_CreateGPUShader", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_GPUShader* SDL_CreateGPUShader(SDL_GPUDevice* device, SDL_GPUShaderCreateInfo* createinfo);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_CreateGPUTexture", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_CreateGPUTexture", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_GPUTexture* SDL_CreateGPUTexture(SDL_GPUDevice* device, SDL_GPUTextureCreateInfo* createinfo);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_CreateGPUBuffer", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_CreateGPUBuffer", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_GPUBuffer* SDL_CreateGPUBuffer(SDL_GPUDevice* device, SDL_GPUBufferCreateInfo* createinfo);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_CreateGPUTransferBuffer", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_CreateGPUTransferBuffer", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_GPUTransferBuffer* SDL_CreateGPUTransferBuffer(SDL_GPUDevice* device, SDL_GPUTransferBufferCreateInfo* createinfo);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetGPUBufferName", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetGPUBufferName", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_SetGPUBufferName(SDL_GPUDevice* device, SDL_GPUBuffer* buffer, string text);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetGPUTextureName", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetGPUTextureName", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_SetGPUTextureName(SDL_GPUDevice* device, SDL_GPUTexture* texture, string text);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_InsertGPUDebugLabel", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_InsertGPUDebugLabel", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_InsertGPUDebugLabel(SDL_GPUCommandBuffer* command_buffer, string text);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_PushGPUDebugGroup", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_PushGPUDebugGroup", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_PushGPUDebugGroup(SDL_GPUCommandBuffer* command_buffer, string name);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_PopGPUDebugGroup", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_PopGPUDebugGroup", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_PopGPUDebugGroup(SDL_GPUCommandBuffer* command_buffer);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_ReleaseGPUTexture", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_ReleaseGPUTexture", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_ReleaseGPUTexture(SDL_GPUDevice* device, SDL_GPUTexture* texture);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_ReleaseGPUSampler", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_ReleaseGPUSampler", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_ReleaseGPUSampler(SDL_GPUDevice* device, SDL_GPUSampler* sampler);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_ReleaseGPUBuffer", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_ReleaseGPUBuffer", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_ReleaseGPUBuffer(SDL_GPUDevice* device, SDL_GPUBuffer* buffer);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_ReleaseGPUTransferBuffer", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_ReleaseGPUTransferBuffer", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_ReleaseGPUTransferBuffer(SDL_GPUDevice* device, SDL_GPUTransferBuffer* transfer_buffer);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_ReleaseGPUComputePipeline", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_ReleaseGPUComputePipeline", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_ReleaseGPUComputePipeline(SDL_GPUDevice* device, SDL_GPUComputePipeline* compute_pipeline);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_ReleaseGPUShader", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_ReleaseGPUShader", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_ReleaseGPUShader(SDL_GPUDevice* device, SDL_GPUShader* shader);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_ReleaseGPUGraphicsPipeline", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_ReleaseGPUGraphicsPipeline", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_ReleaseGPUGraphicsPipeline(SDL_GPUDevice* device, SDL_GPUGraphicsPipeline* graphics_pipeline);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_AcquireGPUCommandBuffer", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_AcquireGPUCommandBuffer", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_GPUCommandBuffer* SDL_AcquireGPUCommandBuffer(SDL_GPUDevice* device);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_PushGPUVertexUniformData", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_PushGPUVertexUniformData", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_PushGPUVertexUniformData(SDL_GPUCommandBuffer* command_buffer, uint slot_index, nint data, uint length);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_PushGPUFragmentUniformData", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_PushGPUFragmentUniformData", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_PushGPUFragmentUniformData(SDL_GPUCommandBuffer* command_buffer, uint slot_index, nint data, uint length);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_PushGPUComputeUniformData", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_PushGPUComputeUniformData", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_PushGPUComputeUniformData(SDL_GPUCommandBuffer* command_buffer, uint slot_index, nint data, uint length);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_BeginGPURenderPass", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_BeginGPURenderPass", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_GPURenderPass* SDL_BeginGPURenderPass(SDL_GPUCommandBuffer* command_buffer, SDL_GPUColorTargetInfo* color_target_infos, uint num_color_targets, SDL_GPUDepthStencilTargetInfo* depth_stencil_target_info);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_BindGPUGraphicsPipeline", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_BindGPUGraphicsPipeline", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_BindGPUGraphicsPipeline(SDL_GPURenderPass* render_pass, SDL_GPUGraphicsPipeline* graphics_pipeline);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetGPUViewport", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetGPUViewport", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_SetGPUViewport(SDL_GPURenderPass* render_pass, SDL_GPUViewport* viewport);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetGPUScissor", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetGPUScissor", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_SetGPUScissor(SDL_GPURenderPass* render_pass, SDL_Rect* scissor);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetGPUBlendConstants", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetGPUBlendConstants", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_SetGPUBlendConstants(SDL_GPURenderPass* render_pass, SDL_FColor blend_constants);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetGPUStencilReference", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetGPUStencilReference", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_SetGPUStencilReference(SDL_GPURenderPass* render_pass, byte reference);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_BindGPUVertexBuffers", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_BindGPUVertexBuffers", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_BindGPUVertexBuffers(SDL_GPURenderPass* render_pass, uint first_slot, SDL_GPUBufferBinding* bindings, uint num_bindings);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_BindGPUIndexBuffer", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_BindGPUIndexBuffer", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_BindGPUIndexBuffer(SDL_GPURenderPass* render_pass, SDL_GPUBufferBinding* binding, SDL_GPUIndexElementSize index_element_size);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_BindGPUVertexSamplers", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_BindGPUVertexSamplers", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_BindGPUVertexSamplers(SDL_GPURenderPass* render_pass, uint first_slot, SDL_GPUTextureSamplerBinding* texture_sampler_bindings, uint num_bindings);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_BindGPUVertexStorageTextures", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_BindGPUVertexStorageTextures", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_BindGPUVertexStorageTextures(SDL_GPURenderPass* render_pass, uint first_slot, SDL_GPUTexture** storage_textures, uint num_bindings);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_BindGPUVertexStorageBuffers", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_BindGPUVertexStorageBuffers", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_BindGPUVertexStorageBuffers(SDL_GPURenderPass* render_pass, uint first_slot, SDL_GPUBuffer** storage_buffers, uint num_bindings);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_BindGPUFragmentSamplers", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_BindGPUFragmentSamplers", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_BindGPUFragmentSamplers(SDL_GPURenderPass* render_pass, uint first_slot, SDL_GPUTextureSamplerBinding* texture_sampler_bindings, uint num_bindings);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_BindGPUFragmentStorageTextures", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_BindGPUFragmentStorageTextures", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_BindGPUFragmentStorageTextures(SDL_GPURenderPass* render_pass, uint first_slot, SDL_GPUTexture** storage_textures, uint num_bindings);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_BindGPUFragmentStorageBuffers", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_BindGPUFragmentStorageBuffers", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_BindGPUFragmentStorageBuffers(SDL_GPURenderPass* render_pass, uint first_slot, SDL_GPUBuffer** storage_buffers, uint num_bindings);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_DrawGPUIndexedPrimitives", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_DrawGPUIndexedPrimitives", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_DrawGPUIndexedPrimitives(SDL_GPURenderPass* render_pass, uint num_indices, uint num_instances, uint first_index, int vertex_offset, uint first_instance);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_DrawGPUPrimitives", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_DrawGPUPrimitives", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_DrawGPUPrimitives(SDL_GPURenderPass* render_pass, uint num_vertices, uint num_instances, uint first_vertex, uint first_instance);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_DrawGPUPrimitivesIndirect", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_DrawGPUPrimitivesIndirect", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_DrawGPUPrimitivesIndirect(SDL_GPURenderPass* render_pass, SDL_GPUBuffer* buffer, uint offset, uint draw_count);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_DrawGPUIndexedPrimitivesIndirect", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_DrawGPUIndexedPrimitivesIndirect", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_DrawGPUIndexedPrimitivesIndirect(SDL_GPURenderPass* render_pass, SDL_GPUBuffer* buffer, uint offset, uint draw_count);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_EndGPURenderPass", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_EndGPURenderPass", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_EndGPURenderPass(SDL_GPURenderPass* render_pass);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_BeginGPUComputePass", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_BeginGPUComputePass", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_GPUComputePass* SDL_BeginGPUComputePass(SDL_GPUCommandBuffer* command_buffer, SDL_GPUStorageTextureReadWriteBinding* storage_texture_bindings, uint num_storage_texture_bindings, SDL_GPUStorageBufferReadWriteBinding* storage_buffer_bindings, uint num_storage_buffer_bindings);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_BindGPUComputePipeline", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_BindGPUComputePipeline", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_BindGPUComputePipeline(SDL_GPUComputePass* compute_pass, SDL_GPUComputePipeline* compute_pipeline);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_BindGPUComputeSamplers", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_BindGPUComputeSamplers", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_BindGPUComputeSamplers(SDL_GPUComputePass* compute_pass, uint first_slot, SDL_GPUTextureSamplerBinding* texture_sampler_bindings, uint num_bindings);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_BindGPUComputeStorageTextures", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_BindGPUComputeStorageTextures", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_BindGPUComputeStorageTextures(SDL_GPUComputePass* compute_pass, uint first_slot, SDL_GPUTexture** storage_textures, uint num_bindings);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_BindGPUComputeStorageBuffers", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_BindGPUComputeStorageBuffers", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_BindGPUComputeStorageBuffers(SDL_GPUComputePass* compute_pass, uint first_slot, SDL_GPUBuffer** storage_buffers, uint num_bindings);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_DispatchGPUCompute", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_DispatchGPUCompute", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_DispatchGPUCompute(SDL_GPUComputePass* compute_pass, uint groupcount_x, uint groupcount_y, uint groupcount_z);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_DispatchGPUComputeIndirect", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_DispatchGPUComputeIndirect", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_DispatchGPUComputeIndirect(SDL_GPUComputePass* compute_pass, SDL_GPUBuffer* buffer, uint offset);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_EndGPUComputePass", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_EndGPUComputePass", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_EndGPUComputePass(SDL_GPUComputePass* compute_pass);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_MapGPUTransferBuffer", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_MapGPUTransferBuffer", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nint SDL_MapGPUTransferBuffer(SDL_GPUDevice* device, SDL_GPUTransferBuffer* transfer_buffer, [MarshalAs(UnmanagedType.I1)] bool cycle);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_UnmapGPUTransferBuffer", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_UnmapGPUTransferBuffer", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_UnmapGPUTransferBuffer(SDL_GPUDevice* device, SDL_GPUTransferBuffer* transfer_buffer);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_BeginGPUCopyPass", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_BeginGPUCopyPass", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_GPUCopyPass* SDL_BeginGPUCopyPass(SDL_GPUCommandBuffer* command_buffer);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_UploadToGPUTexture", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_UploadToGPUTexture", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_UploadToGPUTexture(SDL_GPUCopyPass* copy_pass, SDL_GPUTextureTransferInfo* source, SDL_GPUTextureRegion* destination, [MarshalAs(UnmanagedType.I1)] bool cycle);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_UploadToGPUBuffer", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_UploadToGPUBuffer", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_UploadToGPUBuffer(SDL_GPUCopyPass* copy_pass, SDL_GPUTransferBufferLocation* source, SDL_GPUBufferRegion* destination, [MarshalAs(UnmanagedType.I1)] bool cycle);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_CopyGPUTextureToTexture", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_CopyGPUTextureToTexture", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_CopyGPUTextureToTexture(SDL_GPUCopyPass* copy_pass, SDL_GPUTextureLocation* source, SDL_GPUTextureLocation* destination, uint w, uint h, uint d, [MarshalAs(UnmanagedType.I1)] bool cycle);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_CopyGPUBufferToBuffer", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_CopyGPUBufferToBuffer", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_CopyGPUBufferToBuffer(SDL_GPUCopyPass* copy_pass, SDL_GPUBufferLocation* source, SDL_GPUBufferLocation* destination, uint size, [MarshalAs(UnmanagedType.I1)] bool cycle);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_DownloadFromGPUTexture", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_DownloadFromGPUTexture", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_DownloadFromGPUTexture(SDL_GPUCopyPass* copy_pass, SDL_GPUTextureRegion* source, SDL_GPUTextureTransferInfo* destination);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_DownloadFromGPUBuffer", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_DownloadFromGPUBuffer", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_DownloadFromGPUBuffer(SDL_GPUCopyPass* copy_pass, SDL_GPUBufferRegion* source, SDL_GPUTransferBufferLocation* destination);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_EndGPUCopyPass", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_EndGPUCopyPass", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_EndGPUCopyPass(SDL_GPUCopyPass* copy_pass);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GenerateMipmapsForGPUTexture", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GenerateMipmapsForGPUTexture", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_GenerateMipmapsForGPUTexture(SDL_GPUCommandBuffer* command_buffer, SDL_GPUTexture* texture);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_BlitGPUTexture", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_BlitGPUTexture", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_BlitGPUTexture(SDL_GPUCommandBuffer* command_buffer, SDL_GPUBlitInfo* info);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_WindowSupportsGPUSwapchainComposition", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_WindowSupportsGPUSwapchainComposition", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_WindowSupportsGPUSwapchainComposition(SDL_GPUDevice* device, SDL_Window* window, SDL_GPUSwapchainComposition swapchain_composition);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_WindowSupportsGPUPresentMode", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_WindowSupportsGPUPresentMode", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_WindowSupportsGPUPresentMode(SDL_GPUDevice* device, SDL_Window* window, SDL_GPUPresentMode present_mode);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_ClaimWindowForGPUDevice", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_ClaimWindowForGPUDevice", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_ClaimWindowForGPUDevice(SDL_GPUDevice* device, SDL_Window* window);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_ReleaseWindowFromGPUDevice", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_ReleaseWindowFromGPUDevice", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_ReleaseWindowFromGPUDevice(SDL_GPUDevice* device, SDL_Window* window);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetGPUSwapchainParameters", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetGPUSwapchainParameters", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetGPUSwapchainParameters(SDL_GPUDevice* device, SDL_Window* window, SDL_GPUSwapchainComposition swapchain_composition, SDL_GPUPresentMode present_mode);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetGPUAllowedFramesInFlight", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetGPUAllowedFramesInFlight", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetGPUAllowedFramesInFlight(SDL_GPUDevice* device, uint allowed_frames_in_flight);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetGPUSwapchainTextureFormat", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetGPUSwapchainTextureFormat", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_GPUTextureFormat SDL_GetGPUSwapchainTextureFormat(SDL_GPUDevice* device, SDL_Window* window);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_AcquireGPUSwapchainTexture", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_AcquireGPUSwapchainTexture", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_AcquireGPUSwapchainTexture(SDL_GPUCommandBuffer* command_buffer, SDL_Window* window, SDL_GPUTexture** swapchain_texture, uint* swapchain_texture_width, uint* swapchain_texture_height);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_WaitForGPUSwapchain", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_WaitForGPUSwapchain", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_WaitForGPUSwapchain(SDL_GPUDevice* device, SDL_Window* window);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_WaitAndAcquireGPUSwapchainTexture", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_WaitAndAcquireGPUSwapchainTexture", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_WaitAndAcquireGPUSwapchainTexture(SDL_GPUCommandBuffer* command_buffer, SDL_Window* window, SDL_GPUTexture** swapchain_texture, uint* swapchain_texture_width, uint* swapchain_texture_height);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SubmitGPUCommandBuffer", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SubmitGPUCommandBuffer", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SubmitGPUCommandBuffer(SDL_GPUCommandBuffer* command_buffer);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SubmitGPUCommandBufferAndAcquireFence", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SubmitGPUCommandBufferAndAcquireFence", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_GPUFence* SDL_SubmitGPUCommandBufferAndAcquireFence(SDL_GPUCommandBuffer* command_buffer);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_CancelGPUCommandBuffer", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_CancelGPUCommandBuffer", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_CancelGPUCommandBuffer(SDL_GPUCommandBuffer* command_buffer);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_WaitForGPUIdle", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_WaitForGPUIdle", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_WaitForGPUIdle(SDL_GPUDevice* device);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_WaitForGPUFences", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_WaitForGPUFences", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_WaitForGPUFences(SDL_GPUDevice* device, [MarshalAs(UnmanagedType.I1)] bool wait_all, SDL_GPUFence** fences, uint num_fences);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_QueryGPUFence", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_QueryGPUFence", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_QueryGPUFence(SDL_GPUDevice* device, SDL_GPUFence* fence);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_ReleaseGPUFence", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_ReleaseGPUFence", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_ReleaseGPUFence(SDL_GPUDevice* device, SDL_GPUFence* fence);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GPUTextureFormatTexelBlockSize", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GPUTextureFormatTexelBlockSize", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint SDL_GPUTextureFormatTexelBlockSize(SDL_GPUTextureFormat format);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GPUTextureSupportsFormat", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GPUTextureSupportsFormat", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GPUTextureSupportsFormat(SDL_GPUDevice* device, SDL_GPUTextureFormat format, SDL_GPUTextureType type, uint usage);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GPUTextureSupportsSampleCount", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GPUTextureSupportsSampleCount", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GPUTextureSupportsSampleCount(SDL_GPUDevice* device, SDL_GPUTextureFormat format, SDL_GPUSampleCount sample_count);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_CalculateGPUTextureFormatSize", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_CalculateGPUTextureFormatSize", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint SDL_CalculateGPUTextureFormatSize(SDL_GPUTextureFormat format, uint width, uint height, uint depth_or_layer_count);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetPixelFormatFromGPUTextureFormat", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetPixelFormatFromGPUTextureFormat", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_PixelFormat SDL_GetPixelFormatFromGPUTextureFormat(SDL_GPUTextureFormat format);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetGPUTextureFormatFromPixelFormat", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetGPUTextureFormatFromPixelFormat", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_GPUTextureFormat SDL_GetGPUTextureFormatFromPixelFormat(SDL_PixelFormat format);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetHaptics", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetHaptics", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint* SDL_GetHaptics(nint count);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetHapticNameForID", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetHapticNameForID", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetHapticNameForID(uint instance_id);
 
@@ -8929,19 +12279,19 @@ public static unsafe partial class NativeMethods
         return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
     }
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_OpenHaptic", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_OpenHaptic", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Haptic* SDL_OpenHaptic(uint instance_id);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetHapticFromID", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetHapticFromID", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Haptic* SDL_GetHapticFromID(uint instance_id);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetHapticID", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetHapticID", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint SDL_GetHapticID(SDL_Haptic* haptic);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetHapticName", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetHapticName", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetHapticName(SDL_Haptic* haptic);
 
@@ -8952,234 +12302,234 @@ public static unsafe partial class NativeMethods
         return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
     }
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_IsMouseHaptic", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_IsMouseHaptic", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_IsMouseHaptic();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_OpenHapticFromMouse", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_OpenHapticFromMouse", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Haptic* SDL_OpenHapticFromMouse();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_IsJoystickHaptic", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_IsJoystickHaptic", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_IsJoystickHaptic(SDL_Joystick* joystick);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_OpenHapticFromJoystick", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_OpenHapticFromJoystick", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Haptic* SDL_OpenHapticFromJoystick(SDL_Joystick* joystick);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_CloseHaptic", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_CloseHaptic", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_CloseHaptic(SDL_Haptic* haptic);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetMaxHapticEffects", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetMaxHapticEffects", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial int SDL_GetMaxHapticEffects(SDL_Haptic* haptic);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetMaxHapticEffectsPlaying", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetMaxHapticEffectsPlaying", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial int SDL_GetMaxHapticEffectsPlaying(SDL_Haptic* haptic);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetHapticFeatures", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetHapticFeatures", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint SDL_GetHapticFeatures(SDL_Haptic* haptic);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetNumHapticAxes", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetNumHapticAxes", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial int SDL_GetNumHapticAxes(SDL_Haptic* haptic);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_HapticEffectSupported", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_HapticEffectSupported", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_HapticEffectSupported(SDL_Haptic* haptic, SDL_HapticEffect* effect);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_CreateHapticEffect", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_CreateHapticEffect", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial int SDL_CreateHapticEffect(SDL_Haptic* haptic, SDL_HapticEffect* effect);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_UpdateHapticEffect", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_UpdateHapticEffect", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_UpdateHapticEffect(SDL_Haptic* haptic, int effect, SDL_HapticEffect* data);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_RunHapticEffect", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_RunHapticEffect", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_RunHapticEffect(SDL_Haptic* haptic, int effect, uint iterations);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_StopHapticEffect", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_StopHapticEffect", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_StopHapticEffect(SDL_Haptic* haptic, int effect);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_DestroyHapticEffect", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_DestroyHapticEffect", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_DestroyHapticEffect(SDL_Haptic* haptic, int effect);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetHapticEffectStatus", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetHapticEffectStatus", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GetHapticEffectStatus(SDL_Haptic* haptic, int effect);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetHapticGain", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetHapticGain", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetHapticGain(SDL_Haptic* haptic, int gain);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetHapticAutocenter", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetHapticAutocenter", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetHapticAutocenter(SDL_Haptic* haptic, int autocenter);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_PauseHaptic", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_PauseHaptic", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_PauseHaptic(SDL_Haptic* haptic);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_ResumeHaptic", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_ResumeHaptic", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_ResumeHaptic(SDL_Haptic* haptic);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_StopHapticEffects", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_StopHapticEffects", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_StopHapticEffects(SDL_Haptic* haptic);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_HapticRumbleSupported", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_HapticRumbleSupported", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_HapticRumbleSupported(SDL_Haptic* haptic);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_InitHapticRumble", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_InitHapticRumble", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_InitHapticRumble(SDL_Haptic* haptic);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_PlayHapticRumble", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_PlayHapticRumble", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_PlayHapticRumble(SDL_Haptic* haptic, float strength, uint length);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_StopHapticRumble", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_StopHapticRumble", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_StopHapticRumble(SDL_Haptic* haptic);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_hid_init", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_hid_init", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial int SDL_hid_init();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_hid_exit", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_hid_exit", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial int SDL_hid_exit();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_hid_device_change_count", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_hid_device_change_count", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint SDL_hid_device_change_count();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_hid_enumerate", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_hid_enumerate", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_hid_device_info* SDL_hid_enumerate(ushort vendor_id, ushort product_id);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_hid_free_enumeration", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_hid_free_enumeration", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_hid_free_enumeration(SDL_hid_device_info* devs);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_hid_open", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_hid_open", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_hid_device* SDL_hid_open(ushort vendor_id, ushort product_id, int* serial_number);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_hid_open_path", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_hid_open_path", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_hid_device* SDL_hid_open_path(string path);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_hid_get_properties", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_hid_get_properties", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint SDL_hid_get_properties(SDL_hid_device* dev);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_hid_write", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_hid_write", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial int SDL_hid_write(SDL_hid_device* dev, nint data, uint length);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_hid_read_timeout", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_hid_read_timeout", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial int SDL_hid_read_timeout(SDL_hid_device* dev, nint data, uint length, int milliseconds);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_hid_read", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_hid_read", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial int SDL_hid_read(SDL_hid_device* dev, nint data, uint length);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_hid_set_nonblocking", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_hid_set_nonblocking", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial int SDL_hid_set_nonblocking(SDL_hid_device* dev, int nonblock);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_hid_send_feature_report", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_hid_send_feature_report", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial int SDL_hid_send_feature_report(SDL_hid_device* dev, nint data, uint length);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_hid_get_feature_report", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_hid_get_feature_report", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial int SDL_hid_get_feature_report(SDL_hid_device* dev, nint data, uint length);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_hid_get_input_report", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_hid_get_input_report", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial int SDL_hid_get_input_report(SDL_hid_device* dev, nint data, uint length);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_hid_close", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_hid_close", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial int SDL_hid_close(SDL_hid_device* dev);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_hid_get_manufacturer_string", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_hid_get_manufacturer_string", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial int SDL_hid_get_manufacturer_string(SDL_hid_device* dev, int* @string, uint maxlen);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_hid_get_product_string", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_hid_get_product_string", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial int SDL_hid_get_product_string(SDL_hid_device* dev, int* @string, uint maxlen);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_hid_get_serial_number_string", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_hid_get_serial_number_string", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial int SDL_hid_get_serial_number_string(SDL_hid_device* dev, int* @string, uint maxlen);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_hid_get_indexed_string", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_hid_get_indexed_string", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial int SDL_hid_get_indexed_string(SDL_hid_device* dev, int string_index, int* @string, uint maxlen);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_hid_get_device_info", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_hid_get_device_info", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_hid_device_info* SDL_hid_get_device_info(SDL_hid_device* dev);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_hid_get_report_descriptor", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_hid_get_report_descriptor", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial int SDL_hid_get_report_descriptor(SDL_hid_device* dev, nint buf, uint buf_size);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_hid_ble_scan", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_hid_ble_scan", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_hid_ble_scan([MarshalAs(UnmanagedType.I1)] bool active);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetHintWithPriority", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetHintWithPriority", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetHintWithPriority(string name, string value, SDL_HintPriority priority);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetHint", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetHint", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetHint(string name, string value);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_ResetHint", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_ResetHint", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_ResetHint(string name);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_ResetHints", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_ResetHints", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_ResetHints();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetHint", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetHint", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetHint(string name);
 
@@ -9190,63 +12540,63 @@ public static unsafe partial class NativeMethods
         return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
     }
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetHintBoolean", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetHintBoolean", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GetHintBoolean(string name, [MarshalAs(UnmanagedType.I1)] bool default_value);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_AddHintCallback", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_AddHintCallback", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_AddHintCallback(string name, nint callback, nint userdata);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_RemoveHintCallback", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_RemoveHintCallback", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_RemoveHintCallback(string name, nint callback, nint userdata);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_Init", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_Init", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_Init(uint flags);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_InitSubSystem", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_InitSubSystem", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_InitSubSystem(uint flags);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_QuitSubSystem", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_QuitSubSystem", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_QuitSubSystem(uint flags);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_WasInit", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_WasInit", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint SDL_WasInit(uint flags);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_Quit", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_Quit", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_Quit();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_IsMainThread", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_IsMainThread", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_IsMainThread();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_RunOnMainThread", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_RunOnMainThread", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_RunOnMainThread(nint callback, nint userdata, [MarshalAs(UnmanagedType.I1)] bool wait_complete);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetAppMetadata", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetAppMetadata", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetAppMetadata(string appname, string appversion, string appidentifier);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetAppMetadataProperty", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetAppMetadataProperty", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetAppMetadataProperty(string name, string value);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetAppMetadataProperty", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetAppMetadataProperty", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetAppMetadataProperty(string name);
 
@@ -9257,83 +12607,83 @@ public static unsafe partial class NativeMethods
         return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
     }
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_LoadObject", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_LoadObject", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_SharedObject* SDL_LoadObject(string sofile);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_LoadFunction", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_LoadFunction", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nint SDL_LoadFunction(SDL_SharedObject* handle, string name);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_UnloadObject", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_UnloadObject", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_UnloadObject(SDL_SharedObject* handle);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetPreferredLocales", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetPreferredLocales", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Locale** SDL_GetPreferredLocales(nint count);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetLogPriorities", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetLogPriorities", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_SetLogPriorities(SDL_LogPriority priority);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetLogPriority", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetLogPriority", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_SetLogPriority(int category, SDL_LogPriority priority);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetLogPriority", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetLogPriority", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_LogPriority SDL_GetLogPriority(int category);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_ResetLogPriorities", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_ResetLogPriorities", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_ResetLogPriorities();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetLogPriorityPrefix", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetLogPriorityPrefix", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetLogPriorityPrefix(SDL_LogPriority priority, string prefix);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetDefaultLogOutputFunction", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetDefaultLogOutputFunction", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nint SDL_GetDefaultLogOutputFunction();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetLogOutputFunction", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetLogOutputFunction", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_GetLogOutputFunction(nint* callback, nint userdata);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetLogOutputFunction", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetLogOutputFunction", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_SetLogOutputFunction(nint callback, nint userdata);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_ShowMessageBox", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_ShowMessageBox", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_ShowMessageBox(SDL_MessageBoxData* messageboxdata, nint buttonid);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_ShowSimpleMessageBox", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_ShowSimpleMessageBox", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_ShowSimpleMessageBox(uint flags, string title, string message, SDL_Window* window);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_Metal_CreateView", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_Metal_CreateView", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nint SDL_Metal_CreateView(SDL_Window* window);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_Metal_DestroyView", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_Metal_DestroyView", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_Metal_DestroyView(nint view);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_Metal_GetLayer", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_Metal_GetLayer", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nint SDL_Metal_GetLayer(nint view);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_OpenURL", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_OpenURL", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_OpenURL(string url);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetPlatform", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetPlatform", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetPlatform();
 
@@ -9344,7 +12694,7 @@ public static unsafe partial class NativeMethods
         return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
     }
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_CreateProcess", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_CreateProcess", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Process* SDL_CreateProcess(nuint args, [MarshalAs(UnmanagedType.I1)] bool pipe_stdio);
 
@@ -9363,45 +12713,45 @@ public static unsafe partial class NativeMethods
         return result;
     }
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_CreateProcessWithProperties", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_CreateProcessWithProperties", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Process* SDL_CreateProcessWithProperties(uint props);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetProcessProperties", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetProcessProperties", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint SDL_GetProcessProperties(SDL_Process* process);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_ReadProcess", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_ReadProcess", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nint SDL_ReadProcess(SDL_Process* process, uint* datasize, nint exitcode);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetProcessInput", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetProcessInput", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_IOStream* SDL_GetProcessInput(SDL_Process* process);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetProcessOutput", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetProcessOutput", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_IOStream* SDL_GetProcessOutput(SDL_Process* process);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_KillProcess", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_KillProcess", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_KillProcess(SDL_Process* process, [MarshalAs(UnmanagedType.I1)] bool force);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_WaitProcess", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_WaitProcess", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_WaitProcess(SDL_Process* process, [MarshalAs(UnmanagedType.I1)] bool block, nint exitcode);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_DestroyProcess", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_DestroyProcess", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_DestroyProcess(SDL_Process* process);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetNumRenderDrivers", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetNumRenderDrivers", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial int SDL_GetNumRenderDrivers();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetRenderDriver", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetRenderDriver", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetRenderDriver(int index);
 
@@ -9412,40 +12762,40 @@ public static unsafe partial class NativeMethods
         return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
     }
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_CreateWindowAndRenderer", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_CreateWindowAndRenderer", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_CreateWindowAndRenderer(string title, int width, int height, uint window_flags, SDL_Window** window, SDL_Renderer** renderer);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_CreateRenderer", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_CreateRenderer", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Renderer* SDL_CreateRenderer(SDL_Window* window, string name);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_CreateRendererWithProperties", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_CreateRendererWithProperties", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Renderer* SDL_CreateRendererWithProperties(uint props);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_CreateGPURenderer", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_CreateGPURenderer", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Renderer* SDL_CreateGPURenderer(SDL_GPUDevice* device, SDL_Window* window);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetGPURendererDevice", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetGPURendererDevice", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_GPUDevice* SDL_GetGPURendererDevice(SDL_Renderer* renderer);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_CreateSoftwareRenderer", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_CreateSoftwareRenderer", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Renderer* SDL_CreateSoftwareRenderer(SDL_Surface* surface);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetRenderer", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetRenderer", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Renderer* SDL_GetRenderer(SDL_Window* window);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetRenderWindow", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetRenderWindow", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Window* SDL_GetRenderWindow(SDL_Renderer* renderer);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetRendererName", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetRendererName", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetRendererName(SDL_Renderer* renderer);
 
@@ -9456,697 +12806,697 @@ public static unsafe partial class NativeMethods
         return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
     }
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetRendererProperties", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetRendererProperties", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint SDL_GetRendererProperties(SDL_Renderer* renderer);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetRenderOutputSize", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetRenderOutputSize", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GetRenderOutputSize(SDL_Renderer* renderer, nint w, nint h);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetCurrentRenderOutputSize", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetCurrentRenderOutputSize", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GetCurrentRenderOutputSize(SDL_Renderer* renderer, nint w, nint h);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_CreateTexture", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_CreateTexture", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Texture* SDL_CreateTexture(SDL_Renderer* renderer, SDL_PixelFormat format, SDL_TextureAccess access, int w, int h);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_CreateTextureFromSurface", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_CreateTextureFromSurface", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Texture* SDL_CreateTextureFromSurface(SDL_Renderer* renderer, SDL_Surface* surface);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_CreateTextureWithProperties", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_CreateTextureWithProperties", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Texture* SDL_CreateTextureWithProperties(SDL_Renderer* renderer, uint props);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetTextureProperties", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetTextureProperties", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint SDL_GetTextureProperties(SDL_Texture* texture);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetRendererFromTexture", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetRendererFromTexture", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Renderer* SDL_GetRendererFromTexture(SDL_Texture* texture);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetTextureSize", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetTextureSize", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GetTextureSize(SDL_Texture* texture, nint w, nint h);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetTexturePalette", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetTexturePalette", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetTexturePalette(SDL_Texture* texture, SDL_Palette* palette);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetTexturePalette", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetTexturePalette", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Palette* SDL_GetTexturePalette(SDL_Texture* texture);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetTextureColorMod", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetTextureColorMod", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetTextureColorMod(SDL_Texture* texture, byte r, byte g, byte b);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetTextureColorModFloat", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetTextureColorModFloat", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetTextureColorModFloat(SDL_Texture* texture, float r, float g, float b);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetTextureColorMod", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetTextureColorMod", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GetTextureColorMod(SDL_Texture* texture, byte* r, byte* g, byte* b);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetTextureColorModFloat", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetTextureColorModFloat", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GetTextureColorModFloat(SDL_Texture* texture, nint r, nint g, nint b);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetTextureAlphaMod", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetTextureAlphaMod", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetTextureAlphaMod(SDL_Texture* texture, byte alpha);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetTextureAlphaModFloat", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetTextureAlphaModFloat", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetTextureAlphaModFloat(SDL_Texture* texture, float alpha);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetTextureAlphaMod", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetTextureAlphaMod", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GetTextureAlphaMod(SDL_Texture* texture, byte* alpha);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetTextureAlphaModFloat", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetTextureAlphaModFloat", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GetTextureAlphaModFloat(SDL_Texture* texture, nint alpha);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetTextureBlendMode", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetTextureBlendMode", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetTextureBlendMode(SDL_Texture* texture, uint blendMode);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetTextureBlendMode", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetTextureBlendMode", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GetTextureBlendMode(SDL_Texture* texture, uint* blendMode);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetTextureScaleMode", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetTextureScaleMode", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetTextureScaleMode(SDL_Texture* texture, SDL_ScaleMode scaleMode);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetTextureScaleMode", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetTextureScaleMode", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GetTextureScaleMode(SDL_Texture* texture, SDL_ScaleMode* scaleMode);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_UpdateTexture", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_UpdateTexture", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_UpdateTexture(SDL_Texture* texture, SDL_Rect* rect, nint pixels, int pitch);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_UpdateYUVTexture", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_UpdateYUVTexture", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_UpdateYUVTexture(SDL_Texture* texture, SDL_Rect* rect, byte* Yplane, int Ypitch, byte* Uplane, int Upitch, byte* Vplane, int Vpitch);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_UpdateNVTexture", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_UpdateNVTexture", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_UpdateNVTexture(SDL_Texture* texture, SDL_Rect* rect, byte* Yplane, int Ypitch, byte* UVplane, int UVpitch);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_LockTexture", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_LockTexture", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_LockTexture(SDL_Texture* texture, SDL_Rect* rect, nint pixels, nint pitch);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_LockTextureToSurface", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_LockTextureToSurface", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_LockTextureToSurface(SDL_Texture* texture, SDL_Rect* rect, SDL_Surface** surface);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_UnlockTexture", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_UnlockTexture", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_UnlockTexture(SDL_Texture* texture);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetRenderTarget", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetRenderTarget", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetRenderTarget(SDL_Renderer* renderer, SDL_Texture* texture);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetRenderTarget", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetRenderTarget", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Texture* SDL_GetRenderTarget(SDL_Renderer* renderer);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetRenderLogicalPresentation", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetRenderLogicalPresentation", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetRenderLogicalPresentation(SDL_Renderer* renderer, int w, int h, SDL_RendererLogicalPresentation mode);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetRenderLogicalPresentation", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetRenderLogicalPresentation", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GetRenderLogicalPresentation(SDL_Renderer* renderer, nint w, nint h, SDL_RendererLogicalPresentation* mode);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetRenderLogicalPresentationRect", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetRenderLogicalPresentationRect", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GetRenderLogicalPresentationRect(SDL_Renderer* renderer, SDL_FRect* rect);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_RenderCoordinatesFromWindow", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_RenderCoordinatesFromWindow", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_RenderCoordinatesFromWindow(SDL_Renderer* renderer, float window_x, float window_y, nint x, nint y);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_RenderCoordinatesToWindow", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_RenderCoordinatesToWindow", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_RenderCoordinatesToWindow(SDL_Renderer* renderer, float x, float y, nint window_x, nint window_y);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_ConvertEventToRenderCoordinates", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_ConvertEventToRenderCoordinates", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_ConvertEventToRenderCoordinates(SDL_Renderer* renderer, SDL_Event* @event);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetRenderViewport", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetRenderViewport", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetRenderViewport(SDL_Renderer* renderer, SDL_Rect* rect);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetRenderViewport", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetRenderViewport", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GetRenderViewport(SDL_Renderer* renderer, SDL_Rect* rect);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_RenderViewportSet", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_RenderViewportSet", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_RenderViewportSet(SDL_Renderer* renderer);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetRenderSafeArea", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetRenderSafeArea", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GetRenderSafeArea(SDL_Renderer* renderer, SDL_Rect* rect);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetRenderClipRect", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetRenderClipRect", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetRenderClipRect(SDL_Renderer* renderer, SDL_Rect* rect);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetRenderClipRect", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetRenderClipRect", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GetRenderClipRect(SDL_Renderer* renderer, SDL_Rect* rect);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_RenderClipEnabled", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_RenderClipEnabled", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_RenderClipEnabled(SDL_Renderer* renderer);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetRenderScale", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetRenderScale", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetRenderScale(SDL_Renderer* renderer, float scaleX, float scaleY);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetRenderScale", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetRenderScale", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GetRenderScale(SDL_Renderer* renderer, nint scaleX, nint scaleY);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetRenderDrawColor", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetRenderDrawColor", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetRenderDrawColor(SDL_Renderer* renderer, byte r, byte g, byte b, byte a);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetRenderDrawColorFloat", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetRenderDrawColorFloat", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetRenderDrawColorFloat(SDL_Renderer* renderer, float r, float g, float b, float a);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetRenderDrawColor", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetRenderDrawColor", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GetRenderDrawColor(SDL_Renderer* renderer, byte* r, byte* g, byte* b, byte* a);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetRenderDrawColorFloat", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetRenderDrawColorFloat", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GetRenderDrawColorFloat(SDL_Renderer* renderer, nint r, nint g, nint b, nint a);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetRenderColorScale", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetRenderColorScale", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetRenderColorScale(SDL_Renderer* renderer, float scale);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetRenderColorScale", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetRenderColorScale", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GetRenderColorScale(SDL_Renderer* renderer, nint scale);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetRenderDrawBlendMode", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetRenderDrawBlendMode", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetRenderDrawBlendMode(SDL_Renderer* renderer, uint blendMode);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetRenderDrawBlendMode", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetRenderDrawBlendMode", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GetRenderDrawBlendMode(SDL_Renderer* renderer, uint* blendMode);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_RenderClear", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_RenderClear", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_RenderClear(SDL_Renderer* renderer);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_RenderPoint", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_RenderPoint", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_RenderPoint(SDL_Renderer* renderer, float x, float y);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_RenderPoints", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_RenderPoints", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_RenderPoints(SDL_Renderer* renderer, SDL_FPoint* points, int count);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_RenderLine", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_RenderLine", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_RenderLine(SDL_Renderer* renderer, float x1, float y1, float x2, float y2);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_RenderLines", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_RenderLines", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_RenderLines(SDL_Renderer* renderer, SDL_FPoint* points, int count);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_RenderRect", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_RenderRect", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_RenderRect(SDL_Renderer* renderer, SDL_FRect* rect);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_RenderRects", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_RenderRects", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_RenderRects(SDL_Renderer* renderer, SDL_FRect* rects, int count);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_RenderFillRect", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_RenderFillRect", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_RenderFillRect(SDL_Renderer* renderer, SDL_FRect* rect);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_RenderFillRects", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_RenderFillRects", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_RenderFillRects(SDL_Renderer* renderer, SDL_FRect* rects, int count);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_RenderTexture", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_RenderTexture", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_RenderTexture(SDL_Renderer* renderer, SDL_Texture* texture, SDL_FRect* srcrect, SDL_FRect* dstrect);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_RenderTextureRotated", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_RenderTextureRotated", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_RenderTextureRotated(SDL_Renderer* renderer, SDL_Texture* texture, SDL_FRect* srcrect, SDL_FRect* dstrect, double angle, SDL_FPoint* center, SDL_FlipMode flip);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_RenderTextureAffine", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_RenderTextureAffine", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_RenderTextureAffine(SDL_Renderer* renderer, SDL_Texture* texture, SDL_FRect* srcrect, SDL_FPoint* origin, SDL_FPoint* right, SDL_FPoint* down);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_RenderTextureTiled", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_RenderTextureTiled", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_RenderTextureTiled(SDL_Renderer* renderer, SDL_Texture* texture, SDL_FRect* srcrect, float scale, SDL_FRect* dstrect);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_RenderTexture9Grid", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_RenderTexture9Grid", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_RenderTexture9Grid(SDL_Renderer* renderer, SDL_Texture* texture, SDL_FRect* srcrect, float left_width, float right_width, float top_height, float bottom_height, float scale, SDL_FRect* dstrect);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_RenderTexture9GridTiled", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_RenderTexture9GridTiled", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_RenderTexture9GridTiled(SDL_Renderer* renderer, SDL_Texture* texture, SDL_FRect* srcrect, float left_width, float right_width, float top_height, float bottom_height, float scale, SDL_FRect* dstrect, float tileScale);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_RenderGeometry", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_RenderGeometry", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_RenderGeometry(SDL_Renderer* renderer, SDL_Texture* texture, SDL_Vertex* vertices, int num_vertices, nint indices, int num_indices);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_RenderGeometryRaw", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_RenderGeometryRaw", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_RenderGeometryRaw(SDL_Renderer* renderer, SDL_Texture* texture, nint xy, int xy_stride, SDL_FColor* color, int color_stride, nint uv, int uv_stride, int num_vertices, nint indices, int num_indices, int size_indices);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetRenderTextureAddressMode", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetRenderTextureAddressMode", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetRenderTextureAddressMode(SDL_Renderer* renderer, SDL_TextureAddressMode u_mode, SDL_TextureAddressMode v_mode);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetRenderTextureAddressMode", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetRenderTextureAddressMode", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GetRenderTextureAddressMode(SDL_Renderer* renderer, SDL_TextureAddressMode* u_mode, SDL_TextureAddressMode* v_mode);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_RenderReadPixels", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_RenderReadPixels", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Surface* SDL_RenderReadPixels(SDL_Renderer* renderer, SDL_Rect* rect);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_RenderPresent", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_RenderPresent", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_RenderPresent(SDL_Renderer* renderer);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_DestroyTexture", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_DestroyTexture", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_DestroyTexture(SDL_Texture* texture);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_DestroyRenderer", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_DestroyRenderer", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_DestroyRenderer(SDL_Renderer* renderer);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_FlushRenderer", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_FlushRenderer", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_FlushRenderer(SDL_Renderer* renderer);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetRenderMetalLayer", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetRenderMetalLayer", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nint SDL_GetRenderMetalLayer(SDL_Renderer* renderer);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetRenderMetalCommandEncoder", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetRenderMetalCommandEncoder", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nint SDL_GetRenderMetalCommandEncoder(SDL_Renderer* renderer);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_AddVulkanRenderSemaphores", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_AddVulkanRenderSemaphores", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_AddVulkanRenderSemaphores(SDL_Renderer* renderer, uint wait_stage_mask, int wait_semaphore, int signal_semaphore);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetRenderVSync", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetRenderVSync", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetRenderVSync(SDL_Renderer* renderer, int vsync);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetRenderVSync", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetRenderVSync", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GetRenderVSync(SDL_Renderer* renderer, nint vsync);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_RenderDebugText", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_RenderDebugText", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_RenderDebugText(SDL_Renderer* renderer, float x, float y, string str);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetDefaultTextureScaleMode", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetDefaultTextureScaleMode", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetDefaultTextureScaleMode(SDL_Renderer* renderer, SDL_ScaleMode scale_mode);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetDefaultTextureScaleMode", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetDefaultTextureScaleMode", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GetDefaultTextureScaleMode(SDL_Renderer* renderer, SDL_ScaleMode* scale_mode);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_CreateGPURenderState", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_CreateGPURenderState", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_GPURenderState* SDL_CreateGPURenderState(SDL_Renderer* renderer, SDL_GPURenderStateCreateInfo* createinfo);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetGPURenderStateFragmentUniforms", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetGPURenderStateFragmentUniforms", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetGPURenderStateFragmentUniforms(SDL_GPURenderState* state, uint slot_index, nint data, uint length);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetGPURenderState", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetGPURenderState", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetGPURenderState(SDL_Renderer* renderer, SDL_GPURenderState* state);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_DestroyGPURenderState", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_DestroyGPURenderState", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_DestroyGPURenderState(SDL_GPURenderState* state);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_OpenTitleStorage", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_OpenTitleStorage", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Storage* SDL_OpenTitleStorage(string @override, uint props);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_OpenUserStorage", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_OpenUserStorage", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Storage* SDL_OpenUserStorage(string org, string app, uint props);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_OpenFileStorage", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_OpenFileStorage", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Storage* SDL_OpenFileStorage(string path);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_OpenStorage", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_OpenStorage", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Storage* SDL_OpenStorage(SDL_StorageInterface* iface, nint userdata);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_CloseStorage", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_CloseStorage", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_CloseStorage(SDL_Storage* storage);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_StorageReady", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_StorageReady", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_StorageReady(SDL_Storage* storage);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetStorageFileSize", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetStorageFileSize", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GetStorageFileSize(SDL_Storage* storage, string path, uint* length);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_ReadStorageFile", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_ReadStorageFile", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_ReadStorageFile(SDL_Storage* storage, string path, nint destination, uint length);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_WriteStorageFile", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_WriteStorageFile", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_WriteStorageFile(SDL_Storage* storage, string path, nint source, uint length);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_CreateStorageDirectory", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_CreateStorageDirectory", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_CreateStorageDirectory(SDL_Storage* storage, string path);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_EnumerateStorageDirectory", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_EnumerateStorageDirectory", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_EnumerateStorageDirectory(SDL_Storage* storage, string path, nint callback, nint userdata);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_RemoveStoragePath", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_RemoveStoragePath", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_RemoveStoragePath(SDL_Storage* storage, string path);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_RenameStoragePath", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_RenameStoragePath", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_RenameStoragePath(SDL_Storage* storage, string oldpath, string newpath);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_CopyStorageFile", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_CopyStorageFile", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_CopyStorageFile(SDL_Storage* storage, string oldpath, string newpath);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetStoragePathInfo", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetStoragePathInfo", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GetStoragePathInfo(SDL_Storage* storage, string path, SDL_PathInfo* info);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetStorageSpaceRemaining", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetStorageSpaceRemaining", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint SDL_GetStorageSpaceRemaining(SDL_Storage* storage);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GlobStorageDirectory", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GlobStorageDirectory", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GlobStorageDirectory(SDL_Storage* storage, string path, string pattern, uint flags, nint count);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetX11EventHook", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetX11EventHook", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_SetX11EventHook(nint callback, nint userdata);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetLinuxThreadPriority", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetLinuxThreadPriority", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetLinuxThreadPriority(int threadID, int priority);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetLinuxThreadPriorityAndPolicy", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetLinuxThreadPriorityAndPolicy", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_SetLinuxThreadPriorityAndPolicy(int threadID, int sdlPriority, int schedPolicy);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_IsTablet", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_IsTablet", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_IsTablet();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_IsTV", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_IsTV", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_IsTV();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetSandbox", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetSandbox", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Sandbox SDL_GetSandbox();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_OnApplicationWillTerminate", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_OnApplicationWillTerminate", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_OnApplicationWillTerminate();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_OnApplicationDidReceiveMemoryWarning", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_OnApplicationDidReceiveMemoryWarning", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_OnApplicationDidReceiveMemoryWarning();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_OnApplicationWillEnterBackground", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_OnApplicationWillEnterBackground", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_OnApplicationWillEnterBackground();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_OnApplicationDidEnterBackground", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_OnApplicationDidEnterBackground", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_OnApplicationDidEnterBackground();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_OnApplicationWillEnterForeground", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_OnApplicationWillEnterForeground", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_OnApplicationWillEnterForeground();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_OnApplicationDidEnterForeground", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_OnApplicationDidEnterForeground", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_OnApplicationDidEnterForeground();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetDateTimeLocalePreferences", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetDateTimeLocalePreferences", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GetDateTimeLocalePreferences(SDL_DateFormat* dateFormat, SDL_TimeFormat* timeFormat);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetCurrentTime", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetCurrentTime", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GetCurrentTime(int* ticks);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_TimeToDateTime", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_TimeToDateTime", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_TimeToDateTime(int ticks, SDL_DateTime* dt, [MarshalAs(UnmanagedType.I1)] bool localTime);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_DateTimeToTime", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_DateTimeToTime", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_DateTimeToTime(SDL_DateTime* dt, int* ticks);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_TimeToWindows", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_TimeToWindows", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_TimeToWindows(int ticks, uint* dwLowDateTime, uint* dwHighDateTime);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_TimeFromWindows", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_TimeFromWindows", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial int SDL_TimeFromWindows(uint dwLowDateTime, uint dwHighDateTime);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetDaysInMonth", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetDaysInMonth", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial int SDL_GetDaysInMonth(int year, int month);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetDayOfYear", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetDayOfYear", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial int SDL_GetDayOfYear(int year, int month, int day);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetDayOfWeek", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetDayOfWeek", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial int SDL_GetDayOfWeek(int year, int month, int day);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetTicks", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetTicks", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint SDL_GetTicks();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetTicksNS", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetTicksNS", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint SDL_GetTicksNS();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetPerformanceCounter", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetPerformanceCounter", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint SDL_GetPerformanceCounter();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetPerformanceFrequency", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetPerformanceFrequency", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint SDL_GetPerformanceFrequency();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_Delay", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_Delay", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_Delay(uint ms);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_DelayNS", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_DelayNS", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_DelayNS(uint ns);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_DelayPrecise", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_DelayPrecise", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_DelayPrecise(uint ns);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_AddTimer", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_AddTimer", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint SDL_AddTimer(uint interval, nint callback, nint userdata);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_AddTimerNS", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_AddTimerNS", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial uint SDL_AddTimerNS(uint interval, nint callback, nint userdata);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_RemoveTimer", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_RemoveTimer", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_RemoveTimer(uint id);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_CreateTray", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_CreateTray", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Tray* SDL_CreateTray(SDL_Surface* icon, string tooltip);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetTrayIcon", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetTrayIcon", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_SetTrayIcon(SDL_Tray* tray, SDL_Surface* icon);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetTrayTooltip", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetTrayTooltip", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_SetTrayTooltip(SDL_Tray* tray, string tooltip);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_CreateTrayMenu", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_CreateTrayMenu", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_TrayMenu* SDL_CreateTrayMenu(SDL_Tray* tray);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_CreateTraySubmenu", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_CreateTraySubmenu", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_TrayMenu* SDL_CreateTraySubmenu(SDL_TrayEntry* entry);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetTrayMenu", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetTrayMenu", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_TrayMenu* SDL_GetTrayMenu(SDL_Tray* tray);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetTraySubmenu", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetTraySubmenu", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_TrayMenu* SDL_GetTraySubmenu(SDL_TrayEntry* entry);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetTrayEntries", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetTrayEntries", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_TrayEntry** SDL_GetTrayEntries(SDL_TrayMenu* menu, nint count);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_RemoveTrayEntry", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_RemoveTrayEntry", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_RemoveTrayEntry(SDL_TrayEntry* entry);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_InsertTrayEntryAt", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_InsertTrayEntryAt", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_TrayEntry* SDL_InsertTrayEntryAt(SDL_TrayMenu* menu, int pos, string label, uint flags);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetTrayEntryLabel", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetTrayEntryLabel", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_SetTrayEntryLabel(SDL_TrayEntry* entry, string label);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetTrayEntryLabel", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetTrayEntryLabel", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetTrayEntryLabel(SDL_TrayEntry* entry);
 
@@ -10157,57 +13507,57 @@ public static unsafe partial class NativeMethods
         return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
     }
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetTrayEntryChecked", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetTrayEntryChecked", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_SetTrayEntryChecked(SDL_TrayEntry* entry, [MarshalAs(UnmanagedType.I1)] bool @checked);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetTrayEntryChecked", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetTrayEntryChecked", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GetTrayEntryChecked(SDL_TrayEntry* entry);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetTrayEntryEnabled", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetTrayEntryEnabled", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_SetTrayEntryEnabled(SDL_TrayEntry* entry, [MarshalAs(UnmanagedType.I1)] bool enabled);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetTrayEntryEnabled", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetTrayEntryEnabled", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     [return: MarshalAs(UnmanagedType.I1)]
     public static partial bool SDL_GetTrayEntryEnabled(SDL_TrayEntry* entry);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_SetTrayEntryCallback", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_SetTrayEntryCallback", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_SetTrayEntryCallback(SDL_TrayEntry* entry, nint callback, nint userdata);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_ClickTrayEntry", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_ClickTrayEntry", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_ClickTrayEntry(SDL_TrayEntry* entry);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_DestroyTray", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_DestroyTray", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_DestroyTray(SDL_Tray* tray);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetTrayEntryParent", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetTrayEntryParent", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_TrayMenu* SDL_GetTrayEntryParent(SDL_TrayEntry* entry);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetTrayMenuParentEntry", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetTrayMenuParentEntry", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_TrayEntry* SDL_GetTrayMenuParentEntry(SDL_TrayMenu* menu);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetTrayMenuParentTray", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetTrayMenuParentTray", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial SDL_Tray* SDL_GetTrayMenuParentTray(SDL_TrayMenu* menu);
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_UpdateTrays", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_UpdateTrays", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial void SDL_UpdateTrays();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetVersion", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetVersion", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial int SDL_GetVersion();
 
-    [LibraryImport("libtcod", EntryPoint = "SDL_GetRevision", StringMarshalling = StringMarshalling.Utf8)]
+    [LibraryImport("SDL3", EntryPoint = "SDL_GetRevision", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
     public static partial nuint SDL_GetRevision();
 

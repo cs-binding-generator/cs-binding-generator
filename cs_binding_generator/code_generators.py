@@ -9,12 +9,11 @@ from .type_mapper import TypeMapper
 class CodeGenerator:
     """Generates C# code from libclang AST nodes"""
     
-    def __init__(self, library_name: str, type_mapper: TypeMapper):
-        self.library_name = library_name
+    def __init__(self, type_mapper: TypeMapper):
         self.type_mapper = type_mapper
         self.anonymous_enum_counter = 0
     
-    def generate_function(self, cursor) -> str:
+    def generate_function(self, cursor, library_name: str) -> str:
         """Generate C# LibraryImport for a function"""
         func_name = cursor.spelling
         result_type = self.type_mapper.map_type(cursor.result_type, is_return_type=True)
@@ -74,7 +73,7 @@ class CodeGenerator:
             return_marshal = "    [return: MarshalAs(UnmanagedType.I1)]\n"
         
         # Generate LibraryImport attribute and method with StringMarshalling
-        code = f'''    [LibraryImport("{self.library_name}", EntryPoint = "{func_name}", StringMarshalling = StringMarshalling.Utf8)]
+        code = f'''    [LibraryImport("{library_name}", EntryPoint = "{func_name}", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
 {return_marshal}    public static partial {result_type} {func_name}({params_str});
 '''

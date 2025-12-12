@@ -13,8 +13,8 @@ class TestCSharpBindingsGenerator:
     
     def test_generate_from_simple_header(self, temp_header_file):
         """Test generating bindings from a simple header file"""
-        generator = CSharpBindingsGenerator("testlib")
-        output = generator.generate([temp_header_file], namespace="Test")
+        generator = CSharpBindingsGenerator()
+        output = generator.generate([(temp_header_file, "testlib")], namespace="Test")
         
         # Check basic structure
         assert "namespace Test;" in output
@@ -41,8 +41,8 @@ class TestCSharpBindingsGenerator:
     
     def test_generate_from_complex_header(self, complex_header_file):
         """Test generating bindings from a complex header file"""
-        generator = CSharpBindingsGenerator("nativelib")
-        output = generator.generate([complex_header_file], namespace="MyApp.Native")
+        generator = CSharpBindingsGenerator()
+        output = generator.generate([(complex_header_file, "nativelib")], namespace="MyApp.Native")
         
         # Check namespace
         assert "namespace MyApp.Native;" in output
@@ -73,10 +73,10 @@ class TestCSharpBindingsGenerator:
     
     def test_generate_to_file(self, temp_header_file, tmp_path):
         """Test generating bindings to an output file"""
-        generator = CSharpBindingsGenerator("mylib")
+        generator = CSharpBindingsGenerator()
         output_file = tmp_path / "Bindings.cs"
         
-        generator.generate([temp_header_file], output_file=str(output_file))
+        generator.generate([(temp_header_file, "testlib")], output_file=str(output_file))
         
         # Verify file was created
         assert output_file.exists()
@@ -88,9 +88,9 @@ class TestCSharpBindingsGenerator:
     
     def test_generate_multiple_headers(self, temp_header_file, complex_header_file):
         """Test generating bindings from multiple header files"""
-        generator = CSharpBindingsGenerator("multilib")
+        generator = CSharpBindingsGenerator()
         output = generator.generate(
-            [temp_header_file, complex_header_file],
+            [(temp_header_file, "testlib"), (complex_header_file, "nativelib")],
             namespace="Combined"
         )
         
@@ -104,11 +104,11 @@ class TestCSharpBindingsGenerator:
     
     def test_generate_nonexistent_file(self, capsys):
         """Test handling of nonexistent header files"""
-        generator = CSharpBindingsGenerator("testlib")
+        generator = CSharpBindingsGenerator()
         
         # Should raise FileNotFoundError by default
         with pytest.raises(FileNotFoundError) as excinfo:
-            generator.generate(["/nonexistent/file.h"])
+            generator.generate([("/nonexistent/file.h", "testlib")])
         
         assert "Header file not found" in str(excinfo.value)
         assert "/nonexistent/file.h" in str(excinfo.value)
@@ -119,8 +119,8 @@ class TestCSharpBindingsGenerator:
     
     def test_generate_nonexistent_file_with_ignore_missing(self, capsys):
         """Test handling of nonexistent header files with ignore_missing=True"""
-        generator = CSharpBindingsGenerator("testlib")
-        output = generator.generate(["/nonexistent/file.h"], ignore_missing=True)
+        generator = CSharpBindingsGenerator()
+        output = generator.generate([("/nonexistent/file.h", "testlib")], ignore_missing=True)
         
         # Should still generate valid output (empty)
         assert "namespace Bindings;" in output
@@ -131,14 +131,14 @@ class TestCSharpBindingsGenerator:
     
     def test_generate_mixed_existing_nonexistent_files(self, temp_header_file, capsys):
         """Test handling mix of existing and nonexistent files"""
-        generator = CSharpBindingsGenerator("testlib")
+        generator = CSharpBindingsGenerator()
         
         # Should fail by default if ANY file is missing
         with pytest.raises(FileNotFoundError):
-            generator.generate([temp_header_file, "/nonexistent/file.h"])
+            generator.generate([(temp_header_file, "testlib"), ("/nonexistent/file.h", "testlib")])
         
         # Should succeed with ignore_missing=True, processing only valid files
-        output = generator.generate([temp_header_file, "/nonexistent/file.h"], ignore_missing=True)
+        output = generator.generate([(temp_header_file, "testlib"), ("/nonexistent/file.h", "testlib")], ignore_missing=True)
         assert "public unsafe partial struct Point" in output
         
         captured = capsys.readouterr()
@@ -146,38 +146,38 @@ class TestCSharpBindingsGenerator:
     
     def test_custom_namespace(self, temp_header_file):
         """Test using custom namespace"""
-        generator = CSharpBindingsGenerator("lib")
-        output = generator.generate([temp_header_file], namespace="My.Custom.Namespace")
+        generator = CSharpBindingsGenerator()
+        output = generator.generate([(temp_header_file, "testlib")], namespace="My.Custom.Namespace")
         
         assert "namespace My.Custom.Namespace;" in output
     
     def test_default_namespace(self, temp_header_file):
         """Test default namespace when not specified"""
-        generator = CSharpBindingsGenerator("lib")
-        output = generator.generate([temp_header_file])
+        generator = CSharpBindingsGenerator()
+        output = generator.generate([(temp_header_file, "testlib")])
         
         assert "namespace Bindings;" in output
     
     def test_library_name_in_attributes(self, temp_header_file):
         """Test that library name appears correctly in LibraryImport attributes"""
-        generator = CSharpBindingsGenerator("my_custom_lib")
-        output = generator.generate([temp_header_file])
+        generator = CSharpBindingsGenerator()
+        output = generator.generate([(temp_header_file, "my_custom_lib")])
         
         assert '[LibraryImport("my_custom_lib"' in output
     
     def test_struct_layout_attribute(self, temp_header_file):
         """Test that structs have StructLayout attribute"""
-        generator = CSharpBindingsGenerator("lib")
-        output = generator.generate([temp_header_file])
+        generator = CSharpBindingsGenerator()
+        output = generator.generate([(temp_header_file, "testlib")])
         
         assert "[StructLayout(LayoutKind.Explicit)]" in output
         assert "[FieldOffset(" in output
     
     def test_generate_with_include_dirs(self, header_with_include):
         """Test generating bindings with include directories"""
-        generator = CSharpBindingsGenerator("testlib")
+        generator = CSharpBindingsGenerator()
         output = generator.generate(
-            [header_with_include['main']],
+            [(header_with_include['main'], "testlib")],
             namespace="Test",
             include_dirs=[header_with_include['include_dir']]
         )
@@ -194,10 +194,10 @@ class TestCSharpBindingsGenerator:
     
     def test_generate_without_include_dirs_fails(self, header_with_include, capsys):
         """Test that parsing has errors without include directories"""
-        generator = CSharpBindingsGenerator("testlib")
+        generator = CSharpBindingsGenerator()
         # Don't provide include_dirs - should have parse errors
         output = generator.generate(
-            [header_with_include['main']],
+            [(header_with_include['main'], "testlib")],
             namespace="Test",
             include_dirs=[]  # No include directories
         )
@@ -211,9 +211,9 @@ class TestCSharpBindingsGenerator:
     
     def test_include_depth_zero(self, nested_includes):
         """Test include depth 0 (only root file)"""
-        generator = CSharpBindingsGenerator("testlib")
+        generator = CSharpBindingsGenerator()
         output = generator.generate(
-            [nested_includes['root']],
+            [(nested_includes['root'], "testlib")],
             namespace="Test",
             include_dirs=[nested_includes['include_dir']],
             include_depth=0
@@ -231,9 +231,9 @@ class TestCSharpBindingsGenerator:
     
     def test_include_depth_one(self, nested_includes):
         """Test include depth 1 (root + direct includes)"""
-        generator = CSharpBindingsGenerator("testlib")
+        generator = CSharpBindingsGenerator()
         output = generator.generate(
-            [nested_includes['root']],
+            [(nested_includes['root'], "testlib")],
             namespace="Test",
             include_dirs=[nested_includes['include_dir']],
             include_depth=1
@@ -251,9 +251,9 @@ class TestCSharpBindingsGenerator:
     
     def test_include_depth_two(self, nested_includes):
         """Test include depth 2 (root + 2 levels of includes)"""
-        generator = CSharpBindingsGenerator("testlib")
+        generator = CSharpBindingsGenerator()
         output = generator.generate(
-            [nested_includes['root']],
+            [(nested_includes['root'], "testlib")],
             namespace="Test",
             include_dirs=[nested_includes['include_dir']],
             include_depth=2
@@ -269,9 +269,9 @@ class TestCSharpBindingsGenerator:
     
     def test_include_depth_large(self, nested_includes):
         """Test include depth larger than actual depth"""
-        generator = CSharpBindingsGenerator("testlib")
+        generator = CSharpBindingsGenerator()
         output = generator.generate(
-            [nested_includes['root']],
+            [(nested_includes['root'], "testlib")],
             namespace="Test",
             include_dirs=[nested_includes['include_dir']],
             include_depth=10  # Larger than actual depth
@@ -288,7 +288,7 @@ class TestGeneratorInternals:
     
     def test_empty_generation(self):
         """Test generator with no parsed content"""
-        generator = CSharpBindingsGenerator("emptylib")
+        generator = CSharpBindingsGenerator()
         
         # Don't parse any files, just build output
         from cs_binding_generator.code_generators import OutputBuilder
@@ -305,8 +305,8 @@ class TestGeneratorInternals:
     
     def test_opaque_types_with_pointers(self, opaque_types_header):
         """Test that opaque types generate proper pointer types (SDL_Window*)"""
-        generator = CSharpBindingsGenerator("SDL3")
-        output = generator.generate([opaque_types_header], namespace="SDL")
+        generator = CSharpBindingsGenerator()
+        output = generator.generate([(opaque_types_header, "testlib")], namespace="SDL")
         
         # Check that opaque types are generated as structs (not readonly)
         assert "public partial struct SDL_Window" in output

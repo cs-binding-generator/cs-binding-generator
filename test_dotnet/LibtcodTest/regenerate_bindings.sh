@@ -10,10 +10,9 @@ echo "Output file: $OUTPUT_FILE"
 echo ""
 
 python3 "$PROJECT_ROOT/cs_binding_generator/main.py" \
-    -i /usr/include/libtcod/libtcod.h \
-    -i /usr/include/SDL3/SDL.h \
+    -i /usr/include/libtcod/libtcod.h:libtcod \
+    -i /usr/include/SDL3/SDL.h:SDL3 \
     -o "$OUTPUT_FILE" \
-    -l libtcod \
     -n TCod \
     -I /usr/include/libtcod \
     -I /usr/include/SDL3 \
