@@ -27,11 +27,12 @@ class TestXMLConfigParsing:
         config_file = temp_dir / "config.xml"
         config_file.write_text(config_content)
         
-        pairs, namespace = parse_config_file(str(config_file))
+        pairs, namespace, include_dirs = parse_config_file(str(config_file))
         
         assert len(pairs) == 1
         assert pairs[0] == ("/path/to/test.h", "testlib")
         assert namespace == "TestNamespace"
+        assert include_dirs == []
     
     def test_parse_multiple_libraries(self, temp_dir):
         """Test parsing config with multiple libraries"""
@@ -52,7 +53,7 @@ class TestXMLConfigParsing:
         config_file = temp_dir / "config.xml"
         config_file.write_text(config_content)
         
-        pairs, namespace = parse_config_file(str(config_file))
+        pairs, namespace, include_dirs = parse_config_file(str(config_file))
         
         assert len(pairs) == 3
         assert pairs[0] == ("/path/to/lib1.h", "lib1")
@@ -60,6 +61,7 @@ class TestXMLConfigParsing:
         assert pairs[2] == ("/path/to/lib2b.h", "lib2")
         # Should use namespace from first library
         assert namespace == "Lib1Namespace"
+        assert include_dirs == []
     
     def test_parse_config_without_namespace(self, temp_dir):
         """Test parsing config file without namespace element"""
@@ -74,11 +76,12 @@ class TestXMLConfigParsing:
         config_file = temp_dir / "config.xml"
         config_file.write_text(config_content)
         
-        pairs, namespace = parse_config_file(str(config_file))
+        pairs, namespace, include_dirs = parse_config_file(str(config_file))
         
         assert len(pairs) == 1
         assert pairs[0] == ("/path/to/test.h", "testlib")
         assert namespace is None
+        assert include_dirs == []
     
     def test_parse_config_missing_library_name(self, temp_dir):
         """Test parsing config with missing library name attribute"""
@@ -166,12 +169,13 @@ class TestXMLConfigParsing:
         config_file = temp_dir / "cs-bindings.xml"
         config_file.write_text(config_content)
         
-        pairs, namespace = parse_config_file(str(config_file))
+        pairs, namespace, include_dirs = parse_config_file(str(config_file))
         
         assert len(pairs) == 2
         assert pairs[0] == ("/usr/include/libtcod/libtcod.h", "libtcod")
         assert pairs[1] == ("/usr/include/SDL3/SDL.h", "SDL3")
         assert namespace == "Libtcod"
+        assert include_dirs == []
     
     def test_config_with_whitespace_handling(self, temp_dir):
         """Test that whitespace in paths and names is properly handled"""
@@ -187,11 +191,80 @@ class TestXMLConfigParsing:
         config_file = temp_dir / "config.xml"
         config_file.write_text(config_content)
         
-        pairs, namespace = parse_config_file(str(config_file))
+        pairs, namespace, include_dirs = parse_config_file(str(config_file))
         
         assert len(pairs) == 1
         assert pairs[0] == ("/path/to/test.h", "testlib")  # Should be stripped
         assert namespace == " TestNamespace "  # Namespace not stripped in current impl
+        assert include_dirs == []
+    
+    def test_config_with_global_include_directories(self, temp_dir):
+        """Test parsing config with global include directories"""
+        config_content = """
+        <bindings>
+            <include_directory path="/usr/include"/>
+            <include_directory path="/usr/local/include"/>
+            <library name="testlib">
+                <namespace name="TestNamespace"/>
+                <include file="/path/to/test.h"/>
+            </library>
+        </bindings>
+        """
+        
+        config_file = temp_dir / "config.xml"
+        config_file.write_text(config_content)
+        
+        pairs, namespace, include_dirs = parse_config_file(str(config_file))
+        
+        assert len(pairs) == 1
+        assert pairs[0] == ("/path/to/test.h", "testlib")
+        assert namespace == "TestNamespace"
+        assert include_dirs == ["/usr/include", "/usr/local/include"]
+    
+    def test_config_with_library_specific_include_directories(self, temp_dir):
+        """Test parsing config with library-specific include directories"""
+        config_content = """
+        <bindings>
+            <include_directory path="/usr/include"/>
+            <library name="lib1">
+                <namespace name="Lib1Namespace"/>
+                <include_directory path="/usr/include/lib1"/>
+                <include file="/path/to/lib1.h"/>
+            </library>
+            <library name="lib2">
+                <include_directory path="/usr/include/lib2"/>
+                <include file="/path/to/lib2.h"/>
+            </library>
+        </bindings>
+        """
+        
+        config_file = temp_dir / "config.xml"
+        config_file.write_text(config_content)
+        
+        pairs, namespace, include_dirs = parse_config_file(str(config_file))
+        
+        assert len(pairs) == 2
+        assert pairs[0] == ("/path/to/lib1.h", "lib1")
+        assert pairs[1] == ("/path/to/lib2.h", "lib2")
+        assert namespace == "Lib1Namespace"
+        assert set(include_dirs) == {"/usr/include", "/usr/include/lib1", "/usr/include/lib2"}
+    
+    def test_config_missing_include_directory_path(self, temp_dir):
+        """Test parsing config with missing include directory path attribute"""
+        config_content = """
+        <bindings>
+            <include_directory/>
+            <library name="testlib">
+                <include file="/path/to/test.h"/>
+            </library>
+        </bindings>
+        """
+        
+        config_file = temp_dir / "config.xml"
+        config_file.write_text(config_content)
+        
+        with pytest.raises(ValueError, match="Include directory element missing 'path' attribute"):
+            parse_config_file(str(config_file))
     
     @pytest.fixture
     def temp_dir(self):

@@ -1,4 +1,6 @@
 <bindings>
+    <include_directory path="/usr/include/freetype2"/>
+    <include_directory path="/usr/include"/>
     <library name="freetype">
         <namespace name="FreeType"/>
         <include file="/usr/include/freetype2/freetype/freetype.h"/>

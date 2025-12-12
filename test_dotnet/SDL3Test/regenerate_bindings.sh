@@ -13,9 +13,7 @@ echo ""
 
 python3 "$PROJECT_ROOT/cs_binding_generator/main.py" \
     --config "$SCRIPT_DIR/cs-bindings.xml" \
-    -o "$OUTPUT_FILE" \
-    -I /usr/include \
-    -I /usr/lib/clang/21/include
+    -o "$OUTPUT_FILE"
 
 echo ""
 echo "✓ SDL3.cs regenerated successfully"

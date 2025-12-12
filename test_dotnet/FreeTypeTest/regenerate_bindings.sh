@@ -12,8 +12,7 @@ echo ""
 
 python3 "$PROJECT_ROOT/cs_binding_generator/main.py" \
     --config "$SCRIPT_DIR/cs-bindings.xml" \
-    -o "$OUTPUT_FILE" \
-    -I /usr/include/freetype2
+    -o "$OUTPUT_FILE"
 
 echo ""
 echo "✓ FreeType.cs regenerated successfully"

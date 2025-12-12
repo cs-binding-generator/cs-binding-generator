@@ -19,7 +19,7 @@ from cs_binding_generator.generator import CSharpBindingsGenerator
 
 
 def parse_config_file(config_path):
-    """Parse XML configuration file and return header-library pairs and namespace"""
+    """Parse XML configuration file and return header-library pairs, namespace, and include directories"""
     try:
         tree = ET.parse(config_path)
         root = tree.getroot()
@@ -29,6 +29,14 @@ def parse_config_file(config_path):
         
         header_library_pairs = []
         namespace = None
+        include_dirs = []
+        
+        # Get global include directories
+        for include_dir in root.findall('include_directory'):
+            path = include_dir.get('path')
+            if not path:
+                raise ValueError("Include directory element missing 'path' attribute")
+            include_dirs.append(path.strip())
         
         for library in root.findall('library'):
             library_name = library.get('name')
@@ -40,6 +48,13 @@ def parse_config_file(config_path):
             if namespace_elem is not None and namespace is None:
                 namespace = namespace_elem.get('name')
             
+            # Get library-specific include directories
+            for include_dir in library.findall('include_directory'):
+                path = include_dir.get('path')
+                if not path:
+                    raise ValueError(f"Include directory element in library '{library_name}' missing 'path' attribute")
+                include_dirs.append(path.strip())
+            
             # Get include files
             for include in library.findall('include'):
                 header_path = include.get('file')
@@ -47,7 +62,7 @@ def parse_config_file(config_path):
                     raise ValueError(f"Include element in library '{library_name}' missing 'file' attribute")
                 header_library_pairs.append((header_path.strip(), library_name.strip()))
         
-        return header_library_pairs, namespace
+        return header_library_pairs, namespace, include_dirs
         
     except ET.ParseError as e:
         raise ValueError(f"XML parsing error: {e}")
@@ -134,6 +149,7 @@ Examples:
     # Handle configuration file vs direct input
     header_library_pairs = []
     config_namespace = None
+    config_include_dirs = []
     
     if args.config:
         if args.input:
@@ -141,7 +157,7 @@ Examples:
             sys.exit(1)
             
         try:
-            header_library_pairs, config_namespace = parse_config_file(args.config)
+            header_library_pairs, config_namespace, config_include_dirs = parse_config_file(args.config)
         except (ValueError, FileNotFoundError) as e:
             print(f"Error reading config file: {e}", file=sys.stderr)
             sys.exit(1)
@@ -165,6 +181,13 @@ Examples:
     
     # Use namespace from config file if available, otherwise use command line argument
     namespace = config_namespace if config_namespace else args.namespace
+    
+    # Merge include directories from config file and command line
+    include_dirs = []
+    if args.config and 'config_include_dirs' in locals():
+        include_dirs.extend(config_include_dirs)
+    if args.include_dirs:
+        include_dirs.extend(args.include_dirs)
 
     # Set clang library path if provided
     if args.clang_path:
@@ -177,7 +200,7 @@ Examples:
             header_library_pairs,
             output=args.output, 
             namespace=namespace,
-            include_dirs=args.include_dirs or [],
+            include_dirs=include_dirs,
             include_depth=args.include_depth,
             ignore_missing=args.ignore_missing,
             multi_file=args.multi
