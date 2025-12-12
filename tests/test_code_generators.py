@@ -235,6 +235,62 @@ class TestCodeGenerator:
         result = self.generator.generate_enum(mock_cursor)
         
         assert result == ""
+    
+    def test_generate_enum_with_inheritance(self):
+        """Test generating enum with underlying type inheritance"""
+        from clang.cindex import TypeKind
+        
+        mock_cursor = Mock()
+        mock_cursor.spelling = "ByteStatus"
+        
+        # Mock underlying type
+        mock_underlying_type = Mock()
+        mock_underlying_type.kind = TypeKind.UCHAR
+        mock_cursor.enum_type = mock_underlying_type
+        
+        # Create mock enum constants
+        const1 = Mock()
+        const1.kind = CursorKind.ENUM_CONSTANT_DECL
+        const1.spelling = "OK"
+        const1.enum_value = 0
+        
+        const2 = Mock()
+        const2.kind = CursorKind.ENUM_CONSTANT_DECL
+        const2.spelling = "ERROR"
+        const2.enum_value = 1
+        
+        mock_cursor.get_children.return_value = [const1, const2]
+        
+        result = self.generator.generate_enum(mock_cursor)
+        
+        assert "public enum ByteStatus : byte" in result
+        assert "OK = 0," in result
+        assert "ERROR = 1," in result
+    
+    def test_generate_enum_int_no_inheritance(self):
+        """Test that int enums don't show inheritance clause"""
+        from clang.cindex import TypeKind
+        
+        mock_cursor = Mock()
+        mock_cursor.spelling = "IntStatus"
+        
+        # Mock int underlying type (default)
+        mock_underlying_type = Mock()
+        mock_underlying_type.kind = TypeKind.INT
+        mock_cursor.enum_type = mock_underlying_type
+        
+        const1 = Mock()
+        const1.kind = CursorKind.ENUM_CONSTANT_DECL
+        const1.spelling = "OK"
+        const1.enum_value = 0
+        
+        mock_cursor.get_children.return_value = [const1]
+        
+        result = self.generator.generate_enum(mock_cursor)
+        
+        # Should not have inheritance clause for int
+        assert "public enum IntStatus\n{" in result
+        assert ": int" not in result
 
 
 class TestOutputBuilder:

@@ -31,7 +31,7 @@ class CSharpBindingsGenerator:
         self.seen_functions = set()  # (name, location)
         self.seen_structs = set()    # (name, location)
         self.seen_unions = set()     # (name, location)
-        self.enum_members = {}       # name -> (library, list of (member_name, value) tuples)
+        self.enum_members = {}       # name -> (library, list of (member_name, value) tuples, underlying_type)
     
     def _add_to_library_collection(self, collection: dict, library: str, item: str):
         """Add an item to a library-specific collection"""
@@ -274,6 +274,11 @@ class CSharpBindingsGenerator:
                         # Will be assigned a unique name later
                         enum_name = None
         
+        # Get underlying type for enum inheritance
+        underlying_type = None
+        if hasattr(cursor, 'enum_type'):
+            underlying_type = self.code_generator._map_enum_underlying_type(cursor.enum_type)
+        
         # Collect members
         members = []
         for child in cursor.get_children():
@@ -286,20 +291,23 @@ class CSharpBindingsGenerator:
             # Add to existing enum or create new entry
             if enum_name:
                 if enum_name not in self.enum_members:
-                    self.enum_members[enum_name] = (self.current_library, [])
+                    self.enum_members[enum_name] = (self.current_library, [], underlying_type)
                 # Merge members, avoiding duplicates
-                library, existing_members = self.enum_members[enum_name]
+                library, existing_members, existing_underlying_type = self.enum_members[enum_name]
                 existing_member_names = {m[0] for m in existing_members}
                 for member in members:
                     if member[0] not in existing_member_names:
                         existing_members.append(member)
+                # Update underlying type if we have one and existing doesn't
+                if underlying_type and not existing_underlying_type:
+                    self.enum_members[enum_name] = (library, existing_members, underlying_type)
             else:
                 # Anonymous enum - assign unique name
                 anonymous_counter = 1
                 while f"AnonymousEnum{anonymous_counter}" in self.enum_members:
                     anonymous_counter += 1
                 enum_name = f"AnonymousEnum{anonymous_counter}"
-                self.enum_members[enum_name] = (self.current_library, members)
+                self.enum_members[enum_name] = (self.current_library, members, underlying_type)
     
     def _build_file_depth_map(self, tu, root_file: str, max_depth: int) -> dict[str, int]:
         """Build a mapping of file paths to their include depth
@@ -475,10 +483,15 @@ class CSharpBindingsGenerator:
             raise FileNotFoundError(f"No valid header files found. Checked: {', '.join(header_files)}")
         
         # Generate merged enums from collected members
-        for enum_name, (library, members) in sorted(self.enum_members.items()):
+        for enum_name, (library, members, underlying_type) in sorted(self.enum_members.items()):
             if members:
+                # Add inheritance clause if underlying type is not default 'int'
+                inheritance_clause = ""
+                if underlying_type and underlying_type != "int":
+                    inheritance_clause = f" : {underlying_type}"
+                
                 values_str = "\n".join([f"    {name} = {value}," for name, value in members])
-                code = f'''public enum {enum_name}
+                code = f'''public enum {enum_name}{inheritance_clause}
 {{
 {values_str}
 }}

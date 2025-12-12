@@ -415,14 +415,45 @@ public unsafe partial struct {union_name}
                 self.anonymous_enum_counter += 1
                 enum_name = f"AnonymousEnum{self.anonymous_enum_counter}"
         
+        # Get underlying type for enum inheritance
+        inheritance_clause = ""
+        if hasattr(cursor, 'enum_type'):
+            underlying_type = cursor.enum_type
+            csharp_type = self._map_enum_underlying_type(underlying_type)
+            # Only add inheritance if not default 'int'
+            if csharp_type and csharp_type != "int":
+                inheritance_clause = f" : {csharp_type}"
+        
         values_str = "\n".join(values)
         
-        code = f'''public enum {enum_name}
+        code = f'''public enum {enum_name}{inheritance_clause}
 {{
 {values_str}
 }}
 '''
         return code
+    
+    def _map_enum_underlying_type(self, underlying_type) -> str:
+        """Map libclang enum underlying type to C# type"""
+        from clang.cindex import TypeKind
+        
+        # Mapping from libclang TypeKind to C# types for enum inheritance
+        type_map = {
+            TypeKind.CHAR_S: "sbyte",
+            TypeKind.CHAR_U: "byte", 
+            TypeKind.UCHAR: "byte",
+            TypeKind.SCHAR: "sbyte",
+            TypeKind.SHORT: "short",
+            TypeKind.USHORT: "ushort",
+            TypeKind.INT: "int",
+            TypeKind.UINT: "uint",
+            TypeKind.LONG: "long",
+            TypeKind.ULONG: "ulong", 
+            TypeKind.LONGLONG: "long",
+            TypeKind.ULONGLONG: "ulong"
+        }
+        
+        return type_map.get(underlying_type.kind, "int")
     
     def _find_common_prefix(self, strings: list[str]) -> str:
         """Find common prefix of a list of strings"""
