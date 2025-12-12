@@ -19,10 +19,11 @@ class CSharpBindingsGenerator:
         self.type_mapper = TypeMapper()
         self.code_generator = CodeGenerator(self.type_mapper)
         
-        self.generated_functions = []
-        self.generated_structs = []
-        self.generated_unions = []
-        self.generated_enums = []
+        # Store generated items by library
+        self.generated_functions = {}  # library -> [functions]
+        self.generated_structs = {}    # library -> [structs] 
+        self.generated_unions = {}     # library -> [unions]
+        self.generated_enums = {}      # library -> [enums]
         self.source_file = None
         self.allowed_files = set()  # Files allowed based on include depth
         
@@ -30,7 +31,26 @@ class CSharpBindingsGenerator:
         self.seen_functions = set()  # (name, location)
         self.seen_structs = set()    # (name, location)
         self.seen_unions = set()     # (name, location)
-        self.enum_members = {}       # name -> list of (member_name, value) tuples
+        self.enum_members = {}       # name -> (library, list of (member_name, value) tuples)
+    
+    def _add_to_library_collection(self, collection: dict, library: str, item: str):
+        """Add an item to a library-specific collection"""
+        if library not in collection:
+            collection[library] = []
+        collection[library].append(item)
+    
+    def _clear_state(self):
+        """Clear all accumulated state for a new generation run"""
+        self.generated_functions.clear()
+        self.generated_structs.clear()
+        self.generated_unions.clear()
+        self.generated_enums.clear()
+        self.seen_functions.clear()
+        self.seen_structs.clear()
+        self.seen_unions.clear()
+        self.enum_members.clear()
+        self.source_file = None
+        self.allowed_files.clear()
     
     def _is_system_header(self, file_path: str) -> bool:
         """Check if a file path is a system header that should be excluded"""
@@ -95,7 +115,7 @@ class CSharpBindingsGenerator:
             if func_key not in self.seen_functions:
                 code = self.code_generator.generate_function(cursor, self.current_library)
                 if code:
-                    self.generated_functions.append(code)
+                    self._add_to_library_collection(self.generated_functions, self.current_library, code)
                     self.seen_functions.add(func_key)
         
         elif cursor.kind == CursorKind.STRUCT_DECL:
@@ -113,7 +133,7 @@ class CSharpBindingsGenerator:
                 if struct_key not in self.seen_structs:
                     code = self.code_generator.generate_struct(cursor)
                     if code:
-                        self.generated_structs.append(code)
+                        self._add_to_library_collection(self.generated_structs, self.current_library, code)
                         self.seen_structs.add(struct_key)
                         # Also mark as seen by name only to prevent opaque type generation
                         if cursor.spelling:
@@ -134,7 +154,7 @@ class CSharpBindingsGenerator:
                 if union_key not in self.seen_unions:
                     code = self.code_generator.generate_union(cursor)
                     if code:
-                        self.generated_unions.append(code)
+                        self._add_to_library_collection(self.generated_unions, self.current_library, code)
                         self.seen_unions.add(union_key)
         
         elif cursor.kind == CursorKind.ENUM_DECL:
@@ -181,7 +201,7 @@ class CSharpBindingsGenerator:
                         if struct_key not in self.seen_structs:
                             code = self.code_generator.generate_opaque_type(type_name)
                             if code:
-                                self.generated_structs.append(code)
+                                self._add_to_library_collection(self.generated_structs, self.current_library, code)
                                 self.seen_structs.add(struct_key)
                                 self.seen_structs.add((type_name, None, None))
                                 # Register as opaque type for pointer handling
@@ -192,7 +212,7 @@ class CSharpBindingsGenerator:
                     if struct_key not in self.seen_structs:
                         code = self.code_generator.generate_opaque_type(child.spelling)
                         if code:
-                            self.generated_structs.append(code)
+                            self._add_to_library_collection(self.generated_structs, self.current_library, code)
                             self.seen_structs.add(struct_key)
                             self.seen_structs.add((child.spelling, None, None))
                             # Register as opaque type for pointer handling
@@ -266,19 +286,20 @@ class CSharpBindingsGenerator:
             # Add to existing enum or create new entry
             if enum_name:
                 if enum_name not in self.enum_members:
-                    self.enum_members[enum_name] = []
+                    self.enum_members[enum_name] = (self.current_library, [])
                 # Merge members, avoiding duplicates
-                existing_member_names = {m[0] for m in self.enum_members[enum_name]}
+                library, existing_members = self.enum_members[enum_name]
+                existing_member_names = {m[0] for m in existing_members}
                 for member in members:
                     if member[0] not in existing_member_names:
-                        self.enum_members[enum_name].append(member)
+                        existing_members.append(member)
             else:
                 # Anonymous enum - assign unique name
                 anonymous_counter = 1
                 while f"AnonymousEnum{anonymous_counter}" in self.enum_members:
                     anonymous_counter += 1
                 enum_name = f"AnonymousEnum{anonymous_counter}"
-                self.enum_members[enum_name] = members
+                self.enum_members[enum_name] = (self.current_library, members)
     
     def _build_file_depth_map(self, tu, root_file: str, max_depth: int) -> dict[str, int]:
         """Build a mapping of file paths to their include depth
@@ -336,18 +357,21 @@ class CSharpBindingsGenerator:
         
         return file_depth
     
-    def generate(self, header_library_pairs: list[tuple[str, str]], output_file: str = None, 
+    def generate(self, header_library_pairs: list[tuple[str, str]], output: str = None, 
                  namespace: str = "Bindings", include_dirs: list[str] = None,
-                 include_depth: int = None, ignore_missing: bool = False) -> str:
+                 include_depth: int = None, ignore_missing: bool = False, multi_file: bool = False) -> str | dict[str, str]:
         """Generate C# bindings from C header file(s)
         
         Args:
             header_files: List of C header files to process
-            output_file: Optional output file path (prints to stdout if not specified)
+            output: Optional output file path or directory (prints to stdout if not specified)
             namespace: C# namespace for generated code
             include_dirs: List of directories to search for included headers
             include_depth: How deep to process included files (0=only input files, 1=direct includes, etc.; None=infinite)
         """
+        # Clear previous state
+        self._clear_state()
+        
         if include_dirs is None:
             include_dirs = []
         
@@ -451,7 +475,7 @@ class CSharpBindingsGenerator:
             raise FileNotFoundError(f"No valid header files found. Checked: {', '.join(header_files)}")
         
         # Generate merged enums from collected members
-        for enum_name, members in sorted(self.enum_members.items()):
+        for enum_name, (library, members) in sorted(self.enum_members.items()):
             if members:
                 values_str = "\n".join([f"    {name} = {value}," for name, value in members])
                 code = f'''public enum {enum_name}
@@ -459,15 +483,37 @@ class CSharpBindingsGenerator:
 {values_str}
 }}
 '''
-                self.generated_enums.append(code)
+                self._add_to_library_collection(self.generated_enums, library, code)
+        
+        if multi_file:
+            return self._generate_multi_file_output(namespace, output)
+        else:
+            return self._generate_single_file_output(namespace, output)
+    
+    def _generate_single_file_output(self, namespace: str, output_file: str = None) -> str:
+        """Generate single file output (original behavior)"""
+        # Flatten all library collections into single lists
+        all_enums = []
+        all_structs = []
+        all_unions = []
+        all_functions = []
+        
+        for library_items in self.generated_enums.values():
+            all_enums.extend(library_items)
+        for library_items in self.generated_structs.values():
+            all_structs.extend(library_items)
+        for library_items in self.generated_unions.values():
+            all_unions.extend(library_items)
+        for library_items in self.generated_functions.values():
+            all_functions.extend(library_items)
         
         # Generate the output
         output = OutputBuilder.build(
             namespace=namespace,
-            enums=self.generated_enums,
-            structs=self.generated_structs,
-            unions=self.generated_unions,
-            functions=self.generated_functions,
+            enums=all_enums,
+            structs=all_structs,
+            unions=all_unions,
+            functions=all_functions,
             class_name=NATIVE_METHODS_CLASS
         )
         
@@ -479,3 +525,66 @@ class CSharpBindingsGenerator:
             print(output)
         
         return output
+    
+    def _generate_multi_file_output(self, namespace: str, output: str) -> dict[str, str]:
+        """Generate multiple files, one per library"""
+        if not output:
+            raise ValueError("Output directory must be specified when using --multi flag")
+        
+        output_path = Path(output)
+        output_path.mkdir(parents=True, exist_ok=True)
+        
+        # Get all libraries
+        all_libraries = set()
+        all_libraries.update(self.generated_enums.keys())
+        all_libraries.update(self.generated_structs.keys())
+        all_libraries.update(self.generated_unions.keys())
+        all_libraries.update(self.generated_functions.keys())
+        
+        file_contents = {}
+        
+        # Create bindings.cs file with assembly attribute and namespace
+        bindings_content = OutputBuilder.build(
+            namespace=namespace,
+            enums=[],
+            structs=[],
+            unions=[],
+            functions=[],
+            class_name=NATIVE_METHODS_CLASS,
+            include_assembly_attribute=True
+        )
+        bindings_file = output_path / "bindings.cs"
+        bindings_file.write_text(bindings_content)
+        file_contents["bindings.cs"] = bindings_content
+        print(f"Generated assembly bindings: {bindings_file}")
+        
+        for library in sorted(all_libraries):
+            # Get items for this library
+            enums = self.generated_enums.get(library, [])
+            structs = self.generated_structs.get(library, [])
+            unions = self.generated_unions.get(library, [])
+            functions = self.generated_functions.get(library, [])
+            
+            # Skip empty libraries
+            if not any([enums, structs, unions, functions]):
+                continue
+            
+            # Generate output for this library (without assembly attribute)
+            output = OutputBuilder.build(
+                namespace=namespace,
+                enums=enums,
+                structs=structs,
+                unions=unions,
+                functions=functions,
+                class_name=NATIVE_METHODS_CLASS,
+                include_assembly_attribute=False
+            )
+            
+            # Write to library-specific file
+            library_file = output_path / f"{library}.cs"
+            library_file.write_text(output)
+            file_contents[f"{library}.cs"] = output
+            
+            print(f"Generated bindings for {library}: {library_file}")
+        
+        return file_contents

@@ -446,7 +446,8 @@ class OutputBuilder:
     
     @staticmethod
     def build(namespace: str, enums: list[str], structs: list[str], 
-              unions: list[str], functions: list[str], class_name: str = "NativeMethods") -> str:
+              unions: list[str], functions: list[str], class_name: str = "NativeMethods",
+              include_assembly_attribute: bool = True) -> str:
         """Build the final C# output"""
         parts = []
         
@@ -457,8 +458,9 @@ class OutputBuilder:
         parts.append("")
         
         # Assembly attribute to disable runtime marshalling for AOT compatibility
-        parts.append("[assembly: System.Runtime.CompilerServices.DisableRuntimeMarshalling]")
-        parts.append("")
+        if include_assembly_attribute:
+            parts.append("[assembly: System.Runtime.CompilerServices.DisableRuntimeMarshalling]")
+            parts.append("")
         
         # Namespace
         parts.append(f"namespace {namespace};")

@@ -42,9 +42,7 @@ Examples:
         metavar="FILE",
         help="Output C# file (if not specified, prints to stdout)"
     )
-    
 
-    
     parser.add_argument(
         "-n", "--namespace",
         default="Bindings",
@@ -80,6 +78,12 @@ Examples:
         help="Continue processing even if some header files are not found (default: fail on missing files)"
     )
     
+    parser.add_argument(
+        "--multi",
+        action="store_true",
+        help="Generate separate files per library in output directory (changes -o to directory path)"
+    )
+    
     args = parser.parse_args()
 
     # Parse header:library pairs
@@ -101,11 +105,12 @@ Examples:
         generator = CSharpBindingsGenerator()
         generator.generate(
             header_library_pairs,
-            args.output, 
-            args.namespace,
+            output=args.output, 
+            namespace=args.namespace,
             include_dirs=args.include_dirs or [],
             include_depth=args.include_depth,
-            ignore_missing=args.ignore_missing
+            ignore_missing=args.ignore_missing,
+            multi_file=args.multi
         )
     except Exception as e:
         import traceback

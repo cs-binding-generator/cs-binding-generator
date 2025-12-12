@@ -354,6 +354,75 @@ pip install -e .
 pytest tests/ -k "not test_sdl3_generates_valid_csharp"
 ```
 
+## Multi-File Output Issues
+
+### "Duplicate 'DisableRuntimeMarshalling' attribute"
+
+**Error:**
+```
+error CS0579: Duplicate 'System.Runtime.CompilerServices.DisableRuntimeMarshalling' attribute
+```
+
+**Cause:** Using `--multi` flag but the assembly attribute appears in multiple files.
+
+**Solution:**
+This should be automatically handled by creating a separate `bindings.cs` file. If you see this error:
+1. Ensure you're using the latest version of the generator
+2. Check that `bindings.cs` contains the assembly attribute
+3. Verify other `.cs` files don't contain the assembly attribute
+4. Regenerate all bindings
+
+### "Output directory must be specified when using --multi flag"
+
+**Error:**
+```
+ValueError: Output directory must be specified when using --multi flag
+```
+
+**Cause:** Using `--multi` without specifying an output path with `-o`.
+
+**Solution:**
+```bash
+# Wrong
+cs_binding_generator -i header.h:lib --multi
+
+# Correct  
+cs_binding_generator -i header.h:lib --multi -o ./output
+```
+
+### Empty Files Generated
+
+**Issue:** Some library files are empty or only contain namespace/usings.
+
+**Cause:** No functions, structs, or enums were found for that library.
+
+**Solutions:**
+1. **Check library name:** Ensure the library name in `header.h:library` matches what you expect
+2. **Verify parsing:** Look at the console output to see what's being processed
+3. **Check include depth:** The content might be in included headers (`--include-depth`)
+
+### Missing Library Files
+
+**Issue:** Expected library files weren't generated.
+
+**Debugging steps:**
+1. Check console output for which libraries were detected
+2. Verify header files were parsed successfully  
+3. Ensure the header:library mapping is correct
+4. Check if the library has any exportable symbols
+
+### File Permissions Issues
+
+**Error:**
+```
+PermissionError: [Errno 13] Permission denied: './output/SDL3.cs'
+```
+
+**Solutions:**
+1. Ensure output directory is writable
+2. Close any editors that might have the files open
+3. Check file permissions in the output directory
+
 ## Getting Help
 
 If you encounter an issue not covered here:

@@ -76,7 +76,7 @@ class TestCSharpBindingsGenerator:
         generator = CSharpBindingsGenerator()
         output_file = tmp_path / "Bindings.cs"
         
-        generator.generate([(temp_header_file, "testlib")], output_file=str(output_file))
+        generator.generate([(temp_header_file, "testlib")], output=str(output_file))
         
         # Verify file was created
         assert output_file.exists()
@@ -319,3 +319,77 @@ class TestGeneratorInternals:
         assert "public static partial int SDL_SetWindowTitle(SDL_Window* window, string title);" in output
         assert "public static partial SDL_Renderer* SDL_CreateRenderer(SDL_Window* window);" in output
         assert "public static partial void SDL_RenderPresent(SDL_Renderer* renderer);" in output
+    
+    def test_multi_file_generation(self, temp_dir, temp_header_file):
+        """Test generating multiple files when multi_file=True"""
+        generator = CSharpBindingsGenerator()
+        
+        # Create a second header file for another library
+        header2_path = temp_dir / "header2.h"
+        header2_path.write_text('''
+            typedef enum {
+                GRAPHICS_OK = 0,
+                GRAPHICS_ERROR = 1
+            } GraphicsStatus;
+            
+            int draw_line(int x1, int y1, int x2, int y2);
+        ''')
+        
+        # Generate with multi-file output to temp directory
+        result = generator.generate(
+            [(temp_header_file, "testlib"), (header2_path, "graphics")], 
+            namespace="Test", 
+            multi_file=True, 
+            output=str(temp_dir)
+        )
+        
+        # Should return dict of filename -> content
+        assert isinstance(result, dict)
+        assert "testlib.cs" in result
+        assert "graphics.cs" in result
+        
+        # Check testlib.cs content
+        testlib_content = result["testlib.cs"]
+        assert "namespace Test;" in testlib_content
+        assert "public enum Status" in testlib_content
+        assert "public static partial int add(int a, int b);" in testlib_content
+        assert '[LibraryImport("testlib"' in testlib_content
+        # Should NOT contain graphics content
+        assert "GraphicsStatus" not in testlib_content
+        assert "draw_line" not in testlib_content
+        
+        # Check graphics.cs content
+        graphics_content = result["graphics.cs"]
+        assert "namespace Test;" in graphics_content
+        assert "public enum GraphicsStatus" in graphics_content  
+        assert "public static partial int draw_line(int x1, int y1, int x2, int y2);" in graphics_content
+        assert '[LibraryImport("graphics"' in graphics_content
+        # Should NOT contain testlib content
+        assert "enum Status" not in graphics_content
+        assert "add(int a, int b)" not in graphics_content
+    
+    def test_single_file_vs_multi_file_content_consistency(self, temp_dir, temp_header_file):
+        """Test that single file and multi file modes generate equivalent content"""
+        generator = CSharpBindingsGenerator()
+        
+        # Generate single file
+        single_output = generator.generate([(temp_header_file, "testlib")], namespace="Test")
+        
+        # Generate multi file
+        multi_output = generator.generate(
+            [(temp_header_file, "testlib")], 
+            namespace="Test", 
+            multi_file=True,
+            output=str(temp_dir)
+        )
+        
+        # Multi output should have one file
+        assert isinstance(multi_output, dict)
+        assert len(multi_output) == 1
+        assert "testlib.cs" in multi_output
+        
+        # Content should be essentially the same (ignoring whitespace differences)
+        single_lines = [line.strip() for line in single_output.split('\n') if line.strip()]
+        multi_lines = [line.strip() for line in multi_output["testlib.cs"].split('\n') if line.strip()]
+        
+        assert single_lines == multi_lines

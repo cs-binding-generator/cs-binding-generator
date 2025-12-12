@@ -16,6 +16,7 @@ A Python-based tool that automatically generates C# P/Invoke bindings from C hea
 - **Struct Generation**: Creates explicit layout structs with proper field offsets
 - **Union Support**: Converts C unions to C# structs with `LayoutKind.Explicit` and field offsets
 - **Typedef Resolution**: Properly resolves struct-to-struct typedefs through the typedef chain
+- **Multi-File Output**: Split bindings into separate files per library with `--multi` flag
 - **Include Depth Control**: Process headers with configurable include file depth (default: infinite; see [docs/INCLUDE_DEPTH.md](docs/INCLUDE_DEPTH.md))
 - **Include Directory Support**: Specify additional header search paths (see [docs/INCLUDE_DIRECTORIES.md](docs/INCLUDE_DIRECTORIES.md))
 - **Opaque Type Support**: Handles opaque struct typedefs (like `SDL_Window`)
@@ -26,6 +27,7 @@ A Python-based tool that automatically generates C# P/Invoke bindings from C hea
 - **[Architecture](docs/ARCHITECTURE.md)** - Internal design and how the generator works
 - **[Include Depth](docs/INCLUDE_DEPTH.md)** - How to control which headers are processed
 - **[Include Directories](docs/INCLUDE_DIRECTORIES.md)** - Managing header search paths
+- **[Multi-File Output](docs/MULTI_FILE_OUTPUT.md)** - Split bindings into separate files per library
 - **[Troubleshooting](docs/TROUBLESHOOTING.md)** - Common issues and solutions
 
 ## Installation
@@ -56,7 +58,7 @@ cs_binding_generator \
   -I /usr/include
 ```
 
-#### Multiple Libraries
+#### Multiple Libraries (Single File)
 ```bash
 cs_binding_generator \
   -i /usr/include/SDL3/SDL.h:SDL3 \
@@ -66,6 +68,22 @@ cs_binding_generator \
   -I /usr/include
 ```
 
+#### Multiple Libraries (Multi-File Output)
+```bash
+cs_binding_generator \
+  -i /usr/include/SDL3/SDL.h:SDL3 \
+  -i /usr/include/libtcod/libtcod.h:libtcod \
+  -o ./bindings \
+  --multi \
+  -n GameLibs \
+  -I /usr/include
+```
+
+This creates:
+- `bindings/bindings.cs` - Assembly attributes and namespace
+- `bindings/SDL3.cs` - SDL3-specific bindings
+- `bindings/libtcod.cs` - LibTCOD-specific bindings
+
 ### Options
 
 - `-i, --input`: Input C header file(s) as `header.h:library` pairs (required, can specify multiple)
@@ -74,6 +92,7 @@ cs_binding_generator \
 - `-I, --include-dir`: Additional include directories for clang
 - `--include-depth`: Maximum include file depth to process (default: infinite)
 - `--ignore-missing`: Continue processing even if some header files are not found
+- `--multi`: Split output into multiple files (one per library) in the output directory
 - `--clang-path`: Path to libclang library (optional)
 
 ### Python API
@@ -82,12 +101,27 @@ cs_binding_generator \
 from cs_binding_generator.generator import CSharpBindingsGenerator
 
 generator = CSharpBindingsGenerator()
+
+# Single file output
 output = generator.generate(
     header_library_pairs=[("/usr/include/SDL3/SDL.h", "SDL3")],
     namespace="SDL",
     include_dirs=["/usr/include"]
 )
 print(output)
+
+# Multi-file output
+file_contents = generator.generate(
+    header_library_pairs=[
+        ("/usr/include/SDL3/SDL.h", "SDL3"),
+        ("/usr/include/libtcod/libtcod.h", "libtcod")
+    ],
+    namespace="GameLibs",
+    include_dirs=["/usr/include"],
+    multi_file=True,
+    output="./bindings"
+)
+# Returns dict: {"bindings.cs": content, "SDL3.cs": content, "libtcod.cs": content}
 ```
 
 ### Generated Output Example

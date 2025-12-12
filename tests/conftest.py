@@ -207,3 +207,10 @@ void SDL_RenderPresent(SDL_Renderer* renderer);
     
     # Cleanup
     Path(path).unlink(missing_ok=True)
+
+
+@pytest.fixture
+def temp_dir():
+    """Create a temporary directory for testing"""
+    with tempfile.TemporaryDirectory() as dir_path:
+        yield Path(dir_path)
