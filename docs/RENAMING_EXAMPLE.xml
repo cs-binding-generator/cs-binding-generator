@@ -1,0 +1,23 @@
+<!-- Example XML configuration with renaming support -->
+<bindings>
+    <include_directory path="/usr/include/SDL3"/>
+    
+    <!-- Global renames apply to all types/functions across all libraries -->
+    <rename from="SDL_BlendFactor" to="BlendFactor"/>
+    <rename from="SDL_BlendMode" to="BlendMode"/>
+    <rename from="SDL_Window" to="Window"/>
+    <rename from="SDL_Renderer" to="Renderer"/>
+    <rename from="SDL_CreateWindow" to="CreateWindow"/>
+    <rename from="SDL_DestroyWindow" to="DestroyWindow"/>
+    
+    <library name="SDL3">
+        <namespace name="SDL"/>
+        <include file="/usr/include/SDL3/SDL.h"/>
+    </library>
+    
+    <library name="libtcod">
+        <namespace name="Libtcod"/>
+        <include file="/usr/include/libtcod/libtcod.h"/>
+        <!-- SDL types will be consistently renamed across both libraries -->
+    </library>
+</bindings>

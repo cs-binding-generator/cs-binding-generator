@@ -181,3 +181,129 @@ class TestMultiFileDeduplication:
         pattern = r'public static partial \w+\s+(\w+)\s*\('
         matches = re.findall(pattern, content)
         return set(matches)
+
+    def test_global_deduplication_prevents_duplicate_partial_methods(self, temp_dir):
+        """Test that global deduplication prevents duplicate partial method definitions"""
+        # Create a shared header with functions that would cause conflicts
+        shared_header = temp_dir / "shared.h"
+        shared_header.write_text("""
+            int shared_function();
+            typedef struct SharedStruct {
+                int value;
+            } SharedStruct;
+            typedef union SharedUnion {
+                int i;
+                float f;
+            } SharedUnion;
+        """)
+        
+        # Create two library headers that both include the shared header
+        lib1_header = temp_dir / "lib1.h"
+        lib1_header.write_text(f"""
+            #include "{shared_header}"
+            int lib1_function();
+        """)
+        
+        lib2_header = temp_dir / "lib2.h"
+        lib2_header.write_text(f"""
+            #include "{shared_header}"
+            int lib2_function();
+        """)
+        
+        generator = CSharpBindingsGenerator()
+        
+        # Test multi-file generation
+        result = generator.generate([
+            (str(lib1_header), "lib1"),
+            (str(lib2_header), "lib2")
+        ], multi_file=True, output=str(temp_dir), include_dirs=[str(temp_dir)])
+        
+        lib1_content = result["lib1.cs"]
+        lib2_content = result["lib2.cs"]
+        
+        # Count occurrences of shared items across both files
+        combined_content = lib1_content + "\n" + lib2_content
+        
+        # Functions should appear in both files (no deduplication for functions in multi-file)
+        assert lib1_content.count("shared_function") >= 1
+        assert lib2_content.count("shared_function") >= 1
+        
+        # But structs should be deduplicated globally - each should appear only once total
+        struct_count = combined_content.count("partial struct SharedStruct")
+        union_count = combined_content.count("partial struct SharedUnion")
+        
+        # In global deduplication, structs/unions appear only once across all files
+        assert struct_count == 1, f"Expected SharedStruct to appear once, found {struct_count}"
+        assert union_count == 1, f"Expected SharedUnion to appear once, found {union_count}"
+
+    def test_multi_file_with_renames_deduplication(self, temp_dir):
+        """Test that multi-file generation with renames maintains proper deduplication"""
+        shared_header = temp_dir / "shared.h"
+        shared_header.write_text("""
+            typedef struct SDL_Window SDL_Window;
+            typedef struct TCOD_Console TCOD_Console;
+            SDL_Window* SDL_CreateWindow();
+            TCOD_Console* TCOD_console_new();
+        """)
+        
+        lib1_header = temp_dir / "lib1.h"
+        lib1_header.write_text(f"""
+            #include "{shared_header}"
+            int lib1_function(SDL_Window* win, TCOD_Console* con);
+        """)
+        
+        lib2_header = temp_dir / "lib2.h"
+        lib2_header.write_text(f"""
+            #include "{shared_header}"
+            int lib2_function(SDL_Window* win, TCOD_Console* con);
+        """)
+        
+        config = temp_dir / "config.xml"
+        config.write_text(f"""
+            <bindings>
+                <rename from="SDL_Window" to="Window"/>
+                <rename from="TCOD_Console" to="Console"/>
+                <rename from="SDL_CreateWindow" to="CreateWindow"/>
+                <rename from="TCOD_console_new" to="ConsoleNew"/>
+                <library name="lib1">
+                    <namespace name="Test"/>
+                    <include file="{lib1_header}"/>
+                </library>
+                <library name="lib2">
+                    <namespace name="Test"/>
+                    <include file="{lib2_header}"/>
+                </library>
+            </bindings>
+        """)
+        
+        from cs_binding_generator.main import parse_config_file
+        header_library_pairs, namespace, include_dirs, renames = parse_config_file(str(config))
+        
+        generator = CSharpBindingsGenerator()
+        for from_name, to_name in renames.items():
+            generator.type_mapper.add_rename(from_name, to_name)
+            
+        result = generator.generate(
+            header_library_pairs,
+            multi_file=True,
+            output=str(temp_dir),
+            namespace=namespace, 
+            include_dirs=[str(temp_dir)]
+        )
+        
+        lib1_content = result["lib1.cs"]
+        lib2_content = result["lib2.cs"]
+        combined_content = lib1_content + "\n" + lib2_content
+        
+        # Verify renames are applied consistently
+        assert "Window*" in lib1_content and "Window*" in lib2_content
+        assert "Console*" in lib1_content and "Console*" in lib2_content
+        assert "SDL_Window*" not in combined_content
+        assert "TCOD_Console*" not in combined_content
+        
+        # Verify global deduplication - structs appear only once total
+        window_struct_count = combined_content.count("partial struct Window")
+        console_struct_count = combined_content.count("partial struct Console")
+        
+        assert window_struct_count <= 1, f"Window struct should appear at most once, found {window_struct_count}"
+        assert console_struct_count <= 1, f"Console struct should appear at most once, found {console_struct_count}"

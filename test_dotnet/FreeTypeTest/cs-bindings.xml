@@ -1,4 +1,7 @@
 <bindings>
+    <rename from="FT_Error" to="Error"/>
+    <rename from="FT_Init_FreeType" to="InitFreeType"/>
+    <rename from="FT_New_Face" to="NewFace"/>
     <include_directory path="/usr/include/freetype2"/>
     <library name="freetype">
         <namespace name="FreeType"/>

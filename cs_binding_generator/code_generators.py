@@ -15,7 +15,8 @@ class CodeGenerator:
     
     def generate_function(self, cursor, library_name: str) -> str:
         """Generate C# LibraryImport for a function"""
-        func_name = cursor.spelling
+        original_func_name = cursor.spelling
+        func_name = self.type_mapper.apply_rename(original_func_name)
         result_type = self.type_mapper.map_type(cursor.result_type, is_return_type=True)
         
         # Skip if return type cannot be mapped
@@ -73,7 +74,7 @@ class CodeGenerator:
             return_marshal = "    [return: MarshalAs(UnmanagedType.I1)]\n"
         
         # Generate LibraryImport attribute and method with StringMarshalling
-        code = f'''    [LibraryImport("{library_name}", EntryPoint = "{func_name}", StringMarshalling = StringMarshalling.Utf8)]
+        code = f'''    [LibraryImport("{library_name}", EntryPoint = "{original_func_name}", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
 {return_marshal}    public static partial {result_type} {func_name}({params_str});
 '''
@@ -200,7 +201,8 @@ class CodeGenerator:
     
     def generate_struct(self, cursor) -> str:
         """Generate C# struct with explicit layout"""
-        struct_name = cursor.spelling
+        original_struct_name = cursor.spelling
+        struct_name = self.type_mapper.apply_rename(original_struct_name)
         
         # Skip anonymous/unnamed structs (they often appear in unions)
         if not struct_name or "unnamed" in struct_name or "::" in struct_name:
@@ -275,9 +277,11 @@ public unsafe partial struct {struct_name}
         if not type_name or "unnamed" in type_name or "::" in type_name:
             return ""
         
+        renamed_type_name = self.type_mapper.apply_rename(type_name)
+        
         # Generate an empty struct that can be used as a type-safe handle
         # Note: Cannot use readonly because these are used with unsafe pointers
-        code = f'''public partial struct {type_name}
+        code = f'''public partial struct {renamed_type_name}
 {{
 }}
 '''
@@ -285,7 +289,8 @@ public unsafe partial struct {struct_name}
     
     def generate_union(self, cursor) -> str:
         """Generate C# struct representing a union using LayoutKind.Explicit"""
-        union_name = cursor.spelling
+        original_union_name = cursor.spelling
+        union_name = self.type_mapper.apply_rename(original_union_name)
         
         # Skip anonymous/unnamed unions
         if not union_name or "unnamed" in union_name or "::" in union_name:
@@ -375,7 +380,8 @@ public unsafe partial struct {union_name}
     
     def generate_enum(self, cursor) -> str:
         """Generate C# enum"""
-        enum_name = cursor.spelling
+        original_enum_name = cursor.spelling
+        enum_name = self.type_mapper.apply_rename(original_enum_name) if original_enum_name else None
         
         # Filter out invalid enum names (anonymous enums with full display name)
         if enum_name and ("unnamed" in enum_name or "(" in enum_name or "::" in enum_name):

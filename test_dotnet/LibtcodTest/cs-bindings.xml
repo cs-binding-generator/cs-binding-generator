@@ -1,4 +1,7 @@
 <bindings>
+    <rename from="TCOD_Console" to="TCODConsole"/>
+    <rename from="TCOD_console_new" to="ConsoleNew"/>
+    <rename from="SDL_CreateWindow" to="CreateWindow"/>
     <include_directory path="/usr/include/libtcod"/>
     <include_directory path="/usr/include/SDL3"/>
     <library name="libtcod">

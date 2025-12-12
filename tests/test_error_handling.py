@@ -328,7 +328,7 @@ class TestTypeMapperEdgeCases:
         assert len(result) > 0
     
     def test_typedef_chain_resolution(self):
-        """Test complex typedef chain resolution"""
+        """Test complex typedef chain resolution (updated behavior)"""
         # Create a mock typedef chain: MyInt -> int32_t -> int
         mock_type = Mock()
         mock_type.spelling = "MyInt" 
@@ -342,7 +342,8 @@ class TestTypeMapperEdgeCases:
         
         result = self.type_mapper.map_type(mock_type)
         
-        assert "int" in result
+        # Now preserves typedef name instead of resolving
+        assert result == "MyInt"
 
 
 class TestCLIArguments:

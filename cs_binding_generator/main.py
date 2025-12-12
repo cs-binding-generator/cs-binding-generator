@@ -19,7 +19,7 @@ from cs_binding_generator.generator import CSharpBindingsGenerator
 
 
 def parse_config_file(config_path):
-    """Parse XML configuration file and return header-library pairs, namespace, and include directories"""
+    """Parse XML configuration file and return header-library pairs, namespace, include directories, and renames"""
     try:
         tree = ET.parse(config_path)
         root = tree.getroot()
@@ -30,6 +30,7 @@ def parse_config_file(config_path):
         header_library_pairs = []
         namespace = None
         include_dirs = []
+        renames = {}
         
         # Get global include directories
         for include_dir in root.findall('include_directory'):
@@ -37,6 +38,14 @@ def parse_config_file(config_path):
             if not path:
                 raise ValueError("Include directory element missing 'path' attribute")
             include_dirs.append(path.strip())
+        
+        # Get global renames
+        for rename in root.findall('rename'):
+            from_name = rename.get('from')
+            to_name = rename.get('to')
+            if not from_name or not to_name:
+                raise ValueError("Rename element missing 'from' or 'to' attribute")
+            renames[from_name.strip()] = to_name.strip()
         
         for library in root.findall('library'):
             library_name = library.get('name')
@@ -62,7 +71,7 @@ def parse_config_file(config_path):
                     raise ValueError(f"Include element in library '{library_name}' missing 'file' attribute")
                 header_library_pairs.append((header_path.strip(), library_name.strip()))
         
-        return header_library_pairs, namespace, include_dirs
+        return header_library_pairs, namespace, include_dirs, renames
         
     except ET.ParseError as e:
         raise ValueError(f"XML parsing error: {e}")
@@ -150,6 +159,7 @@ Examples:
     header_library_pairs = []
     config_namespace = None
     config_include_dirs = []
+    config_renames = {}
     
     if args.config:
         if args.input:
@@ -157,7 +167,7 @@ Examples:
             sys.exit(1)
             
         try:
-            header_library_pairs, config_namespace, config_include_dirs = parse_config_file(args.config)
+            header_library_pairs, config_namespace, config_include_dirs, config_renames = parse_config_file(args.config)
         except (ValueError, FileNotFoundError) as e:
             print(f"Error reading config file: {e}", file=sys.stderr)
             sys.exit(1)
@@ -196,6 +206,12 @@ Examples:
     # Generate bindings
     try:
         generator = CSharpBindingsGenerator()
+        
+        # Apply renames if using config file
+        if args.config and config_renames:
+            for from_name, to_name in config_renames.items():
+                generator.type_mapper.add_rename(from_name, to_name)
+        
         generator.generate(
             header_library_pairs,
             output=args.output, 

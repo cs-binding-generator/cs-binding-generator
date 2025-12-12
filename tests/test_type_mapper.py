@@ -161,7 +161,7 @@ class TestTypeMapper:
         assert result == "Point"
     
     def test_typedef(self):
-        """Test that typedefs resolve to canonical type"""
+        """Test that typedefs preserve typedef name (updated behavior)"""
         mock_type = Mock()
         mock_type.kind = TypeKind.TYPEDEF
         mock_type.spelling = "my_int"
@@ -172,7 +172,7 @@ class TestTypeMapper:
         mock_type.get_canonical.return_value = mock_canonical
         
         result = self.mapper.map_type(mock_type)
-        assert result == "int"
+        assert result == "my_int"
     
     def test_fallback_type(self):
         """Test fallback for unknown types"""

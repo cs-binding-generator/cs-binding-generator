@@ -110,14 +110,24 @@ class CSharpBindingsGenerator:
                     for child in cursor.get_children():
                         self.process_cursor(child)
                     return
-            # Check if we've already generated this function for THIS library
-            # Use function name for deduplication within library, but allow same function in different libraries
-            library_func_key = (self.current_library, cursor.spelling)
-            if library_func_key not in self.seen_functions:
-                code = self.code_generator.generate_function(cursor, self.current_library)
-                if code:
-                    self._add_to_library_collection(self.generated_functions, self.current_library, code)
-                    self.seen_functions.add(library_func_key)
+            # Check if we've already generated this function
+            # In multi-file mode, use global deduplication to avoid duplicate partial methods
+            # In single-file mode, use library-specific deduplication for flexibility
+            if self.multi_file:
+                func_key = cursor.spelling  # Global deduplication by function name
+                if func_key not in self.seen_functions:
+                    code = self.code_generator.generate_function(cursor, self.current_library)
+                    if code:
+                        self._add_to_library_collection(self.generated_functions, self.current_library, code)
+                        self.seen_functions.add(func_key)
+            else:
+                # Library-specific deduplication for single-file mode
+                library_func_key = (self.current_library, cursor.spelling)
+                if library_func_key not in self.seen_functions:
+                    code = self.code_generator.generate_function(cursor, self.current_library)
+                    if code:
+                        self._add_to_library_collection(self.generated_functions, self.current_library, code)
+                        self.seen_functions.add(library_func_key)
         
         elif cursor.kind == CursorKind.STRUCT_DECL:
             if cursor.is_definition():
@@ -129,17 +139,31 @@ class CSharpBindingsGenerator:
                         for child in cursor.get_children():
                             self.process_cursor(child)
                         return
-                # Check if we've already generated this struct for THIS library
-                struct_key = (cursor.spelling, str(cursor.location.file), cursor.location.line)
-                library_struct_key = (self.current_library, struct_key)
-                if library_struct_key not in self.seen_structs:
-                    code = self.code_generator.generate_struct(cursor)
-                    if code:
-                        self._add_to_library_collection(self.generated_structs, self.current_library, code)
-                        self.seen_structs.add(library_struct_key)
-                        # Also mark as seen by name only to prevent opaque type generation
-                        if cursor.spelling:
-                            self.seen_structs.add((self.current_library, (cursor.spelling, None, None)))
+                # Check if we've already generated this struct
+                # In multi-file mode, use global deduplication to avoid duplicate struct definitions
+                # In single-file mode, use library-specific deduplication for flexibility
+                if self.multi_file:
+                    struct_key = (cursor.spelling, str(cursor.location.file), cursor.location.line)
+                    if struct_key not in self.seen_structs:
+                        code = self.code_generator.generate_struct(cursor)
+                        if code:
+                            self._add_to_library_collection(self.generated_structs, self.current_library, code)
+                            self.seen_structs.add(struct_key)
+                            # Also mark as seen by name only to prevent opaque type generation
+                            if cursor.spelling:
+                                self.seen_structs.add((cursor.spelling, None, None))
+                else:
+                    # Library-specific deduplication for single-file mode
+                    struct_key = (cursor.spelling, str(cursor.location.file), cursor.location.line)
+                    library_struct_key = (self.current_library, struct_key)
+                    if library_struct_key not in self.seen_structs:
+                        code = self.code_generator.generate_struct(cursor)
+                        if code:
+                            self._add_to_library_collection(self.generated_structs, self.current_library, code)
+                            self.seen_structs.add(library_struct_key)
+                            # Also mark as seen by name only to prevent opaque type generation
+                            if cursor.spelling:
+                                self.seen_structs.add((self.current_library, (cursor.spelling, None, None)))
         
         elif cursor.kind == CursorKind.UNION_DECL:
             if cursor.is_definition():
@@ -151,14 +175,25 @@ class CSharpBindingsGenerator:
                         for child in cursor.get_children():
                             self.process_cursor(child)
                         return
-                # Check if we've already generated this union for THIS library
-                union_key = (cursor.spelling, str(cursor.location.file), cursor.location.line)
-                library_union_key = (self.current_library, union_key)
-                if library_union_key not in self.seen_unions:
-                    code = self.code_generator.generate_union(cursor)
-                    if code:
-                        self._add_to_library_collection(self.generated_unions, self.current_library, code)
-                        self.seen_unions.add(library_union_key)
+                # Check if we've already generated this union
+                # In multi-file mode, use global deduplication to avoid duplicate union definitions
+                # In single-file mode, use library-specific deduplication for flexibility
+                if self.multi_file:
+                    union_key = (cursor.spelling, str(cursor.location.file), cursor.location.line)
+                    if union_key not in self.seen_unions:
+                        code = self.code_generator.generate_union(cursor)
+                        if code:
+                            self._add_to_library_collection(self.generated_unions, self.current_library, code)
+                            self.seen_unions.add(union_key)
+                else:
+                    # Library-specific deduplication for single-file mode
+                    union_key = (cursor.spelling, str(cursor.location.file), cursor.location.line)
+                    library_union_key = (self.current_library, union_key)
+                    if library_union_key not in self.seen_unions:
+                        code = self.code_generator.generate_union(cursor)
+                        if code:
+                            self._add_to_library_collection(self.generated_unions, self.current_library, code)
+                            self.seen_unions.add(library_union_key)
         
         elif cursor.kind == CursorKind.ENUM_DECL:
             if cursor.is_definition():
@@ -382,6 +417,9 @@ class CSharpBindingsGenerator:
             include_dirs: List of directories to search for included headers
             include_depth: How deep to process included files (0=only input files, 1=direct includes, etc.; None=infinite)
         """
+        # Store multi_file setting for use in deduplication logic
+        self.multi_file = multi_file
+        
         # Clear previous state
         self._clear_state()
         
@@ -496,8 +534,11 @@ class CSharpBindingsGenerator:
             raise RuntimeError(f"No header files could be processed successfully. Files attempted: {', '.join(header_files)}. This usually indicates missing include directories or inaccessible header files.")
         
         # Generate merged enums from collected members
-        for enum_name, (library, members, underlying_type) in sorted(self.enum_members.items()):
+        for original_enum_name, (library, members, underlying_type) in sorted(self.enum_members.items()):
             if members:
+                # Apply rename to enum name
+                enum_name = self.type_mapper.apply_rename(original_enum_name)
+                
                 # Add inheritance clause if underlying type is not default 'int'
                 inheritance_clause = ""
                 if underlying_type and underlying_type != "int":
@@ -542,6 +583,9 @@ class CSharpBindingsGenerator:
             functions=all_functions,
             class_name=NATIVE_METHODS_CLASS
         )
+        
+        # Apply post-processing to ensure all renames are applied
+        output = self.apply_final_renames(output)
         
         # Write to file or return
         if output_file:
@@ -606,6 +650,9 @@ class CSharpBindingsGenerator:
                 include_assembly_attribute=False
             )
             
+            # Apply post-processing to ensure all renames are applied
+            output = self.apply_final_renames(output)
+            
             # Write to library-specific file
             library_file = output_path / f"{library}.cs"
             library_file.write_text(output)
@@ -614,3 +661,29 @@ class CSharpBindingsGenerator:
             print(f"Generated bindings for {library}: {library_file}")
         
         return file_contents
+
+    def apply_final_renames(self, output: str) -> str:
+        """Apply all renames to the final output as a safety net"""
+        # Get all renames from the type mapper
+        renames = self.type_mapper.get_all_renames()
+        
+        import re
+        
+        for from_name, to_name in renames.items():
+            # Replace type names as standalone types, but avoid replacements inside quoted strings (EntryPoint values)
+            # and avoid replacing parts of larger identifiers
+            # Pattern explanation:
+            # - (?<!")          negative lookbehind - not preceded by quote
+            # - (?<![A-Za-z_])  negative lookbehind - not preceded by letter/underscore (identifier char)
+            # - escaped from_name
+            # - (?![A-Za-z0-9_]) negative lookahead - not followed by alphanumeric/underscore (identifier char)
+            # - (?!")           negative lookahead - not followed by quote
+            # This prevents replacing type names inside EntryPoint = "function_name" and inside larger identifiers
+            pattern = r'(?<!")(?<![A-Za-z_])' + re.escape(from_name) + r'(?![A-Za-z0-9_])(?!")'
+            output = re.sub(pattern, to_name, output)
+            
+            # Also handle pointer and double-pointer cases with the same careful matching
+            pointer_pattern = r'(?<!")(?<![A-Za-z_])' + re.escape(from_name) + r'(?=\*+)(?!")'
+            output = re.sub(pointer_pattern, to_name, output)
+        
+        return output

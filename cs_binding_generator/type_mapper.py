@@ -24,6 +24,8 @@ class TypeMapper:
         }
         # Track opaque types (empty structs used as handles)
         self.opaque_types = set()
+        # Global renames that apply to all types/functions
+        self.renames = {}
     
     def register_typedef(self, name: str, underlying_type):
         """Register a typedef for later resolution"""
@@ -178,6 +180,7 @@ class TypeMapper:
                                 break
                         if not stripped:
                             break
+
                     
                     # Try to resolve through typedef chain for ELABORATED types that are typedefs
                     # Example: SDL_TLSID is ELABORATED but is actually a typedef to SDL_AtomicInt
@@ -200,7 +203,7 @@ class TypeMapper:
             
             # All struct/union pointers use typed pointers (Type*)
             if struct_name:
-                return f"{struct_name}*"
+                return f"{self.apply_rename(struct_name)}*"
             
             # Pointer to struct/union with ELABORATED type but no name
             if pointee.kind in (TypeKind.RECORD, TypeKind.ELABORATED):
@@ -256,9 +259,9 @@ class TypeMapper:
                     if clean_spelling in self.typedef_map:
                         return self.typedef_map[clean_spelling]
                 
-                # If we have a clean spelling after stripping, return it
+                # If we have a clean spelling after stripping, apply rename and return it
                 if clean_spelling:
-                    return clean_spelling
+                    return self.apply_rename(clean_spelling)
             else:
                 spelling = None
             # Get the named type and map it
@@ -269,8 +272,8 @@ class TypeMapper:
             if spelling:
                 for prefix in ['struct ', 'enum ', 'union ', 'class ']:
                     if spelling.startswith(prefix):
-                        return spelling[len(prefix):]
-            return spelling if spelling else "nint"
+                        return self.apply_rename(spelling[len(prefix):])
+            return self.apply_rename(spelling) if spelling else "nint"
         
         # Typedef - check typedef chain first, then common typedefs
         if ctype.kind == TypeKind.TYPEDEF:
@@ -280,21 +283,23 @@ class TypeMapper:
                     # Try typedef chain first (runtime-discovered types)
                     resolved = self.resolve_typedef_chain(typedef_name)
                     if resolved:
-                        return resolved
+                        return self.apply_rename(resolved)
                     # Fall back to static typedef_map
                     if typedef_name in self.typedef_map:
-                        return self.typedef_map[typedef_name]
+                        return self.apply_rename(self.typedef_map[typedef_name])
+                    # Apply rename to the typedef name itself
+                    return self.apply_rename(typedef_name)
             # Otherwise resolve to canonical type
             return self.map_type(ctype.get_canonical())
         
-        # Enum - strip 'enum ' prefix
+        # Enum - strip 'enum ' prefix and apply renames
         if ctype.kind == TypeKind.ENUM:
             spelling = ctype.spelling if hasattr(ctype, 'spelling') else None
             if not spelling:
                 spelling = "int"
             if spelling.startswith('enum '):
-                return spelling[5:]  # Strip 'enum ' prefix
-            return spelling
+                spelling = spelling[5:]  # Strip 'enum ' prefix
+            return self.apply_rename(spelling)
         
         # Struct/Union - strip any 'struct'/'union'/'const' prefix
         if ctype.kind == TypeKind.RECORD:
@@ -310,7 +315,7 @@ class TypeMapper:
                                 spelling = spelling[len(prefix):]
                                 changed = True
                                 break
-                    return spelling if spelling else "nint"
+                    return self.apply_rename(spelling) if spelling else "nint"
             return "nint"
         
         # Fallback
@@ -325,5 +330,17 @@ class TypeMapper:
                         spelling = spelling[len(prefix):]
                         changed = True
                         break
-            return spelling if spelling else "nint"
+            return self.apply_rename(spelling) if spelling else "nint"
         return "nint"
+    
+    def add_rename(self, from_name: str, to_name: str):
+        """Add a global rename mapping"""
+        self.renames[from_name] = to_name
+    
+    def apply_rename(self, name: str) -> str:
+        """Apply rename if one exists, otherwise return original name"""
+        return self.renames.get(name, name)
+    
+    def get_all_renames(self) -> dict:
+        """Get all rename mappings"""
+        return self.renames.copy()
