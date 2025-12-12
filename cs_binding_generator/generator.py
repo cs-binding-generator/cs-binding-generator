@@ -110,13 +110,14 @@ class CSharpBindingsGenerator:
                     for child in cursor.get_children():
                         self.process_cursor(child)
                     return
-            # Check if we've already generated this function
-            func_key = (cursor.spelling, str(cursor.location.file), cursor.location.line)
-            if func_key not in self.seen_functions:
+            # Check if we've already generated this function for THIS library
+            # Use function name for deduplication within library, but allow same function in different libraries
+            library_func_key = (self.current_library, cursor.spelling)
+            if library_func_key not in self.seen_functions:
                 code = self.code_generator.generate_function(cursor, self.current_library)
                 if code:
                     self._add_to_library_collection(self.generated_functions, self.current_library, code)
-                    self.seen_functions.add(func_key)
+                    self.seen_functions.add(library_func_key)
         
         elif cursor.kind == CursorKind.STRUCT_DECL:
             if cursor.is_definition():
@@ -128,16 +129,17 @@ class CSharpBindingsGenerator:
                         for child in cursor.get_children():
                             self.process_cursor(child)
                         return
-                # Check if we've already generated this struct
+                # Check if we've already generated this struct for THIS library
                 struct_key = (cursor.spelling, str(cursor.location.file), cursor.location.line)
-                if struct_key not in self.seen_structs:
+                library_struct_key = (self.current_library, struct_key)
+                if library_struct_key not in self.seen_structs:
                     code = self.code_generator.generate_struct(cursor)
                     if code:
                         self._add_to_library_collection(self.generated_structs, self.current_library, code)
-                        self.seen_structs.add(struct_key)
+                        self.seen_structs.add(library_struct_key)
                         # Also mark as seen by name only to prevent opaque type generation
                         if cursor.spelling:
-                            self.seen_structs.add((cursor.spelling, None, None))
+                            self.seen_structs.add((self.current_library, (cursor.spelling, None, None)))
         
         elif cursor.kind == CursorKind.UNION_DECL:
             if cursor.is_definition():
@@ -149,13 +151,14 @@ class CSharpBindingsGenerator:
                         for child in cursor.get_children():
                             self.process_cursor(child)
                         return
-                # Check if we've already generated this union
+                # Check if we've already generated this union for THIS library
                 union_key = (cursor.spelling, str(cursor.location.file), cursor.location.line)
-                if union_key not in self.seen_unions:
+                library_union_key = (self.current_library, union_key)
+                if library_union_key not in self.seen_unions:
                     code = self.code_generator.generate_union(cursor)
                     if code:
                         self._add_to_library_collection(self.generated_unions, self.current_library, code)
-                        self.seen_unions.add(union_key)
+                        self.seen_unions.add(library_union_key)
         
         elif cursor.kind == CursorKind.ENUM_DECL:
             if cursor.is_definition():
@@ -189,8 +192,8 @@ class CSharpBindingsGenerator:
             children = list(cursor.get_children())
             if len(children) == 1:
                 child = children[0]
-                # Skip if already generated as a full struct
-                if (type_name, None, None) in self.seen_structs:
+                # Skip if already generated as a full struct for this library
+                if (self.current_library, (type_name, None, None)) in self.seen_structs:
                     return
                     
                 # Check if it's a reference to a struct (TYPE_REF) or direct STRUCT_DECL
@@ -198,23 +201,25 @@ class CSharpBindingsGenerator:
                     # This is an opaque typedef like: typedef struct SDL_Window SDL_Window;
                     if type_name and type_name not in ['size_t', 'ssize_t', 'ptrdiff_t', 'intptr_t', 'uintptr_t', 'wchar_t']:
                         struct_key = (type_name, str(cursor.location.file), cursor.location.line)
-                        if struct_key not in self.seen_structs:
+                        library_struct_key = (self.current_library, struct_key)
+                        if library_struct_key not in self.seen_structs:
                             code = self.code_generator.generate_opaque_type(type_name)
                             if code:
                                 self._add_to_library_collection(self.generated_structs, self.current_library, code)
-                                self.seen_structs.add(struct_key)
-                                self.seen_structs.add((type_name, None, None))
+                                self.seen_structs.add(library_struct_key)
+                                self.seen_structs.add((self.current_library, (type_name, None, None)))
                                 # Register as opaque type for pointer handling
                                 self.type_mapper.opaque_types.add(type_name)
                 elif child.kind == CursorKind.STRUCT_DECL and not child.is_definition() and child.spelling:
                     # Direct forward declaration
                     struct_key = (child.spelling, str(cursor.location.file), cursor.location.line)
-                    if struct_key not in self.seen_structs:
+                    library_struct_key = (self.current_library, struct_key)
+                    if library_struct_key not in self.seen_structs:
                         code = self.code_generator.generate_opaque_type(child.spelling)
                         if code:
                             self._add_to_library_collection(self.generated_structs, self.current_library, code)
-                            self.seen_structs.add(struct_key)
-                            self.seen_structs.add((child.spelling, None, None))
+                            self.seen_structs.add(library_struct_key)
+                            self.seen_structs.add((self.current_library, (child.spelling, None, None)))
                             # Register as opaque type for pointer handling
                             self.type_mapper.opaque_types.add(child.spelling)
         

@@ -1,6 +1,4 @@
 <bindings>
-    <include_directory path="/usr/include"/>
-    <include_directory path="/usr/lib/clang/21/include"/>
     <library name="SDL3">
         <namespace name="SDL"/>
         <include file="/usr/include/SDL3/SDL.h"/>

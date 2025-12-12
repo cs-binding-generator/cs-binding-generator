@@ -1,7 +1,6 @@
 <bindings>
     <include_directory path="/usr/include/libtcod"/>
     <include_directory path="/usr/include/SDL3"/>
-    <include_directory path="/usr/include"/>
     <library name="libtcod">
         <namespace name="Libtcod"/>
         <include file="/usr/include/libtcod/libtcod.h"/>
