@@ -167,8 +167,7 @@ class TestCLIIntegration:
         # Create config file
         config_content = """
         <bindings>
-            <library name="testlib">
-                <namespace name="ConfigNamespace"/>
+            <library name="testlib" namespace="ConfigNamespace">
                 <include file="{header_path}"/>
             </library>
         </bindings>

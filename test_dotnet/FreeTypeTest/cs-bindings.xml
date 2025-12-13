@@ -3,8 +3,7 @@
     <rename from="FT_Init_FreeType" to="InitFreeType"/>
     <rename from="FT_New_Face" to="NewFace"/>
     <include_directory path="/usr/include/freetype2"/>
-    <library name="freetype">
-        <namespace name="FreeType"/>
+    <library name="freetype" namespace="FreeType">
         <include file="/usr/include/freetype2/freetype/freetype.h"/>
     </library>
 </bindings>

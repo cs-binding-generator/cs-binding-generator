@@ -17,8 +17,7 @@ class TestXMLConfigParsing:
         """Test parsing a valid XML configuration file"""
         config_content = """
         <bindings>
-            <library name="testlib">
-                <namespace name="TestNamespace"/>
+            <library name="testlib" namespace="TestNamespace">
                 <include file="/path/to/test.h"/>
             </library>
         </bindings>
@@ -38,12 +37,10 @@ class TestXMLConfigParsing:
         """Test parsing config with multiple libraries"""
         config_content = """
         <bindings>
-            <library name="lib1">
-                <namespace name="Lib1Namespace"/>
+            <library name="lib1" namespace="Lib1Namespace">
                 <include file="/path/to/lib1.h"/>
             </library>
-            <library name="lib2">
-                <namespace name="Lib2Namespace"/>
+            <library name="lib2" namespace="Lib2Namespace">
                 <include file="/path/to/lib2a.h"/>
                 <include file="/path/to/lib2b.h"/>
             </library>
@@ -87,8 +84,7 @@ class TestXMLConfigParsing:
         """Test parsing config with custom class names"""
         config_content = """
         <bindings>
-            <library name="lib1" class="CustomLib1">
-                <namespace name="TestNamespace"/>
+            <library name="lib1" class="CustomLib1" namespace="TestNamespace">
                 <include file="/path/to/lib1.h"/>
             </library>
             <library name="lib2" class="CustomLib2">
@@ -185,12 +181,10 @@ class TestXMLConfigParsing:
         """Test parsing the actual LibTCOD config file format"""
         config_content = """
         <bindings>
-            <library name="libtcod">
-                <namespace name="Libtcod"/>
+            <library name="libtcod" namespace="Libtcod">
                 <include file="/usr/include/libtcod/libtcod.h"/>
             </library>
-            <library name="SDL3">
-                <namespace name="SDL3"/>
+            <library name="SDL3" namespace="SDL3">
                 <include file="/usr/include/SDL3/SDL.h"/>
             </library>
         </bindings>
@@ -211,8 +205,7 @@ class TestXMLConfigParsing:
         """Test that whitespace in config values is properly handled"""
         config_content = """
         <bindings>
-            <library name=" testlib ">
-                <namespace name=" TestNamespace "/>
+            <library name=" testlib " namespace=" TestNamespace ">
                 <include file=" /path/to/test.h "/>
             </library>
         </bindings>
@@ -225,7 +218,7 @@ class TestXMLConfigParsing:
         
         assert len(pairs) == 1
         assert pairs[0] == ("/path/to/test.h", "testlib")  # Should be stripped
-        assert namespace == " TestNamespace "  # Namespace not stripped in current impl
+        assert namespace == "TestNamespace"  # Namespace stripped in new impl
         assert include_dirs == []
     
     def test_config_with_global_include_directories(self, temp_dir):
@@ -234,8 +227,7 @@ class TestXMLConfigParsing:
         <bindings>
             <include_directory path="/usr/include"/>
             <include_directory path="/usr/local/include"/>
-            <library name="testlib">
-                <namespace name="TestNamespace"/>
+            <library name="testlib" namespace="TestNamespace">
                 <include file="/path/to/test.h"/>
             </library>
         </bindings>
@@ -256,8 +248,7 @@ class TestXMLConfigParsing:
         config_content = """
         <bindings>
             <include_directory path="/usr/include"/>
-            <library name="lib1">
-                <namespace name="Lib1Namespace"/>
+            <library name="lib1" namespace="Lib1Namespace">
                 <include_directory path="/usr/include/lib1"/>
                 <include file="/path/to/lib1.h"/>
             </library>

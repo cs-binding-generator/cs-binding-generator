@@ -21,13 +21,11 @@
     <include_directory path="/usr/include/libtcod"/>
     <include_directory path="/usr/include/SDL3"/>
 
-    <library name="SDL3" class="SDL">
-        <namespace name="SDL3"/>
+    <library name="SDL3" namespace="SDL3" class="SDL">
         <include file="/usr/include/SDL3/SDL.h"/>
     </library>
 
-    <library name="libtcod" class="Tcod">
-        <namespace name="Libtcod"/>
+    <library name="libtcod" namespace="Libtcod" class="Tcod">
         <include file="/usr/include/libtcod/libtcod.h"/>
     </library>
 </bindings>

@@ -25,8 +25,7 @@ class TestRemovalFunctionality:
         config.write_text(f"""
             <bindings>
                 <remove pattern="remove_function"/>
-                <library name="testlib">
-                    <namespace name="Test"/>
+                <library name="testlib" namespace="Test">
                     <include file="{header}"/>
                 </library>
             </bindings>
@@ -66,8 +65,7 @@ class TestRemovalFunctionality:
         config.write_text(f"""
             <bindings>
                 <remove pattern="SDL_.*" regex="true"/>
-                <library name="testlib">
-                    <namespace name="Test"/>
+                <library name="testlib" namespace="Test">
                     <include file="{header}"/>
                 </library>
             </bindings>
@@ -115,8 +113,7 @@ class TestRemovalFunctionality:
         config.write_text(f"""
             <bindings>
                 <remove pattern="RemoveStruct"/>
-                <library name="testlib">
-                    <namespace name="Test"/>
+                <library name="testlib" namespace="Test">
                     <include file="{header}"/>
                 </library>
             </bindings>
@@ -160,8 +157,7 @@ class TestRemovalFunctionality:
         config.write_text(f"""
             <bindings>
                 <remove pattern="RemoveEnum"/>
-                <library name="testlib">
-                    <namespace name="Test"/>
+                <library name="testlib" namespace="Test">
                     <include file="{header}"/>
                 </library>
             </bindings>
@@ -206,8 +202,7 @@ class TestRemovalFunctionality:
         config.write_text(f"""
             <bindings>
                 <remove pattern="RemoveUnion"/>
-                <library name="testlib">
-                    <namespace name="Test"/>
+                <library name="testlib" namespace="Test">
                     <include file="{header}"/>
                 </library>
             </bindings>
@@ -247,8 +242,7 @@ class TestRemovalFunctionality:
             <bindings>
                 <remove pattern="SDL_.*" regex="true"/>
                 <remove pattern="TCOD_Quit"/>
-                <library name="testlib">
-                    <namespace name="Test"/>
+                <library name="testlib" namespace="Test">
                     <include file="{header}"/>
                 </library>
             </bindings>
@@ -291,8 +285,7 @@ class TestRemovalFunctionality:
             <bindings>
                 <remove pattern="SDL_Init"/>
                 <rename from="SDL_(.*)" to="$1" regex="true"/>
-                <library name="testlib">
-                    <namespace name="Test"/>
+                <library name="testlib" namespace="Test">
                     <include file="{header}"/>
                 </library>
             </bindings>
@@ -336,8 +329,7 @@ class TestRemovalFunctionality:
             <bindings>
                 <remove pattern="(_|__).*" regex="true"/>
                 <remove pattern=".*_helper_.*" regex="true"/>
-                <library name="testlib">
-                    <namespace name="Test"/>
+                <library name="testlib" namespace="Test">
                     <include file="{header}"/>
                 </library>
             </bindings>

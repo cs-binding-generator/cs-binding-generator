@@ -67,10 +67,10 @@ def parse_config_file(config_path):
             class_name = library.get('class', 'NativeMethods')
             library_class_names[library_name.strip()] = class_name.strip()
             
-            # Get namespace (use first one found as default)
-            namespace_elem = library.find('namespace')
-            if namespace_elem is not None and namespace is None:
-                namespace = namespace_elem.get('name')
+            # Get namespace from library attribute (use first one found as default)
+            library_namespace = library.get('namespace')
+            if library_namespace is not None and namespace is None:
+                namespace = library_namespace.strip()
             
             # Get library-specific include directories
             for include_dir in library.findall('include_directory'):

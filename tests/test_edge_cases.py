@@ -69,12 +69,10 @@ class TestEdgeCases:
                 <rename from="TCOD_Console" to="TCODConsole"/>
                 <rename from="TCOD_console_new" to="ConsoleNew"/>
                 <rename from="SDL_CreateWindow" to="CreateWindow"/>
-                <library name="libtcod">
-                    <namespace name="LibTCOD"/>
+                <library name="libtcod" namespace="LibTCOD">
                     <include file="{console_header}"/>
                 </library>
-                <library name="SDL3">
-                    <namespace name="SDL3"/>
+                <library name="SDL3" namespace="SDL3">
                     <include file="{sdl_header}"/>
                 </library>
             </bindings>
@@ -149,8 +147,7 @@ class TestEdgeCases:
             <bindings>
                 <rename from="ForwardDeclared" to="Forward"/>
                 <rename from="FullyDefined" to="Full"/>
-                <library name="testlib">
-                    <namespace name="Test"/>
+                <library name="testlib" namespace="Test">
                     <include file="{header}"/>
                 </library>
             </bindings>
@@ -198,8 +195,7 @@ class TestEdgeCases:
         config.write_text(f"""
             <bindings>
                 <rename from="Test" to="T"/>
-                <library name="testlib">
-                    <namespace name="Test"/>
+                <library name="testlib" namespace="Test">
                     <include file="{header}"/>
                 </library>
             </bindings>
@@ -290,16 +286,13 @@ class TestEdgeCases:
                 <rename from="graphics_create" to="CreateGraphics"/>
                 <rename from="audio_create" to="CreateAudio"/>
                 <rename from="main_create" to="CreateMain"/>
-                <library name="graphics">
-                    <namespace name="Graphics"/>
+                <library name="graphics" namespace="Graphics">
                     <include file="{graphics_header}"/>
                 </library>
-                <library name="audio">
-                    <namespace name="Audio"/>
+                <library name="audio" namespace="Audio">
                     <include file="{audio_header}"/>
                 </library>
-                <library name="main">
-                    <namespace name="Main"/>
+                <library name="main" namespace="Main">
                     <include file="{main_header}"/>
                 </library>
             </bindings>
@@ -372,8 +365,7 @@ class TestEdgeCases:
             <bindings>
                 <rename from="OpaqueType" to="Opaque"/>
                 <rename from="DefinedType" to="Defined"/>
-                <library name="testlib">
-                    <namespace name="Test"/>
+                <library name="testlib" namespace="Test">
                     <include file="{header}"/>
                 </library>
             </bindings>
@@ -426,8 +418,7 @@ class TestEdgeCases:
             <bindings>
                 <rename from="BaseType" to="Base"/>
                 <rename from="AliasType" to="Alias"/>
-                <library name="testlib">
-                    <namespace name="Test"/>
+                <library name="testlib" namespace="Test">
                     <include file="{header}"/>
                 </library>
             </bindings>

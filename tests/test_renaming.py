@@ -28,8 +28,7 @@ class TestRenamingFunctionality:
             <bindings>
                 <rename from="SDL_CreateWindow" to="CreateWindow"/>
                 <rename from="SDL_DestroyWindow" to="DestroyWindow"/>
-                <library name="testlib">
-                    <namespace name="Test"/>
+                <library name="testlib" namespace="Test">
                     <include file="{header}"/>
                 </library>
             </bindings>
@@ -147,12 +146,10 @@ class TestRenamingFunctionality:
                 <rename from="SDL_Result" to="Result"/>
                 <rename from="lib1_function" to="Lib1Function"/>
                 <rename from="lib2_function" to="Lib2Function"/>
-                <library name="lib1">
-                    <namespace name="Test"/>
+                <library name="lib1" namespace="Test">
                     <include file="{lib1_header}"/>
                 </library>
-                <library name="lib2">
-                    <namespace name="Test"/>
+                <library name="lib2" namespace="Test">
                     <include file="{lib2_header}"/>
                 </library>
             </bindings>
@@ -208,8 +205,7 @@ class TestRenamingFunctionality:
             <bindings>
                 <rename from="SDL_Function1" to="Function1"/>
                 <!-- SDL_Function2 and Other_Function not renamed -->
-                <library name="testlib">
-                    <namespace name="Test"/>
+                <library name="testlib" namespace="Test">
                     <include file="{header}"/>
                 </library>
             </bindings>
@@ -256,8 +252,7 @@ class TestRenamingFunctionality:
             <bindings>
                 <rename from="TCOD_Console" to="TCODConsole"/>
                 <rename from="TCOD_console_new" to="ConsoleNew"/>
-                <library name="testlib">
-                    <namespace name="Test"/>
+                <library name="testlib" namespace="Test">
                     <include file="{header}"/>
                 </library>
             </bindings>
@@ -322,12 +317,10 @@ class TestRenamingFunctionality:
                 <rename from="TCOD_Console" to="Console"/>
                 <rename from="TCOD_console_new" to="ConsoleNew"/>
                 <rename from="TCOD_console_init" to="ConsoleInit"/>
-                <library name="lib1">
-                    <namespace name="Test"/>
+                <library name="lib1" namespace="Test">
                     <include file="{lib1_header}"/>
                 </library>
-                <library name="lib2">
-                    <namespace name="Test"/>
+                <library name="lib2" namespace="Test">
                     <include file="{lib2_header}"/>
                 </library>
             </bindings>
@@ -412,8 +405,7 @@ class TestRenamingFunctionality:
             <bindings>
                 <rename from="SDL_CreateWindow" to="CreateWindow"/>
                 <rename from="SDL_DestroyWindow" to="DestroyWindow"/>
-                <library name="testlib">
-                    <namespace name="Test"/>
+                <library name="testlib" namespace="Test">
                     <include file="{header}"/>
                 </library>
             </bindings>

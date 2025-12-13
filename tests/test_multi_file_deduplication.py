@@ -267,12 +267,10 @@ class TestMultiFileDeduplication:
                 <rename from="TCOD_Console" to="Console"/>
                 <rename from="SDL_CreateWindow" to="CreateWindow"/>
                 <rename from="TCOD_console_new" to="ConsoleNew"/>
-                <library name="lib1">
-                    <namespace name="Test"/>
+                <library name="lib1" namespace="Test">
                     <include file="{lib1_header}"/>
                 </library>
-                <library name="lib2">
-                    <namespace name="Test"/>
+                <library name="lib2" namespace="Test">
                     <include file="{lib2_header}"/>
                 </library>
             </bindings>
