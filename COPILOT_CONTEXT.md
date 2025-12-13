@@ -151,7 +151,7 @@ replacement = re.sub(r'\$(\d+)', lambda m: f'\\{int(m.group(1)) + 1}', replaceme
 
 - Framework: pytest 9.0.2
 - Python version: 3.13.11
-- Test count: 155 tests (all passing as of latest run)
+- Test count: 141 tests (all passing as of latest run)
 - Run: `./run_tests.sh` or `python -m pytest`
 
 ### Important Test Files
@@ -189,6 +189,16 @@ replacement = re.sub(r'\$(\d+)', lambda m: f'\\{int(m.group(1)) + 1}', replaceme
 - `test_post_processing.py`
 - `test_renaming.py`
 **Pattern**: Change loops from `for from_name, to_name in renames.items()` to `for from_name, to_name, is_regex in renames`
+
+### Issue: System Headers Leaking Into Generated Code
+**Symptom**: Functions from system headers (like `strcasecmp`, `ffsll` from `strings.h`) appearing in generated bindings with wrong library name
+**Root Cause**: System headers directly in `/usr/include/` were not being filtered out
+**Problem**: `/usr/include/strings.h` is a POSIX header included transitively through `string.h` on Linux
+**Solution**: Filter ANY header directly in `/usr/include/` (not just specific filenames or subdirectories)
+**Location**: `generator.py` lines 89-99 in `_is_system_header()` method
+**Fix Applied**: Check if file path is `/usr/include/<filename>` (no subdirectory) and filter it out
+**Result**: System functions no longer appear in generated code, while actual library functions remain
+**Testing**: Verified with SDL3.cs - system functions removed, SDL functions (like `SDL_strcasecmp`) still present
 
 ## Development Workflow
 
@@ -292,6 +302,20 @@ When broad regex rules cause conflicts (e.g., stripping prefixes from multiple l
 - Functions remain library-specific (always were)
 - Allows shared structs/functions to appear in multiple library files
 - Updated test expectations in test_multi_file_deduplication.py
+
+### 2025-12-13: Fixed System Header Filtering - CRITICAL BUG FIX
+- **Problem**: System functions (`strcasecmp`, `ffsll`, etc.) from `/usr/include/strings.h` appearing in generated SDL3.cs
+- **Root Cause**: System headers directly in `/usr/include/` were only filtered by filename match or subdirectory match
+- **Issue**: `strings.h` is a POSIX header (not in C standard), and sits directly in `/usr/include/` (not a subdirectory)
+- **Why it leaked**: 
+  - Not in `c_std_headers` set (only contains C standard library headers like `string.h`)
+  - Not in a system subdirectory (like `sys/`, `bits/`, etc.)
+  - Path-based filtering only checked specific system paths like `/usr/include/c++`
+- **Solution**: Modified `_is_system_header()` to filter ANY header directly in `/usr/include/` (files with no subdirectory)
+- **Location**: `generator.py` lines 89-99
+- **Fix Details**: Added check for `if '/' not in relative:` to catch all direct `/usr/include/<filename>` headers
+- **Testing**: All 141 tests passing; SDL3.cs no longer contains system functions; SDL functions remain intact
+- **Impact**: Prevents system headers (POSIX, glibc, etc.) from polluting generated bindings regardless of transitive includes
 
 ## Next Steps / TODO
 

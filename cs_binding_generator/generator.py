@@ -84,11 +84,16 @@ class CSharpBindingsGenerator:
         if any(path_str.startswith(sys_path) for sys_path in system_paths):
             return True
         
-        # System subdirectories under /usr/include to exclude
+        # Filter any header directly in /usr/include or in system subdirectories
         if path_str.startswith('/usr/include/'):
             relative = path_str[len('/usr/include/'):]
-            first_part = relative.split('/')[0] if '/' in relative else ''
             
+            # Filter all headers directly in /usr/include (no subdirectory)
+            if '/' not in relative:
+                return True
+            
+            # Also filter known system subdirectories
+            first_part = relative.split('/')[0]
             system_subdirs = {'sys', 'bits', 'gnu', 'asm', 'asm-generic', 'linux', 
                             'arpa', 'net', 'netinet', 'rpc', 'scsi', 'protocols'}
             if first_part in system_subdirs:
@@ -608,9 +613,6 @@ class CSharpBindingsGenerator:
             class_name=NATIVE_METHODS_CLASS
         )
         
-        # Apply post-processing to ensure all renames are applied
-        output = self.apply_final_renames(output)
-        
         # Write to file or return
         if output_file:
             Path(output_file).write_text(output)
@@ -674,9 +676,6 @@ class CSharpBindingsGenerator:
                 include_assembly_attribute=False
             )
             
-            # Apply post-processing to ensure all renames are applied
-            output = self.apply_final_renames(output)
-            
             # Write to library-specific file
             library_file = output_path / f"{library}.cs"
             library_file.write_text(output)
@@ -685,29 +684,3 @@ class CSharpBindingsGenerator:
             print(f"Generated bindings for {library}: {library_file}")
         
         return file_contents
-
-    def apply_final_renames(self, output: str) -> str:
-        """Apply all renames to the final output as a safety net"""
-        # Get all renames from the type mapper
-        renames = self.type_mapper.get_all_renames()
-        
-        import re
-        
-        for from_name, to_name, is_regex in renames:
-            if is_regex:
-                # For regex patterns, wrap in word boundaries and apply
-                # Need to shift capture group numbers by 1 because we wrap pattern in outer group
-                replacement = re.sub(r'\$(\d+)', lambda m: f'\\{int(m.group(1)) + 1}', to_name)
-                pattern = r'\b(' + from_name + r')\b'
-                output = re.sub(pattern, replacement, output)
-            else:
-                # Simple rename - replace type names as standalone types
-                # Avoid replacements inside quoted strings (EntryPoint values) and larger identifiers
-                pattern = r'(?<!")(?<![A-Za-z_])' + re.escape(from_name) + r'(?![A-Za-z0-9_])(?!")'
-                output = re.sub(pattern, to_name, output)
-                
-                # Also handle pointer and double-pointer cases
-                pointer_pattern = r'(?<!")(?<![A-Za-z_])' + re.escape(from_name) + r'(?=\*+)(?!")'
-                output = re.sub(pointer_pattern, to_name, output)
-        
-        return output

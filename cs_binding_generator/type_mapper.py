@@ -150,13 +150,13 @@ class TypeMapper:
                 # Try typedef chain first (runtime-discovered types)
                 resolved = self.resolve_typedef_chain(clean_name)
                 if resolved:
-                    return f"{resolved}*"
+                    return f"{self.apply_rename(resolved)}*"
                 
                 # Fall back to static typedef_map
                 if clean_name in self.typedef_map:
                     mapped_type = self.typedef_map[clean_name]
                     # Return the mapped pointer type (including nint* for function pointers)
-                    return f"{mapped_type}*"
+                    return f"{self.apply_rename(mapped_type)}*"
             
             # Also try mapping if it's explicitly a TYPEDEF kind
             if pointee.kind == TypeKind.TYPEDEF:
@@ -184,6 +184,7 @@ class TypeMapper:
                     
                     # Try to resolve through typedef chain for ELABORATED types that are typedefs
                     # Example: SDL_TLSID is ELABORATED but is actually a typedef to SDL_AtomicInt
+                    # Note: resolve_typedef_chain returns the underlying C type, apply_rename will be called later
                     resolved = self.resolve_typedef_chain(struct_name)
                     if resolved and resolved != struct_name:
                         struct_name = resolved
@@ -228,7 +229,7 @@ class TypeMapper:
             if hasattr(ctype, 'spelling') and ctype.spelling:
                 resolved = self.resolve_typedef_chain(ctype.spelling)
                 if resolved:
-                    return resolved
+                    return self.apply_rename(resolved)
             
             # For non-pointer typedefs, try to resolve to canonical primitive type
             if canonical.kind != ctype.kind:  # If canonical is different from original
@@ -257,7 +258,7 @@ class TypeMapper:
                     
                     # Fall back to static typedef_map
                     if clean_spelling in self.typedef_map:
-                        return self.typedef_map[clean_spelling]
+                        return self.apply_rename(self.typedef_map[clean_spelling])
                 
                 # If we have a clean spelling after stripping, apply rename and return it
                 if clean_spelling:
