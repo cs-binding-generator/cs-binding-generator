@@ -4,12 +4,12 @@
     <rename from="SDL_CreateWindow" to="CreateWindow"/>
     <include_directory path="/usr/include/libtcod"/>
     <include_directory path="/usr/include/SDL3"/>
-    <library name="libtcod">
-        <namespace name="Libtcod"/>
-        <include file="/usr/include/libtcod/libtcod.h"/>
-    </library>
     <library name="SDL3">
         <namespace name="SDL3"/>
         <include file="/usr/include/SDL3/SDL.h"/>
+    </library>
+    <library name="libtcod">
+        <namespace name="Libtcod"/>
+        <include file="/usr/include/libtcod/libtcod.h"/>
     </library>
 </bindings>
