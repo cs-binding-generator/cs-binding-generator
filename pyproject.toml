@@ -89,3 +89,5 @@ skips = ["B101"]  # Skip assert checks in tests
 
 [tool.setuptools_scm]
 write_to = "cs_binding_generator/_version.py"
+version_scheme = "guess-next-dev"
+local_scheme = "no-local-version"
