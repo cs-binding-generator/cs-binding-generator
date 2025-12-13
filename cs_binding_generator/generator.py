@@ -461,22 +461,26 @@ class CSharpBindingsGenerator:
     def generate(self, header_library_pairs: list[tuple[str, str]], output: str = None, 
                  namespace: str = "Bindings", include_dirs: list[str] = None,
                  include_depth: int = None, ignore_missing: bool = False, multi_file: bool = False,
-                 library_class_names: dict[str, str] = None) -> str | dict[str, str]:
+                 library_class_names: dict[str, str] = None, library_namespaces: dict[str, str] = None) -> str | dict[str, str]:
         """Generate C# bindings from C header file(s)
         
         Args:
             header_files: List of C header files to process
             output: Optional output file path or directory (prints to stdout if not specified)
-            namespace: C# namespace for generated code
+            namespace: C# namespace for generated code (used for single-file generation)
             include_dirs: List of directories to search for included headers
             include_depth: How deep to process included files (0=only input files, 1=direct includes, etc.; None=infinite)
             library_class_names: Dict mapping library names to custom class names (defaults to NativeMethods)
+            library_namespaces: Dict mapping library names to custom namespaces (used for multi-file generation)
         """
         # Store multi_file setting for use in deduplication logic
         self.multi_file = multi_file
         
         # Store library class names
         self.library_class_names = library_class_names or {}
+        
+        # Store library namespaces
+        self.library_namespaces = library_namespaces or {}
         
         # Clear previous state
         self._clear_state()
@@ -651,7 +655,7 @@ class CSharpBindingsGenerator:
         
         return output
     
-    def _generate_multi_file_output(self, namespace: str, output: str) -> dict[str, str]:
+    def _generate_multi_file_output(self, global_namespace: str, output: str) -> dict[str, str]:
         """Generate multiple files, one per library"""
         if not output:
             raise ValueError("Output directory must be specified when using --multi flag")
@@ -670,7 +674,7 @@ class CSharpBindingsGenerator:
         
         # Create bindings.cs file with assembly attribute and namespace
         bindings_content = OutputBuilder.build(
-            namespace=namespace,
+            namespace=global_namespace,
             enums=[],
             structs=[],
             unions=[],
@@ -696,8 +700,9 @@ class CSharpBindingsGenerator:
             
             # Generate output for this library (without assembly attribute)
             class_name = self.library_class_names.get(library, NATIVE_METHODS_CLASS)
+            library_namespace = self.library_namespaces.get(library, global_namespace)
             output = OutputBuilder.build(
-                namespace=namespace,
+                namespace=library_namespace,
                 enums=enums,
                 structs=structs,
                 unions=unions,
