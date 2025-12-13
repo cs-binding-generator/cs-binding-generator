@@ -2,7 +2,8 @@
 Code generation functions for C# bindings
 """
 
-from clang.cindex import CursorKind, TypeKind
+from clang.cindex import CursorKind, TypeKind, Type
+from typing import Optional
 from .type_mapper import TypeMapper
 
 
@@ -41,7 +42,7 @@ class CodeGenerator:
 
         # Build parameter list with marshalling attributes
         # Also track which parameters are char** (nuint representing output string pointers)
-        params = []
+        params: list[str] = []
         char_double_ptr_params = []  # Track char** parameters by index and info
         for i, arg in enumerate(cursor.get_arguments()):
             arg_type = self.type_mapper.map_type(arg.type, is_return_type=False)
@@ -78,7 +79,7 @@ class CodeGenerator:
         # Add helper function for char* return types
         if is_char_pointer_return:
             # Get parameter names for the helper function call
-            param_names = []
+            param_names: list[str] = []
             for arg in cursor.get_arguments():
                 arg_name = arg.spelling or f"param{len(param_names)}"
                 arg_name = self._escape_keyword(arg_name)
@@ -186,7 +187,7 @@ class CodeGenerator:
                 return inner_pointee.kind in (TypeKind.CHAR_S, TypeKind.CHAR_U)
         return False
 
-    def _is_struct_return(self, ctype) -> bool:
+    def _is_struct_return(self, ctype: Type) -> bool:
         """Check if a type is a struct/union returned by value"""
         # Check if it's a RECORD (struct/union) type that's not a pointer
         if ctype.kind == TypeKind.RECORD:
@@ -194,7 +195,7 @@ class CodeGenerator:
         # Also check ELABORATED types (typedef'd structs)
         if ctype.kind == TypeKind.ELABORATED:
             canonical = ctype.get_canonical()
-            return canonical.kind == TypeKind.RECORD
+            return bool(canonical.kind == TypeKind.RECORD)
         return False
 
     def generate_struct(self, cursor) -> str:
@@ -587,7 +588,7 @@ class OutputBuilder:
         functions: list[str],
         class_name: str = "NativeMethods",
         include_assembly_attribute: bool = True,
-        using_statements: list[str] = None,
+        using_statements: Optional[list[str]] = None,
     ) -> str:
         """Build the final C# output"""
         parts = []

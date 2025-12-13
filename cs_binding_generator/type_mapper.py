@@ -29,12 +29,12 @@ class TypeMapper:
         # Global removals that filter out types/functions - list of (pattern, is_regex) tuples
         self.removals = []
 
-    def register_typedef(self, name: str, underlying_type):
+    def register_typedef(self, name: str, underlying_type) -> None:
         """Register a typedef for later resolution"""
         if name not in self.typedef_chain:
             self.typedef_chain[name] = underlying_type
 
-    def resolve_typedef_chain(self, type_name: str):
+    def resolve_typedef_chain(self, type_name: str) -> str | None:
         """Resolve a typedef to its final underlying type"""
         visited = set()
         current_name = type_name
@@ -52,7 +52,7 @@ class TypeMapper:
 
             # If canonical is a primitive type, map it
             if canonical.kind in self.type_map:
-                return self.type_map[canonical.kind]
+                return str(self.type_map[canonical.kind])
 
             # If it's a struct/union, get the name from canonical
             if canonical.kind == TypeKind.RECORD:
@@ -67,7 +67,7 @@ class TypeMapper:
                     current_name = resolved_name
                     continue
                 else:
-                    return resolved_name
+                    return str(resolved_name)
 
             # If it's another typedef, continue the chain
             if underlying.spelling and underlying.spelling != current_name:
@@ -80,13 +80,13 @@ class TypeMapper:
                 if next_name in self.typedef_chain:
                     current_name = next_name
                 else:
-                    return next_name
+                    return str(next_name)
             else:
                 break
 
         return None
 
-    def map_type(self, ctype, is_return_type: bool = False, is_struct_field: bool = False) -> str:
+    def map_type(self, ctype, is_return_type: bool = False, is_struct_field: bool = False) -> str | None:
         """Map C type to C# type
 
         Args:
@@ -216,7 +216,7 @@ class TypeMapper:
 
         # Basic types
         if ctype.kind in self.type_map:
-            return self.type_map[ctype.kind]
+            return str(self.type_map[ctype.kind])
 
         # Handle elaborated types (e.g., 'struct Foo' vs 'Foo')
         if ctype.kind == TypeKind.ELABORATED:
@@ -235,12 +235,12 @@ class TypeMapper:
             # For non-pointer typedefs, try to resolve to canonical primitive type
             if canonical.kind != ctype.kind:  # If canonical is different from original
                 if canonical.kind in self.type_map:
-                    return self.type_map[canonical.kind]
+                    return str(self.type_map[canonical.kind])
                 # Recursively map the canonical type
                 mapped_canonical = self.map_type(canonical, is_return_type, is_struct_field)
                 # If the canonical type returns a clean struct name, use it
                 if mapped_canonical and mapped_canonical != "nint":
-                    return mapped_canonical
+                    return str(mapped_canonical)
 
             # Check if the spelling is a known typedef
             if hasattr(ctype, "spelling"):
@@ -274,8 +274,8 @@ class TypeMapper:
             if spelling:
                 for prefix in ["struct ", "enum ", "union ", "class "]:
                     if spelling.startswith(prefix):
-                        return self.apply_rename(spelling[len(prefix) :])
-            return self.apply_rename(spelling) if spelling else "nint"
+                        return str(self.apply_rename(spelling[len(prefix) :]))
+            return str(self.apply_rename(spelling)) if spelling else "nint"
 
         # Typedef - check typedef chain first, then common typedefs
         if ctype.kind == TypeKind.TYPEDEF:
@@ -359,9 +359,9 @@ class TypeMapper:
                     break  # First match wins
         return result
 
-    def get_all_renames(self) -> list:
+    def get_all_renames(self) -> list[tuple[str, str, bool]]:
         """Get all rename mappings as list of tuples"""
-        return self.renames.copy()
+        return list(self.renames)
 
     def add_removal(self, pattern: str, is_regex: bool = False):
         """Add a removal pattern to filter out types/functions"""
@@ -382,6 +382,6 @@ class TypeMapper:
                     return True  # First match wins
         return False
 
-    def get_all_removals(self) -> list:
+    def get_all_removals(self) -> list[tuple[str, bool]]:
         """Get all removal patterns as list of tuples"""
-        return self.removals.copy()
+        return list(self.removals)

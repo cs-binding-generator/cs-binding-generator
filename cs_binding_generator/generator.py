@@ -4,6 +4,7 @@ Main C# bindings generator orchestration
 
 import sys
 from pathlib import Path
+from typing import Optional
 import clang.cindex
 from clang.cindex import CursorKind, TypeKind
 
@@ -392,7 +393,7 @@ class CSharpBindingsGenerator:
                 enum_name = f"AnonymousEnum{anonymous_counter}"
                 self.enum_members[enum_name] = (self.current_library, members, underlying_type)
 
-    def _build_file_depth_map(self, tu, root_file: str, max_depth: int) -> dict[str, int]:
+    def _build_file_depth_map(self, tu, root_file: str, max_depth: Optional[int]) -> dict[str, int]:
         """Build a mapping of file paths to their include depth
 
         Args:
@@ -426,7 +427,7 @@ class CSharpBindingsGenerator:
                 collect_inclusions(child, inclusions)
 
         # Collect all inclusions
-        inclusions = []
+        inclusions: list[tuple[str, str]] = []
         collect_inclusions(tu.cursor, inclusions)
 
         # Build depth map by processing inclusions level by level
@@ -452,12 +453,12 @@ class CSharpBindingsGenerator:
         self,
         header_library_pairs: list[tuple[str, str]],
         output: str,
-        include_dirs: list[str] = None,
-        include_depth: int = None,
+        include_dirs: Optional[list[str]] = None,
+        include_depth: Optional[int] = None,
         ignore_missing: bool = False,
-        library_class_names: dict[str, str] = None,
-        library_namespaces: dict[str, str] = None,
-        library_using_statements: dict[str, list[str]] = None,
+        library_class_names: Optional[dict[str, str]] = None,
+        library_namespaces: Optional[dict[str, str]] = None,
+        library_using_statements: Optional[dict[str, list[str]]] = None,
     ) -> dict[str, str]:
         """Generate C# bindings from C header file(s)
 
