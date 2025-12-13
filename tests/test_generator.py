@@ -416,3 +416,38 @@ class TestGeneratorInternals:
         # Check that main content is in single file  
         for content_line in main_content:
             assert content_line in single_lines
+    
+    def test_multi_file_generation_with_custom_class_names(self, temp_dir, temp_header_file):
+        """Test multi-file generation with custom class names"""
+        generator = CSharpBindingsGenerator()
+        
+        # Create a second header file
+        header2_path = temp_dir / "header2.h"
+        header2_path.write_text('''
+            typedef enum {
+                GRAPHICS_OK = 0,
+                GRAPHICS_ERROR = 1
+            } GraphicsStatus;
+            
+            int draw_line(int x1, int y1, int x2, int y2);
+        ''')
+        
+        # Generate with custom class names
+        library_class_names = {"testlib": "CustomTestLib", "graphics": "CustomGraphics"}
+        result = generator.generate(
+            [(temp_header_file, "testlib"), (header2_path, "graphics")], 
+            namespace="Test", 
+            multi_file=True, 
+            output=str(temp_dir),
+            library_class_names=library_class_names
+        )
+        
+        # Check testlib.cs uses custom class name
+        testlib_content = result["testlib.cs"]
+        assert "public static unsafe partial class CustomTestLib" in testlib_content
+        assert "public static unsafe partial class NativeMethods" not in testlib_content
+        
+        # Check graphics.cs uses custom class name
+        graphics_content = result["graphics.cs"]
+        assert "public static unsafe partial class CustomGraphics" in graphics_content
+        assert "public static unsafe partial class NativeMethods" not in graphics_content

@@ -32,6 +32,7 @@ def parse_config_file(config_path):
         include_dirs = []
         renames = []  # Changed to list of (from, to, is_regex) tuples
         removals = []  # List of (pattern, is_regex) tuples
+        library_class_names = {}  # Map library name to class name
         
         # Get global include directories
         for include_dir in root.findall('include_directory'):
@@ -62,6 +63,10 @@ def parse_config_file(config_path):
             if not library_name:
                 raise ValueError("Library element missing 'name' attribute")
             
+            # Get class name (default to NativeMethods if not specified)
+            class_name = library.get('class', 'NativeMethods')
+            library_class_names[library_name.strip()] = class_name.strip()
+            
             # Get namespace (use first one found as default)
             namespace_elem = library.find('namespace')
             if namespace_elem is not None and namespace is None:
@@ -81,7 +86,7 @@ def parse_config_file(config_path):
                     raise ValueError(f"Include element in library '{library_name}' missing 'file' attribute")
                 header_library_pairs.append((header_path.strip(), library_name.strip()))
         
-        return header_library_pairs, namespace, include_dirs, renames, removals
+        return header_library_pairs, namespace, include_dirs, renames, removals, library_class_names
         
     except ET.ParseError as e:
         raise ValueError(f"XML parsing error: {e}")
@@ -177,7 +182,7 @@ Examples:
             sys.exit(1)
             
         try:
-            header_library_pairs, config_namespace, config_include_dirs, config_renames, config_removals = parse_config_file(args.config)
+            header_library_pairs, config_namespace, config_include_dirs, config_renames, config_removals, config_library_class_names = parse_config_file(args.config)
         except (ValueError, FileNotFoundError) as e:
             print(f"Error reading config file: {e}", file=sys.stderr)
             sys.exit(1)
@@ -234,7 +239,8 @@ Examples:
             include_dirs=include_dirs,
             include_depth=args.include_depth,
             ignore_missing=args.ignore_missing,
-            multi_file=args.multi
+            multi_file=args.multi,
+            library_class_names=config_library_class_names if args.config else None
         )
     except Exception as e:
         import traceback

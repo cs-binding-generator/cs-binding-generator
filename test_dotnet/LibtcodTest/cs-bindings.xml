@@ -1,5 +1,4 @@
 <bindings>
-
     <rename from="SDL_(.*)" to="$1" regex="true"/>
     <rename from="TCOD_(.*)" to="$1" regex="true"/>
 
@@ -13,11 +12,13 @@
 
     <include_directory path="/usr/include/libtcod"/>
     <include_directory path="/usr/include/SDL3"/>
-    <library name="SDL3">
+
+    <library name="SDL3" class="SDL">
         <namespace name="SDL3"/>
         <include file="/usr/include/SDL3/SDL.h"/>
     </library>
-    <library name="libtcod">
+
+    <library name="libtcod" class="Tcod">
         <namespace name="Libtcod"/>
         <include file="/usr/include/libtcod/libtcod.h"/>
     </library>

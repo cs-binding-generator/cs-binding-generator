@@ -460,7 +460,8 @@ class CSharpBindingsGenerator:
     
     def generate(self, header_library_pairs: list[tuple[str, str]], output: str = None, 
                  namespace: str = "Bindings", include_dirs: list[str] = None,
-                 include_depth: int = None, ignore_missing: bool = False, multi_file: bool = False) -> str | dict[str, str]:
+                 include_depth: int = None, ignore_missing: bool = False, multi_file: bool = False,
+                 library_class_names: dict[str, str] = None) -> str | dict[str, str]:
         """Generate C# bindings from C header file(s)
         
         Args:
@@ -469,9 +470,13 @@ class CSharpBindingsGenerator:
             namespace: C# namespace for generated code
             include_dirs: List of directories to search for included headers
             include_depth: How deep to process included files (0=only input files, 1=direct includes, etc.; None=infinite)
+            library_class_names: Dict mapping library names to custom class names (defaults to NativeMethods)
         """
         # Store multi_file setting for use in deduplication logic
         self.multi_file = multi_file
+        
+        # Store library class names
+        self.library_class_names = library_class_names or {}
         
         # Clear previous state
         self._clear_state()
@@ -690,13 +695,14 @@ class CSharpBindingsGenerator:
                 continue
             
             # Generate output for this library (without assembly attribute)
+            class_name = self.library_class_names.get(library, NATIVE_METHODS_CLASS)
             output = OutputBuilder.build(
                 namespace=namespace,
                 enums=enums,
                 structs=structs,
                 unions=unions,
                 functions=functions,
-                class_name=NATIVE_METHODS_CLASS,
+                class_name=class_name,
                 include_assembly_attribute=False
             )
             
