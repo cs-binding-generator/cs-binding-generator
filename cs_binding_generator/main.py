@@ -66,12 +66,11 @@ Examples:
 
     # Handle configuration file (now required)
     header_library_pairs = []
-    config_namespace = None
     config_include_dirs = []
     config_renames = {}
     
     try:
-        header_library_pairs, config_namespace, config_include_dirs, config_renames, config_removals, config_library_class_names, config_library_namespaces, config_library_using_statements = parse_config_file(args.config)
+        header_library_pairs, config_include_dirs, config_renames, config_removals, config_library_class_names, config_library_namespaces, config_library_using_statements = parse_config_file(args.config)
     except (ValueError, FileNotFoundError) as e:
         print(f"Error reading config file: {e}", file=sys.stderr)
         sys.exit(1)

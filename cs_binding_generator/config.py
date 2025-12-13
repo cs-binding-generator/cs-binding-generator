@@ -7,7 +7,7 @@ from pathlib import Path
 
 
 def parse_config_file(config_path):
-    """Parse XML configuration file and return header-library pairs, namespace, include directories, and renames"""
+    """Parse XML configuration file and return header-library pairs, include directories, and renames"""
     try:
         tree = ET.parse(config_path)
         root = tree.getroot()
@@ -16,7 +16,6 @@ def parse_config_file(config_path):
             raise ValueError(f"Expected root element 'bindings', got '{root.tag}'")
 
         header_library_pairs = []
-        namespace = None  # Keep for backwards compatibility, but will be deprecated
         include_dirs = []
         renames = []  # Changed to list of (from, to, is_regex) tuples
         removals = []  # List of (pattern, is_regex) tuples
@@ -61,9 +60,6 @@ def parse_config_file(config_path):
             library_namespace = library.get('namespace')
             if library_namespace is not None:
                 library_namespaces[library_name.strip()] = library_namespace.strip()
-                # For single-file generation, use first namespace found
-                if namespace is None:
-                    namespace = library_namespace.strip()
 
             # Get using statements
             using_statements = []
@@ -88,7 +84,7 @@ def parse_config_file(config_path):
                     raise ValueError(f"Include element in library '{library_name}' missing 'file' attribute")
                 header_library_pairs.append((header_path.strip(), library_name.strip()))
 
-        return header_library_pairs, namespace, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements
+        return header_library_pairs, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements
 
     except ET.ParseError as e:
         raise ValueError(f"XML parsing error: {e}")
