@@ -7,7 +7,7 @@ import tempfile
 from pathlib import Path
 import xml.etree.ElementTree as ET
 
-from cs_binding_generator.main import parse_config_file
+from cs_binding_generator.config import parse_config_file
 
 
 class TestXMLConfigParsing:

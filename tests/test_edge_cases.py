@@ -6,7 +6,7 @@ import tempfile
 from pathlib import Path
 import pytest
 
-from cs_binding_generator.main import parse_config_file
+from cs_binding_generator.config import parse_config_file
 from cs_binding_generator.generator import CSharpBindingsGenerator
 
 

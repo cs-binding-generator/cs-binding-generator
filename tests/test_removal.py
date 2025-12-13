@@ -31,7 +31,7 @@ class TestRemovalFunctionality:
             </bindings>
         """)
         
-        from cs_binding_generator.main import parse_config_file
+        from cs_binding_generator.config import parse_config_file
         header_library_pairs, namespace, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements = parse_config_file(str(config))
         
         generator = CSharpBindingsGenerator()
@@ -72,7 +72,7 @@ class TestRemovalFunctionality:
             </bindings>
         """)
         
-        from cs_binding_generator.main import parse_config_file
+        from cs_binding_generator.config import parse_config_file
         header_library_pairs, namespace, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements = parse_config_file(str(config))
         
         generator = CSharpBindingsGenerator()
@@ -121,7 +121,7 @@ class TestRemovalFunctionality:
             </bindings>
         """)
         
-        from cs_binding_generator.main import parse_config_file
+        from cs_binding_generator.config import parse_config_file
         header_library_pairs, namespace, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements = parse_config_file(str(config))
         
         generator = CSharpBindingsGenerator()
@@ -166,7 +166,7 @@ class TestRemovalFunctionality:
             </bindings>
         """)
         
-        from cs_binding_generator.main import parse_config_file
+        from cs_binding_generator.config import parse_config_file
         header_library_pairs, namespace, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements = parse_config_file(str(config))
         
         generator = CSharpBindingsGenerator()
@@ -212,7 +212,7 @@ class TestRemovalFunctionality:
             </bindings>
         """)
         
-        from cs_binding_generator.main import parse_config_file
+        from cs_binding_generator.config import parse_config_file
         header_library_pairs, namespace, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements = parse_config_file(str(config))
         
         generator = CSharpBindingsGenerator()
@@ -253,7 +253,7 @@ class TestRemovalFunctionality:
             </bindings>
         """)
         
-        from cs_binding_generator.main import parse_config_file
+        from cs_binding_generator.config import parse_config_file
         header_library_pairs, namespace, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements = parse_config_file(str(config))
         
         generator = CSharpBindingsGenerator()
@@ -297,7 +297,7 @@ class TestRemovalFunctionality:
             </bindings>
         """)
         
-        from cs_binding_generator.main import parse_config_file
+        from cs_binding_generator.config import parse_config_file
         header_library_pairs, namespace, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements = parse_config_file(str(config))
         
         generator = CSharpBindingsGenerator()
@@ -342,7 +342,7 @@ class TestRemovalFunctionality:
             </bindings>
         """)
         
-        from cs_binding_generator.main import parse_config_file
+        from cs_binding_generator.config import parse_config_file
         header_library_pairs, namespace, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements = parse_config_file(str(config))
         
         generator = CSharpBindingsGenerator()

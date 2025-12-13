@@ -7,7 +7,6 @@ Generates modern C# code with LibraryImport for P/Invoke
 import argparse
 import sys
 import os
-import xml.etree.ElementTree as ET
 from pathlib import Path
 import clang.cindex
 
@@ -16,96 +15,7 @@ if __name__ == '__main__' and __package__ is None:
     sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from cs_binding_generator.generator import CSharpBindingsGenerator
-
-
-def parse_config_file(config_path):
-    """Parse XML configuration file and return header-library pairs, namespace, include directories, and renames"""
-    try:
-        tree = ET.parse(config_path)
-        root = tree.getroot()
-        
-        if root.tag != 'bindings':
-            raise ValueError(f"Expected root element 'bindings', got '{root.tag}'")
-        
-        header_library_pairs = []
-        namespace = None  # Keep for backwards compatibility, but will be deprecated
-        include_dirs = []
-        renames = []  # Changed to list of (from, to, is_regex) tuples
-        removals = []  # List of (pattern, is_regex) tuples
-        library_class_names = {}  # Map library name to class name
-        library_namespaces = {}  # Map library name to namespace
-        library_using_statements = {}  # Map library name to list of using statements
-        
-        # Get global include directories
-        for include_dir in root.findall('include_directory'):
-            path = include_dir.get('path')
-            if not path:
-                raise ValueError("Include directory element missing 'path' attribute")
-            include_dirs.append(path.strip())
-        
-        # Get global renames (support both simple and regex)
-        for rename in root.findall('rename'):
-            from_name = rename.get('from')
-            to_name = rename.get('to')
-            if not from_name or not to_name:
-                raise ValueError("Rename element missing 'from' or 'to' attribute")
-            is_regex = rename.get('regex', 'false').lower() == 'true'
-            renames.append((from_name.strip(), to_name.strip(), is_regex))
-        
-        # Get global removals (support both simple and regex)
-        for remove in root.findall('remove'):
-            pattern = remove.get('pattern')
-            if not pattern:
-                raise ValueError("Remove element missing 'pattern' attribute")
-            is_regex = remove.get('regex', 'false').lower() == 'true'
-            removals.append((pattern.strip(), is_regex))
-        
-        for library in root.findall('library'):
-            library_name = library.get('name')
-            if not library_name:
-                raise ValueError("Library element missing 'name' attribute")
-            
-            # Get class name (default to NativeMethods if not specified)
-            class_name = library.get('class', 'NativeMethods')
-            library_class_names[library_name.strip()] = class_name.strip()
-            
-            # Get namespace from library attribute
-            library_namespace = library.get('namespace')
-            if library_namespace is not None:
-                library_namespaces[library_name.strip()] = library_namespace.strip()
-                # For single-file generation, use first namespace found
-                if namespace is None:
-                    namespace = library_namespace.strip()
-            
-            # Get using statements
-            using_statements = []
-            for using in library.findall('using'):
-                using_namespace = using.get('namespace')
-                if using_namespace:
-                    using_statements.append(using_namespace.strip())
-            if using_statements:
-                library_using_statements[library_name.strip()] = using_statements
-            
-            # Get library-specific include directories
-            for include_dir in library.findall('include_directory'):
-                path = include_dir.get('path')
-                if not path:
-                    raise ValueError(f"Include directory element in library '{library_name}' missing 'path' attribute")
-                include_dirs.append(path.strip())
-            
-            # Get include files
-            for include in library.findall('include'):
-                header_path = include.get('file')
-                if not header_path:
-                    raise ValueError(f"Include element in library '{library_name}' missing 'file' attribute")
-                header_library_pairs.append((header_path.strip(), library_name.strip()))
-        
-        return header_library_pairs, namespace, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements
-        
-    except ET.ParseError as e:
-        raise ValueError(f"XML parsing error: {e}")
-    except FileNotFoundError:
-        raise FileNotFoundError(f"Configuration file not found: {config_path}")
+from cs_binding_generator.config import parse_config_file
 
 
 def main():
