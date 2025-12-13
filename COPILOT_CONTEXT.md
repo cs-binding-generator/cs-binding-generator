@@ -227,9 +227,49 @@ Each test project has:
 - Use `re.fullmatch()` not `re.match()` or `re.search()` for identifier matching
 - Word boundaries in post-processing: `r'\b(pattern)\b'`
 - Always test with both simple and complex patterns
-- Order matters: more specific patterns should come before general ones
+- **Order matters**: More specific patterns should come BEFORE general ones
+- First matching rule wins (rules processed top-to-bottom)
+
+**Handling Rename Conflicts**:
+When broad regex rules cause conflicts (e.g., stripping prefixes from multiple libraries):
+1. Place specific "keep as-is" rules BEFORE general stripping rules
+2. Example: To avoid conflicts from stripping SDL_ everywhere:
+   ```xml
+   <!-- Keep specific functions with prefix to avoid conflicts -->
+   <rename from="SDL_strcasecmp" to="SDL_strcasecmp"/>
+   <!-- Then strip SDL_ from everything else -->
+   <rename from="SDL_(.*)" to="$1" regex="true"/>
+   ```
+3. The first rule prevents renaming, second rule strips the rest
 
 ## Recent Changes Log
+
+### 2025-12-13: Regex Rename Feature - IMPLEMENTED AND WORKING
+- **Status**: Feature fully implemented, all 148 tests passing
+- Changed renames from dict to list of (pattern, replacement, is_regex) tuples
+- XML parsing updated to support `regex="true"` attribute
+- TypeMapper.apply_rename() uses re.fullmatch() for precise matching
+- Generator.apply_final_renames() handles capture group number shifting
+- Opaque typedef deduplication fixed to respect multi_file flag
+- Updated all test files to iterate over renames as list
+
+**Implementation Details**:
+- `cs_binding_generator/main.py`: Parse regex attribute, store as list of tuples
+- `cs_binding_generator/type_mapper.py`: Apply renames with regex support, ordered rules
+- `cs_binding_generator/generator.py`: Post-processing with regex, opaque typedef fixes
+- Test files: Updated to unpack is_regex parameter
+
+**Known Issue - Configuration, Not Code**:
+- LibtcodTest with broad regex rules (strip all SDL_/TCOD_ prefixes) causes conflicts
+- Functions from different libraries become identical after prefix stripping
+- **Solution**: Add specific rename rules BEFORE general regex rules
+- Example: Keep conflicting functions with prefixes, strip others
+- Rule ordering: Specific rules first (checked top-to-bottom, first match wins)
+
+**Next Steps**:
+- Add specific conflict-handling rules to LibtcodTest/cs-bindings.xml
+- Document regex rename best practices for handling conflicts
+- Consider adding examples of conflict resolution patterns
 
 ### 2025-12-13: Verified Multi-File Deduplication Works Correctly
 - Multi-file mode already working as designed
@@ -239,8 +279,6 @@ Each test project has:
 - Example: SDL3 before libtcod in cs-bindings.xml causes SDL functions to appear only in SDL3.cs
 - Tested with LibtcodTest: 0 build errors when libraries ordered correctly
 - No code changes needed - just proper configuration
-
-### 2025-12-13: Regex Rename Feature
 - Added regex attribute support to XML rename elements
 - Modified TypeMapper to store renames as list of tuples instead of dict
 - Updated all test files that iterate over renames

@@ -236,27 +236,51 @@ class CSharpBindingsGenerator:
                     # This is an opaque typedef like: typedef struct SDL_Window SDL_Window;
                     if type_name and type_name not in ['size_t', 'ssize_t', 'ptrdiff_t', 'intptr_t', 'uintptr_t', 'wchar_t']:
                         struct_key = (type_name, str(cursor.location.file), cursor.location.line)
-                        library_struct_key = (self.current_library, struct_key)
-                        if library_struct_key not in self.seen_structs:
-                            code = self.code_generator.generate_opaque_type(type_name)
-                            if code:
-                                self._add_to_library_collection(self.generated_structs, self.current_library, code)
-                                self.seen_structs.add(library_struct_key)
-                                self.seen_structs.add((self.current_library, (type_name, None, None)))
-                                # Register as opaque type for pointer handling
-                                self.type_mapper.opaque_types.add(type_name)
+                        if self.multi_file:
+                            # Global deduplication in multi-file mode
+                            if struct_key not in self.seen_structs:
+                                code = self.code_generator.generate_opaque_type(type_name)
+                                if code:
+                                    self._add_to_library_collection(self.generated_structs, self.current_library, code)
+                                    self.seen_structs.add(struct_key)
+                                    self.seen_structs.add((type_name, None, None))
+                                    # Register as opaque type for pointer handling
+                                    self.type_mapper.opaque_types.add(type_name)
+                        else:
+                            # Library-specific deduplication in single-file mode
+                            library_struct_key = (self.current_library, struct_key)
+                            if library_struct_key not in self.seen_structs:
+                                code = self.code_generator.generate_opaque_type(type_name)
+                                if code:
+                                    self._add_to_library_collection(self.generated_structs, self.current_library, code)
+                                    self.seen_structs.add(library_struct_key)
+                                    self.seen_structs.add((self.current_library, (type_name, None, None)))
+                                    # Register as opaque type for pointer handling
+                                    self.type_mapper.opaque_types.add(type_name)
                 elif child.kind == CursorKind.STRUCT_DECL and not child.is_definition() and child.spelling:
                     # Direct forward declaration
                     struct_key = (child.spelling, str(cursor.location.file), cursor.location.line)
-                    library_struct_key = (self.current_library, struct_key)
-                    if library_struct_key not in self.seen_structs:
-                        code = self.code_generator.generate_opaque_type(child.spelling)
-                        if code:
-                            self._add_to_library_collection(self.generated_structs, self.current_library, code)
-                            self.seen_structs.add(library_struct_key)
-                            self.seen_structs.add((self.current_library, (child.spelling, None, None)))
-                            # Register as opaque type for pointer handling
-                            self.type_mapper.opaque_types.add(child.spelling)
+                    if self.multi_file:
+                        # Global deduplication in multi-file mode
+                        if struct_key not in self.seen_structs:
+                            code = self.code_generator.generate_opaque_type(child.spelling)
+                            if code:
+                                self._add_to_library_collection(self.generated_structs, self.current_library, code)
+                                self.seen_structs.add(struct_key)
+                                self.seen_structs.add((child.spelling, None, None))
+                                # Register as opaque type for pointer handling
+                                self.type_mapper.opaque_types.add(child.spelling)
+                    else:
+                        # Library-specific deduplication in single-file mode
+                        library_struct_key = (self.current_library, struct_key)
+                        if library_struct_key not in self.seen_structs:
+                            code = self.code_generator.generate_opaque_type(child.spelling)
+                            if code:
+                                self._add_to_library_collection(self.generated_structs, self.current_library, code)
+                                self.seen_structs.add(library_struct_key)
+                                self.seen_structs.add((self.current_library, (child.spelling, None, None)))
+                                # Register as opaque type for pointer handling
+                                self.type_mapper.opaque_types.add(child.spelling)
         
         # Recurse into children
         for child in cursor.get_children():
@@ -669,21 +693,21 @@ class CSharpBindingsGenerator:
         
         import re
         
-        for from_name, to_name in renames.items():
-            # Replace type names as standalone types, but avoid replacements inside quoted strings (EntryPoint values)
-            # and avoid replacing parts of larger identifiers
-            # Pattern explanation:
-            # - (?<!")          negative lookbehind - not preceded by quote
-            # - (?<![A-Za-z_])  negative lookbehind - not preceded by letter/underscore (identifier char)
-            # - escaped from_name
-            # - (?![A-Za-z0-9_]) negative lookahead - not followed by alphanumeric/underscore (identifier char)
-            # - (?!")           negative lookahead - not followed by quote
-            # This prevents replacing type names inside EntryPoint = "function_name" and inside larger identifiers
-            pattern = r'(?<!")(?<![A-Za-z_])' + re.escape(from_name) + r'(?![A-Za-z0-9_])(?!")'
-            output = re.sub(pattern, to_name, output)
-            
-            # Also handle pointer and double-pointer cases with the same careful matching
-            pointer_pattern = r'(?<!")(?<![A-Za-z_])' + re.escape(from_name) + r'(?=\*+)(?!")'
-            output = re.sub(pointer_pattern, to_name, output)
+        for from_name, to_name, is_regex in renames:
+            if is_regex:
+                # For regex patterns, wrap in word boundaries and apply
+                # Need to shift capture group numbers by 1 because we wrap pattern in outer group
+                replacement = re.sub(r'\$(\d+)', lambda m: f'\\{int(m.group(1)) + 1}', to_name)
+                pattern = r'\b(' + from_name + r')\b'
+                output = re.sub(pattern, replacement, output)
+            else:
+                # Simple rename - replace type names as standalone types
+                # Avoid replacements inside quoted strings (EntryPoint values) and larger identifiers
+                pattern = r'(?<!")(?<![A-Za-z_])' + re.escape(from_name) + r'(?![A-Za-z0-9_])(?!")'
+                output = re.sub(pattern, to_name, output)
+                
+                # Also handle pointer and double-pointer cases
+                pointer_pattern = r'(?<!")(?<![A-Za-z_])' + re.escape(from_name) + r'(?=\*+)(?!")'
+                output = re.sub(pointer_pattern, to_name, output)
         
         return output

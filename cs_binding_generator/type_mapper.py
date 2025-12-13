@@ -24,8 +24,8 @@ class TypeMapper:
         }
         # Track opaque types (empty structs used as handles)
         self.opaque_types = set()
-        # Global renames that apply to all types/functions
-        self.renames = {}
+        # Global renames that apply to all types/functions - list of (pattern, replacement, is_regex) tuples
+        self.renames = []
     
     def register_typedef(self, name: str, underlying_type):
         """Register a typedef for later resolution"""
@@ -333,14 +333,29 @@ class TypeMapper:
             return self.apply_rename(spelling) if spelling else "nint"
         return "nint"
     
-    def add_rename(self, from_name: str, to_name: str):
+    def add_rename(self, from_name: str, to_name: str, is_regex: bool = False):
         """Add a global rename mapping"""
-        self.renames[from_name] = to_name
+        self.renames.append((from_name, to_name, is_regex))
     
     def apply_rename(self, name: str) -> str:
-        """Apply rename if one exists, otherwise return original name"""
-        return self.renames.get(name, name)
+        """Apply rename rules in order (first match wins)"""
+        import re
+        result = name
+        for pattern, replacement, is_regex in self.renames:
+            if is_regex:
+                # Use fullmatch for precise identifier matching
+                if re.fullmatch(pattern, result):
+                    # Convert $1, $2 to \1, \2 for Python re.sub
+                    replacement_py = replacement.replace('$', '\\')
+                    result = re.sub(pattern, replacement_py, result)
+                    break  # First match wins
+            else:
+                # Simple exact match
+                if result == pattern:
+                    result = replacement
+                    break  # First match wins
+        return result
     
-    def get_all_renames(self) -> dict:
-        """Get all rename mappings"""
+    def get_all_renames(self) -> list:
+        """Get all rename mappings as list of tuples"""
         return self.renames.copy()

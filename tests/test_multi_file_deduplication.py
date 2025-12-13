@@ -53,15 +53,17 @@ class TestMultiFileDeduplication:
         lib1_content = result["lib1.cs"]
         lib2_content = result["lib2.cs"]
         
-        # Both libraries should have the shared functions
+        # Shared functions should appear in lib1 (processed first) due to global deduplication
         assert "shared_function_1" in lib1_content
         assert "shared_function_2" in lib1_content
-        assert "shared_function_1" in lib2_content
-        assert "shared_function_2" in lib2_content
+        # Shared functions should NOT appear in lib2 (processed second)
+        assert "shared_function_1" not in lib2_content
+        assert "shared_function_2" not in lib2_content
         
-        # Both libraries should have the shared struct
+        # Shared struct should appear in lib1 (processed first) due to global deduplication
         assert "SharedStruct" in lib1_content
-        assert "SharedStruct" in lib2_content
+        # Shared struct should NOT appear in lib2 (processed second)
+        assert "SharedStruct" not in lib2_content
         
         # Each library should have its specific function
         assert "lib1_specific_function" in lib1_content
@@ -224,11 +226,11 @@ class TestMultiFileDeduplication:
         # Count occurrences of shared items across both files
         combined_content = lib1_content + "\n" + lib2_content
         
-        # Functions should appear in both files (no deduplication for functions in multi-file)
+        # With global deduplication in multi-file mode, shared functions appear only in lib1 (processed first)
         assert lib1_content.count("shared_function") >= 1
-        assert lib2_content.count("shared_function") >= 1
+        assert lib2_content.count("shared_function") == 0
         
-        # But structs should be deduplicated globally - each should appear only once total
+        # Structs also use global deduplication - each should appear only once total
         struct_count = combined_content.count("partial struct SharedStruct")
         union_count = combined_content.count("partial struct SharedUnion")
         
@@ -280,8 +282,8 @@ class TestMultiFileDeduplication:
         header_library_pairs, namespace, include_dirs, renames = parse_config_file(str(config))
         
         generator = CSharpBindingsGenerator()
-        for from_name, to_name in renames.items():
-            generator.type_mapper.add_rename(from_name, to_name)
+        for from_name, to_name, is_regex in renames:
+            generator.type_mapper.add_rename(from_name, to_name, is_regex)
             
         result = generator.generate(
             header_library_pairs,

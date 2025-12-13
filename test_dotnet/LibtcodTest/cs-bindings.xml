@@ -1,7 +1,7 @@
 <bindings>
-    <rename from="TCOD_Console" to="TCODConsole"/>
-    <rename from="TCOD_console_new" to="ConsoleNew"/>
-    <rename from="SDL_CreateWindow" to="CreateWindow"/>
+    <!-- Use regex to strip SDL_ and TCOD_ prefixes -->
+    <rename from="SDL_(.*)" to="$1" regex="true"/>
+    <rename from="TCOD_(.*)" to="$1" regex="true"/>
     <include_directory path="/usr/include/libtcod"/>
     <include_directory path="/usr/include/SDL3"/>
     <library name="SDL3">

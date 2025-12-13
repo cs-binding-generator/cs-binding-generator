@@ -30,7 +30,7 @@ def parse_config_file(config_path):
         header_library_pairs = []
         namespace = None
         include_dirs = []
-        renames = {}
+        renames = []  # Changed to list of (from, to, is_regex) tuples
         
         # Get global include directories
         for include_dir in root.findall('include_directory'):
@@ -39,13 +39,14 @@ def parse_config_file(config_path):
                 raise ValueError("Include directory element missing 'path' attribute")
             include_dirs.append(path.strip())
         
-        # Get global renames
+        # Get global renames (support both simple and regex)
         for rename in root.findall('rename'):
             from_name = rename.get('from')
             to_name = rename.get('to')
             if not from_name or not to_name:
                 raise ValueError("Rename element missing 'from' or 'to' attribute")
-            renames[from_name.strip()] = to_name.strip()
+            is_regex = rename.get('regex', 'false').lower() == 'true'
+            renames.append((from_name.strip(), to_name.strip(), is_regex))
         
         for library in root.findall('library'):
             library_name = library.get('name')
@@ -209,8 +210,8 @@ Examples:
         
         # Apply renames if using config file
         if args.config and config_renames:
-            for from_name, to_name in config_renames.items():
-                generator.type_mapper.add_rename(from_name, to_name)
+            for from_name, to_name, is_regex in config_renames:
+                generator.type_mapper.add_rename(from_name, to_name, is_regex)
         
         generator.generate(
             header_library_pairs,
