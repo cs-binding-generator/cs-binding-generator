@@ -44,7 +44,7 @@ class TestMultiFileDeduplication:
         result = generator.generate([
             (str(lib1_header), "lib1"),
             (str(lib2_header), "lib2")
-        ], multi_file=True, output=str(temp_dir), include_dirs=[str(temp_dir)])
+        ], output=str(temp_dir), include_dirs=[str(temp_dir)])
         
         assert isinstance(result, dict)
         assert "lib1.cs" in result
@@ -110,22 +110,22 @@ class TestMultiFileDeduplication:
 
         generator = CSharpBindingsGenerator()
         
-        # Generate single-file bindings (only main header)
-        single_result = generator.generate([
+        # Generate first set of bindings (only main header)
+        first_result = generator.generate([
             (str(main_header), "main")
-        ], namespace="Test", include_dirs=[str(temp_dir)])
+        ], output=str(temp_dir), library_namespaces={"main": "Test"}, include_dirs=[str(temp_dir)])
         
-        # Generate multi-file bindings (main + dummy)
-        multi_result = generator.generate([
+        # Generate second set of bindings (main + dummy)
+        second_result = generator.generate([
             (str(dummy_header), "dummy"),  # Process dummy first to simulate the original bug
             (str(main_header), "main")     # Process main second
-        ], multi_file=True, output=str(temp_dir), namespace="Test", include_dirs=[str(temp_dir)])
+        ], output=str(temp_dir), library_namespaces={"main": "Test", "dummy": "Test"}, include_dirs=[str(temp_dir)])
         
-        assert isinstance(multi_result, dict)
-        assert "main.cs" in multi_result
+        assert isinstance(second_result, dict)
+        assert "main.cs" in second_result
         
-        single_content = single_result
-        multi_main_content = multi_result["main.cs"]
+        single_content = first_result["main.cs"]
+        multi_main_content = second_result["main.cs"]
         
         # Extract function names from both outputs
         single_functions = self._extract_function_names(single_content)
@@ -165,15 +165,16 @@ class TestMultiFileDeduplication:
         
         result = generator.generate([
             (str(main_header), "main")
-        ], namespace="Test", include_dirs=[str(temp_dir)])
+        ], output=str(temp_dir), library_namespaces={"main": "Test"}, include_dirs=[str(temp_dir)])
         
         # Count occurrences of the duplicate function
-        duplicate_count = result.count("duplicate_function")
+        result_content = result["main.cs"]
+        duplicate_count = result_content.count("duplicate_function")
         
         # Should appear only once in the generated bindings (plus in comments/metadata)
         # Look for the actual function declaration
         import re
-        function_declarations = re.findall(r'public static.*duplicate_function\s*\(', result)
+        function_declarations = re.findall(r'public static.*duplicate_function\s*\(', result_content)
         assert len(function_declarations) == 1, f"Expected 1 duplicate_function declaration, found {len(function_declarations)}"
 
     def _extract_function_names(self, content: str) -> set:
@@ -218,7 +219,7 @@ class TestMultiFileDeduplication:
         result = generator.generate([
             (str(lib1_header), "lib1"),
             (str(lib2_header), "lib2")
-        ], multi_file=True, output=str(temp_dir), include_dirs=[str(temp_dir)])
+        ], output=str(temp_dir), include_dirs=[str(temp_dir)])
         
         lib1_content = result["lib1.cs"]
         lib2_content = result["lib2.cs"]
@@ -285,9 +286,8 @@ class TestMultiFileDeduplication:
             
         result = generator.generate(
             header_library_pairs,
-            multi_file=True,
             output=str(temp_dir),
-            namespace=namespace, 
+            library_namespaces=library_namespaces,
             include_dirs=[str(temp_dir)]
         )
         

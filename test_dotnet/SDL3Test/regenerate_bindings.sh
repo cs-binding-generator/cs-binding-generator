@@ -1,20 +1,20 @@
 #!/bin/bash
-
 set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-OUTPUT_FILE="$SCRIPT_DIR/SDL3.cs"
-PROJECT_ROOT="$SCRIPT_DIR/../.."
+PROJECT_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
+OUTPUT_DIR="$SCRIPT_DIR"
 
-echo "Regenerating SDL3 C# bindings using XML configuration..."
+echo "Regenerating bindings..."
 echo "Config file: $SCRIPT_DIR/cs-bindings.xml"
-echo "Output file: $OUTPUT_FILE"
+echo "Output directory: $OUTPUT_DIR"
 echo ""
 
 python3 "$PROJECT_ROOT/cs_binding_generator/main.py" \
     --config "$SCRIPT_DIR/cs-bindings.xml" \
-    -o "$OUTPUT_FILE"
+    -o "$OUTPUT_DIR"
 
 echo ""
-echo "✓ SDL3.cs regenerated successfully"
-echo "  Generated: $(wc -l < "$OUTPUT_FILE") lines"
+echo "✓ Multi-file bindings regenerated successfully"
+echo "Generated files:"
+ls -la "$OUTPUT_DIR"/*.cs | awk '{print "  " $9 ": " $5 " bytes"}'

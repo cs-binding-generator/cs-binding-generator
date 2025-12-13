@@ -16,12 +16,12 @@ from cs_binding_generator.code_generators import CodeGenerator
 class TestErrorHandling:
     """Test error handling scenarios"""
     
-    def test_missing_header_file_raises_error(self):
+    def test_missing_header_file_raises_error(self, tmp_path):
         """Test that missing header file raises FileNotFoundError"""
         generator = CSharpBindingsGenerator()
         
         with pytest.raises(FileNotFoundError, match="Header file not found"):
-            generator.generate([("/nonexistent/file.h", "testlib")])
+            generator.generate([("/nonexistent/file.h", "testlib")], output=str(tmp_path))
     
     def test_ignore_missing_files_continues_processing(self, temp_dir):
         """Test that ignore_missing=True continues with valid files"""
@@ -34,25 +34,27 @@ class TestErrorHandling:
         # Mix of valid and invalid files
         output = generator.generate(
             [(str(valid_header), "testlib"), ("/nonexistent.h", "missing")],
+            output=str(temp_dir),
             ignore_missing=True
         )
         
-        assert "get_value" in output
-        assert "namespace Bindings;" in output
+        assert "get_value" in output["testlib.cs"]
+        assert "namespace Bindings;" in output["testlib.cs"]
     
-    def test_no_valid_files_raises_error(self):
+    def test_no_valid_files_raises_error(self, tmp_path):
         """Test that when no valid files remain, FileNotFoundError is raised"""
         generator = CSharpBindingsGenerator()
         
         with pytest.raises(FileNotFoundError, match="Header file not found"):
-            generator.generate([("/nonexistent1.h", "lib1"), ("/nonexistent2.h", "lib2")])
+            generator.generate([("/nonexistent1.h", "lib1"), ("/nonexistent2.h", "lib2")], output=str(tmp_path))
     
     def test_multi_file_without_output_dir_raises_error(self, temp_header_file):
-        """Test that multi-file mode without output directory raises ValueError"""
+        """Test that output directory is now always required"""
         generator = CSharpBindingsGenerator()
         
-        with pytest.raises(ValueError, match="Output directory must be specified"):
-            generator.generate([(temp_header_file, "testlib")], multi_file=True)
+        # Output is now required - this should fail with TypeError for missing required arg
+        with pytest.raises(TypeError, match="missing 1 required positional argument: 'output'"):
+            generator.generate([(temp_header_file, "testlib")])
     
     def test_system_header_detection(self):
         """Test system header filtering"""
@@ -82,12 +84,12 @@ class TestErrorHandling:
         empty_header = temp_dir / "empty.h"
         empty_header.write_text("// Empty header\n")
         
-        output = generator.generate([(str(empty_header), "testlib")])
+        output = generator.generate([(str(empty_header), "testlib")], output=str(temp_dir))
         
-        assert "namespace Bindings;" in output
-        assert "using System.Runtime.InteropServices;" in output
-        # Should not contain NativeMethods class since no functions
-        assert "NativeMethods" not in output
+        # Should have bindings.cs with assembly attributes
+        assert "bindings.cs" in output
+        # testlib.cs should not be generated for empty library
+        assert "testlib.cs" not in output or "NativeMethods" not in output["testlib.cs"]
     
     def test_header_with_only_comments_and_includes(self, temp_dir):
         """Test header with only preprocessor directives"""
@@ -108,11 +110,12 @@ class TestErrorHandling:
         #endif
         """)
         
-        output = generator.generate([(str(header), "testlib")])
+        output = generator.generate([(str(header), "testlib")], output=str(temp_dir))
         
-        assert "namespace Bindings;" in output
-        # Should generate minimal output
-        assert "NativeMethods" not in output
+        # Should have bindings.cs
+        assert "bindings.cs" in output
+        # testlib.cs should not be generated or should be minimal
+        assert "testlib.cs" not in output or "NativeMethods" not in output["testlib.cs"]
 
 
 class TestInternalMethods:
@@ -349,18 +352,17 @@ class TestTypeMapperEdgeCases:
 class TestCLIArguments:
     """Test CLI argument validation and edge cases"""
     
-    def test_invalid_input_format_missing_colon(self, capsys):
-        """Test CLI with invalid input format (no colon)"""
+    def test_invalid_input_format_missing_colon(self, capsys, tmp_path):
+        """Test CLI now requires --config, not -i"""
         import subprocess
         
         result = subprocess.run([
             "python", "-m", "cs_binding_generator.main",
-            "-i", "header.h",  # Missing :library
-            "-o", "output.cs"
+            "-o", str(tmp_path)
         ], capture_output=True, text=True)
         
         assert result.returncode != 0
-        assert "Input must be in format 'header.h:library'" in result.stderr
+        assert "the following arguments are required: -C/--config" in result.stderr
     
     def test_multiple_include_directories(self, temp_dir):
         """Test CLI with many include directories"""
@@ -377,10 +379,23 @@ class TestCLIArguments:
         header = temp_dir / "test.h"
         header.write_text("int test_func();")
         
+        # Create config file
+        config = temp_dir / "config.xml"
+        config.write_text(f'''
+        <bindings>
+            <library name="testlib" namespace="Test">
+                <include file="{header}"/>
+            </library>
+        </bindings>
+        ''')
+        
+        output_dir = temp_dir / "output"
+        output_dir.mkdir()
+        
         result = subprocess.run([
             "python", "-m", "cs_binding_generator.main",
-            "-i", f"{header}:testlib",
-            "-o", str(temp_dir / "output.cs"),
+            "-C", str(config),
+            "-o", str(output_dir),
             *includes
         ], capture_output=True, text=True)
         
@@ -434,11 +449,13 @@ class TestMemoryAndPerformance:
         # Should handle deep includes without stack overflow
         output = generator.generate(
             [(str(headers[0]), "testlib")], 
+            output=str(temp_dir),
             include_dirs=[str(temp_dir)],
             include_depth=5  # Limit depth
         )
         
-        assert "namespace Bindings;" in output
+        assert "testlib.cs" in output
+        assert "namespace Bindings;" in output["testlib.cs"]
     
     @pytest.fixture
     def temp_dir(self):

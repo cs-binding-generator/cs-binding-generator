@@ -9,7 +9,7 @@ from clang.cindex import CursorKind, TypeKind
 
 from .type_mapper import TypeMapper
 from .code_generators import CodeGenerator, OutputBuilder
-from .constants import NATIVE_METHODS_CLASS
+from .constants import NATIVE_METHODS_CLASS, DEFAULT_NAMESPACE
 
 
 class CSharpBindingsGenerator:
@@ -122,23 +122,13 @@ class CSharpBindingsGenerator:
                     self.process_cursor(child)
                 return
             # Check if we've already generated this function
-            # In multi-file mode, use global deduplication to avoid duplicate partial methods
-            # In single-file mode, use library-specific deduplication for flexibility
-            if self.multi_file:
-                func_key = cursor.spelling  # Global deduplication by function name
-                if func_key not in self.seen_functions:
-                    code = self.code_generator.generate_function(cursor, self.current_library)
-                    if code:
-                        self._add_to_library_collection(self.generated_functions, self.current_library, code)
-                        self.seen_functions.add(func_key)
-            else:
-                # Library-specific deduplication for single-file mode
-                library_func_key = (self.current_library, cursor.spelling)
-                if library_func_key not in self.seen_functions:
-                    code = self.code_generator.generate_function(cursor, self.current_library)
-                    if code:
-                        self._add_to_library_collection(self.generated_functions, self.current_library, code)
-                        self.seen_functions.add(library_func_key)
+# Use global deduplication to avoid duplicate partial methods
+            func_key = cursor.spelling  # Global deduplication by function name
+            if func_key not in self.seen_functions:
+                code = self.code_generator.generate_function(cursor, self.current_library)
+                if code:
+                    self._add_to_library_collection(self.generated_functions, self.current_library, code)
+                    self.seen_functions.add(func_key)
         
         elif cursor.kind == CursorKind.STRUCT_DECL:
             if cursor.is_definition():
@@ -156,31 +146,16 @@ class CSharpBindingsGenerator:
                     for child in cursor.get_children():
                         self.process_cursor(child)
                     return
-                # Check if we've already generated this struct
-                # In multi-file mode, use global deduplication to avoid duplicate struct definitions
-                # In single-file mode, use library-specific deduplication for flexibility
-                if self.multi_file:
-                    struct_key = (cursor.spelling, str(cursor.location.file), cursor.location.line)
-                    if struct_key not in self.seen_structs:
-                        code = self.code_generator.generate_struct(cursor)
-                        if code:
-                            self._add_to_library_collection(self.generated_structs, self.current_library, code)
-                            self.seen_structs.add(struct_key)
-                            # Also mark as seen by name only to prevent opaque type generation
-                            if cursor.spelling:
-                                self.seen_structs.add((cursor.spelling, None, None))
-                else:
-                    # Library-specific deduplication for single-file mode
-                    struct_key = (cursor.spelling, str(cursor.location.file), cursor.location.line)
-                    library_struct_key = (self.current_library, struct_key)
-                    if library_struct_key not in self.seen_structs:
-                        code = self.code_generator.generate_struct(cursor)
-                        if code:
-                            self._add_to_library_collection(self.generated_structs, self.current_library, code)
-                            self.seen_structs.add(library_struct_key)
-                            # Also mark as seen by name only to prevent opaque type generation
-                            if cursor.spelling:
-                                self.seen_structs.add((self.current_library, (cursor.spelling, None, None)))
+                # Use global deduplication to avoid duplicate struct definitions
+                struct_key = (cursor.spelling, str(cursor.location.file), cursor.location.line)
+                if struct_key not in self.seen_structs:
+                    code = self.code_generator.generate_struct(cursor)
+                    if code:
+                        self._add_to_library_collection(self.generated_structs, self.current_library, code)
+                        self.seen_structs.add(struct_key)
+                        # Also mark as seen by name only to prevent opaque type generation
+                        if cursor.spelling:
+                            self.seen_structs.add((cursor.spelling, None, None))
         
         elif cursor.kind == CursorKind.UNION_DECL:
             if cursor.is_definition():
@@ -198,25 +173,13 @@ class CSharpBindingsGenerator:
                     for child in cursor.get_children():
                         self.process_cursor(child)
                     return
-                # Check if we've already generated this union
-                # In multi-file mode, use global deduplication to avoid duplicate union definitions
-                # In single-file mode, use library-specific deduplication for flexibility
-                if self.multi_file:
-                    union_key = (cursor.spelling, str(cursor.location.file), cursor.location.line)
-                    if union_key not in self.seen_unions:
-                        code = self.code_generator.generate_union(cursor)
-                        if code:
-                            self._add_to_library_collection(self.generated_unions, self.current_library, code)
-                            self.seen_unions.add(union_key)
-                else:
-                    # Library-specific deduplication for single-file mode
-                    union_key = (cursor.spelling, str(cursor.location.file), cursor.location.line)
-                    library_union_key = (self.current_library, union_key)
-                    if library_union_key not in self.seen_unions:
-                        code = self.code_generator.generate_union(cursor)
-                        if code:
-                            self._add_to_library_collection(self.generated_unions, self.current_library, code)
-                            self.seen_unions.add(library_union_key)
+                # Use global deduplication to avoid duplicate union definitions
+                union_key = (cursor.spelling, str(cursor.location.file), cursor.location.line)
+                if union_key not in self.seen_unions:
+                    code = self.code_generator.generate_union(cursor)
+                    if code:
+                        self._add_to_library_collection(self.generated_unions, self.current_library, code)
+                        self.seen_unions.add(union_key)
         
         elif cursor.kind == CursorKind.ENUM_DECL:
             if cursor.is_definition():
@@ -265,51 +228,27 @@ class CSharpBindingsGenerator:
                     # This is an opaque typedef like: typedef struct SDL_Window SDL_Window;
                     if type_name and type_name not in ['size_t', 'ssize_t', 'ptrdiff_t', 'intptr_t', 'uintptr_t', 'wchar_t']:
                         struct_key = (type_name, str(cursor.location.file), cursor.location.line)
-                        if self.multi_file:
-                            # Global deduplication in multi-file mode
-                            if struct_key not in self.seen_structs:
-                                code = self.code_generator.generate_opaque_type(type_name)
-                                if code:
-                                    self._add_to_library_collection(self.generated_structs, self.current_library, code)
-                                    self.seen_structs.add(struct_key)
-                                    self.seen_structs.add((type_name, None, None))
-                                    # Register as opaque type for pointer handling
-                                    self.type_mapper.opaque_types.add(type_name)
-                        else:
-                            # Library-specific deduplication in single-file mode
-                            library_struct_key = (self.current_library, struct_key)
-                            if library_struct_key not in self.seen_structs:
-                                code = self.code_generator.generate_opaque_type(type_name)
-                                if code:
-                                    self._add_to_library_collection(self.generated_structs, self.current_library, code)
-                                    self.seen_structs.add(library_struct_key)
-                                    self.seen_structs.add((self.current_library, (type_name, None, None)))
-                                    # Register as opaque type for pointer handling
-                                    self.type_mapper.opaque_types.add(type_name)
-                elif child.kind == CursorKind.STRUCT_DECL and not child.is_definition() and child.spelling:
-                    # Direct forward declaration
-                    struct_key = (child.spelling, str(cursor.location.file), cursor.location.line)
-                    if self.multi_file:
-                        # Global deduplication in multi-file mode
+                        # Use global deduplication
                         if struct_key not in self.seen_structs:
-                            code = self.code_generator.generate_opaque_type(child.spelling)
+                            code = self.code_generator.generate_opaque_type(type_name)
                             if code:
                                 self._add_to_library_collection(self.generated_structs, self.current_library, code)
                                 self.seen_structs.add(struct_key)
-                                self.seen_structs.add((child.spelling, None, None))
+                                self.seen_structs.add((type_name, None, None))
                                 # Register as opaque type for pointer handling
-                                self.type_mapper.opaque_types.add(child.spelling)
-                    else:
-                        # Library-specific deduplication in single-file mode
-                        library_struct_key = (self.current_library, struct_key)
-                        if library_struct_key not in self.seen_structs:
-                            code = self.code_generator.generate_opaque_type(child.spelling)
-                            if code:
-                                self._add_to_library_collection(self.generated_structs, self.current_library, code)
-                                self.seen_structs.add(library_struct_key)
-                                self.seen_structs.add((self.current_library, (child.spelling, None, None)))
-                                # Register as opaque type for pointer handling
-                                self.type_mapper.opaque_types.add(child.spelling)
+                                self.type_mapper.opaque_types.add(type_name)
+                elif child.kind == CursorKind.STRUCT_DECL and not child.is_definition() and child.spelling:
+                    # Direct forward declaration
+                    struct_key = (child.spelling, str(cursor.location.file), cursor.location.line)
+# Use global deduplication
+                    if struct_key not in self.seen_structs:
+                        code = self.code_generator.generate_opaque_type(child.spelling)
+                        if code:
+                            self._add_to_library_collection(self.generated_structs, self.current_library, code)
+                            self.seen_structs.add(struct_key)
+                            self.seen_structs.add((child.spelling, None, None))
+                            # Register as opaque type for pointer handling
+                            self.type_mapper.opaque_types.add(child.spelling)
         
         # Recurse into children
         for child in cursor.get_children():
@@ -458,26 +397,22 @@ class CSharpBindingsGenerator:
         
         return file_depth
     
-    def generate(self, header_library_pairs: list[tuple[str, str]], output: str = None, 
-                 namespace: str = "Bindings", include_dirs: list[str] = None,
-                 include_depth: int = None, ignore_missing: bool = False, multi_file: bool = False,
+    def generate(self, header_library_pairs: list[tuple[str, str]], output: str, 
+                 include_dirs: list[str] = None,
+                 include_depth: int = None, ignore_missing: bool = False,
                  library_class_names: dict[str, str] = None, library_namespaces: dict[str, str] = None,
-                 library_using_statements: dict[str, list[str]] = None) -> str | dict[str, str]:
+                 library_using_statements: dict[str, list[str]] = None) -> dict[str, str]:
         """Generate C# bindings from C header file(s)
         
         Args:
-            header_files: List of C header files to process
-            output: Optional output file path or directory (prints to stdout if not specified)
-            namespace: C# namespace for generated code (used for single-file generation)
+            header_library_pairs: List of (header_file, library_name) tuples
+            output: Output directory for generated files (required)
             include_dirs: List of directories to search for included headers
             include_depth: How deep to process included files (0=only input files, 1=direct includes, etc.; None=infinite)
             library_class_names: Dict mapping library names to custom class names (defaults to NativeMethods)
-            library_namespaces: Dict mapping library names to custom namespaces (used for multi-file generation)
+            library_namespaces: Dict mapping library names to custom namespaces
             library_using_statements: Dict mapping library names to lists of using statements
         """
-        # Store multi_file setting for use in deduplication logic
-        self.multi_file = multi_file
-        
         # Store library class names
         self.library_class_names = library_class_names or {}
         
@@ -619,51 +554,12 @@ class CSharpBindingsGenerator:
 '''
                 self._add_to_library_collection(self.generated_enums, library, code)
         
-        if multi_file:
-            return self._generate_multi_file_output(namespace, output)
-        else:
-            return self._generate_single_file_output(namespace, output)
+        return self._generate_multi_file_output(output)
     
-    def _generate_single_file_output(self, namespace: str, output_file: str = None) -> str:
-        """Generate single file output (original behavior)"""
-        # Flatten all library collections into single lists
-        all_enums = []
-        all_structs = []
-        all_unions = []
-        all_functions = []
-        
-        for library_items in self.generated_enums.values():
-            all_enums.extend(library_items)
-        for library_items in self.generated_structs.values():
-            all_structs.extend(library_items)
-        for library_items in self.generated_unions.values():
-            all_unions.extend(library_items)
-        for library_items in self.generated_functions.values():
-            all_functions.extend(library_items)
-        
-        # Generate the output
-        output = OutputBuilder.build(
-            namespace=namespace,
-            enums=all_enums,
-            structs=all_structs,
-            unions=all_unions,
-            functions=all_functions,
-            class_name=NATIVE_METHODS_CLASS
-        )
-        
-        # Write to file or return
-        if output_file:
-            Path(output_file).write_text(output)
-            print(f"Generated bindings: {output_file}")
-        else:
-            print(output)
-        
-        return output
-    
-    def _generate_multi_file_output(self, global_namespace: str, output: str) -> dict[str, str]:
+    def _generate_multi_file_output(self, output: str) -> dict[str, str]:
         """Generate multiple files, one per library"""
         if not output:
-            raise ValueError("Output directory must be specified when using --multi flag")
+            raise ValueError("Output directory must be specified")
         
         output_path = Path(output)
         output_path.mkdir(parents=True, exist_ok=True)
@@ -677,9 +573,9 @@ class CSharpBindingsGenerator:
         
         file_contents = {}
         
-        # Create bindings.cs file with assembly attribute and namespace
+        # Create bindings.cs file with assembly attribute and default namespace
         bindings_content = OutputBuilder.build(
-            namespace=global_namespace,
+            namespace="Bindings",
             enums=[],
             structs=[],
             unions=[],
@@ -705,7 +601,7 @@ class CSharpBindingsGenerator:
             
             # Generate output for this library (without assembly attribute)
             class_name = self.library_class_names.get(library, NATIVE_METHODS_CLASS)
-            library_namespace = self.library_namespaces.get(library, global_namespace)
+            library_namespace = self.library_namespaces.get(library, DEFAULT_NAMESPACE)
             library_using = self.library_using_statements.get(library, [])
             output = OutputBuilder.build(
                 namespace=library_namespace,

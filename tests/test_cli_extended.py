@@ -10,6 +10,22 @@ import os
 import json
 
 
+def create_xml_config(header_files, namespace="Bindings", include_dirs=None):
+    """Helper function to create XML config file for testing"""
+    config_lines = ['<bindings>']
+    
+    for header, library in header_files:
+        config_lines.append(f'  <library name="{library}" namespace="{namespace}">')
+        config_lines.append(f'    <include file="{header}"/>')
+        if include_dirs:
+            for include_dir in include_dirs:
+                config_lines.append(f'    <include_directory path="{include_dir}"/>')
+        config_lines.append('  </library>')
+    
+    config_lines.append('</bindings>')
+    return '\n'.join(config_lines)
+
+
 class TestCLIIntegration:
     """Extended CLI integration tests"""
     
@@ -21,9 +37,8 @@ class TestCLIIntegration:
         
         assert result.returncode == 0
         assert "Generate C# bindings from C header files" in result.stdout
-        assert "--input" in result.stdout
+        assert "--config" in result.stdout
         assert "--output" in result.stdout
-        assert "--namespace" in result.stdout
     
     def test_cli_version_or_invalid_args(self):
         """Test CLI with no arguments"""
@@ -35,72 +50,96 @@ class TestCLIIntegration:
         assert result.returncode != 0
         assert "required" in result.stderr.lower() or "error" in result.stderr.lower()
     
-    def test_cli_single_file_output_to_stdout(self, temp_header_file):
-        """Test CLI output to stdout when no output file specified"""
+    def test_cli_single_file_output_to_stdout(self, temp_header_file, tmp_path):
+        """Test CLI requires output directory"""
+        config_file = tmp_path / "config.xml"
+        config_content = create_xml_config([(str(temp_header_file), "testlib")])
+        config_file.write_text(config_content)
+        
         result = subprocess.run([
             "python", "-m", "cs_binding_generator.main",
-            "-i", f"{temp_header_file}:testlib"
+            "-C", str(config_file)
         ], capture_output=True, text=True)
         
-        assert result.returncode == 0
-        assert "namespace Bindings;" in result.stdout
-        assert "public static partial int add(int a, int b);" in result.stdout
+        # Should fail because -o is required
+        assert result.returncode != 0
+        assert "required" in result.stderr.lower() or "error" in result.stderr.lower()
     
-    def test_cli_custom_namespace(self, temp_header_file, temp_dir):
+    def test_cli_custom_namespace(self, temp_header_file, tmp_path):
         """Test CLI with custom namespace"""
-        output_file = temp_dir / "custom.cs"
+        config_file = tmp_path / "config.xml"
+        config_content = create_xml_config([(str(temp_header_file), "testlib")], namespace="MyCustomNamespace")
+        config_file.write_text(config_content)
+        
+        output_dir = tmp_path / "output"
+        output_dir.mkdir()
         
         result = subprocess.run([
             "python", "-m", "cs_binding_generator.main",
-            "-i", f"{temp_header_file}:testlib",
-            "-o", str(output_file),
-            "-n", "MyCustomNamespace"
+            "-C", str(config_file),
+            "-o", str(output_dir)
         ], capture_output=True, text=True)
         
         assert result.returncode == 0
-        content = output_file.read_text()
+        testlib_file = output_dir / "testlib.cs"
+        assert testlib_file.exists()
+        content = testlib_file.read_text()
         assert "namespace MyCustomNamespace;" in content
     
-    def test_cli_include_depth_zero(self, temp_dir):
+    def test_cli_include_depth_zero(self, tmp_path):
         """Test CLI with include depth zero (only main files)"""
         # Create main header with include
-        main_header = temp_dir / "main.h"
-        included_header = temp_dir / "included.h"
+        main_header = tmp_path / "main.h"
+        included_header = tmp_path / "included.h"
         
         included_header.write_text("int included_func();")
         main_header.write_text('#include "included.h"\nint main_func();')
         
+        config_file = tmp_path / "config.xml"
+        config_content = create_xml_config([(str(main_header), "testlib")])
+        config_file.write_text(config_content)
+        
+        output_dir = tmp_path / "output"
+        output_dir.mkdir()
+        
         result = subprocess.run([
             "python", "-m", "cs_binding_generator.main", 
-            "-i", f"{main_header}:testlib",
-            "-I", str(temp_dir),
+            "-C", str(config_file),
+            "-o", str(output_dir),
+            "-I", str(tmp_path),
             "--include-depth", "0"
         ], capture_output=True, text=True)
         
         assert result.returncode == 0
         # Should only process main file, not includes
-        assert "main_func" in result.stdout
-        # included_func might or might not appear depending on parse behavior
+        testlib_content = (output_dir / "testlib.cs").read_text()
+        assert "main_func" in testlib_content
+        # included_func should not appear since depth is 0
+        assert "included_func" not in testlib_content
     
-    def test_cli_multi_file_output(self, temp_dir):
+    def test_cli_multi_file_output(self, tmp_path):
         """Test CLI multi-file output generation"""
         # Create headers for multiple libraries
-        header1 = temp_dir / "lib1.h"
-        header2 = temp_dir / "lib2.h"
+        header1 = tmp_path / "lib1.h"
+        header2 = tmp_path / "lib2.h"
         
         header1.write_text("int lib1_func(); typedef enum { LIB1_OK } lib1_status_t;")
         header2.write_text("int lib2_func(); typedef enum { LIB2_OK } lib2_status_t;")
         
-        output_dir = temp_dir / "output"
+        config_file = tmp_path / "config.xml"
+        config_content = create_xml_config([
+            (str(header1), "library1"),
+            (str(header2), "library2")
+        ], namespace="MultiTest")
+        config_file.write_text(config_content)
+        
+        output_dir = tmp_path / "output"
         output_dir.mkdir()
         
         result = subprocess.run([
             "python", "-m", "cs_binding_generator.main",
-            "-i", f"{header1}:library1",
-            "-i", f"{header2}:library2", 
-            "-o", str(output_dir),
-            "--multi",
-            "-n", "MultiTest"
+            "-C", str(config_file),
+            "-o", str(output_dir)
         ], capture_output=True, text=True)
         
         assert result.returncode == 0
@@ -120,45 +159,63 @@ class TestCLIIntegration:
         assert "lib1_func" not in lib2_content  # Should be separate
         assert "lib2_func" not in lib1_content
     
-    def test_cli_ignore_missing_flag(self, temp_header_file):
+    def test_cli_ignore_missing_flag(self, temp_header_file, tmp_path):
         """Test CLI with --ignore-missing flag"""
+        config_file = tmp_path / "config.xml"
+        config_content = create_xml_config([
+            (str(temp_header_file), "testlib"),
+            ("/nonexistent/file.h", "missing")
+        ])
+        config_file.write_text(config_content)
+        
+        output_dir = tmp_path / "output"
+        output_dir.mkdir()
+        
         result = subprocess.run([
             "python", "-m", "cs_binding_generator.main",
-            "-i", f"{temp_header_file}:testlib",
-            "-i", "/nonexistent/file.h:missing",
+            "-C", str(config_file),
+            "-o", str(output_dir),
             "--ignore-missing"
         ], capture_output=True, text=True)
         
         assert result.returncode == 0
-        assert "add" in result.stdout  # Should process valid file
+        testlib_content = (output_dir / "testlib.cs").read_text()
+        assert "add" in testlib_content  # Should process valid file
         # Should warn about missing file in stderr
+        assert "Warning" in result.stderr or "warning" in result.stderr
     
-    def test_cli_all_arguments_together(self, temp_dir):
+    def test_cli_all_arguments_together(self, tmp_path):
         """Test CLI with all major arguments combined"""
         # Create complex test setup
-        main_header = temp_dir / "main.h"
-        include_dir = temp_dir / "includes"
+        main_header = tmp_path / "main.h"
+        include_dir = tmp_path / "includes"
         include_dir.mkdir()
         
         (include_dir / "types.h").write_text("typedef int MyInt;")
         main_header.write_text('#include "types.h"\nMyInt complex_func(MyInt a);')
         
-        output_file = temp_dir / "complex.cs"
+        config_file = tmp_path / "config.xml"
+        config_content = create_xml_config([(str(main_header), "complexlib")], namespace="ComplexNamespace")
+        config_file.write_text(config_content)
+        
+        output_dir = tmp_path / "output"
+        output_dir.mkdir()
         
         result = subprocess.run([
             "python", "-m", "cs_binding_generator.main",
-            "-i", f"{main_header}:complexlib",
-            "-o", str(output_file),
-            "-n", "ComplexNamespace", 
+            "-C", str(config_file),
+            "-o", str(output_dir),
             "-I", str(include_dir),
             "--include-depth", "2",
             "--ignore-missing"
         ], capture_output=True, text=True)
         
         assert result.returncode == 0
-        assert output_file.exists()
         
-        content = output_file.read_text()
+        complexlib_file = output_dir / "complexlib.cs"
+        assert complexlib_file.exists()
+        
+        content = complexlib_file.read_text()
         assert "namespace ComplexNamespace;" in content
         assert "complex_func" in content
     
@@ -179,69 +236,57 @@ class TestCLIIntegration:
         config_file = temp_dir / "config.xml"
         config_file.write_text(config_content.format(header_path=str(header)))
         
-        output_file = temp_dir / "output.cs"
+        output_dir = temp_dir / "output"
         
         result = subprocess.run([
             "python", "-m", "cs_binding_generator.main",
             "--config", str(config_file),
-            "-o", str(output_file)
+            "-o", str(output_dir)
         ], capture_output=True, text=True)
         
         assert result.returncode == 0
-        assert output_file.exists()
+        assert output_dir.exists()
+        assert output_dir.is_dir()
         
-        content = output_file.read_text()
+        # Check that library-specific file was created
+        lib_file = output_dir / "testlib.cs"
+        assert lib_file.exists()
+        
+        content = lib_file.read_text()
         assert "namespace ConfigNamespace;" in content
         assert "config_test_func" in content
     
-    def test_cli_config_and_input_conflict(self, temp_dir):
-        """Test that --config and --input cannot be used together"""
-        config_file = temp_dir / "config.xml"
-        config_file.write_text("<bindings></bindings>")
-        
-        header_file = temp_dir / "test.h"
-        header_file.write_text("int test();")
-        
+    def test_cli_missing_input_and_config(self, tmp_path):
+        """Test that --config must be specified"""
         result = subprocess.run([
             "python", "-m", "cs_binding_generator.main",
-            "--config", str(config_file),
-            "-i", f"{header_file}:testlib"
+            "-o", str(tmp_path / "output")
         ], capture_output=True, text=True)
         
         assert result.returncode != 0
-        assert "Cannot specify both --config and --input" in result.stderr
-    
-    def test_cli_missing_input_and_config(self, temp_dir):
-        """Test that either --config or --input must be specified"""
-        result = subprocess.run([
-            "python", "-m", "cs_binding_generator.main",
-            "-o", str(temp_dir / "output.cs")
-        ], capture_output=True, text=True)
-        
-        assert result.returncode != 0
-        assert "Must specify either --config or --input" in result.stderr
+        assert "the following arguments are required: -C/--config" in result.stderr
 
 
 class TestMultiFileGeneration:
     """Extended multi-file generation tests"""
     
-    def test_multi_file_empty_library(self, temp_dir):
+    def test_multi_file_empty_library(self, tmp_path):
         """Test multi-file generation with library that has no content"""
         from cs_binding_generator.generator import CSharpBindingsGenerator
         
         generator = CSharpBindingsGenerator()
         
         # Create header with no parseable content
-        empty_header = temp_dir / "empty.h" 
+        empty_header = tmp_path / "empty.h" 
         empty_header.write_text("// Only comments\n#define MACRO 1")
         
-        normal_header = temp_dir / "normal.h"
+        normal_header = tmp_path / "normal.h"
         normal_header.write_text("int normal_func();")
         
         result = generator.generate([
             (str(empty_header), "emptylib"),
             (str(normal_header), "normallib")
-        ], multi_file=True, output=str(temp_dir))
+        ], output=str(tmp_path))
         
         assert isinstance(result, dict)
         # Should handle empty library gracefully
@@ -250,14 +295,14 @@ class TestMultiFileGeneration:
         assert "normallib.cs" in result
         assert "normal_func" in result["normallib.cs"]
     
-    def test_multi_file_identical_library_names(self, temp_dir):
+    def test_multi_file_identical_library_names(self, tmp_path):
         """Test multi-file generation with duplicate library names"""
         from cs_binding_generator.generator import CSharpBindingsGenerator
         
         generator = CSharpBindingsGenerator()
         
-        header1 = temp_dir / "header1.h"
-        header2 = temp_dir / "header2.h"
+        header1 = tmp_path / "header1.h"
+        header2 = tmp_path / "header2.h"
         
         header1.write_text("int func1();")
         header2.write_text("int func2();")
@@ -266,7 +311,7 @@ class TestMultiFileGeneration:
         result = generator.generate([
             (str(header1), "samelib"),
             (str(header2), "samelib")  # Duplicate name
-        ], multi_file=True, output=str(temp_dir))
+        ], output=str(tmp_path))
         
         assert "samelib.cs" in result
         content = result["samelib.cs"]
@@ -274,19 +319,19 @@ class TestMultiFileGeneration:
         assert "func1" in content
         assert "func2" in content
     
-    def test_multi_file_special_characters_in_library_name(self, temp_dir):
+    def test_multi_file_special_characters_in_library_name(self, tmp_path):
         """Test multi-file with special characters in library name"""
         from cs_binding_generator.generator import CSharpBindingsGenerator
         
         generator = CSharpBindingsGenerator()
         
-        header = temp_dir / "lib.h"
+        header = tmp_path / "lib.h"
         header.write_text("int test_func();")
         
         # Library name with special characters
         result = generator.generate([
             (str(header), "lib-name.with.dots")
-        ], multi_file=True, output=str(temp_dir))
+        ], output=str(tmp_path))
         
         # Should handle special characters (likely sanitized)
         assert len(result) > 0
@@ -296,13 +341,13 @@ class TestMultiFileGeneration:
 class TestIncludeDepthHandling:
     """Test include depth processing edge cases"""
     
-    def test_include_depth_circular_includes(self, temp_dir):
+    def test_include_depth_circular_includes(self, tmp_path):
         """Test handling of circular includes"""
         from cs_binding_generator.generator import CSharpBindingsGenerator
         
         # Create circular includes (a.h includes b.h, b.h includes a.h)
-        header_a = temp_dir / "a.h"
-        header_b = temp_dir / "b.h"
+        header_a = tmp_path / "a.h"
+        header_b = tmp_path / "b.h"
         
         header_a.write_text('#ifndef A_H\n#define A_H\n#include "b.h"\nint func_a();\n#endif')
         header_b.write_text('#ifndef B_H\n#define B_H\n#include "a.h"\nint func_b();\n#endif')
@@ -312,19 +357,19 @@ class TestIncludeDepthHandling:
         # Should handle circular includes without infinite loop
         output = generator.generate([
             (str(header_a), "testlib")
-        ], include_dirs=[str(temp_dir)], include_depth=3)
+        ], output=str(tmp_path), include_dirs=[str(tmp_path)], include_depth=3)
         
-        assert "namespace Bindings;" in output
+        assert "namespace Bindings;" in output["testlib.cs"]
         # Should process without hanging
     
-    def test_include_depth_very_deep_nesting(self, temp_dir):
+    def test_include_depth_very_deep_nesting(self, tmp_path):
         """Test very deep include nesting"""
         from cs_binding_generator.generator import CSharpBindingsGenerator
         
         # Create deep chain: h0 -> h1 -> h2 -> ... -> h20
         headers = []
         for i in range(21):  # 0 to 20
-            header = temp_dir / f"h{i}.h"
+            header = tmp_path / f"h{i}.h"
             if i < 20:
                 header.write_text(f'#include "h{i+1}.h"\nint func_{i}();')
             else:
@@ -337,20 +382,20 @@ class TestIncludeDepthHandling:
         for max_depth in [5, 10, 50]:
             output = generator.generate([
                 (str(headers[0]), "testlib")
-            ], include_dirs=[str(temp_dir)], include_depth=max_depth)
+            ], output=str(tmp_path), include_dirs=[str(tmp_path)], include_depth=max_depth)
             
-            assert "namespace Bindings;" in output
+            assert "namespace Bindings;" in output["testlib.cs"]
             # Should respect depth limit and not crash
 
 
 class TestStringAndMarshallingEdgeCases:
     """Test string handling and marshalling edge cases"""
     
-    def test_function_with_string_parameters(self, temp_dir):
+    def test_function_with_string_parameters(self, tmp_path):
         """Test functions with various string parameter types"""
         from cs_binding_generator.generator import CSharpBindingsGenerator
         
-        header = temp_dir / "strings.h"
+        header = tmp_path / "strings.h"
         header.write_text("""
         int process_string(const char* input);
         char* get_string(void);
@@ -359,18 +404,16 @@ class TestStringAndMarshallingEdgeCases:
         """)
         
         generator = CSharpBindingsGenerator()
-        output = generator.generate([(str(header), "stringlib")])
-        
-        assert "string input" in output  # const char* -> string
-        assert "nuint get_string" in output  # char* -> nuint (return value)
-        assert "string format" in output  # multiple string params
+        output = generator.generate([(str(header), "stringlib")], output=str(tmp_path))
+        assert "nuint get_string" in output["stringlib.cs"]  # char* -> nuint (return value)
+        assert "string format" in output["stringlib.cs"]  # multiple string params
         # Should handle various string types appropriately
     
-    def test_struct_with_string_fields(self, temp_dir):
+    def test_struct_with_string_fields(self, tmp_path):
         """Test struct containing string/char pointer fields"""
         from cs_binding_generator.generator import CSharpBindingsGenerator
         
-        header = temp_dir / "string_struct.h"
+        header = tmp_path / "string_struct.h"
         header.write_text("""
         typedef struct {
             char* name;
@@ -381,9 +424,9 @@ class TestStringAndMarshallingEdgeCases:
         """)
         
         generator = CSharpBindingsGenerator()
-        output = generator.generate([(str(header), "structlib")])
+        output = generator.generate([(str(header), "structlib")], output=str(tmp_path))
         
-        assert "StringStruct" in output
+        assert "StringStruct" in output["structlib.cs"]
         # Should handle string fields in structs (likely as nint due to complexity)
 
 

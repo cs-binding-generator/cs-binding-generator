@@ -301,7 +301,7 @@ class TestXMLConfigParsing:
         with pytest.raises(RuntimeError) as exc_info:
             generator.generate(
                 [(str(header_file), "testlib")],
-                namespace="Test",
+                output=str(temp_dir),
                 include_dirs=[str(temp_dir)]  # Include dir provided but file still missing
             )
         

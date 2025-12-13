@@ -86,9 +86,8 @@ class TestEdgeCases:
             
         result = generator.generate(
             header_library_pairs,
-            multi_file=True,
             output=str(temp_dir),
-            namespace=namespace, 
+            library_namespaces=library_namespaces,
             include_dirs=[str(temp_dir)]
         )
         
@@ -161,12 +160,13 @@ class TestEdgeCases:
             
         result = generator.generate(
             header_library_pairs, 
-            namespace=namespace, 
+            output=str(temp_dir),
+            library_namespaces=library_namespaces,
             include_dirs=[str(temp_dir)]
         )
         
-        # In single-file mode, result is a string, not a dictionary
-        output = result
+        # In multi-file mode, result is a dictionary
+        output = result["testlib.cs"]
         
         # Both types should be consistently renamed regardless of ELABORATED vs RECORD
         assert "Forward*" in output
@@ -209,12 +209,13 @@ class TestEdgeCases:
             
         result = generator.generate(
             header_library_pairs, 
-            namespace=namespace, 
+            output=str(temp_dir),
+            library_namespaces=library_namespaces,
             include_dirs=[str(temp_dir)]
         )
         
-        # In single-file mode, result is a string, not a dictionary
-        output = result
+        # In multi-file mode, result is a dictionary
+        output = result["testlib.cs"]
         
         # "Test" should be renamed to "T" only as a standalone type, not as part of other names
         assert "T*" in output
@@ -306,9 +307,8 @@ class TestEdgeCases:
             
         result = generator.generate(
             header_library_pairs,
-            multi_file=True,
             output=str(temp_dir),
-            namespace=namespace, 
+            library_namespaces=library_namespaces,
             include_dirs=[str(temp_dir)]
         )
         
@@ -379,12 +379,13 @@ class TestEdgeCases:
             
         result = generator.generate(
             header_library_pairs, 
-            namespace=namespace, 
+            output=str(temp_dir),
+            library_namespaces=library_namespaces,
             include_dirs=[str(temp_dir)]
         )
         
-        # In single-file mode, result is a string, not a dictionary
-        output = result
+        # In multi-file mode, result is a dictionary
+        output = result["testlib.cs"]
         
         # Both opaque and defined structs should be renamed consistently
         assert "Opaque*" in output
@@ -432,12 +433,13 @@ class TestEdgeCases:
             
         result = generator.generate(
             header_library_pairs, 
-            namespace=namespace, 
+            output=str(temp_dir),
+            library_namespaces=library_namespaces,
             include_dirs=[str(temp_dir)]
         )
         
-        # In single-file mode, result is a string, not a dictionary
-        output = result
+        # In multi-file mode, result is a dictionary
+        output = result["testlib.cs"]
         
         # Verify typedef chains resolve and apply renames correctly
         # AliasType -> Alias, but typedef resolves to BaseType -> Base

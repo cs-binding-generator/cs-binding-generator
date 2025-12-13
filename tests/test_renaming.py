@@ -42,22 +42,23 @@ class TestRenamingFunctionality:
             generator.type_mapper.add_rename(from_name, to_name, is_regex)
             
         result = generator.generate(
-            header_library_pairs, 
-            namespace=namespace, 
+            header_library_pairs,
+            output=str(temp_dir),
+            library_namespaces=library_namespaces,
             include_dirs=[str(temp_dir)]
         )
         
         # Verify renamed functions appear in output
-        assert "CreateWindow" in result
-        assert "DestroyWindow" in result
+        assert "CreateWindow" in result["testlib.cs"]
+        assert "DestroyWindow" in result["testlib.cs"]
         
         # Verify EntryPoint still uses original names
-        assert 'EntryPoint = "SDL_CreateWindow"' in result
-        assert 'EntryPoint = "SDL_DestroyWindow"' in result
+        assert 'EntryPoint = "SDL_CreateWindow"' in result["testlib.cs"]
+        assert 'EntryPoint = "SDL_DestroyWindow"' in result["testlib.cs"]
         
         # Verify method names are renamed (not in method declarations)
-        assert "public static partial int CreateWindow()" in result
-        assert "public static partial void DestroyWindow()" in result
+        assert "public static partial int CreateWindow()" in result["testlib.cs"]
+        assert "public static partial void DestroyWindow()" in result["testlib.cs"]
 
     def test_type_renaming(self, temp_dir):
         """Test that type names can be renamed"""
@@ -100,19 +101,20 @@ class TestRenamingFunctionality:
             
         result = generator.generate(
             header_library_pairs,
-            namespace=namespace, 
+            output=str(temp_dir),
+            library_namespaces=library_namespaces,
             include_dirs=[str(temp_dir)]
         )
         
         # Verify renamed types appear in output
-        assert "public enum BlendMode" in result
-        assert "public unsafe partial struct Window" in result
+        assert "public enum BlendMode" in result["testlib.cs"]
+        assert "public unsafe partial struct Window" in result["testlib.cs"]
         
         # Verify function parameters use renamed types
-        assert "GetWindow(BlendMode mode)" in result
+        assert "GetWindow(BlendMode mode)" in result["testlib.cs"]
         
         # Verify EntryPoint uses original name
-        assert 'EntryPoint = "SDL_GetWindow"' in result
+        assert 'EntryPoint = "SDL_GetWindow"' in result["testlib.cs"]
 
     def test_multi_file_renaming_consistency(self, temp_dir):
         """Test that renames are applied consistently across multiple files"""
@@ -164,10 +166,9 @@ class TestRenamingFunctionality:
             
         result = generator.generate(
             header_library_pairs,
-            namespace=namespace,
-            include_dirs=[str(temp_dir)],
-            multi_file=True,
-            output=str(temp_dir)
+            output=str(temp_dir),
+            library_namespaces=library_namespaces,
+            include_dirs=[str(temp_dir)]
         )
         
         # Verify both library files use the same renamed types
@@ -220,17 +221,18 @@ class TestRenamingFunctionality:
             
         result = generator.generate(
             header_library_pairs,
-            namespace=namespace, 
+            output=str(temp_dir),
+            library_namespaces=library_namespaces,
             include_dirs=[str(temp_dir)]
         )
         
         # Verify only the specified function is renamed in method declarations
-        assert "public static partial int Function1()" in result  # Renamed
-        assert "public static partial int SDL_Function2()" in result  # Not renamed  
-        assert "public static partial int Other_Function()" in result  # Not renamed
+        assert "public static partial int Function1()" in result["testlib.cs"]  # Renamed
+        assert "public static partial int SDL_Function2()" in result["testlib.cs"]  # Not renamed  
+        assert "public static partial int Other_Function()" in result["testlib.cs"]  # Not renamed
         
         # Verify EntryPoints use original names
-        assert 'EntryPoint = "SDL_Function1"' in result
+        assert 'EntryPoint = "SDL_Function1"' in result["testlib.cs"]
 
     def test_struct_pointer_renaming(self, temp_dir):
         """Test that struct pointer types are properly renamed"""
@@ -265,13 +267,14 @@ class TestRenamingFunctionality:
             generator.type_mapper.add_rename(from_name, to_name, is_regex)
             
         result = generator.generate(
-            header_library_pairs, 
-            namespace=namespace, 
+            header_library_pairs,
+            output=str(temp_dir),
+            library_namespaces=library_namespaces,
             include_dirs=[str(temp_dir)]
         )
         
-        # Result is a string when not using multi_file=True
-        output = result
+        # Result is now always a dict
+        output = result["testlib.cs"]
         
         # Verify struct pointers are renamed in function signatures
         assert "TCODConsole*" in output
@@ -334,9 +337,8 @@ class TestRenamingFunctionality:
             
         result = generator.generate(
             header_library_pairs,
-            multi_file=True,
             output=str(temp_dir),
-            namespace=namespace, 
+            library_namespaces=library_namespaces,
             include_dirs=[str(temp_dir)]
         )
         
@@ -380,13 +382,14 @@ class TestRenamingFunctionality:
             generator.type_mapper.add_rename(from_name, to_name, is_regex)
             
         result = generator.generate(
-            header_library_pairs, 
-            namespace=namespace, 
+            header_library_pairs,
+            output=str(temp_dir),
+            library_namespaces=library_namespaces,
             include_dirs=[str(temp_dir)]
         )
         
-        # In single-file mode, result is a string, not a dictionary
-        output = result
+        # Result is now always a dict
+        output = result["testlib.cs"]
         
         # Verify post-processing worked - all references should be renamed
         assert "RenamedType*" in output
@@ -418,13 +421,14 @@ class TestRenamingFunctionality:
             generator.type_mapper.add_rename(from_name, to_name, is_regex)
             
         result = generator.generate(
-            header_library_pairs, 
-            namespace=namespace, 
+            header_library_pairs,
+            output=str(temp_dir),
+            library_namespaces=library_namespaces,
             include_dirs=[str(temp_dir)]
         )
         
-        # In single-file mode, result is a string, not a dictionary
-        output = result
+        # Result is now always a dict
+        output = result["testlib.cs"]
         
         # Verify EntryPoint preserves original names
         assert 'EntryPoint = "SDL_CreateWindow"' in output

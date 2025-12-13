@@ -114,38 +114,23 @@ def main():
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
-  %(prog)s -i mylib.h:mylib -o MyBindings.cs
-  %(prog)s -i header1.h:native -i header2.h:native -o Bindings.cs -n My.Library  
-  %(prog)s -i SDL.h:SDL3 -i libtcod.h:libtcod -o Bindings.cs
-  %(prog)s -C config.xml -o output_dir --multi -I /usr/include
-  %(prog)s --config bindings.xml --include-depth 2 -o MyBindings.cs
+  %(prog)s --config bindings.xml --output output_dir -I /usr/include
+  %(prog)s -C config.xml -o generated_bindings --include-depth 2
         """
     )
     
     parser.add_argument(
         "-C", "--config",
         metavar="CONFIG_FILE",
+        required=True,
         help="XML configuration file specifying bindings to generate"
     )
     
     parser.add_argument(
-        "-i", "--input",
-        action="append",
-        metavar="HEADER:LIBRARY",
-        help="Input C header file(s) to process as 'header.h:libname' pairs (can be specified multiple times)"
-    )
-    
-    parser.add_argument(
         "-o", "--output",
-        metavar="FILE",
-        help="Output C# file (if not specified, prints to stdout)"
-    )
-
-    parser.add_argument(
-        "-n", "--namespace",
-        default="Bindings",
-        metavar="NAMESPACE",
-        help="C# namespace for generated code (default: Bindings)"
+        metavar="DIRECTORY",
+        required=True,
+        help="Output directory for generated C# files"
     )
     
     parser.add_argument(
@@ -176,50 +161,23 @@ Examples:
         help="Continue processing even if some header files are not found (default: fail on missing files)"
     )
     
-    parser.add_argument(
-        "--multi",
-        action="store_true",
-        help="Generate separate files per library in output directory (changes -o to directory path)"
-    )
-    
     args = parser.parse_args()
 
-    # Handle configuration file vs direct input
+    # Handle configuration file (now required)
     header_library_pairs = []
     config_namespace = None
     config_include_dirs = []
     config_renames = {}
     
-    if args.config:
-        if args.input:
-            print("Error: Cannot specify both --config and --input. Use either config file or direct input.", file=sys.stderr)
-            sys.exit(1)
-            
-        try:
-            header_library_pairs, config_namespace, config_include_dirs, config_renames, config_removals, config_library_class_names, config_library_namespaces, config_library_using_statements = parse_config_file(args.config)
-        except (ValueError, FileNotFoundError) as e:
-            print(f"Error reading config file: {e}", file=sys.stderr)
-            sys.exit(1)
-            
-        if not header_library_pairs:
-            print("Error: No libraries found in config file", file=sys.stderr)
-            sys.exit(1)
-            
-    elif args.input:
-        # Parse header:library pairs from command line
-        for input_spec in args.input:
-            if ':' not in input_spec:
-                print(f"Error: Input must be in format 'header.h:library'. Got: {input_spec}", file=sys.stderr)
-                sys.exit(1)
-            
-            header_path, library_name = input_spec.split(':', 1)
-            header_library_pairs.append((header_path.strip(), library_name.strip()))
-    else:
-        print("Error: Must specify either --config or --input", file=sys.stderr)
+    try:
+        header_library_pairs, config_namespace, config_include_dirs, config_renames, config_removals, config_library_class_names, config_library_namespaces, config_library_using_statements = parse_config_file(args.config)
+    except (ValueError, FileNotFoundError) as e:
+        print(f"Error reading config file: {e}", file=sys.stderr)
         sys.exit(1)
-    
-    # Use namespace from config file if available, otherwise use command line argument
-    namespace = config_namespace if config_namespace else args.namespace
+        
+    if not header_library_pairs:
+        print("Error: No libraries found in config file", file=sys.stderr)
+        sys.exit(1)
     
     # Merge include directories from config file and command line
     include_dirs = []
@@ -249,14 +207,12 @@ Examples:
         generator.generate(
             header_library_pairs,
             output=args.output, 
-            namespace=namespace,
             include_dirs=include_dirs,
             include_depth=args.include_depth,
             ignore_missing=args.ignore_missing,
-            multi_file=args.multi,
-            library_class_names=config_library_class_names if args.config else None,
-            library_namespaces=config_library_namespaces if args.config else None,
-            library_using_statements=config_library_using_statements if args.config else None
+            library_class_names=config_library_class_names,
+            library_namespaces=config_library_namespaces,
+            library_using_statements=config_library_using_statements
         )
     except Exception as e:
         import traceback
