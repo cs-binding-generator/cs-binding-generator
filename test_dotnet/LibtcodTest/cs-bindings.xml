@@ -1,4 +1,12 @@
 <bindings>
+    <rename from="SDL_aligned_alloc" to="AlignedAlloc"/>
+    <rename from="SDL_aligned_free" to="AlignedFree"/>
+    <rename from="SDL_getenv" to="GetEnv"/>
+
+    <rename from="SDL_getenv_unsafe" to="GetEnvUnsafe"/>
+    <rename from="SDL_setenv_unsafe" to="SetEnvUnsafe"/>
+    <rename from="SDL_unsetenv_unsafe" to="UnsetEnvUnsafe"/>
+
     <rename from="SDL_(.*)" to="$1" regex="true"/>
     <rename from="TCOD_(.*)" to="$1" regex="true"/>
 
