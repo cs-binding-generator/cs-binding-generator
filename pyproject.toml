@@ -38,9 +38,9 @@ dev = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/yourusername/cs_binding_generator"
-Repository = "https://github.com/yourusername/cs_binding_generator"
-Issues = "https://github.com/yourusername/cs_binding_generator/issues"
+Homepage = "https://github.com/cs-binding-generator/cs-binding-generator"
+Repository = "https://github.com/cs-binding-generator/cs-binding-generator"
+Issues = "https://github.com/cs-binding-generator/cs-binding-generator"
 
 [project.scripts]
 cs_binding_generator = "cs_binding_generator.main:main"
@@ -52,7 +52,7 @@ packages = ["cs_binding_generator"]
 cs_binding_generator = ["py.typed"]
 
 [tool.black]
-line-length = 100
+line-length = 120
 target-version = ["py312"]
 
 [tool.mypy]
