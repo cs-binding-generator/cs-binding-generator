@@ -16,17 +16,25 @@ if __name__ == "__main__" and __package__ is None:
 
 from cs_binding_generator.config import parse_config_file
 from cs_binding_generator.generator import CSharpBindingsGenerator
+from cs_binding_generator import __version__
 
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Generate C# bindings from C header files using LibraryImport",
+        description=f"C# Bindings Generator v{__version__}\nGenerate C# bindings from C header files using LibraryImport",
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
   %(prog)s --config bindings.xml --output output_dir -I /usr/include
   %(prog)s -C config.xml -o generated_bindings --include-depth 2
         """,
+    )
+
+    parser.add_argument(
+        "-V", "--version",
+        action="version",
+        version=f"%(prog)s {__version__}",
+        help="Show version number and exit"
     )
 
     parser.add_argument(

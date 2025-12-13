@@ -8,7 +8,10 @@ from .constants import (CSHARP_TYPE_MAP, DEFAULT_NAMESPACE,
 from .generator import CSharpBindingsGenerator
 from .type_mapper import TypeMapper
 
-__version__ = "0.1.0"
+try:
+    from ._version import version as __version__
+except ImportError:
+    __version__ = "unknown"
 
 __all__ = [
     "CSharpBindingsGenerator",

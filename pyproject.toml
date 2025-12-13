@@ -1,10 +1,10 @@
 [build-system]
-requires = ["setuptools>=61.0", "wheel"]
+requires = ["setuptools>=61.0", "wheel", "setuptools-scm"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "cs_binding_generator"
-version = "0.1.0"
+dynamic = ["version"]
 description = "Generate C# bindings from C headers using libclang with modern LibraryImport"
 readme = "README.md"
 requires-python = ">=3.12"
@@ -86,3 +86,6 @@ per-file-ignores = [
 [tool.bandit]
 exclude_dirs = ["tests", ".venv"]
 skips = ["B101"]  # Skip assert checks in tests
+
+[tool.setuptools_scm]
+write_to = "cs_binding_generator/_version.py"
