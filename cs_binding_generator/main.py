@@ -134,14 +134,6 @@ Examples:
     )
     
     parser.add_argument(
-        "-I", "--include",
-        action="append",
-        dest="include_dirs",
-        metavar="DIR",
-        help="Add directory to include search path (can be specified multiple times)"
-    )
-    
-    parser.add_argument(
         "--include-depth",
         type=int,
         default=None,
@@ -179,12 +171,8 @@ Examples:
         print("Error: No libraries found in config file", file=sys.stderr)
         sys.exit(1)
     
-    # Merge include directories from config file and command line
-    include_dirs = []
-    if args.config and 'config_include_dirs' in locals():
-        include_dirs.extend(config_include_dirs)
-    if args.include_dirs:
-        include_dirs.extend(args.include_dirs)
+    # Include directories are now defined in the config file
+    include_dirs = config_include_dirs
 
     # Set clang library path if provided
     if args.clang_path:

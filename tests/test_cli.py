@@ -25,7 +25,7 @@ def create_xml_config(header_files, namespace="Bindings", include_dirs=None):
 
 
 def test_cli_with_include_directories():
-    """Test CLI with -I flag for include directories"""
+    """Test CLI with include directories from XML"""
     with tempfile.TemporaryDirectory() as tmpdir:
         tmppath = Path(tmpdir)
         
@@ -188,9 +188,7 @@ def test_sdl3_generates_valid_csharp():
             [
                 "python", "-m", "cs_binding_generator.main",
                 "--config", str(config_file),
-                "-o", str(output_dir),
-                "-I", "/usr/include",
-                "-I", "/usr/lib/clang/21/include"
+                "-o", str(output_dir)
             ],
             capture_output=True,
             text=True

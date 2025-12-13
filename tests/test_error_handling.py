@@ -373,7 +373,7 @@ class TestCLIArguments:
         for i in range(5):
             inc_dir = temp_dir / f"include{i}"
             inc_dir.mkdir()
-            includes.extend(["-I", str(inc_dir)])
+
         
         # Create a simple header
         header = temp_dir / "test.h"

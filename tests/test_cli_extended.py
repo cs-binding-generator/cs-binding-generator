@@ -106,7 +106,6 @@ class TestCLIIntegration:
             "python", "-m", "cs_binding_generator.main", 
             "-C", str(config_file),
             "-o", str(output_dir),
-            "-I", str(tmp_path),
             "--include-depth", "0"
         ], capture_output=True, text=True)
         
@@ -195,7 +194,11 @@ class TestCLIIntegration:
         main_header.write_text('#include "types.h"\nMyInt complex_func(MyInt a);')
         
         config_file = tmp_path / "config.xml"
-        config_content = create_xml_config([(str(main_header), "complexlib")], namespace="ComplexNamespace")
+        config_content = create_xml_config(
+            [(str(main_header), "complexlib")],
+            namespace="ComplexNamespace",
+            include_dirs=[str(include_dir)]
+        )
         config_file.write_text(config_content)
         
         output_dir = tmp_path / "output"
@@ -205,7 +208,6 @@ class TestCLIIntegration:
             "python", "-m", "cs_binding_generator.main",
             "-C", str(config_file),
             "-o", str(output_dir),
-            "-I", str(include_dir),
             "--include-depth", "2",
             "--ignore-missing"
         ], capture_output=True, text=True)
