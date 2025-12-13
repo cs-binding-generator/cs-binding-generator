@@ -461,7 +461,8 @@ class CSharpBindingsGenerator:
     def generate(self, header_library_pairs: list[tuple[str, str]], output: str = None, 
                  namespace: str = "Bindings", include_dirs: list[str] = None,
                  include_depth: int = None, ignore_missing: bool = False, multi_file: bool = False,
-                 library_class_names: dict[str, str] = None, library_namespaces: dict[str, str] = None) -> str | dict[str, str]:
+                 library_class_names: dict[str, str] = None, library_namespaces: dict[str, str] = None,
+                 library_using_statements: dict[str, list[str]] = None) -> str | dict[str, str]:
         """Generate C# bindings from C header file(s)
         
         Args:
@@ -472,6 +473,7 @@ class CSharpBindingsGenerator:
             include_depth: How deep to process included files (0=only input files, 1=direct includes, etc.; None=infinite)
             library_class_names: Dict mapping library names to custom class names (defaults to NativeMethods)
             library_namespaces: Dict mapping library names to custom namespaces (used for multi-file generation)
+            library_using_statements: Dict mapping library names to lists of using statements
         """
         # Store multi_file setting for use in deduplication logic
         self.multi_file = multi_file
@@ -481,6 +483,9 @@ class CSharpBindingsGenerator:
         
         # Store library namespaces
         self.library_namespaces = library_namespaces or {}
+        
+        # Store library using statements
+        self.library_using_statements = library_using_statements or {}
         
         # Clear previous state
         self._clear_state()
@@ -701,6 +706,7 @@ class CSharpBindingsGenerator:
             # Generate output for this library (without assembly attribute)
             class_name = self.library_class_names.get(library, NATIVE_METHODS_CLASS)
             library_namespace = self.library_namespaces.get(library, global_namespace)
+            library_using = self.library_using_statements.get(library, [])
             output = OutputBuilder.build(
                 namespace=library_namespace,
                 enums=enums,
@@ -708,7 +714,8 @@ class CSharpBindingsGenerator:
                 unions=unions,
                 functions=functions,
                 class_name=class_name,
-                include_assembly_attribute=False
+                include_assembly_attribute=False,
+                using_statements=library_using
             )
             
             # Write to library-specific file

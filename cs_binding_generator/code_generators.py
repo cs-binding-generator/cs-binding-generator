@@ -484,7 +484,7 @@ class OutputBuilder:
     @staticmethod
     def build(namespace: str, enums: list[str], structs: list[str], 
               unions: list[str], functions: list[str], class_name: str = "NativeMethods",
-              include_assembly_attribute: bool = True) -> str:
+              include_assembly_attribute: bool = True, using_statements: list[str] = None) -> str:
         """Build the final C# output"""
         parts = []
         
@@ -515,6 +515,12 @@ class OutputBuilder:
         # Usings (non-global)
         from .constants import REQUIRED_USINGS
         parts.extend(REQUIRED_USINGS)
+        
+        # Library-specific using statements
+        if using_statements:
+            for using in using_statements:
+                parts.append(f"using {using};")
+            parts.append("")
         
         parts.append("")
         

@@ -34,6 +34,7 @@ def parse_config_file(config_path):
         removals = []  # List of (pattern, is_regex) tuples
         library_class_names = {}  # Map library name to class name
         library_namespaces = {}  # Map library name to namespace
+        library_using_statements = {}  # Map library name to list of using statements
         
         # Get global include directories
         for include_dir in root.findall('include_directory'):
@@ -76,6 +77,15 @@ def parse_config_file(config_path):
                 if namespace is None:
                     namespace = library_namespace.strip()
             
+            # Get using statements
+            using_statements = []
+            for using in library.findall('using'):
+                using_namespace = using.get('namespace')
+                if using_namespace:
+                    using_statements.append(using_namespace.strip())
+            if using_statements:
+                library_using_statements[library_name.strip()] = using_statements
+            
             # Get library-specific include directories
             for include_dir in library.findall('include_directory'):
                 path = include_dir.get('path')
@@ -90,7 +100,7 @@ def parse_config_file(config_path):
                     raise ValueError(f"Include element in library '{library_name}' missing 'file' attribute")
                 header_library_pairs.append((header_path.strip(), library_name.strip()))
         
-        return header_library_pairs, namespace, include_dirs, renames, removals, library_class_names, library_namespaces
+        return header_library_pairs, namespace, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements
         
     except ET.ParseError as e:
         raise ValueError(f"XML parsing error: {e}")
@@ -186,7 +196,7 @@ Examples:
             sys.exit(1)
             
         try:
-            header_library_pairs, config_namespace, config_include_dirs, config_renames, config_removals, config_library_class_names, config_library_namespaces = parse_config_file(args.config)
+            header_library_pairs, config_namespace, config_include_dirs, config_renames, config_removals, config_library_class_names, config_library_namespaces, config_library_using_statements = parse_config_file(args.config)
         except (ValueError, FileNotFoundError) as e:
             print(f"Error reading config file: {e}", file=sys.stderr)
             sys.exit(1)
@@ -245,7 +255,8 @@ Examples:
             ignore_missing=args.ignore_missing,
             multi_file=args.multi,
             library_class_names=config_library_class_names if args.config else None,
-            library_namespaces=config_library_namespaces if args.config else None
+            library_namespaces=config_library_namespaces if args.config else None,
+            library_using_statements=config_library_using_statements if args.config else None
         )
     except Exception as e:
         import traceback

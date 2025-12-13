@@ -26,6 +26,7 @@
     </library>
 
     <library name="libtcod" namespace="Libtcod" class="Tcod">
+        <using namespace="SDL3"/>
         <include file="/usr/include/libtcod/libtcod.h"/>
     </library>
 </bindings>

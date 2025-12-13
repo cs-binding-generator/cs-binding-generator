@@ -26,7 +26,7 @@ class TestXMLConfigParsing:
         config_file = temp_dir / "config.xml"
         config_file.write_text(config_content)
         
-        pairs, namespace, include_dirs, renames, removals, library_class_names, library_namespaces = parse_config_file(str(config_file))
+        pairs, namespace, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements = parse_config_file(str(config_file))
         
         assert len(pairs) == 1
         assert pairs[0] == ("/path/to/test.h", "testlib")
@@ -50,7 +50,7 @@ class TestXMLConfigParsing:
         config_file = temp_dir / "config.xml"
         config_file.write_text(config_content)
         
-        pairs, namespace, include_dirs, renames, removals, library_class_names, library_namespaces = parse_config_file(str(config_file))
+        pairs, namespace, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements = parse_config_file(str(config_file))
         
         assert len(pairs) == 3
         assert pairs[0] == ("/path/to/lib1.h", "lib1")
@@ -73,7 +73,7 @@ class TestXMLConfigParsing:
         config_file = temp_dir / "config.xml"
         config_file.write_text(config_content)
         
-        pairs, namespace, include_dirs, renames, removals, library_class_names, library_namespaces = parse_config_file(str(config_file))
+        pairs, namespace, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements = parse_config_file(str(config_file))
         
         assert len(pairs) == 1
         assert pairs[0] == ("/path/to/test.h", "testlib")
@@ -99,7 +99,7 @@ class TestXMLConfigParsing:
         config_file = temp_dir / "config.xml"
         config_file.write_text(config_content)
         
-        pairs, namespace, include_dirs, renames, removals, library_class_names, library_namespaces = parse_config_file(str(config_file))
+        pairs, namespace, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements = parse_config_file(str(config_file))
         
         assert len(pairs) == 3
         assert pairs[0] == ("/path/to/lib1.h", "lib1")
@@ -193,7 +193,7 @@ class TestXMLConfigParsing:
         config_file = temp_dir / "cs-bindings.xml"
         config_file.write_text(config_content)
         
-        pairs, namespace, include_dirs, renames, removals, library_class_names, library_namespaces = parse_config_file(str(config_file))
+        pairs, namespace, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements = parse_config_file(str(config_file))
         
         assert len(pairs) == 2
         assert pairs[0] == ("/usr/include/libtcod/libtcod.h", "libtcod")
@@ -214,7 +214,7 @@ class TestXMLConfigParsing:
         config_file = temp_dir / "config.xml"
         config_file.write_text(config_content)
         
-        pairs, namespace, include_dirs, renames, removals, library_class_names, library_namespaces = parse_config_file(str(config_file))
+        pairs, namespace, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements = parse_config_file(str(config_file))
         
         assert len(pairs) == 1
         assert pairs[0] == ("/path/to/test.h", "testlib")  # Should be stripped
@@ -236,7 +236,7 @@ class TestXMLConfigParsing:
         config_file = temp_dir / "config.xml"
         config_file.write_text(config_content)
         
-        pairs, namespace, include_dirs, renames, removals, library_class_names, library_namespaces = parse_config_file(str(config_file))
+        pairs, namespace, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements = parse_config_file(str(config_file))
         
         assert len(pairs) == 1
         assert pairs[0] == ("/path/to/test.h", "testlib")
@@ -262,7 +262,7 @@ class TestXMLConfigParsing:
         config_file = temp_dir / "config.xml"
         config_file.write_text(config_content)
         
-        pairs, namespace, include_dirs, renames, removals, library_class_names, library_namespaces = parse_config_file(str(config_file))
+        pairs, namespace, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements = parse_config_file(str(config_file))
         
         assert len(pairs) == 2
         assert pairs[0] == ("/path/to/lib1.h", "lib1")
@@ -309,6 +309,38 @@ class TestXMLConfigParsing:
         assert "Fatal parsing errors" in error_msg
         assert "nonexistent.h" in error_msg
         assert "Check include directories" in error_msg
+    
+    def test_parse_config_with_using_statements(self, temp_dir):
+        """Test parsing config with using statements in libraries"""
+        config_content = """
+        <bindings>
+            <library name="lib1" namespace="Lib1">
+                <using namespace="System"/>
+                <using namespace="System.Collections"/>
+                <include file="/path/to/lib1.h"/>
+            </library>
+            <library name="lib2" namespace="Lib2">
+                <using namespace="System.IO"/>
+                <include file="/path/to/lib2.h"/>
+            </library>
+        </bindings>
+        """
+        
+        config_file = temp_dir / "config.xml"
+        config_file.write_text(config_content)
+        
+        pairs, namespace, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements = parse_config_file(str(config_file))
+        
+        assert len(pairs) == 2
+        assert pairs[0] == ("/path/to/lib1.h", "lib1")
+        assert pairs[1] == ("/path/to/lib2.h", "lib2")
+        assert namespace == "Lib1"  # First namespace found
+        assert include_dirs == []
+        assert library_namespaces == {"lib1": "Lib1", "lib2": "Lib2"}
+        assert library_using_statements == {
+            "lib1": ["System", "System.Collections"],
+            "lib2": ["System.IO"]
+        }
     
     @pytest.fixture
     def temp_dir(self):
