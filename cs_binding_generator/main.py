@@ -7,7 +7,6 @@ Generates modern C# code with LibraryImport for P/Invoke
 import argparse
 import sys
 import os
-from pathlib import Path
 import clang.cindex
 
 # Add parent directory to sys.path for direct execution
