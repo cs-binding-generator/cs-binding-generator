@@ -10,7 +10,7 @@ readme = "README.md"
 requires-python = ">=3.12"
 license = {text = "MIT"}
 authors = [
-    {name = "Your Name", email = "your.email@example.com"}
+    {name = "Robin 'Ruadeil' Degen", email = "mail@ruadeil.lgbt"}
 ]
 keywords = ["csharp", "bindings", "interop", "libclang", "code-generation"]
 classifiers = [
