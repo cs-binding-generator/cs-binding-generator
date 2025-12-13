@@ -2,8 +2,10 @@
 Code generation functions for C# bindings
 """
 
-from clang.cindex import CursorKind, TypeKind, Type
 from typing import Optional
+
+from clang.cindex import CursorKind, Type, TypeKind
+
 from .type_mapper import TypeMapper
 
 
@@ -594,8 +596,8 @@ class OutputBuilder:
         parts = []
 
         # Generated file header comment
-        import sys
         import os
+        import sys
         from datetime import datetime, timezone
 
         utc_now = datetime.now(timezone.utc)

@@ -3,7 +3,6 @@ XML configuration file parsing for C# bindings generator
 """
 
 import xml.etree.ElementTree as ET
-from pathlib import Path
 
 
 def parse_config_file(config_path):

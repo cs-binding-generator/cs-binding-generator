@@ -4,7 +4,6 @@ Constants and mappings for C# bindings generation
 
 from clang.cindex import TypeKind
 
-
 # Mapping from C/libclang types to C# types
 CSHARP_TYPE_MAP = {
     TypeKind.VOID: "void",

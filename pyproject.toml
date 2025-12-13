@@ -75,3 +75,15 @@ markers = [
     "slow: marks tests as slow (deselect with '-m \"not slow\"')",
     "integration: marks tests as integration tests",
 ]
+
+[tool.flake8]
+max-line-length = 120
+extend-ignore = ["E203", "W503", "E501"]  # E203 conflicts with Black, W503 is outdated, E501 handled by Black
+exclude = [".git", "__pycache__", "build", "dist", "*.egg-info"]
+per-file-ignores = [
+    "__init__.py:F401",  # Allow unused imports in __init__.py files
+]
+
+[tool.bandit]
+exclude_dirs = ["tests", ".venv"]
+skips = ["B101"]  # Skip assert checks in tests

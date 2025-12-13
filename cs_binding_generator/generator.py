@@ -5,12 +5,13 @@ Main C# bindings generator orchestration
 import sys
 from pathlib import Path
 from typing import Optional
-import clang.cindex
-from clang.cindex import CursorKind, TypeKind
 
-from .type_mapper import TypeMapper
+import clang.cindex
+from clang.cindex import CursorKind
+
 from .code_generators import CodeGenerator, OutputBuilder
-from .constants import NATIVE_METHODS_CLASS, DEFAULT_NAMESPACE
+from .constants import DEFAULT_NAMESPACE, NATIVE_METHODS_CLASS
+from .type_mapper import TypeMapper
 
 
 class CSharpBindingsGenerator:
@@ -511,7 +512,7 @@ class CSharpBindingsGenerator:
                     path = line.strip()
                     if path and path.startswith("/"):
                         clang_args.append(f"-I{path}")
-        except Exception as e:
+        except Exception:
             # Fallback to common paths if clang query fails
             # Don't print errors - this is a best-effort attempt
             for path in ["/usr/lib/clang/21/include", "/usr/local/include", "/usr/include"]:
@@ -542,7 +543,7 @@ class CSharpBindingsGenerator:
             if include_depth is not None:
                 print(f"Include depth: {include_depth}")
             else:
-                print(f"Include depth: infinite")
+                print("Include depth: infinite")
 
             tu = index.parse(header_file, args=clang_args, options=parse_options)
 

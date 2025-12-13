@@ -3,6 +3,7 @@ Type mapping logic for converting C types to C# types
 """
 
 from clang.cindex import TypeKind
+
 from .constants import CSHARP_TYPE_MAP
 
 
