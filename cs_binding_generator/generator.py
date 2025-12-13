@@ -115,6 +115,12 @@ class CSharpBindingsGenerator:
                     for child in cursor.get_children():
                         self.process_cursor(child)
                     return
+            # Check if this function should be removed
+            if self.type_mapper.should_remove(cursor.spelling):
+                # Skip this function entirely
+                for child in cursor.get_children():
+                    self.process_cursor(child)
+                return
             # Check if we've already generated this function
             # In multi-file mode, use global deduplication to avoid duplicate partial methods
             # In single-file mode, use library-specific deduplication for flexibility
@@ -144,6 +150,12 @@ class CSharpBindingsGenerator:
                         for child in cursor.get_children():
                             self.process_cursor(child)
                         return
+                # Check if this struct should be removed
+                if cursor.spelling and self.type_mapper.should_remove(cursor.spelling):
+                    # Skip this struct entirely
+                    for child in cursor.get_children():
+                        self.process_cursor(child)
+                    return
                 # Check if we've already generated this struct
                 # In multi-file mode, use global deduplication to avoid duplicate struct definitions
                 # In single-file mode, use library-specific deduplication for flexibility
@@ -180,6 +192,12 @@ class CSharpBindingsGenerator:
                         for child in cursor.get_children():
                             self.process_cursor(child)
                         return
+                # Check if this union should be removed
+                if cursor.spelling and self.type_mapper.should_remove(cursor.spelling):
+                    # Skip this union entirely
+                    for child in cursor.get_children():
+                        self.process_cursor(child)
+                    return
                 # Check if we've already generated this union
                 # In multi-file mode, use global deduplication to avoid duplicate union definitions
                 # In single-file mode, use library-specific deduplication for flexibility
@@ -210,6 +228,12 @@ class CSharpBindingsGenerator:
                         for child in cursor.get_children():
                             self.process_cursor(child)
                         return
+                # Check if this enum should be removed
+                if cursor.spelling and self.type_mapper.should_remove(cursor.spelling):
+                    # Skip this enum entirely
+                    for child in cursor.get_children():
+                        self.process_cursor(child)
+                    return
                 # Collect enum members for merging (handle duplicate enum names)
                 self._collect_enum_members(cursor)
         

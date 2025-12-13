@@ -1,7 +1,16 @@
 <bindings>
-    <!-- Use regex to strip SDL_ and TCOD_ prefixes -->
+
     <rename from="SDL_(.*)" to="$1" regex="true"/>
     <rename from="TCOD_(.*)" to="$1" regex="true"/>
+
+    <remove pattern="SDL_malloc"/>
+    <remove pattern="SDL_calloc"/>
+    <remove pattern="SDL_realloc"/>
+    <remove pattern="SDL_free"/>
+    <remove pattern="SDL_strdup"/>
+    <remove pattern="SDL_strcasecmp"/>
+    <remove pattern="SDL_strncasecmp"/>
+
     <include_directory path="/usr/include/libtcod"/>
     <include_directory path="/usr/include/SDL3"/>
     <library name="SDL3">

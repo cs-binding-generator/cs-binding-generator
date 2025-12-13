@@ -27,7 +27,7 @@ class TestXMLConfigParsing:
         config_file = temp_dir / "config.xml"
         config_file.write_text(config_content)
         
-        pairs, namespace, include_dirs, renames = parse_config_file(str(config_file))
+        pairs, namespace, include_dirs, renames, removals = parse_config_file(str(config_file))
         
         assert len(pairs) == 1
         assert pairs[0] == ("/path/to/test.h", "testlib")
@@ -53,7 +53,7 @@ class TestXMLConfigParsing:
         config_file = temp_dir / "config.xml"
         config_file.write_text(config_content)
         
-        pairs, namespace, include_dirs, renames = parse_config_file(str(config_file))
+        pairs, namespace, include_dirs, renames, removals = parse_config_file(str(config_file))
         
         assert len(pairs) == 3
         assert pairs[0] == ("/path/to/lib1.h", "lib1")
@@ -76,7 +76,7 @@ class TestXMLConfigParsing:
         config_file = temp_dir / "config.xml"
         config_file.write_text(config_content)
         
-        pairs, namespace, include_dirs, renames = parse_config_file(str(config_file))
+        pairs, namespace, include_dirs, renames, removals = parse_config_file(str(config_file))
         
         assert len(pairs) == 1
         assert pairs[0] == ("/path/to/test.h", "testlib")
@@ -169,7 +169,7 @@ class TestXMLConfigParsing:
         config_file = temp_dir / "cs-bindings.xml"
         config_file.write_text(config_content)
         
-        pairs, namespace, include_dirs, renames = parse_config_file(str(config_file))
+        pairs, namespace, include_dirs, renames, removals = parse_config_file(str(config_file))
         
         assert len(pairs) == 2
         assert pairs[0] == ("/usr/include/libtcod/libtcod.h", "libtcod")
@@ -191,7 +191,7 @@ class TestXMLConfigParsing:
         config_file = temp_dir / "config.xml"
         config_file.write_text(config_content)
         
-        pairs, namespace, include_dirs, renames = parse_config_file(str(config_file))
+        pairs, namespace, include_dirs, renames, removals = parse_config_file(str(config_file))
         
         assert len(pairs) == 1
         assert pairs[0] == ("/path/to/test.h", "testlib")  # Should be stripped
@@ -214,7 +214,7 @@ class TestXMLConfigParsing:
         config_file = temp_dir / "config.xml"
         config_file.write_text(config_content)
         
-        pairs, namespace, include_dirs, renames = parse_config_file(str(config_file))
+        pairs, namespace, include_dirs, renames, removals = parse_config_file(str(config_file))
         
         assert len(pairs) == 1
         assert pairs[0] == ("/path/to/test.h", "testlib")
@@ -241,7 +241,7 @@ class TestXMLConfigParsing:
         config_file = temp_dir / "config.xml"
         config_file.write_text(config_content)
         
-        pairs, namespace, include_dirs, renames = parse_config_file(str(config_file))
+        pairs, namespace, include_dirs, renames, removals = parse_config_file(str(config_file))
         
         assert len(pairs) == 2
         assert pairs[0] == ("/path/to/lib1.h", "lib1")

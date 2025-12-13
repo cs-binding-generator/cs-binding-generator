@@ -26,6 +26,8 @@ class TypeMapper:
         self.opaque_types = set()
         # Global renames that apply to all types/functions - list of (pattern, replacement, is_regex) tuples
         self.renames = []
+        # Global removals that filter out types/functions - list of (pattern, is_regex) tuples
+        self.removals = []
     
     def register_typedef(self, name: str, underlying_type):
         """Register a typedef for later resolution"""
@@ -360,3 +362,25 @@ class TypeMapper:
     def get_all_renames(self) -> list:
         """Get all rename mappings as list of tuples"""
         return self.renames.copy()
+    
+    def add_removal(self, pattern: str, is_regex: bool = False):
+        """Add a removal pattern to filter out types/functions"""
+        self.removals.append((pattern, is_regex))
+    
+    def should_remove(self, name: str) -> bool:
+        """Check if a name should be removed (first match wins)"""
+        import re
+        for pattern, is_regex in self.removals:
+            if is_regex:
+                # Use fullmatch for precise identifier matching
+                if re.fullmatch(pattern, name):
+                    return True  # First match wins
+            else:
+                # Simple exact match
+                if name == pattern:
+                    return True  # First match wins
+        return False
+    
+    def get_all_removals(self) -> list:
+        """Get all removal patterns as list of tuples"""
+        return self.removals.copy()

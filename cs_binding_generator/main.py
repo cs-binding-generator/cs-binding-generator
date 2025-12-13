@@ -31,6 +31,7 @@ def parse_config_file(config_path):
         namespace = None
         include_dirs = []
         renames = []  # Changed to list of (from, to, is_regex) tuples
+        removals = []  # List of (pattern, is_regex) tuples
         
         # Get global include directories
         for include_dir in root.findall('include_directory'):
@@ -47,6 +48,14 @@ def parse_config_file(config_path):
                 raise ValueError("Rename element missing 'from' or 'to' attribute")
             is_regex = rename.get('regex', 'false').lower() == 'true'
             renames.append((from_name.strip(), to_name.strip(), is_regex))
+        
+        # Get global removals (support both simple and regex)
+        for remove in root.findall('remove'):
+            pattern = remove.get('pattern')
+            if not pattern:
+                raise ValueError("Remove element missing 'pattern' attribute")
+            is_regex = remove.get('regex', 'false').lower() == 'true'
+            removals.append((pattern.strip(), is_regex))
         
         for library in root.findall('library'):
             library_name = library.get('name')
@@ -72,7 +81,7 @@ def parse_config_file(config_path):
                     raise ValueError(f"Include element in library '{library_name}' missing 'file' attribute")
                 header_library_pairs.append((header_path.strip(), library_name.strip()))
         
-        return header_library_pairs, namespace, include_dirs, renames
+        return header_library_pairs, namespace, include_dirs, renames, removals
         
     except ET.ParseError as e:
         raise ValueError(f"XML parsing error: {e}")
@@ -168,7 +177,7 @@ Examples:
             sys.exit(1)
             
         try:
-            header_library_pairs, config_namespace, config_include_dirs, config_renames = parse_config_file(args.config)
+            header_library_pairs, config_namespace, config_include_dirs, config_renames, config_removals = parse_config_file(args.config)
         except (ValueError, FileNotFoundError) as e:
             print(f"Error reading config file: {e}", file=sys.stderr)
             sys.exit(1)
@@ -212,6 +221,11 @@ Examples:
         if args.config and config_renames:
             for from_name, to_name, is_regex in config_renames:
                 generator.type_mapper.add_rename(from_name, to_name, is_regex)
+        
+        # Apply removals if using config file
+        if args.config and config_removals:
+            for pattern, is_regex in config_removals:
+                generator.type_mapper.add_removal(pattern, is_regex)
         
         generator.generate(
             header_library_pairs,
