@@ -131,9 +131,20 @@ class CSharpBindingsGenerator:
         if re.match(r'^\w+\(.*\)$', value):
             return True
 
-        # Check if it contains simple arithmetic operators with numbers
-        if re.match(r'^[\d\sx()|<<>>+\-*/&^~]+$', value):
-            return True
+        # Attempt to accept numeric expressions (including bitshifts) with suffixes such as 'u' or 'ul'.
+        # Strategy: strip common unsigned/long suffixes that follow numeric tokens, then validate the
+        # cleaned expression only contains numeric/hex tokens, operators and parentheses.
+        try:
+            # Remove suffix letters (u, U, l, L) that immediately follow a hex/decimal digit
+            cleaned = re.sub(r'([0-9A-Fa-f])([uUlL]+)\b', r'\1', value)
+
+            # Allowable characters after cleaning: digits, hex prefix x/X, whitespace, parentheses,
+            # shift operators (<,>), bitwise operators (|,&,^,~), arithmetic (+-*/%), and hex digits.
+            if re.match(r'^[\s0-9A-Fa-fxX()<>|&\^~+\-*/%]+$', cleaned):
+                return True
+        except re.error:
+            # If regex operations fail for any reason, fall back to conservative False
+            pass
 
         # Default to False for anything else
         return False

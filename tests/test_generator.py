@@ -773,3 +773,30 @@ class TestGeneratorInternals:
         assert "VALUE_X = unchecked((ulong)(42u))," in testlib_content
         assert "VALUE_Y = unchecked((ulong)(100ul))," in testlib_content
         assert "VALUE_Z = unchecked((ulong)(255llu))," in testlib_content
+
+    def test_macros_with_bitshifts(self, temp_dir, tmp_path):
+        """Test that macros using bitshift expressions are properly captured"""
+        header = temp_dir / "bitshift_macros.h"
+        header.write_text("""
+            #define SDL_GPU_SHADERFORMAT_PRIVATE  (1u << 0)
+            #define SDL_GPU_SHADERFORMAT_EXAMPLE  (1u << 3)
+
+            void use_shader_format(unsigned int fmt);
+        """)
+
+        generator = CSharpBindingsGenerator()
+
+        global_constants = [("GpuShaderFormat", "SDL_GPU_SHADERFORMAT_.*", "uint", False)]
+
+        result = generator.generate(
+            [(str(header), "testlib")],
+            output=str(tmp_path),
+            global_constants=global_constants
+        )
+
+        testlib_content = result["testlib.cs"]
+
+        # Verify the enum was generated and contains the bitshift expressions
+        assert "public enum GpuShaderFormat : uint" in testlib_content
+        assert "SDL_GPU_SHADERFORMAT_PRIVATE = unchecked((uint)((1u << 0)))," in testlib_content
+        assert "SDL_GPU_SHADERFORMAT_EXAMPLE = unchecked((uint)((1u << 3)))," in testlib_content

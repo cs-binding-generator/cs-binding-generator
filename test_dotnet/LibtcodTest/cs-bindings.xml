@@ -9,6 +9,7 @@
 
     <constants name="InitFlags" pattern="SDL_INIT_.*" type="uint" flags="true"/>
     <constants name="WindowFlags" pattern="SDL_WINDOW_.*" type="ulong" flags="true"/>
+    <constants name="GpuShaderFormat" pattern="SDL_GPU_SHADERFORMAT_.*" type="uint"/>
 
     <rename from="SDL_(.*)" to="$1" regex="true"/>
     <rename from="TCOD_(.*)" to="$1" regex="true"/>

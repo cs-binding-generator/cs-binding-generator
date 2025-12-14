@@ -1,6 +1,6 @@
 # C# Binding Generator
 
-> **Note**: Most of the code in this repository was "vibe coded" with AI assistance, primarily using Claude Sonnet 4.5 and Grok Code Fast 1.
+> **Note**: Most of the code in this repository was "vibe coded" with AI assistance, primarily using Claude Sonnet 4.5, GPT-4o, GPT-5 mini and Grok Code Fast 1.
 > It is possible other models were also used in the mix. The author started this as an experiment to test how far AI has come in software
 > development, but ended up creating an actually useful tool.
 
