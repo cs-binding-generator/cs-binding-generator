@@ -12,10 +12,12 @@ from .type_mapper import TypeMapper
 class CodeGenerator:
     """Generates C# code from libclang AST nodes"""
 
-    def __init__(self, type_mapper: TypeMapper, visibility: str = "public"):
+    def __init__(self, type_mapper: TypeMapper, visibility: str = "public", skip_variadic: bool = False):
         self.type_mapper = type_mapper
         self.anonymous_enum_counter = 0
         self.visibility = visibility
+        self.skip_variadic = skip_variadic
+        self.has_variadic_functions = False
 
     def generate_function(self, cursor, library_name: str) -> str:
         """Generate C# LibraryImport for a function"""
@@ -37,11 +39,19 @@ class CodeGenerator:
         if is_struct_return:
             result_type = "nuint"  # Return as nuint pointer instead
 
-        # Skip variadic functions (not supported in LibraryImport)
-        # Note: Only FUNCTIONPROTO types can be checked for variadicity
+        # Check if this is a variadic function
+        # Variadic functions need __arglist as the last parameter
+        is_variadic = False
         if cursor.type.kind == TypeKind.FUNCTIONPROTO:
-            if cursor.type.is_function_variadic():
-                return ""  # Skip variadic functions
+            is_variadic = cursor.type.is_function_variadic()
+
+        # Skip variadic functions if skip_variadic flag is set
+        if is_variadic and self.skip_variadic:
+            return ""
+
+        # Track that we have variadic functions (for DisableRuntimeMarshalling)
+        if is_variadic:
+            self.has_variadic_functions = True
 
         # Build parameter list with marshalling attributes
         # Also track which parameters are char** (nuint representing output string pointers)
@@ -66,6 +76,10 @@ class CodeGenerator:
             else:
                 params.append(f"{arg_type} {arg_name}")
 
+        # Add __arglist for variadic functions
+        if is_variadic:
+            params.append("__arglist")
+
         params_str = ", ".join(params) if params else ""
 
         # Add return value marshalling attribute for bool
@@ -73,14 +87,20 @@ class CodeGenerator:
         if result_type == "bool":
             return_marshal = "    [return: MarshalAs(UnmanagedType.I1)]\n"
 
-        # Generate LibraryImport attribute and method with StringMarshalling
-        code = f"""    [LibraryImport("{library_name}", EntryPoint = "{original_func_name}", StringMarshalling = StringMarshalling.Utf8)]
+        # Generate DllImport for variadic functions (LibraryImport doesn't support __arglist)
+        # Use LibraryImport for non-variadic functions
+        if is_variadic:
+            code = f"""    [DllImport("{library_name}", EntryPoint = "{original_func_name}", CallingConvention = CallingConvention.Cdecl)]
+{return_marshal}    {self.visibility} static extern {result_type} {func_name}({params_str});
+"""
+        else:
+            code = f"""    [LibraryImport("{library_name}", EntryPoint = "{original_func_name}", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
 {return_marshal}    {self.visibility} static partial {result_type} {func_name}({params_str});
 """
 
-        # Add helper function for char* return types
-        if is_char_pointer_return:
+        # Add helper function for char* return types (skip for variadic functions)
+        if is_char_pointer_return and not is_variadic:
             # Get parameter names for the helper function call
             param_names: list[str] = []
             for arg in cursor.get_arguments():
@@ -99,7 +119,8 @@ class CodeGenerator:
 """
 
         # Add helper function for functions with char** parameters (output string pointers)
-        if char_double_ptr_params:
+        # Skip for variadic functions
+        if char_double_ptr_params and not is_variadic:
             # Build new parameter list replacing nuint with out string? for char** params
             helper_params = []
             call_params = []
@@ -160,8 +181,8 @@ class CodeGenerator:
     }}
 """
 
-        # Add helper function for struct return types
-        if is_struct_return:
+        # Add helper function for struct return types (skip for variadic functions)
+        if is_struct_return and not is_variadic:
             # Build parameters for helper (same as original)
             code += f"""
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -593,6 +614,7 @@ class OutputBuilder:
         include_assembly_attribute: bool = True,
         using_statements: Optional[list[str]] = None,
         visibility: str = "public",
+        has_variadic_functions: bool = False,
     ) -> str:
         """Build the final C# output"""
         parts = []
@@ -638,7 +660,9 @@ class OutputBuilder:
         parts.append("")
 
         # Assembly attribute to disable runtime marshalling for AOT compatibility
-        if include_assembly_attribute:
+        # Note: Cannot use DisableRuntimeMarshalling when variadic functions are present
+        # because __arglist requires runtime marshalling
+        if include_assembly_attribute and not has_variadic_functions:
             parts.append("[assembly: System.Runtime.CompilerServices.DisableRuntimeMarshalling]")
             parts.append("")
 

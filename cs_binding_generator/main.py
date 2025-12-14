@@ -57,6 +57,12 @@ Examples:
         help="Continue processing even if some header files are not found (default: fail on missing files)",
     )
 
+    parser.add_argument(
+        "--skip-variadic",
+        action="store_true",
+        help="Skip generating bindings for variadic functions (functions with ... parameters)",
+    )
+
     args = parser.parse_args()
 
     # Default config file to cs-bindings.xml in current directory if not specified
@@ -125,6 +131,7 @@ Examples:
             output=args.output,
             include_dirs=include_dirs,
             ignore_missing=args.ignore_missing,
+            skip_variadic=args.skip_variadic,
             library_class_names=config_library_class_names,
             library_namespaces=config_library_namespaces,
             library_using_statements=config_library_using_statements,
