@@ -546,7 +546,7 @@ class CSharpBindingsGenerator:
         library_namespaces: Optional[dict[str, str]] = None,
         library_using_statements: Optional[dict[str, list[str]]] = None,
         visibility: str = "public",
-        global_constants: Optional[list[tuple[str, str, str]]] = None,
+        global_constants: Optional[list[tuple[str, str, str, bool]]] = None,
     ) -> dict[str, str]:
         """Generate C# bindings from C header file(s)
 
@@ -684,7 +684,7 @@ class CSharpBindingsGenerator:
 
                 # Collect all patterns from global constants
                 patterns = []
-                for const_name, const_pattern, const_type in self.global_constants:
+                for const_name, const_pattern, const_type, const_flags in self.global_constants:
                     patterns.append(const_pattern)
 
                 # Extract macros from all files in the depth map
@@ -733,7 +733,7 @@ class CSharpBindingsGenerator:
 
         # Generate enums from captured macros using global constants
         for library_name in self.captured_macros:
-            for const_name, const_pattern, const_type in self.global_constants:
+            for const_name, const_pattern, const_type, const_flags in self.global_constants:
                 # Get all macros matching this pattern
                 matching_macros = {}
                 for macro_name, macro_value in self.captured_macros[library_name].items():
@@ -752,9 +752,10 @@ class CSharpBindingsGenerator:
 
                     members_str = "\n".join(members)
 
-                    # Generate enum with specified type
+                    # Generate enum with specified type and optional [Flags] attribute
+                    flags_attr = "[Flags]\n" if const_flags else ""
                     type_clause = f" : {const_type}" if const_type != "int" else ""
-                    code = f"""{self.visibility} enum {enum_name}{type_clause}
+                    code = f"""{flags_attr}{self.visibility} enum {enum_name}{type_clause}
 {{
 {members_str}
 }}

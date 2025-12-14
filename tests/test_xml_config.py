@@ -436,8 +436,8 @@ class TestXMLConfigParsing:
         assert len(pairs) == 1
         assert pairs[0] == ("/path/to/test.h", "testlib")
         assert len(global_constants) == 2
-        assert global_constants[0] == ("WindowFlags", "TEST_WINDOW_.*", "ulong")
-        assert global_constants[1] == ("InitFlags", "TEST_INIT_.*", "uint")
+        assert global_constants[0] == ("WindowFlags", "TEST_WINDOW_.*", "ulong", False)
+        assert global_constants[1] == ("InitFlags", "TEST_INIT_.*", "uint", False)
 
     def test_parse_config_constants_missing_name(self, temp_dir):
         """Test that constants without name attribute raises error"""
@@ -490,7 +490,30 @@ class TestXMLConfigParsing:
         pairs, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements, visibility, global_constants = parse_config_file(str(config_file))
 
         assert len(global_constants) == 1
-        assert global_constants[0] == ("TestFlags", "TEST_.*", "uint")
+        assert global_constants[0] == ("TestFlags", "TEST_.*", "uint", False)
+
+    def test_parse_config_constants_with_flags(self, temp_dir):
+        """Test parsing constants with flags attribute"""
+        config_content = """
+        <bindings>
+            <constants name="WindowFlags" pattern="WINDOW_.*" type="ulong" flags="true"/>
+            <constants name="InitFlags" pattern="INIT_.*"/>
+            <library name="testlib">
+                <include file="/path/to/test.h"/>
+            </library>
+        </bindings>
+        """
+
+        config_file = temp_dir / "config.xml"
+        config_file.write_text(config_content)
+
+        pairs, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements, visibility, global_constants = parse_config_file(str(config_file))
+
+        assert len(global_constants) == 2
+        # First constant has flags=true
+        assert global_constants[0] == ("WindowFlags", "WINDOW_.*", "ulong", True)
+        # Second constant defaults to flags=false
+        assert global_constants[1] == ("InitFlags", "INIT_.*", "uint", False)
 
     @pytest.fixture
     def temp_dir(self):

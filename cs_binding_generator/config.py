@@ -55,20 +55,21 @@ def parse_config_file(config_path):
             removals.append((pattern.strip(), is_regex))
 
         # Get global constants (macros to extract)
-        # These are stored as a list of (name, pattern, type) tuples
+        # These are stored as a list of (name, pattern, type, is_flags) tuples
         # They will be applied to all libraries during processing
         global_constants = []
         for const in root.findall("constants"):
             const_name = const.get("name")
             const_pattern = const.get("pattern")
             const_type = const.get("type", "uint")  # Default to uint
+            const_flags = const.get("flags", "false").lower() == "true"  # Default to false
 
             if not const_name:
                 raise ValueError("Constants element missing 'name' attribute")
             if not const_pattern:
                 raise ValueError("Constants element missing 'pattern' attribute")
 
-            global_constants.append((const_name.strip(), const_pattern.strip(), const_type.strip()))
+            global_constants.append((const_name.strip(), const_pattern.strip(), const_type.strip(), const_flags))
 
         for library in root.findall("library"):
             library_name = library.get("name")

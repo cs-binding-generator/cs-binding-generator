@@ -569,7 +569,7 @@ class TestGeneratorInternals:
         generator = CSharpBindingsGenerator()
 
         # Generate with constants extraction
-        global_constants = [("Flags", "FLAG_.*", "uint")]
+        global_constants = [("Flags", "FLAG_.*", "uint", False)]
 
         result = generator.generate(
             [(str(header), "testlib")],
@@ -599,7 +599,7 @@ class TestGeneratorInternals:
         generator = CSharpBindingsGenerator()
 
         # Generate with unsigned enum type
-        global_constants = [("Flags", "FLAG_.*", "ulong")]
+        global_constants = [("Flags", "FLAG_.*", "ulong", False)]
 
         result = generator.generate(
             [(str(header), "testlib")],
@@ -613,3 +613,72 @@ class TestGeneratorInternals:
         assert "public enum Flags : ulong" in testlib_content
         assert "FLAG_NORMAL = unchecked((ulong)(0x01))," in testlib_content
         assert "FLAG_ADAPTIVE = unchecked((ulong)((-1)))," in testlib_content
+
+    def test_generate_with_flags_attribute(self, temp_dir, tmp_path):
+        """Test that flags=true generates [Flags] attribute on enum"""
+        # Create a header with flag macros
+        header = temp_dir / "test_flags.h"
+        header.write_text("""
+            #define FLAG_NONE 0x00
+            #define FLAG_READ 0x01
+            #define FLAG_WRITE 0x02
+            #define FLAG_EXECUTE 0x04
+
+            int test_func(int flags);
+        """)
+
+        generator = CSharpBindingsGenerator()
+
+        # Generate with flags=true
+        global_constants = [("FileFlags", "FLAG_.*", "uint", True)]
+
+        result = generator.generate(
+            [(str(header), "testlib")],
+            output=str(tmp_path),
+            global_constants=global_constants
+        )
+
+        testlib_content = result["testlib.cs"]
+
+        # Verify [Flags] attribute is present
+        assert "[Flags]" in testlib_content
+        assert "public enum FileFlags : uint" in testlib_content
+        # Verify the enum values are present
+        assert "FLAG_NONE = unchecked((uint)(0x00))," in testlib_content
+        assert "FLAG_READ = unchecked((uint)(0x01))," in testlib_content
+        assert "FLAG_WRITE = unchecked((uint)(0x02))," in testlib_content
+        assert "FLAG_EXECUTE = unchecked((uint)(0x04))," in testlib_content
+
+    def test_generate_without_flags_attribute(self, temp_dir, tmp_path):
+        """Test that flags=false does not generate [Flags] attribute on enum"""
+        # Create a header with enum-like macros (not bit flags)
+        header = temp_dir / "test_no_flags.h"
+        header.write_text("""
+            #define STATUS_OK 0
+            #define STATUS_ERROR 1
+            #define STATUS_PENDING 2
+
+            int test_func(int status);
+        """)
+
+        generator = CSharpBindingsGenerator()
+
+        # Generate with flags=false (default)
+        global_constants = [("Status", "STATUS_.*", "int", False)]
+
+        result = generator.generate(
+            [(str(header), "testlib")],
+            output=str(tmp_path),
+            global_constants=global_constants
+        )
+
+        testlib_content = result["testlib.cs"]
+
+        # Verify [Flags] attribute is NOT present
+        # Check that [Flags] doesn't appear before the enum
+        assert "public enum Status" in testlib_content
+        assert "[Flags]\npublic enum Status" not in testlib_content
+        # Verify the enum values are present
+        assert "STATUS_OK = unchecked((int)(0))," in testlib_content
+        assert "STATUS_ERROR = unchecked((int)(1))," in testlib_content
+        assert "STATUS_PENDING = unchecked((int)(2))," in testlib_content
