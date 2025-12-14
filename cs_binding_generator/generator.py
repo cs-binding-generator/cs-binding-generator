@@ -123,8 +123,8 @@ class CSharpBindingsGenerator:
         if re.match(r'^[A-Z_][A-Z0-9_]+$', value):
             return False
 
-        # Check if it's a plain number (hex, decimal, negative)
-        if re.match(r'^-?\d+$', value) or re.match(r'^0x[0-9A-Fa-f]+$', value):
+        # Check if it's a plain number (hex, decimal, negative) with optional suffixes (u, l, ul, etc.)
+        if re.match(r'^-?\d+[uUlL]*$', value) or re.match(r'^0x[0-9A-Fa-f]+[uUlL]*$', value):
             return True
 
         # Check if it's a cast/macro call with numeric content: NAME(0x...)

@@ -729,3 +729,47 @@ class TestGeneratorInternals:
         assert "public enum LocalFlags" in testlib_content
         assert "LOCAL_FLAG_A = unchecked((uint)(0x01))," in testlib_content
         assert "LOCAL_FLAG_B = unchecked((uint)(0x02))," in testlib_content
+
+    def test_macros_with_unsigned_suffixes(self, temp_dir, tmp_path):
+        """Test that macros with unsigned suffixes (u, l, ul, etc.) are properly captured"""
+        # Create a header with macros that have unsigned suffixes
+        header = temp_dir / "unsigned_macros.h"
+        header.write_text("""
+            #define FLAG_A 0x00000001u
+            #define FLAG_B 0x00000002u
+            #define FLAG_C 0x00000004u
+            #define VALUE_X 42u
+            #define VALUE_Y 100ul
+            #define VALUE_Z 255llu
+
+            void use_flags(unsigned int flags);
+        """)
+
+        generator = CSharpBindingsGenerator()
+
+        # Generate with constants that match the macros
+        global_constants = [
+            ("TestFlags", "FLAG_.*", "uint", True),
+            ("TestValues", "VALUE_.*", "ulong", False)
+        ]
+
+        result = generator.generate(
+            [(str(header), "testlib")],
+            output=str(tmp_path),
+            global_constants=global_constants
+        )
+
+        testlib_content = result["testlib.cs"]
+
+        # Verify the flags enum was generated with [Flags] attribute
+        assert "[Flags]" in testlib_content
+        assert "public enum TestFlags : uint" in testlib_content
+        assert "FLAG_A = unchecked((uint)(0x00000001u))," in testlib_content
+        assert "FLAG_B = unchecked((uint)(0x00000002u))," in testlib_content
+        assert "FLAG_C = unchecked((uint)(0x00000004u))," in testlib_content
+
+        # Verify the values enum was generated without [Flags] attribute
+        assert "public enum TestValues : ulong" in testlib_content
+        assert "VALUE_X = unchecked((ulong)(42u))," in testlib_content
+        assert "VALUE_Y = unchecked((ulong)(100ul))," in testlib_content
+        assert "VALUE_Z = unchecked((ulong)(255llu))," in testlib_content
