@@ -611,6 +611,8 @@ class OutputBuilder:
             argv_copy[0] = "cs_binding_generator"
         elif argv_copy and os.path.basename(argv_copy[0]) == "main.py":
             argv_copy[0] = "cs_binding_generator"
+        elif argv_copy and os.path.basename(argv_copy[0]) == "cs_binding_generator":
+            argv_copy[0] = "cs_binding_generator"
         command_line = " ".join(argv_copy)
 
         parts.append("//")
