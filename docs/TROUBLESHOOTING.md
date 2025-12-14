@@ -14,7 +14,6 @@ FileNotFoundError: Configuration file not found: cs-bindings.xml
 **Solution:**
 1. Create `cs-bindings.xml` in the current directory
 2. Or specify a different config file: `cs_binding_generator --config path/to/config.xml`
-3. Or use command-line arguments instead: `cs_binding_generator -i header.h:lib -o output`
 
 ### "Expected root element 'bindings'"
 
@@ -223,14 +222,18 @@ error CS0246: The type or namespace name 'wchar_t' could not be found
 
 ### Using Different Libraries
 
-The generator supports specifying different library names for different headers:
+The generator supports multiple libraries in the XML configuration:
 
-```bash
-# Each function gets the correct LibraryImport attribute
-cs_binding_generator \
-  -i /usr/include/SDL3/SDL.h:SDL3 \
-  -i /usr/include/libtcod/libtcod.h:libtcod \
-  -o GameBindings.cs
+```xml
+<bindings>
+    <library name="SDL3">
+        <include file="/usr/include/SDL3/SDL.h"/>
+    </library>
+
+    <library name="libtcod">
+        <include file="/usr/include/libtcod/libtcod.h"/>
+    </library>
+</bindings>
 ```
 
 **Generated output:**
@@ -244,11 +247,11 @@ public static partial void TCOD_init(int w, int h, nuint title);
 
 ### Common Issues
 
-**Problem:** All functions show wrong library name  
-**Solution:** Use the `header.h:library` format for each input file
+**Problem:** All functions show wrong library name
+**Solution:** Check the `name` attribute in your `<library>` elements
 
-**Problem:** Mixed functions in wrong libraries  
-**Solution:** Regenerate bindings using separate header:library pairs for each library
+**Problem:** Mixed functions in wrong libraries
+**Solution:** Verify which header files are included in each library
 
 ## Generation Issues
 
@@ -257,16 +260,16 @@ public static partial void TCOD_init(int w, int h, nuint title);
 **Symptom:** Generated file only contains namespace and using statements.
 
 **Causes:**
-1. **Include depth is 0 and header only has includes**
-   ```bash
-   # SDL.h only includes other headers, need depth 1
-   cs_binding_generator -i SDL.h:SDL3 --include-depth 1
-   ```
+1. **Header only contains includes** - Use `--include-depth 1` or higher to process included headers
 
-2. **Header file not found**
-   ```bash
-   # Add include directories
-   cs_binding_generator -i mylib.h:mylib -I /path/to/headers
+2. **Header file not found** - Add `<include_directory>` elements to your XML config:
+   ```xml
+   <bindings>
+       <include_directory path="/path/to/headers"/>
+       <library name="mylib">
+           <include file="mylib.h"/>
+       </library>
+   </bindings>
    ```
 
 3. **Parse errors** - Check stderr for clang diagnostics
@@ -278,15 +281,13 @@ public static partial void TCOD_init(int w, int h, nuint title);
 **Debugging steps:**
 
 1. **Check file depth:**
-   ```bash
-   # Run with verbose output to see which files are processed
-   cs_binding_generator -i header.h:mylib --include-depth 1
-   
-   # Look for output like:
-   # Processing 5 file(s) (depth 1):
-   #   [depth 0] header.h
-   #   [depth 1] types.h
+   Run the generator and check the console output showing which files are processed:
    ```
+   Processing 5 file(s) (depth 1):
+     [depth 0] header.h
+     [depth 1] types.h
+   ```
+   Use `--include-depth` to increase if needed
 
 2. **Verify file is in allowed depth:**
    - Increase `--include-depth` if needed
@@ -450,12 +451,18 @@ cs_binding_generator --clang-path /usr/lib/libclang.so ...
 
 **Solutions:**
 
-1. **Add missing include directories:**
-   ```bash
-   cs_binding_generator -i header.h:mylib \
-     -I /usr/include \
-     -I /usr/lib/clang/21/include
+1. **Add missing include directories to your XML config:**
+   ```xml
+   <bindings>
+       <include_directory path="./include"/>
+       <include_directory path="/opt/custom/include"/>
+
+       <library name="mylib">
+           <include file="header.h"/>
+       </library>
+   </bindings>
    ```
+   Note: System paths like `/usr/include` are found automatically
 
 2. **Check header file syntax:**
    ```bash
@@ -494,14 +501,19 @@ cs_binding_generator --clang-path /usr/lib/libclang.so ...
 
 1. **Reduce include depth** to avoid processing too many headers
 
-2. **Split into multiple files:**
-   ```bash
-   # Generate separate bindings for different subsystems
-   cs_binding_generator -i video.h:mylib -o Video.cs
-   cs_binding_generator -i audio.h:mylib -o Audio.cs
-   ```
+2. **Use separate libraries in your XML config:**
+   ```xml
+   <bindings>
+       <library name="mylib_video">
+           <include file="video.h"/>
+       </library>
 
-3. **Use partial classes** to organize generated code across files
+       <library name="mylib_audio">
+           <include file="audio.h"/>
+       </library>
+   </bindings>
+   ```
+   This generates separate files: `mylib_video.cs` and `mylib_audio.cs`
 
 ## Test Failures
 
@@ -532,7 +544,7 @@ pytest tests/ -k "not test_sdl3_generates_valid_csharp"
 error CS0579: Duplicate 'System.Runtime.CompilerServices.DisableRuntimeMarshalling' attribute
 ```
 
-**Cause:** Using `--multi` flag but the assembly attribute appears in multiple files.
+**Cause:** The assembly attribute appears in multiple generated files.
 
 **Solution:**
 This should be automatically handled by creating a separate `bindings.cs` file. If you see this error:
@@ -541,23 +553,17 @@ This should be automatically handled by creating a separate `bindings.cs` file. 
 3. Verify other `.cs` files don't contain the assembly attribute
 4. Regenerate all bindings
 
-### "Output directory must be specified when using --multi flag"
+### Output Directory Issues
 
-**Error:**
-```
-ValueError: Output directory must be specified when using --multi flag
-```
-
-**Cause:** Using `--multi` without specifying an output path with `-o`.
+**Problem:** Not sure where files are being generated.
 
 **Solution:**
+Use the `-o` or `--output` flag to specify the output directory:
 ```bash
-# Wrong
-cs_binding_generator -i header.h:lib --multi
-
-# Correct  
-cs_binding_generator -i header.h:lib --multi -o ./output
+cs_binding_generator --config cs-bindings.xml --output ./Generated
 ```
+
+If not specified, files are generated in the current directory.
 
 ### Empty Files Generated
 
