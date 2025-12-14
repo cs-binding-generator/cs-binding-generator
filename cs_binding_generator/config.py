@@ -22,6 +22,12 @@ def parse_config_file(config_path):
         library_namespaces = {}  # Map library name to namespace
         library_using_statements = {}  # Map library name to list of using statements
 
+        # Get global visibility setting (default to "public")
+        visibility = root.get("visibility", "public").strip().lower()
+        if visibility not in ("public", "internal"):
+            raise ValueError(f"Invalid visibility value '{visibility}'. Must be 'public' or 'internal'")
+        visibility = visibility  # Keep as lowercase for validation, will use as-is
+
         # Get global include directories
         for include_dir in root.findall("include_directory"):
             path = include_dir.get("path")
@@ -91,6 +97,7 @@ def parse_config_file(config_path):
             library_class_names,
             library_namespaces,
             library_using_statements,
+            visibility,
         )
 
     except ET.ParseError as e:

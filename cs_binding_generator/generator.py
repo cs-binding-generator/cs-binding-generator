@@ -19,7 +19,8 @@ class CSharpBindingsGenerator:
 
     def __init__(self):
         self.type_mapper = TypeMapper()
-        self.code_generator = CodeGenerator(self.type_mapper)
+        self.code_generator = None  # Will be initialized with visibility setting
+        self.visibility = "public"  # Default visibility
 
         # Store generated items by library
         self.generated_functions = {}  # library -> [functions]
@@ -460,6 +461,7 @@ class CSharpBindingsGenerator:
         library_class_names: Optional[dict[str, str]] = None,
         library_namespaces: Optional[dict[str, str]] = None,
         library_using_statements: Optional[dict[str, list[str]]] = None,
+        visibility: str = "public",
     ) -> dict[str, str]:
         """Generate C# bindings from C header file(s)
 
@@ -471,7 +473,14 @@ class CSharpBindingsGenerator:
             library_class_names: Dict mapping library names to custom class names (defaults to NativeMethods)
             library_namespaces: Dict mapping library names to custom namespaces
             library_using_statements: Dict mapping library names to lists of using statements
+            visibility: Visibility modifier for generated code ("public" or "internal")
         """
+        # Store visibility setting
+        self.visibility = visibility
+
+        # Initialize code generator with visibility
+        self.code_generator = CodeGenerator(self.type_mapper, visibility)
+
         # Store library class names
         self.library_class_names = library_class_names or {}
 
@@ -607,7 +616,7 @@ class CSharpBindingsGenerator:
                     inheritance_clause = f" : {underlying_type}"
 
                 values_str = "\n".join([f"    {name} = {value}," for name, value in members])
-                code = f"""public enum {enum_name}{inheritance_clause}
+                code = f"""{self.visibility} enum {enum_name}{inheritance_clause}
 {{
 {values_str}
 }}
@@ -642,6 +651,7 @@ class CSharpBindingsGenerator:
             functions=[],
             class_name=NATIVE_METHODS_CLASS,
             include_assembly_attribute=True,
+            visibility=self.visibility,
         )
         bindings_file = output_path / "bindings.cs"
         bindings_file.write_text(bindings_content)
@@ -672,6 +682,7 @@ class CSharpBindingsGenerator:
                 class_name=class_name,
                 include_assembly_attribute=False,
                 using_statements=library_using,
+                visibility=self.visibility,
             )
 
             # Write to library-specific file

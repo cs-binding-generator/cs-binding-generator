@@ -1,4 +1,4 @@
-<bindings>
+<bindings visibility="internal">
     <rename from="SDL_aligned_alloc" to="AlignedAlloc"/>
     <rename from="SDL_aligned_free" to="AlignedFree"/>
     <rename from="SDL_getenv" to="GetEnv"/>

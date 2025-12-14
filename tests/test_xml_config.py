@@ -22,16 +22,17 @@ class TestXMLConfigParsing:
             </library>
         </bindings>
         """
-        
+
         config_file = temp_dir / "config.xml"
         config_file.write_text(config_content)
-        
-        pairs, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements = parse_config_file(str(config_file))
-        
+
+        pairs, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements, visibility = parse_config_file(str(config_file))
+
         assert len(pairs) == 1
         assert pairs[0] == ("/path/to/test.h", "testlib")
         assert library_namespaces == {"testlib": "TestNamespace"}
         assert include_dirs == []
+        assert visibility == "public"  # Default visibility
     
     def test_parse_multiple_libraries(self, temp_dir):
         """Test parsing config with multiple libraries"""
@@ -50,7 +51,7 @@ class TestXMLConfigParsing:
         config_file = temp_dir / "config.xml"
         config_file.write_text(config_content)
         
-        pairs, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements = parse_config_file(str(config_file))
+        pairs, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements, visibility = parse_config_file(str(config_file))
         
         assert len(pairs) == 3
         assert pairs[0] == ("/path/to/lib1.h", "lib1")
@@ -73,7 +74,7 @@ class TestXMLConfigParsing:
         config_file = temp_dir / "config.xml"
         config_file.write_text(config_content)
         
-        pairs, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements = parse_config_file(str(config_file))
+        pairs, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements, visibility = parse_config_file(str(config_file))
         
         assert len(pairs) == 1
         assert pairs[0] == ("/path/to/test.h", "testlib")
@@ -99,7 +100,7 @@ class TestXMLConfigParsing:
         config_file = temp_dir / "config.xml"
         config_file.write_text(config_content)
         
-        pairs, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements = parse_config_file(str(config_file))
+        pairs, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements, visibility = parse_config_file(str(config_file))
         
         assert len(pairs) == 3
         assert pairs[0] == ("/path/to/lib1.h", "lib1")
@@ -193,7 +194,7 @@ class TestXMLConfigParsing:
         config_file = temp_dir / "cs-bindings.xml"
         config_file.write_text(config_content)
         
-        pairs, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements = parse_config_file(str(config_file))
+        pairs, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements, visibility = parse_config_file(str(config_file))
         
         assert len(pairs) == 2
         assert pairs[0] == ("/usr/include/libtcod/libtcod.h", "libtcod")
@@ -214,7 +215,7 @@ class TestXMLConfigParsing:
         config_file = temp_dir / "config.xml"
         config_file.write_text(config_content)
         
-        pairs, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements = parse_config_file(str(config_file))
+        pairs, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements, visibility = parse_config_file(str(config_file))
         
         assert len(pairs) == 1
         assert pairs[0] == ("/path/to/test.h", "testlib")  # Should be stripped
@@ -236,7 +237,7 @@ class TestXMLConfigParsing:
         config_file = temp_dir / "config.xml"
         config_file.write_text(config_content)
         
-        pairs, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements = parse_config_file(str(config_file))
+        pairs, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements, visibility = parse_config_file(str(config_file))
         
         assert len(pairs) == 1
         assert pairs[0] == ("/path/to/test.h", "testlib")
@@ -262,7 +263,7 @@ class TestXMLConfigParsing:
         config_file = temp_dir / "config.xml"
         config_file.write_text(config_content)
         
-        pairs, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements = parse_config_file(str(config_file))
+        pairs, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements, visibility = parse_config_file(str(config_file))
         
         assert len(pairs) == 2
         assert pairs[0] == ("/path/to/lib1.h", "lib1")
@@ -329,7 +330,7 @@ class TestXMLConfigParsing:
         config_file = temp_dir / "config.xml"
         config_file.write_text(config_content)
         
-        pairs, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements = parse_config_file(str(config_file))
+        pairs, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements, visibility = parse_config_file(str(config_file))
         
         assert len(pairs) == 2
         assert pairs[0] == ("/path/to/lib1.h", "lib1")
@@ -341,6 +342,77 @@ class TestXMLConfigParsing:
             "lib2": ["System.IO"]
         }
     
+    def test_parse_config_with_internal_visibility(self, temp_dir):
+        """Test parsing config with internal visibility"""
+        config_content = """
+        <bindings visibility="internal">
+            <library name="testlib" namespace="TestNamespace">
+                <include file="/path/to/test.h"/>
+            </library>
+        </bindings>
+        """
+
+        config_file = temp_dir / "config.xml"
+        config_file.write_text(config_content)
+
+        pairs, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements, visibility = parse_config_file(str(config_file))
+
+        assert len(pairs) == 1
+        assert pairs[0] == ("/path/to/test.h", "testlib")
+        assert visibility == "internal"
+
+    def test_parse_config_with_public_visibility(self, temp_dir):
+        """Test parsing config with explicit public visibility"""
+        config_content = """
+        <bindings visibility="public">
+            <library name="testlib" namespace="TestNamespace">
+                <include file="/path/to/test.h"/>
+            </library>
+        </bindings>
+        """
+
+        config_file = temp_dir / "config.xml"
+        config_file.write_text(config_content)
+
+        pairs, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements, visibility = parse_config_file(str(config_file))
+
+        assert len(pairs) == 1
+        assert pairs[0] == ("/path/to/test.h", "testlib")
+        assert visibility == "public"
+
+    def test_parse_config_with_invalid_visibility(self, temp_dir):
+        """Test parsing config with invalid visibility value"""
+        config_content = """
+        <bindings visibility="protected">
+            <library name="testlib" namespace="TestNamespace">
+                <include file="/path/to/test.h"/>
+            </library>
+        </bindings>
+        """
+
+        config_file = temp_dir / "config.xml"
+        config_file.write_text(config_content)
+
+        with pytest.raises(ValueError, match="Invalid visibility value.*Must be 'public' or 'internal'"):
+            parse_config_file(str(config_file))
+
+    def test_parse_config_default_visibility(self, temp_dir):
+        """Test parsing config without visibility defaults to public"""
+        config_content = """
+        <bindings>
+            <library name="testlib" namespace="TestNamespace">
+                <include file="/path/to/test.h"/>
+            </library>
+        </bindings>
+        """
+
+        config_file = temp_dir / "config.xml"
+        config_file.write_text(config_content)
+
+        pairs, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements, visibility = parse_config_file(str(config_file))
+
+        assert visibility == "public"
+
     @pytest.fixture
     def temp_dir(self):
         """Fixture for temporary directory"""

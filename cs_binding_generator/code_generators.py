@@ -12,9 +12,10 @@ from .type_mapper import TypeMapper
 class CodeGenerator:
     """Generates C# code from libclang AST nodes"""
 
-    def __init__(self, type_mapper: TypeMapper):
+    def __init__(self, type_mapper: TypeMapper, visibility: str = "public"):
         self.type_mapper = type_mapper
         self.anonymous_enum_counter = 0
+        self.visibility = visibility
 
     def generate_function(self, cursor, library_name: str) -> str:
         """Generate C# LibraryImport for a function"""
@@ -75,7 +76,7 @@ class CodeGenerator:
         # Generate LibraryImport attribute and method with StringMarshalling
         code = f"""    [LibraryImport("{library_name}", EntryPoint = "{original_func_name}", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
-{return_marshal}    public static partial {result_type} {func_name}({params_str});
+{return_marshal}    {self.visibility} static partial {result_type} {func_name}({params_str});
 """
 
         # Add helper function for char* return types
@@ -90,7 +91,7 @@ class CodeGenerator:
 
             code += f"""
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static string? {func_name}String({params_str})
+    {self.visibility} static string? {func_name}String({params_str})
     {{
         var ptr = {func_name}({param_names_str});
         return ptr == 0 ? null : Marshal.PtrToStringUTF8((nint)ptr);
@@ -150,7 +151,7 @@ class CodeGenerator:
             result_var = f"{result_type} result = " if result_type != "void" else ""
 
             code += f"""
-    public static unsafe {result_type} {func_name}String({helper_params_str})
+    {self.visibility} static unsafe {result_type} {func_name}String({helper_params_str})
     {{
 {setup_str}
         {result_var}{func_name}({call_params_str});
@@ -164,7 +165,7 @@ class CodeGenerator:
             # Build parameters for helper (same as original)
             code += f"""
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static unsafe {struct_return_type} {func_name}Struct({params_str})
+    {self.visibility} static unsafe {struct_return_type} {func_name}Struct({params_str})
     {{
         var ptr = {func_name}({", ".join(arg.spelling or f"param{i}" for i, arg in enumerate(cursor.get_arguments())) if cursor.get_arguments() else ""});
         return Marshal.PtrToStructure<{struct_return_type}>((nint)ptr);
@@ -258,14 +259,14 @@ class CodeGenerator:
                     if element_csharp in primitive_types:
                         # Use fixed array for primitive types
                         fields.append(
-                            f"    [FieldOffset({offset_bytes})]\n    public fixed {element_csharp} {field_name}[{array_size}];"
+                            f"    [FieldOffset({offset_bytes})]\n    {self.visibility} fixed {element_csharp} {field_name}[{array_size}];"
                         )
                     else:
                         # Expand non-primitive arrays as individual fields with proper offsets
                         for i in range(array_size):
                             field_offset = offset_bytes + (i * element_size)
                             fields.append(
-                                f"    [FieldOffset({field_offset})]\n    public {element_csharp} {field_name}_{i};"
+                                f"    [FieldOffset({field_offset})]\n    {self.visibility} {element_csharp} {field_name}_{i};"
                             )
                 else:
                     field_type = self.type_mapper.map_type(field.type, is_struct_field=True)
@@ -274,7 +275,7 @@ class CodeGenerator:
                     if not field_type or "unnamed" in field_type or "::" in field_type:
                         continue
 
-                    fields.append(f"    [FieldOffset({offset_bytes})]\n    public {field_type} {field_name};")
+                    fields.append(f"    [FieldOffset({offset_bytes})]\n    {self.visibility} {field_type} {field_name};")
 
         if not fields:
             return ""
@@ -282,7 +283,7 @@ class CodeGenerator:
         fields_str = "\n".join(fields)
 
         code = f"""[StructLayout(LayoutKind.Explicit)]
-public unsafe partial struct {struct_name}
+{self.visibility} unsafe partial struct {struct_name}
 {{
 {fields_str}
 }}
@@ -298,7 +299,7 @@ public unsafe partial struct {struct_name}
 
         # Generate an empty struct that can be used as a type-safe handle
         # Note: Cannot use readonly because these are used with unsafe pointers
-        code = f"""public partial struct {renamed_type_name}
+        code = f"""{self.visibility} partial struct {renamed_type_name}
 {{
 }}
 """
@@ -358,14 +359,14 @@ public unsafe partial struct {struct_name}
                     if element_csharp in primitive_types:
                         # Use fixed array for primitive types (starts at offset 0 for union)
                         fields.append(
-                            f"    [FieldOffset(0)]\n    public fixed {element_csharp} {field_name}[{array_size}];"
+                            f"    [FieldOffset(0)]\n    {self.visibility} fixed {element_csharp} {field_name}[{array_size}];"
                         )
                     else:
                         # Expand non-primitive arrays as individual fields, all starting at offset 0 (union behavior)
                         for i in range(array_size):
                             field_offset = i * element_size
                             fields.append(
-                                f"    [FieldOffset({field_offset})]\n    public {element_csharp} {field_name}_{i};"
+                                f"    [FieldOffset({field_offset})]\n    {self.visibility} {element_csharp} {field_name}_{i};"
                             )
                 else:
                     field_type = self.type_mapper.map_type(field.type, is_struct_field=True)
@@ -375,7 +376,7 @@ public unsafe partial struct {struct_name}
                         continue
 
                     # All union fields start at offset 0
-                    fields.append(f"    [FieldOffset(0)]\n    public {field_type} {field_name};")
+                    fields.append(f"    [FieldOffset(0)]\n    {self.visibility} {field_type} {field_name};")
 
         if not fields:
             return ""
@@ -383,7 +384,7 @@ public unsafe partial struct {struct_name}
         fields_str = "\n".join(fields)
 
         code = f"""[StructLayout(LayoutKind.Explicit)]
-public unsafe partial struct {union_name}
+{self.visibility} unsafe partial struct {union_name}
 {{
 {fields_str}
 }}
@@ -532,7 +533,7 @@ public unsafe partial struct {union_name}
 
         values_str = "\n".join(values)
 
-        code = f"""public enum {enum_name}{inheritance_clause}
+        code = f"""{self.visibility} enum {enum_name}{inheritance_clause}
 {{
 {values_str}
 }}
@@ -591,6 +592,7 @@ class OutputBuilder:
         class_name: str = "NativeMethods",
         include_assembly_attribute: bool = True,
         using_statements: Optional[list[str]] = None,
+        visibility: str = "public",
     ) -> str:
         """Build the final C# output"""
         parts = []
@@ -659,7 +661,7 @@ class OutputBuilder:
 
         # Functions class - mark as unsafe for pointer support
         if functions:
-            parts.append(f"public static unsafe partial class {class_name}")
+            parts.append(f"{visibility} static unsafe partial class {class_name}")
             parts.append("{")
             parts.extend(functions)
             parts.append("}")
