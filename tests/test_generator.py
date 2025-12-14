@@ -346,9 +346,9 @@ class TestGeneratorInternals:
     """Test internal methods of the generator"""
     
     def test_empty_generation(self):
-        """Test generator with no parsed content"""
+        """Test generator with no parsed content (no namespace for empty files)"""
         generator = CSharpBindingsGenerator()
-        
+
         # Don't parse any files, just build output
         from cs_binding_generator.code_generators import OutputBuilder
         output = OutputBuilder.build(
@@ -358,9 +358,12 @@ class TestGeneratorInternals:
             unions=[],
             functions=[]
         )
-        
-        assert "namespace Empty;" in output
+
+        # Empty files should not have namespace
+        assert "namespace Empty;" not in output
         assert "using System.Runtime.InteropServices;" in output
+        # Should still have assembly attribute
+        assert "DisableRuntimeMarshalling" in output
     
     def test_opaque_types_with_pointers(self, opaque_types_header, tmp_path):
         """Test that opaque types generate proper pointer types (SDL_Window*)"""
@@ -443,10 +446,11 @@ class TestGeneratorInternals:
         assert "bindings.cs" in multi_output
         assert "testlib.cs" in multi_output
         
-        # Check that bindings.cs contains assembly attributes
+        # Check that bindings.cs contains assembly attributes (but no namespace)
         bindings_content = multi_output["bindings.cs"]
         assert "[assembly: System.Runtime.CompilerServices.DisableRuntimeMarshalling]" in bindings_content
-        assert "namespace Bindings;" in bindings_content
+        # bindings.cs should not have namespace since it only contains assembly attributes
+        assert "namespace Bindings;" not in bindings_content
         
         # Check that testlib.cs contains the actual bindings
         testlib_content = multi_output["testlib.cs"]

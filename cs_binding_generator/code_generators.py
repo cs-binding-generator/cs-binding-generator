@@ -640,9 +640,12 @@ class OutputBuilder:
             parts.append("[assembly: System.Runtime.CompilerServices.DisableRuntimeMarshalling]")
             parts.append("")
 
-        # Namespace
-        parts.append(f"namespace {namespace};")
-        parts.append("")
+        # Only add namespace if there's actual content (not just assembly attributes)
+        has_content = bool(enums or structs or unions or functions)
+        if has_content:
+            # Namespace
+            parts.append(f"namespace {namespace};")
+            parts.append("")
 
         # Enums
         if enums:

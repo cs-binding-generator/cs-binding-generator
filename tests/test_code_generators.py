@@ -336,7 +336,7 @@ class TestOutputBuilder:
         assert "public static partial void init();" in result
     
     def test_build_empty_output(self):
-        """Test building output with no content"""
+        """Test building output with no content (no namespace for empty files)"""
         result = OutputBuilder.build(
             namespace="Empty",
             enums=[],
@@ -344,9 +344,12 @@ class TestOutputBuilder:
             unions=[],
             functions=[]
         )
-        
-        assert "namespace Empty;" in result
+
+        # Empty files (with only assembly attributes) should not have namespace
+        assert "namespace Empty;" not in result
         assert "public static partial class" not in result
+        # Should still have assembly attribute
+        assert "DisableRuntimeMarshalling" in result
     
     def test_build_custom_class_name(self):
         """Test using custom class name for native methods"""
