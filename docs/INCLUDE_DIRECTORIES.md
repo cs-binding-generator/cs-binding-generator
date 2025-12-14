@@ -1,6 +1,6 @@
-# Include Directories Feature
+# Include Directories
 
-The C# Bindings Generator supports include directories, similar to the `-I` flag in C/C++ compilers. This is essential for resolving header files that use `#include` directives.
+The C# Bindings Generator needs to know where to find header files referenced by `#include` directives. Include directories are specified in the XML configuration file using `<include_directory>` elements.
 
 ## Why Include Directories Matter
 
@@ -8,33 +8,62 @@ When a C header file contains `#include "common.h"` or `#include <SDL3/SDL.h>`, 
 
 Without proper include directories, you'll get parse errors and incomplete bindings.
 
-## Usage
+## Configuration
 
-### Single Include Directory
+Include directories are specified in the XML configuration file.
 
-```bash
-cs_binding_generator -i mylib.h:mylib -I /usr/include -o Bindings.cs
+**Note:** System include paths like `/usr/include` are automatically detected by clang and do not need to be specified.
+
+### Global Include Directories
+
+```xml
+<bindings>
+    <!-- Global include directories apply to all libraries -->
+    <!-- Note: /usr/include is found automatically, no need to specify -->
+    <include_directory path="./include"/>
+    <include_directory path="./vendor/include"/>
+
+    <library name="mylib">
+        <include file="mylib.h"/>
+    </library>
+</bindings>
 ```
 
-### Multiple Include Directories
+### Library-Specific Include Directories
 
-```bash
-cs_binding_generator -i mylib.h:mylib \
-    -I /usr/include \
-    -I /usr/local/include \
-    -I ./include \
-    -o Bindings.cs
+```xml
+<bindings>
+    <library name="SDL3">
+        <!-- Library-specific include directory -->
+        <include_directory path="/usr/include/SDL3"/>
+        <include file="/usr/include/SDL3/SDL.h"/>
+    </library>
+
+    <library name="customlib">
+        <!-- Non-standard library location -->
+        <include_directory path="/opt/customlib/include"/>
+        <include file="/opt/customlib/include/customlib.h"/>
+    </library>
+</bindings>
 ```
 
 ### Order Matters
 
 Include directories are searched in the order specified:
-```bash
-# ./include is searched first, then /usr/include
-cs_binding_generator -i mylib.h:mylib -I ./include -I /usr/include
+
+```xml
+<bindings>
+    <!-- ./include is searched first, then /opt/custom -->
+    <include_directory path="./include"/>
+    <include_directory path="/opt/custom/include"/>
+
+    <library name="mylib">
+        <include file="mylib.h"/>
+    </library>
+</bindings>
 ```
 
-This allows you to override system headers with custom versions.
+This allows you to override headers with custom versions by placing your include directories first.
 
 ## Example
 
@@ -43,7 +72,8 @@ This allows you to override system headers with custom versions.
 project/
 ├── include/
 │   └── common.h       # Shared type definitions
-└── mylib.h            # Main header
+├── mylib.h            # Main header
+└── cs-bindings.xml    # Configuration file
 ```
 
 **include/common.h:**
@@ -72,13 +102,21 @@ void init_window(Window* win);
 void close_window(Window* win);
 ```
 
+**cs-bindings.xml:**
+```xml
+<bindings>
+    <!-- Tell the generator where to find headers -->
+    <include_directory path="./include"/>
+
+    <library name="mylib" namespace="MyApp.Interop">
+        <include file="./mylib.h"/>
+    </library>
+</bindings>
+```
+
 **Generate Bindings:**
 ```bash
-cs_binding_generator \
-    -i mylib.h:mylib \
-    -I ./include \
-    -o MyLibBindings.cs \
-    -n MyApp.Interop
+cs_binding_generator  # Uses cs-bindings.xml
 ```
 
 **Generated Output:**
@@ -88,84 +126,68 @@ using System.Runtime.InteropServices.Marshalling;
 
 namespace MyApp.Interop;
 
-[StructLayout(LayoutKind.Sequential)]
-public struct Window
+[StructLayout(LayoutKind.Explicit)]
+public struct Config
 {
-    public Config config;
-    public char[256] title;
+    [FieldOffset(0)] public int width;
+    [FieldOffset(4)] public int height;
 }
 
-public static partial class NativeMethods
+[StructLayout(LayoutKind.Explicit)]
+public unsafe struct Window
 {
-    [LibraryImport("mylib", EntryPoint = "init_window")]
-    public static partial void init_window(nint win);
+    [FieldOffset(0)] public Config config;
+    [FieldOffset(8)] public fixed byte title[256];
+}
 
-    [LibraryImport("mylib", EntryPoint = "close_window")]
-    public static partial void close_window(nint win);
+public static unsafe partial class NativeMethods
+{
+    [LibraryImport("mylib", EntryPoint = "init_window", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void init_window(Window* win);
+
+    [LibraryImport("mylib", EntryPoint = "close_window", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+    public static partial void close_window(Window* win);
 }
 ```
-
-## Programmatic Usage
-
-```python
-from cs_binding_generator import CSharpBindingsGenerator
-
-generator = CSharpBindingsGenerator("mylib")
-output = generator.generate(
-    header_files=["mylib.h"],
-    output_file="Bindings.cs",
-    namespace="MyApp.Interop",
-    include_dirs=["./include", "/usr/include"]
-)
-```
-
-## Notes
-
-- Include directories are passed to libclang as `-I<directory>` arguments
-- The generator automatically queries clang for system include paths
-- Multiple `-I` flags can be specified on the command line
-- Paths can be relative or absolute
-- The generator respects `--include-depth` when processing included files
-
-## Automatic System Include Detection
-
-The generator automatically detects common system include paths by querying clang:
-
-```python
-# Automatically detected (example):
-# /usr/lib/clang/21/include
-# /usr/local/include
-# /usr/include
-```
-
-This means you often don't need to specify system paths manually.
 
 ## Common Include Directory Patterns
 
-### System Libraries (Linux)
-```bash
--I /usr/include
+### Local Project Headers
+```xml
+<include_directory path="./include"/>
+<include_directory path="./src"/>
 ```
 
 ### Homebrew Libraries (macOS)
-```bash
--I /opt/homebrew/include
+```xml
+<!-- Homebrew installs to non-standard locations -->
+<include_directory path="/opt/homebrew/include"/>
 ```
 
-### Local Project Headers
-```bash
--I ./include
--I ./src
+### Custom Installation Paths
+```xml
+<include_directory path="/opt/mylib/include"/>
+<include_directory path="$HOME/.local/include"/>
 ```
 
-### Mixed Environment
-```bash
-cs_binding_generator \
-  -i mylib.h \
-  -I ./include \              # Project headers
-  -I /usr/local/include \     # Local libraries
-  -I /usr/include \           # System headers
-  -o Bindings.cs
+### Typical Project Setup
+```xml
+<bindings>
+    <!-- Project-specific headers -->
+    <include_directory path="./include"/>
+    <include_directory path="./vendor/include"/>
+
+    <!-- Non-standard library locations -->
+    <include_directory path="/opt/local/include"/>
+
+    <!-- Note: /usr/include, /usr/local/include are found automatically -->
+
+    <library name="mylib">
+        <include file="./mylib.h"/>
+    </library>
+</bindings>
 ```
 
 ## Troubleshooting
@@ -179,23 +201,33 @@ cs_binding_generator \
 
 ### Parse errors in generated output
 
-This usually means libclang couldn't find all dependencies. Add more include directories:
+This usually means libclang couldn't find all dependencies. Add the missing include directories:
 
-```bash
-# Add clang's built-in include directory
--I /usr/lib/clang/$(clang --version | grep -oP '(?<=version )\d+' | head -1)/include
+```xml
+<bindings>
+    <!-- Add directories where your headers are located -->
+    <include_directory path="./include"/>
+    <include_directory path="/opt/customlib/include"/>
+
+    <library name="mylib">
+        <include file="mylib.h"/>
+    </library>
+</bindings>
 ```
 
-## Combining with Include Depth
+**Note:** Clang built-in headers (like `stdint.h`, `stddef.h`) are found automatically.
 
-Include directories and include depth work together:
+## Notes
 
-```bash
-cs_binding_generator \
-  -i /usr/include/SDL3/SDL.h:SDL3 \
-  -I /usr/include \           # Where to find headers
-  --include-depth 1 \         # How deep to process them
-  -o SDL3.cs
-```
+- Include directories are passed to libclang as `-I<directory>` arguments internally
+- **System include paths** (`/usr/include`, `/usr/local/include`) are automatically detected by clang - you don't need to specify them
+- Paths can be relative (to current directory) or absolute
+- Both global and library-specific include directories are supported
+- Include directories work together with `--include-depth` to control which files are processed
+- Only specify include directories for non-standard locations (project headers, custom installs, Homebrew, etc.)
 
-The include directories tell libclang where to find files, while include depth controls which of those files get processed for binding generation.
+## See Also
+
+- [XML Configuration](XML_CONFIG.md) - Complete XML configuration guide
+- [Include Depth](INCLUDE_DEPTH.md) - Control which headers are processed
+- [Troubleshooting](TROUBLESHOOTING.md) - Common issues and solutions

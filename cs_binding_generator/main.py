@@ -25,8 +25,9 @@ def main():
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Examples:
-  %(prog)s --config bindings.xml --output output_dir -I /usr/include
+  %(prog)s --config bindings.xml --output output_dir
   %(prog)s -C config.xml -o generated_bindings --include-depth 2
+  %(prog)s  # Uses default cs-bindings.xml in current directory
         """,
     )
 

@@ -220,37 +220,34 @@ public static unsafe partial class Tcod
 }
 ```
 
-## Command Line Usage (Alternative)
+## Command Line Options
 
-While XML configuration is recommended, you can also use command-line arguments:
+The tool uses XML configuration files for all binding settings. Command-line arguments are limited to runtime options:
 
 ```bash
-# Single library
-cs_binding_generator \
-  -i /usr/include/SDL3/SDL.h:SDL3 \
-  -o ./Generated \
-  -n SDL \
-  -I /usr/include
+# Use default cs-bindings.xml in current directory
+cs_binding_generator
 
-# Multiple libraries
-cs_binding_generator \
-  -i /usr/include/SDL3/SDL.h:SDL3 \
-  -i /usr/include/libtcod/libtcod.h:libtcod \
-  -o ./Generated \
-  -n GameLibs \
-  -I /usr/include
+# Specify custom config file
+cs_binding_generator --config my-bindings.xml
+
+# Specify output directory
+cs_binding_generator --config bindings.xml --output ./Generated
+
+# Override include depth from config
+cs_binding_generator --include-depth 2
 ```
 
-### Command Line Options
+### Available Command-Line Options
 
-- `-C, --config`: XML configuration file (default: `cs-bindings.xml` if exists)
-- `-i, --input`: Input C header file(s) as `header.h:library` pairs (can specify multiple)
-- `-o, --output`: Output directory (default: current directory)
-- `-n, --namespace`: C# namespace (default: "Bindings")
-- `-I, --include-dir`: Additional include directories for clang
-- `--include-depth`: Maximum include file depth to process (default: infinite)
+- `-C, --config CONFIG_FILE`: XML configuration file (default: `cs-bindings.xml` in current directory)
+- `-o, --output DIRECTORY`: Output directory for generated files (default: current directory)
+- `--include-depth N`: Process included files up to depth N (overrides XML config if specified)
 - `--ignore-missing`: Continue processing even if some header files are not found
-- `--clang-path`: Path to libclang library (optional)
+- `--clang-path PATH`: Path to libclang library (if not in default location)
+- `-V, --version`: Show version number and exit
+
+**Note:** All binding configuration (input files, include directories, namespaces, renames, etc.) must be specified in the XML configuration file. See [XML Configuration](docs/XML_CONFIG.md) for details.
 
 ## How It Works
 
