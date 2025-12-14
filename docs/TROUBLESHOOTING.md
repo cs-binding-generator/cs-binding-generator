@@ -2,6 +2,175 @@
 
 Common issues and their solutions when using the C# Binding Generator.
 
+## XML Configuration Issues
+
+### "Configuration file not found"
+
+**Error:**
+```
+FileNotFoundError: Configuration file not found: cs-bindings.xml
+```
+
+**Solution:**
+1. Create `cs-bindings.xml` in the current directory
+2. Or specify a different config file: `cs_binding_generator --config path/to/config.xml`
+3. Or use command-line arguments instead: `cs_binding_generator -i header.h:lib -o output`
+
+### "Expected root element 'bindings'"
+
+**Error:**
+```
+ValueError: Expected root element 'bindings', got 'library'
+```
+
+**Solution:**
+Ensure your XML has the correct root element:
+```xml
+<bindings>
+    <library name="mylib">
+        <include file="header.h"/>
+    </library>
+</bindings>
+```
+
+### "Library element missing 'name' attribute"
+
+**Error:**
+```
+ValueError: Library element missing 'name' attribute
+```
+
+**Solution:**
+Add the required `name` attribute to your library:
+```xml
+<library name="SDL3">
+    <include file="/usr/include/SDL3/SDL.h"/>
+</library>
+```
+
+### "Include element missing 'file' attribute"
+
+**Error:**
+```
+ValueError: Include element in library 'mylib' missing 'file' attribute
+```
+
+**Solution:**
+Add the `file` attribute to your include:
+```xml
+<library name="mylib">
+    <include file="/path/to/header.h"/>
+</library>
+```
+
+### "Invalid visibility value"
+
+**Error:**
+```
+Error: Invalid visibility value 'Private'. Must be 'public' or 'internal'.
+```
+
+**Solution:**
+Use lowercase `public` or `internal`:
+```xml
+<bindings visibility="internal">
+    <!-- ... -->
+</bindings>
+```
+
+### "Rename element missing 'from' or 'to' attribute"
+
+**Error:**
+```
+ValueError: Rename element missing 'from' or 'to' attribute
+```
+
+**Solution:**
+Ensure both `from` and `to` attributes are present:
+```xml
+<rename from="SDL_" to=""/>
+<rename from="SDL_(.*)" to="$1" regex="true"/>
+```
+
+### "Remove element missing 'pattern' attribute"
+
+**Error:**
+```
+ValueError: Remove element missing 'pattern' attribute
+```
+
+**Solution:**
+Add the `pattern` attribute:
+```xml
+<remove pattern="SDL_malloc"/>
+<remove pattern=".*_internal" regex="true"/>
+```
+
+### "Constants element missing 'name' attribute"
+
+**Error:**
+```
+ValueError: Constants element missing 'name' attribute
+```
+
+**Solution:**
+Add both `name` and `pattern` attributes:
+```xml
+<constants name="WindowFlags" pattern="SDL_WINDOW_.*" type="ulong" flags="true"/>
+```
+
+### Regex Pattern Not Working
+
+**Problem:** Rename or remove pattern isn't matching expected identifiers.
+
+**Solution:**
+1. Ensure `regex="true"` is set:
+   ```xml
+   <rename from="SDL_(.*)" to="$1" regex="true"/>
+   ```
+
+2. Test your regex pattern separately
+
+3. Remember that simple renames are applied before regex renames
+
+4. Check for escaping issues (use `\` for special regex characters):
+   ```xml
+   <rename from="prefix_(.*)_suffix" to="$1" regex="true"/>
+   ```
+
+### Renaming Not Applied
+
+**Problem:** Generated code still has original C names.
+
+**Solution:**
+1. Verify renames are defined before the library:
+   ```xml
+   <bindings>
+       <rename from="SDL_(.*)" to="$1" regex="true"/>
+       <library name="SDL3">...</library>
+   </bindings>
+   ```
+
+2. Remember that renames are global and apply to all libraries
+
+3. Check if removals are filtering out the renamed items
+
+### Constants Not Generated
+
+**Problem:** Expected enum not appearing in generated code.
+
+**Solution:**
+1. Verify the pattern matches your macros:
+   ```xml
+   <constants name="WindowFlags" pattern="SDL_WINDOW_.*"/>
+   ```
+
+2. Check that macros have numeric values (hex, octal, or decimal)
+
+3. Macros with expressions like `(1 << 0)` are not currently supported
+
+4. Ensure headers containing the macros are being processed
+
 ## Build Errors
 
 ### "Cannot use unsafe code without AllowUnsafeBlocks"

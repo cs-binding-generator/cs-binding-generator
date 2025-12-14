@@ -1,23 +1,58 @@
-<!-- Example XML configuration with renaming support -->
-<bindings>
+<!-- Complete example XML configuration demonstrating all features -->
+<bindings visibility="public">
+    <!-- Include directories where headers can be found -->
     <include_directory path="/usr/include/SDL3"/>
-    
-    <!-- Global renames apply to all types/functions across all libraries -->
-    <rename from="SDL_BlendFactor" to="BlendFactor"/>
-    <rename from="SDL_BlendMode" to="BlendMode"/>
-    <rename from="SDL_Window" to="Window"/>
-    <rename from="SDL_Renderer" to="Renderer"/>
-    <rename from="SDL_CreateWindow" to="CreateWindow"/>
-    <rename from="SDL_DestroyWindow" to="DestroyWindow"/>
-    
-    <library name="SDL3">
-        <namespace name="SDL"/>
+    <include_directory path="/usr/include/libtcod"/>
+
+    <!-- Specific renames (applied first) -->
+    <!-- Handle special cases before applying general patterns -->
+    <rename from="SDL_aligned_alloc" to="AlignedAlloc"/>
+    <rename from="SDL_aligned_free" to="AlignedFree"/>
+    <rename from="SDL_getenv" to="GetEnv"/>
+    <rename from="SDL_setenv_unsafe" to="SetEnvUnsafe"/>
+
+    <!-- Regex-based renames (applied after specific renames) -->
+    <!-- Remove SDL_ prefix from all SDL identifiers -->
+    <rename from="SDL_(.*)" to="$1" regex="true"/>
+
+    <!-- Remove TCOD_ prefix from all LibTCOD identifiers -->
+    <rename from="TCOD_(.*)" to="$1" regex="true"/>
+
+    <!-- Remove unwanted functions -->
+    <!-- Memory management functions we don't want to expose -->
+    <remove pattern="SDL_malloc"/>
+    <remove pattern="SDL_calloc"/>
+    <remove pattern="SDL_realloc"/>
+    <remove pattern="SDL_free"/>
+    <remove pattern="SDL_strdup"/>
+
+    <!-- String comparison functions -->
+    <remove pattern="SDL_strcasecmp"/>
+    <remove pattern="SDL_strncasecmp"/>
+
+    <!-- Extract constants as enums -->
+    <!-- SDL window flags (bit flags) -->
+    <constants name="WindowFlags" pattern="SDL_WINDOW_.*" type="ulong" flags="true"/>
+
+    <!-- SDL initialization flags (not bit flags, just enum values) -->
+    <constants name="InitFlags" pattern="SDL_INIT_.*" type="uint"/>
+
+    <!-- SDL event types -->
+    <constants name="EventType" pattern="SDL_EVENT_.*" type="uint"/>
+
+    <!-- SDL library -->
+    <library name="SDL3" namespace="SDL" class="SDL">
         <include file="/usr/include/SDL3/SDL.h"/>
     </library>
-    
-    <library name="libtcod">
-        <namespace name="Libtcod"/>
+
+    <!-- LibTCOD library (depends on SDL3 types) -->
+    <library name="libtcod" namespace="Libtcod" class="Tcod">
+        <!-- Add using statement for SDL types -->
+        <using namespace="SDL"/>
+
+        <!-- LibTCOD-specific include directory (if different from global) -->
+        <include_directory path="/usr/include/libtcod"/>
+
         <include file="/usr/include/libtcod/libtcod.h"/>
-        <!-- SDL types will be consistently renamed across both libraries -->
     </library>
 </bindings>

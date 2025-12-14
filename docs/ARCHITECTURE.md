@@ -7,22 +7,57 @@ This document explains how the C# Binding Generator works internally.
 The generator follows a multi-stage pipeline:
 
 ```
-C Headers → libclang → AST → Type Mapping → Code Generation → C# Output
+XML Config → Configuration Parsing → C Headers → libclang → AST → Macro Extraction → Type Mapping → Code Generation → Rename/Remove Rules → C# Output
 ```
 
 ## Components
 
-### 1. Main Entry Point (`main.py`)
+### 1. Configuration Parser (`config.py`)
+
+Parses XML configuration files to extract binding generation settings.
+
+**Key function:**
+- `parse_config_file()`: Parses cs-bindings.xml and returns configuration tuple
+
+**Returns:**
+- Header-library pairs: Which headers belong to which libraries
+- Include directories: Where to find header files
+- Renames: List of (from, to, is_regex) tuples for transforming names
+- Removals: List of (pattern, is_regex) tuples for filtering
+- Library class names: Custom static class names per library
+- Library namespaces: Namespace for each library
+- Library using statements: Cross-library dependencies
+- Visibility: Global visibility setting (public/internal)
+- Global constants: Macro patterns to extract as enums
+
+**XML Elements Supported:**
+- `<bindings>`: Root element with optional visibility attribute
+- `<include_directory>`: Global and per-library include paths
+- `<rename>`: Simple and regex-based name transformations
+- `<remove>`: Filter out unwanted functions/types
+- `<constants>`: Extract C macros as C# enums with optional [Flags]
+- `<library>`: Define libraries with name, namespace, and class attributes
+- `<include>`: Specify header files per library
+- `<using>`: Add using statements for cross-library dependencies
+
+**Validation:**
+- Required attributes are checked
+- Invalid visibility values cause errors
+- Invalid XML syntax is reported
+
+### 2. Main Entry Point (`main.py`)
 
 Handles command-line interface and orchestrates the generation process.
 
 **Key responsibilities:**
-- Parse command-line arguments
+- Parse command-line arguments or load XML configuration
+- Auto-discover cs-bindings.xml if no config specified
 - Validate input parameters
+- Invoke configuration parser if using XML config
 - Invoke the generator with appropriate settings
-- Handle output file writing
+- Handle output file writing (single or multi-file)
 
-### 2. Generator (`generator.py`)
+### 3. Generator (`generator.py`)
 
 The main orchestrator that coordinates the entire generation process.
 
@@ -35,9 +70,12 @@ The main orchestrator that coordinates the entire generation process.
 2. Parse header files into AST (Abstract Syntax Tree)
 3. Build file depth map based on include relationships
 4. Pre-scan AST for opaque types
-5. Process AST nodes (functions, structs, enums, typedefs)
-6. Generate C# code using CodeGenerator
-7. Build final output using OutputBuilder
+5. Extract macros from header files (for constants feature)
+6. Process AST nodes (functions, structs, enums, typedefs)
+7. Generate C# code using CodeGenerator (includes extracted constant enums)
+8. Apply rename rules (simple first, then regex)
+9. Apply removal rules to filter unwanted elements
+10. Build final output using OutputBuilder (multi-file per library)
 ```
 
 **Important methods:**
@@ -45,13 +83,19 @@ The main orchestrator that coordinates the entire generation process.
 - `process_cursor()`: Recursively walks the AST
 - `prescan_opaque_types()`: Identifies opaque struct typedefs
 - `_build_file_depth_map()`: Tracks include hierarchy
+- `_extract_macros_from_file()`: Scans header for #define macros
+- `_is_numeric_macro_value()`: Validates macro values are numeric constants
 
-### 3. Type Mapper (`type_mapper.py`)
+### 4. Type Mapper (`type_mapper.py`)
 
-Maps C types to appropriate C# types.
+Maps C types to appropriate C# types and applies name transformations.
 
 **Key class:**
-- `TypeMapper`: Handles all type conversions
+- `TypeMapper`: Handles all type conversions and name transformations
+
+**Additional features:**
+- `apply_rename()`: Applies rename rules to identifiers (simple then regex)
+- `should_remove()`: Checks if an identifier matches removal patterns
 
 **Mapping strategy:**
 ```python
@@ -78,7 +122,7 @@ ssize_t → nint
 - Multi-pass prefix stripping (const, struct, volatile)
 - ELABORATED type handling
 
-### 4. Code Generators (`code_generators.py`)
+### 5. Code Generators (`code_generators.py`)
 
 Generates C# code for different AST node types.
 
@@ -92,6 +136,7 @@ Generates C# code for different AST node types.
 - `generate_union()`: Creates unions as explicit layout structs
 - `generate_enum()`: Creates C# enums
 - `generate_opaque_type()`: Creates empty struct handles
+- `generate_constants_enum()`: Creates enums from extracted macros with optional [Flags] attribute
 
 **Special handling:**
 - Adds helper methods for char* returns
@@ -100,6 +145,24 @@ Generates C# code for different AST node types.
 - Handles array fields with FieldOffset expansion
 
 ## Data Flow
+
+### Phase 0: Configuration (Optional)
+```
+cs-bindings.xml
+    ↓
+parse_config_file()
+    ↓
+Configuration Tuple:
+  - header_library_pairs
+  - include_dirs
+  - renames
+  - removals
+  - library_class_names
+  - library_namespaces
+  - library_using_statements
+  - visibility
+  - global_constants
+```
 
 ### Phase 1: Parsing
 ```
@@ -117,6 +180,8 @@ AST Root Cursor
 prescan_opaque_types() → Identifies opaque types
     ↓
 _build_file_depth_map() → Maps include hierarchy
+    ↓
+_extract_macros_from_file() → Collects #define constants (if constants configured)
 ```
 
 ### Phase 3: Processing
@@ -135,21 +200,43 @@ Match cursor type:
 Store generated code
 ```
 
-### Phase 4: Output Generation
+### Phase 4: Post-Processing
 ```
-Collected Code Elements:
-    - Enums
+Generated Code Elements
+    ↓
+Apply Rename Rules:
+    - Simple renames first
+    - Regex renames second
+    ↓
+Apply Removal Rules:
+    - Filter out matched patterns
+    ↓
+Generate Constant Enums:
+    - Create enums from extracted macros
+    - Apply renames to enum members
+    - Add [Flags] attribute if configured
+```
+
+### Phase 5: Output Generation
+```
+Processed Code Elements:
+    - Enums (including constant enums)
     - Structs/Unions
     - Functions
     ↓
-OutputBuilder.build()
+OutputBuilder.build() (per library)
     ↓
-Final C# File:
+Multi-File Output:
+    - bindings.cs (assembly attributes)
+    - library1.cs (library 1 bindings)
+    - library2.cs (library 2 bindings)
+
+Each library file contains:
     - Using statements
     - Namespace
     - Enums
     - Structs
-    - NativeMethods class (functions)
+    - Class with LibraryImport methods
 ```
 
 ## Key Design Decisions
