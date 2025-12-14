@@ -41,12 +41,11 @@ Examples:
         "-C",
         "--config",
         metavar="CONFIG_FILE",
-        required=True,
-        help="XML configuration file specifying bindings to generate",
+        help="XML configuration file specifying bindings to generate (default: cs-bindings.xml in current directory)",
     )
 
     parser.add_argument(
-        "-o", "--output", metavar="DIRECTORY", required=True, help="Output directory for generated C# files"
+        "-o", "--output", metavar="DIRECTORY", help="Output directory for generated C# files (default: current directory)"
     )
 
     parser.add_argument(
@@ -67,7 +66,22 @@ Examples:
 
     args = parser.parse_args()
 
-    # Handle configuration file (now required)
+    # Default config file to cs-bindings.xml in current directory if not specified
+    if not args.config:
+        default_config = "cs-bindings.xml"
+        if os.path.exists(default_config):
+            args.config = default_config
+            print(f"Using default config file: {default_config}")
+        else:
+            print(f"Error: No config file specified and default '{default_config}' not found in current directory", file=sys.stderr)
+            print("Please provide a config file with --config or create cs-bindings.xml in the current directory", file=sys.stderr)
+            sys.exit(1)
+
+    # Default output to current directory if not specified
+    if not args.output:
+        args.output = "."
+
+    # Handle configuration file
     header_library_pairs = []
     config_include_dirs = []
     config_renames = {}

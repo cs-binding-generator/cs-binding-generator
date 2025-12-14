@@ -51,19 +51,21 @@ class TestCLIIntegration:
         assert "required" in result.stderr.lower() or "error" in result.stderr.lower()
     
     def test_cli_single_file_output_to_stdout(self, temp_header_file, tmp_path):
-        """Test CLI requires output directory"""
+        """Test CLI defaults output to current directory when not specified"""
         config_file = tmp_path / "config.xml"
         config_content = create_xml_config([(str(temp_header_file), "testlib")])
         config_file.write_text(config_content)
-        
+
         result = subprocess.run([
             "python", "-m", "cs_binding_generator.main",
             "-C", str(config_file)
-        ], capture_output=True, text=True)
-        
-        # Should fail because -o is required
-        assert result.returncode != 0
-        assert "required" in result.stderr.lower() or "error" in result.stderr.lower()
+        ], capture_output=True, text=True, cwd=str(tmp_path))
+
+        # Should succeed with output defaulting to current directory
+        assert result.returncode == 0
+        # Verify files were generated in current directory (tmp_path)
+        assert (tmp_path / "testlib.cs").exists()
+        assert (tmp_path / "bindings.cs").exists()
     
     def test_cli_custom_namespace(self, temp_header_file, tmp_path):
         """Test CLI with custom namespace"""
@@ -259,14 +261,14 @@ class TestCLIIntegration:
         assert "config_test_func" in content
     
     def test_cli_missing_input_and_config(self, tmp_path):
-        """Test that --config must be specified"""
+        """Test that default config file must exist if not specified"""
         result = subprocess.run([
             "python", "-m", "cs_binding_generator.main",
             "-o", str(tmp_path / "output")
-        ], capture_output=True, text=True)
-        
+        ], capture_output=True, text=True, cwd=str(tmp_path))
+
         assert result.returncode != 0
-        assert "the following arguments are required: -C/--config" in result.stderr
+        assert "No config file specified and default 'cs-bindings.xml' not found" in result.stderr
 
 
 class TestMultiFileGeneration:

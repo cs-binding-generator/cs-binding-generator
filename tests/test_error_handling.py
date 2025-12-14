@@ -353,16 +353,16 @@ class TestCLIArguments:
     """Test CLI argument validation and edge cases"""
     
     def test_invalid_input_format_missing_colon(self, capsys, tmp_path):
-        """Test CLI now requires --config, not -i"""
+        """Test CLI requires config file (explicit or default)"""
         import subprocess
-        
+
         result = subprocess.run([
             "python", "-m", "cs_binding_generator.main",
             "-o", str(tmp_path)
-        ], capture_output=True, text=True)
-        
+        ], capture_output=True, text=True, cwd=str(tmp_path))
+
         assert result.returncode != 0
-        assert "the following arguments are required: -C/--config" in result.stderr
+        assert "No config file specified and default 'cs-bindings.xml' not found" in result.stderr
     
     def test_multiple_include_directories(self, temp_dir):
         """Test CLI with many include directories"""
