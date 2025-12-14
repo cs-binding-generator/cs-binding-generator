@@ -393,8 +393,11 @@ class TestXMLConfigParsing:
         config_file = temp_dir / "config.xml"
         config_file.write_text(config_content)
 
-        with pytest.raises(ValueError, match="Invalid visibility value.*Must be 'public' or 'internal'"):
+        # Should exit with code 1
+        with pytest.raises(SystemExit) as exc_info:
             parse_config_file(str(config_file))
+
+        assert exc_info.value.code == 1
 
     def test_parse_config_default_visibility(self, temp_dir):
         """Test parsing config without visibility defaults to public"""

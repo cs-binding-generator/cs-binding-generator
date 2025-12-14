@@ -117,17 +117,47 @@ In `Generator.apply_final_renames()`, capture group numbers are shifted by 1:
 replacement = re.sub(r'\$(\d+)', lambda m: f'\\{int(m.group(1)) + 1}', replacement)
 ```
 
+### Visibility System
+
+**Feature**: Control access modifiers for all generated code (classes, structs, enums, unions, fields, functions).
+
+**Configuration**:
+```xml
+<bindings visibility="internal">
+    <!-- All generated code will use 'internal' access modifier -->
+</bindings>
+```
+
+**Valid Values**:
+- `"public"` (default) - All generated code is public
+- `"internal"` - All generated code is internal
+- Any other value prints an error and exits with code 1
+
+**Scope**: Global setting that affects:
+- Class declarations: `internal static unsafe partial class ClassName`
+- Function declarations: `internal static partial void FunctionName()`
+- Struct/Union declarations: `internal unsafe partial struct StructName`
+- Struct/Union fields: `internal type fieldName;`
+- Enum declarations: `internal enum EnumName`
+
+**Implementation**:
+- Parsed in `config.py` from `<bindings>` element
+- Passed through `main.py` → `generator.py` → `code_generators.py`
+- Applied during code generation to all declarations
+
+**Use Case**: When generating bindings that should be internal to a library/assembly and not exposed to consumers.
+
 ### XML Configuration Format
 
 ```xml
-<bindings>
+<bindings visibility="internal">
     <!-- Global settings -->
     <include_directory path="/usr/include/SDL3"/>
-    
+
     <!-- Rename rules (applied in order) -->
     <rename from="SDL_(.*)" to="$1" regex="true"/>
     <rename from="TCOD_Console" to="Console"/>
-    
+
     <!-- Libraries -->
     <library name="SDL3">
         <namespace name="SDL3"/>
@@ -151,14 +181,16 @@ replacement = re.sub(r'\$(\d+)', lambda m: f'\\{int(m.group(1)) + 1}', replaceme
 
 - Framework: pytest 9.0.2
 - Python version: 3.13.11
-- Test count: 141 tests (all passing as of latest run)
-- Run: `./run_tests.sh` or `python -m pytest`
+- Test count: 155 tests (all passing as of latest run)
+- Run: `source enter_devenv.sh && python -m pytest`
 
 ### Important Test Files
-- `test_regex_renaming.py` - Regex rename functionality
+- `test_xml_config.py` - XML configuration parsing including visibility feature
 - `test_multi_file_deduplication.py` - Shared functions/structs between libraries
 - `test_renaming.py` - Simple rename functionality
+- `test_removal.py` - Removal functionality tests
 - `test_generator.py` - Core generator tests
+- `test_code_generators.py` - Code generation tests
 
 ## Common Issues & Solutions
 
@@ -254,6 +286,29 @@ When broad regex rules cause conflicts (e.g., stripping prefixes from multiple l
 
 ## Recent Changes Log
 
+### 2025-12-14: Visibility Attribute Feature - IMPLEMENTED AND WORKING
+- **Status**: Feature fully implemented, all 155 tests passing
+- Added global `visibility` attribute to `<bindings>` element in XML config
+- Supports `"public"` (default) or `"internal"` values
+- Invalid values print error message and exit with code 1
+- Affects all generated code: classes, functions, structs, unions, enums, and fields
+
+**Implementation Details**:
+- `cs_binding_generator/config.py`: Parse visibility attribute, validate, and return
+- `cs_binding_generator/main.py`: Pass visibility to generator
+- `cs_binding_generator/generator.py`: Store visibility and pass to CodeGenerator and OutputBuilder
+- `cs_binding_generator/code_generators.py`: Apply visibility to all generated declarations
+
+**Testing**:
+- Added 4 new unit tests in `test_xml_config.py`
+- Updated all existing test files to handle new config return value
+- Verified with LibtcodTest using `visibility="internal"`
+- All generated code correctly uses internal access modifiers
+
+**Use Case**:
+- Internal bindings that should not be exposed to library consumers
+- Encapsulation of P/Invoke declarations within assemblies
+
 ### 2025-12-13: Regex Rename Feature - IMPLEMENTED AND WORKING
 - **Status**: Feature fully implemented, all 148 tests passing
 - Changed renames from dict to list of (pattern, replacement, is_regex) tuples
@@ -276,32 +331,6 @@ When broad regex rules cause conflicts (e.g., stripping prefixes from multiple l
 - Example: Keep conflicting functions with prefixes, strip others
 - Rule ordering: Specific rules first (checked top-to-bottom, first match wins)
 
-**Next Steps**:
-- Add specific conflict-handling rules to LibtcodTest/cs-bindings.xml
-- Document regex rename best practices for handling conflicts
-- Consider adding examples of conflict resolution patterns
-
-### 2025-12-13: Verified Multi-File Deduplication Works Correctly
-- Multi-file mode already working as designed
-- When `multi_file=True`, uses global deduplication (functions/structs appear only once)
-- Key insight: **Library order in XML config matters!**
-- Process foundational libraries (like SDL3) before dependent libraries (like libtcod)
-- Example: SDL3 before libtcod in cs-bindings.xml causes SDL functions to appear only in SDL3.cs
-- Tested with LibtcodTest: 0 build errors when libraries ordered correctly
-- No code changes needed - just proper configuration
-- Added regex attribute support to XML rename elements
-- Modified TypeMapper to store renames as list of tuples instead of dict
-- Updated all test files that iterate over renames
-- Created 7 new tests for regex functionality
-- Created REGEX_RENAMING.md documentation
-- All 155 tests passing
-
-### 2025-12-13: Fixed Multi-file Deduplication
-- Changed struct deduplication from global to library-specific
-- Changed opaque typedef deduplication to library-specific
-- Functions remain library-specific (always were)
-- Allows shared structs/functions to appear in multiple library files
-- Updated test expectations in test_multi_file_deduplication.py
 
 ### 2025-12-13: Fixed System Header Filtering - CRITICAL BUG FIX
 - **Problem**: System functions (`strcasecmp`, `ffsll`, etc.) from `/usr/include/strings.h` appearing in generated SDL3.cs
@@ -316,12 +345,6 @@ When broad regex rules cause conflicts (e.g., stripping prefixes from multiple l
 - **Fix Details**: Added check for `if '/' not in relative:` to catch all direct `/usr/include/<filename>` headers
 - **Testing**: All 141 tests passing; SDL3.cs no longer contains system functions; SDL functions remain intact
 - **Impact**: Prevents system headers (POSIX, glibc, etc.) from polluting generated bindings regardless of transitive includes
-
-## Next Steps / TODO
-
-- [ ] Test regex rename feature with real-world LibtcodTest project
-- [ ] Document any namespace-related issues if they arise
-- [ ] Consider adding more complex regex examples to documentation
 
 ---
 

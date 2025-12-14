@@ -25,8 +25,9 @@ def parse_config_file(config_path):
         # Get global visibility setting (default to "public")
         visibility = root.get("visibility", "public").strip().lower()
         if visibility not in ("public", "internal"):
-            raise ValueError(f"Invalid visibility value '{visibility}'. Must be 'public' or 'internal'")
-        visibility = visibility  # Keep as lowercase for validation, will use as-is
+            import sys
+            print(f"Error: Invalid visibility value '{visibility}'. Must be 'public' or 'internal'.", file=sys.stderr)
+            sys.exit(1)
 
         # Get global include directories
         for include_dir in root.findall("include_directory"):
