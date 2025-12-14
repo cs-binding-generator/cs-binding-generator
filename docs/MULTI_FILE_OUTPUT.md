@@ -1,21 +1,28 @@
 # Multi-File Output
 
-The `--multi` flag enables splitting generated bindings into separate files per library, which is useful for large projects with multiple native libraries.
+The generator automatically creates separate files for each library defined in your XML configuration. This is useful for large projects with multiple native libraries.
 
-## Usage
+## Configuration
+
+```xml
+<bindings>
+    <library name="SDL3" namespace="GameLibs">
+        <include file="/usr/include/SDL3/SDL.h"/>
+    </library>
+
+    <library name="libtcod" namespace="GameLibs">
+        <include file="/usr/include/libtcod/libtcod.h"/>
+    </library>
+</bindings>
+```
 
 ```bash
-cs_binding_generator \
-  -i /usr/include/SDL3/SDL.h:SDL3 \
-  -i /usr/include/libtcod/libtcod.h:libtcod \
-  -o ./output \
-  --multi \
-  -n GameLibs
+cs_binding_generator --config cs-bindings.xml --output ./Generated
 ```
 
 ## Generated Files
 
-When using `--multi`, the output directory contains:
+The output directory contains:
 
 ### `bindings.cs`
 Contains shared assembly attributes and namespace declaration:
@@ -105,47 +112,42 @@ Include all generated files in your `.csproj`:
 </ItemGroup>
 ```
 
-### Regeneration Scripts
-Create per-library regeneration scripts:
+### Regeneration Script
+Create a regeneration script:
 ```bash
-# regenerate_sdl3.sh
+#!/bin/bash
+# regenerate_bindings.sh
 cs_binding_generator \
-  -i /usr/include/SDL3/SDL.h:SDL3 \
-  -o ./Bindings \
-  --multi \
-  -n MyProject.Native
-
-# regenerate_all.sh  
-cs_binding_generator \
-  -i /usr/include/SDL3/SDL.h:SDL3 \
-  -i /usr/include/libtcod/libtcod.h:libtcod \
-  -i /usr/include/freetype2/freetype/freetype.h:freetype \
-  -o ./Bindings \
-  --multi \
-  -n MyProject.Native \
-  -I /usr/include/freetype2
+  --config cs-bindings.xml \
+  --output ./Bindings
 ```
 
-## Comparison: Single vs Multi-File
+Or with custom config per environment:
+```bash
+# regenerate_dev.sh
+cs_binding_generator --config cs-bindings-dev.xml --output ./Bindings
 
-| Aspect | Single File | Multi-File |
-|--------|------------|------------|
-| **File Count** | 1 large file | Multiple focused files |
-| **Navigation** | Search within file | Navigate between files |
-| **Build Speed** | Slower for large bindings | Faster parallel compilation |
-| **Organization** | All in one place | Separated by library |
-| **Regeneration** | All-or-nothing | Per-library possible |
-| **Code Reviews** | Large diffs | Focused diffs |
-| **Memory Usage** | High during compilation | Lower per file |
+# regenerate_prod.sh
+cs_binding_generator --config cs-bindings-prod.xml --output ./Bindings
+```
 
-Choose multi-file output when:
-- Working with multiple libraries (2+)
-- Bindings are large (>1000 lines per library)
-- Build performance is important
-- Code organization and maintenance matter
+## Benefits of Multi-File Output
 
-Choose single-file output when:
-- Using a single library
-- Bindings are small
-- Simplicity is preferred
-- Legacy compatibility needed
+The generator always uses multi-file output (one file per library), which provides:
+
+| Benefit | Description |
+|---------|-------------|
+| **Organization** | Each library's bindings in separate files |
+| **Navigation** | Easy to find specific library APIs |
+| **Build Speed** | Faster parallel compilation |
+| **Maintenance** | Focused, smaller files are easier to review |
+| **Code Reviews** | Changes to one library don't affect others |
+| **Memory Usage** | Lower per-file compilation memory footprint |
+
+## Single Library Projects
+
+Even with a single library, the output is split into two files:
+- `bindings.cs` - Assembly attributes (shared)
+- `yourlibrary.cs` - Your library's bindings
+
+This keeps the assembly-level configuration separate from the generated code.

@@ -492,34 +492,6 @@ result = generator.generate(
 )
 ```
 
-## Migration from Command-Line
-
-If you're currently using command-line arguments, here's how to migrate:
-
-**Before (command-line):**
-```bash
-cs_binding_generator \
-  -i /usr/include/SDL3/SDL.h:SDL3 \
-  -I /usr/include \
-  -o ./bindings \
-  -n SDL
-```
-
-**After (XML config):**
-```xml
-<bindings>
-    <include_directory path="/usr/include"/>
-
-    <library name="SDL3" namespace="SDL">
-        <include file="/usr/include/SDL3/SDL.h"/>
-    </library>
-</bindings>
-```
-
-```bash
-cs_binding_generator --config cs-bindings.xml --output ./bindings
-```
-
 ## See Also
 
 - [Architecture](ARCHITECTURE.md) - How the generator processes configuration
