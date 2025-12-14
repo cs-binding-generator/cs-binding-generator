@@ -346,6 +346,62 @@ When broad regex rules cause conflicts (e.g., stripping prefixes from multiple l
 - **Testing**: All 141 tests passing; SDL3.cs no longer contains system functions; SDL functions remain intact
 - **Impact**: Prevents system headers (POSIX, glibc, etc.) from polluting generated bindings regardless of transitive includes
 
+### 2025-12-14: Documentation Cleanup - CLI Arguments Clarification
+- **Status**: All documentation updated, 166 tests passing
+- **Problem**: Documentation contained references to non-existent command-line arguments (`-i`, `-I`, `-n`, `--multi`)
+- **Root Cause**: Tool evolved to be XML-configuration-only, but docs weren't fully updated
+
+**CRITICAL FINDINGS**:
+
+1. **Limited CLI Arguments - ONLY These Exist**:
+   - `-C, --config CONFIG_FILE` - XML configuration file path (default: `cs-bindings.xml`)
+   - `-o, --output DIRECTORY` - Output directory for generated files (default: current directory)
+   - `--include-depth N` - Process included files up to depth N (overrides XML config if specified)
+   - `--ignore-missing` - Continue processing even if some headers are not found
+   - `--clang-path PATH` - Path to libclang library (if not in default location)
+   - `-V, --version` - Show version number and exit
+
+2. **XML Configuration Is PRIMARY and REQUIRED**:
+   - ALL binding configuration must be in XML config file
+   - This includes: input files, include directories, namespaces, libraries, renames, removals, constants
+   - Command-line arguments are ONLY for runtime options (output path, include depth override)
+   - See `main.py` lines 90-120 for argument parser definition
+
+3. **System Include Paths Are Auto-Detected by Clang**:
+   - Paths like `/usr/include` and `/usr/local/include` are automatically found
+   - DO NOT need to be specified in XML config `<include_directory>` elements
+   - Only specify non-standard paths (project headers, Homebrew, custom installs)
+
+4. **Multi-File Output Is ALWAYS Enabled**:
+   - No `--multi` flag exists
+   - Multi-file output happens automatically when using XML config
+   - Each library gets its own `.cs` file, plus a `bindings.cs` for assembly attributes
+   - Cannot be disabled - this is the default behavior
+
+**Files Updated**:
+- `cs_binding_generator/main.py` - Fixed CLI help epilog examples
+- `README.md` - Rewrote "Command Line Options" section completely
+- `docs/INCLUDE_DIRECTORIES.md` - Complete rewrite for XML-only config
+- `docs/XML_CONFIG.md` - Removed incorrect "Migration from Command-Line" section
+- `docs/TROUBLESHOOTING.md` - Updated all sections to use XML configuration
+- `docs/MULTI_FILE_OUTPUT.md` - Rewrote to remove `--multi` flag references
+- `docs/INCLUDE_DEPTH.md` - NOT updated per user request (contains old CLI examples for reference)
+
+**Testing Verification**:
+```bash
+source ./enter_devenv.sh
+python -m pytest tests/ -v
+# Result: 166 passed in 8.80s
+```
+
+**Key Takeaway for AI Assistants**:
+- When asked about CLI usage, ALWAYS check `main.py` argparse configuration
+- DO NOT suggest command-line arguments for binding configuration
+- ALWAYS recommend using XML configuration file for binding settings
+- The tool intentionally limits CLI to runtime options only
+
+**User Quote**: "Check main.py you dingus" - always verify actual implementation before documenting
+
 ---
 
 **Remember**: Always update this file when you learn something new about the project!
