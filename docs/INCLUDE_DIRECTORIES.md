@@ -223,11 +223,9 @@ This usually means libclang couldn't find all dependencies. Add the missing incl
 - **System include paths** (`/usr/include`, `/usr/local/include`) are automatically detected by clang - you don't need to specify them
 - Paths can be relative (to current directory) or absolute
 - Both global and library-specific include directories are supported
-- Include directories work together with `--include-depth` to control which files are processed
 - Only specify include directories for non-standard locations (project headers, custom installs, Homebrew, etc.)
 
 ## See Also
 
 - [XML Configuration](XML_CONFIG.md) - Complete XML configuration guide
-- [Include Depth](INCLUDE_DEPTH.md) - Control which headers are processed
 - [Troubleshooting](TROUBLESHOOTING.md) - Common issues and solutions

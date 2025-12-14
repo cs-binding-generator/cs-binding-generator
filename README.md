@@ -25,7 +25,6 @@ The tool is configured primarily through XML configuration files, providing powe
 - **Union Support**: Converts C unions to C# structs with `LayoutKind.Explicit` and field offsets
 - **Typedef Resolution**: Properly resolves struct-to-struct typedefs through the typedef chain
 - **Multi-File Output**: Automatically splits bindings into separate files per library
-- **Include Depth Control**: Process headers with configurable include file depth (default: infinite)
 - **Include Directory Support**: Specify additional header search paths
 - **Opaque Type Support**: Handles opaque struct typedefs (like `SDL_Window`)
 - **Visibility Control**: Generate public or internal bindings
@@ -36,7 +35,6 @@ The tool is configured primarily through XML configuration files, providing powe
 
 - **[XML Configuration](docs/XML_CONFIG.md)** - Complete guide to XML configuration (recommended)
 - **[Architecture](docs/ARCHITECTURE.md)** - Internal design and how the generator works
-- **[Include Depth](docs/INCLUDE_DEPTH.md)** - How to control which headers are processed
 - **[Include Directories](docs/INCLUDE_DIRECTORIES.md)** - Managing header search paths
 - **[Multi-File Output](docs/MULTI_FILE_OUTPUT.md)** - Understanding generated file structure
 - **[Troubleshooting](docs/TROUBLESHOOTING.md)** - Common issues and solutions
@@ -233,16 +231,12 @@ cs_binding_generator --config my-bindings.xml
 
 # Specify output directory
 cs_binding_generator --config bindings.xml --output ./Generated
-
-# Override include depth from config
-cs_binding_generator --include-depth 2
 ```
 
 ### Available Command-Line Options
 
 - `-C, --config CONFIG_FILE`: XML configuration file (default: `cs-bindings.xml` in current directory)
 - `-o, --output DIRECTORY`: Output directory for generated files (default: current directory)
-- `--include-depth N`: Process included files up to depth N (overrides XML config if specified)
 - `--ignore-missing`: Continue processing even if some header files are not found
 - `--clang-path PATH`: Path to libclang library (if not in default location)
 - `-V, --version`: Show version number and exit
@@ -417,7 +411,6 @@ CsBindingGenerator/
 ├── docs/
 │   ├── XML_CONFIG.md        # XML configuration guide
 │   ├── ARCHITECTURE.md
-│   ├── INCLUDE_DEPTH.md
 │   ├── INCLUDE_DIRECTORIES.md
 │   ├── MULTI_FILE_OUTPUT.md
 │   └── TROUBLESHOOTING.md

@@ -26,7 +26,7 @@ def main():
         epilog="""
 Examples:
   %(prog)s --config bindings.xml --output output_dir
-  %(prog)s -C config.xml -o generated_bindings --include-depth 2
+  %(prog)s -C config.xml -o generated_bindings
   %(prog)s  # Uses default cs-bindings.xml in current directory
         """,
     )
@@ -47,14 +47,6 @@ Examples:
 
     parser.add_argument(
         "-o", "--output", metavar="DIRECTORY", help="Output directory for generated C# files (default: current directory)"
-    )
-
-    parser.add_argument(
-        "--include-depth",
-        type=int,
-        default=None,
-        metavar="N",
-        help="Process included files up to depth N (0=only input files, 1=direct includes, etc.; default: infinite)",
     )
 
     parser.add_argument("--clang-path", metavar="PATH", help="Path to libclang library (if not in default location)")
@@ -132,7 +124,6 @@ Examples:
             header_library_pairs,
             output=args.output,
             include_dirs=include_dirs,
-            include_depth=args.include_depth,
             ignore_missing=args.ignore_missing,
             library_class_names=config_library_class_names,
             library_namespaces=config_library_namespaces,

@@ -214,9 +214,8 @@ error CS0246: The type or namespace name 'wchar_t' could not be found
 **Cause:** The generator is processing types it shouldn't (like platform-specific types).
 
 **Solution:**
-1. Reduce `--include-depth` to limit what's processed
-2. Add `wchar_t` mapping to type mapper (if needed for your platform)
-3. Filter out system headers
+1. Add `wchar_t` mapping to type mapper (if needed for your platform)
+2. Filter out system headers using removal rules in XML config
 
 ## Multiple Libraries
 
@@ -260,9 +259,7 @@ public static partial void TCOD_init(int w, int h, nuint title);
 **Symptom:** Generated file only contains namespace and using statements.
 
 **Causes:**
-1. **Header only contains includes** - Use `--include-depth 1` or higher to process included headers
-
-2. **Header file not found** - Add `<include_directory>` elements to your XML config:
+1. **Header file not found** - Add `<include_directory>` elements to your XML config:
    ```xml
    <bindings>
        <include_directory path="/path/to/headers"/>
@@ -272,7 +269,7 @@ public static partial void TCOD_init(int w, int h, nuint title);
    </bindings>
    ```
 
-3. **Parse errors** - Check stderr for clang diagnostics
+2. **Parse errors** - Check stderr for clang diagnostics
 
 ### Missing Types or Functions
 
@@ -280,24 +277,11 @@ public static partial void TCOD_init(int w, int h, nuint title);
 
 **Debugging steps:**
 
-1. **Check file depth:**
-   Run the generator and check the console output showing which files are processed:
-   ```
-   Processing 5 file(s) (depth 1):
-     [depth 0] header.h
-     [depth 1] types.h
-   ```
-   Use `--include-depth` to increase if needed
-
-2. **Verify file is in allowed depth:**
-   - Increase `--include-depth` if needed
-   - Or explicitly add the header as an input file
-
-3. **Check for parse errors:**
+1. **Check for parse errors:**
    - Look for "Error in..." messages in stderr
-   - Verify all include directories are specified
+   - Verify all include directories are specified in XML config
 
-4. **Variadic functions are skipped:**
+2. **Variadic functions are skipped:**
    - Functions like `printf(const char*, ...)` can't be mapped
    - This is a known limitation
 
@@ -481,16 +465,10 @@ cs_binding_generator --clang-path /usr/lib/libclang.so ...
 
 **Solutions:**
 
-1. **Reduce include depth:**
-   ```bash
-   # Instead of depth 10
-   --include-depth 1  # Usually sufficient
-   ```
+1. **Limit input files:**
+   Only specify headers you actually need in your XML config
 
-2. **Limit input files:**
-   Only specify headers you actually need
-
-3. **Check for circular includes:**
+2. **Check for circular includes:**
    May cause excessive processing
 
 ### Large Output Files
@@ -499,9 +477,7 @@ cs_binding_generator --clang-path /usr/lib/libclang.so ...
 
 **Solutions:**
 
-1. **Reduce include depth** to avoid processing too many headers
-
-2. **Use separate libraries in your XML config:**
+1. **Use separate libraries in your XML config:**
    ```xml
    <bindings>
        <library name="mylib_video">
@@ -603,7 +579,6 @@ PermissionError: [Errno 13] Permission denied: './output/SDL3.cs'
 If you encounter an issue not covered here:
 
 1. **Check the examples:**
-   - Review `INCLUDE_DEPTH.md`
    - Review `INCLUDE_DIRECTORIES.md`
    - Look at SDL3 generation as a reference
 

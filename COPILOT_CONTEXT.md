@@ -181,7 +181,7 @@ replacement = re.sub(r'\$(\d+)', lambda m: f'\\{int(m.group(1)) + 1}', replaceme
 
 - Framework: pytest 9.0.2
 - Python version: 3.13.11
-- Test count: 155 tests (all passing as of latest run)
+- Test count: 157 tests (all passing as of latest run)
 - Run: `source enter_devenv.sh && python -m pytest`
 
 ### Important Test Files
@@ -356,7 +356,6 @@ When broad regex rules cause conflicts (e.g., stripping prefixes from multiple l
 1. **Limited CLI Arguments - ONLY These Exist**:
    - `-C, --config CONFIG_FILE` - XML configuration file path (default: `cs-bindings.xml`)
    - `-o, --output DIRECTORY` - Output directory for generated files (default: current directory)
-   - `--include-depth N` - Process included files up to depth N (overrides XML config if specified)
    - `--ignore-missing` - Continue processing even if some headers are not found
    - `--clang-path PATH` - Path to libclang library (if not in default location)
    - `-V, --version` - Show version number and exit
@@ -364,7 +363,7 @@ When broad regex rules cause conflicts (e.g., stripping prefixes from multiple l
 2. **XML Configuration Is PRIMARY and REQUIRED**:
    - ALL binding configuration must be in XML config file
    - This includes: input files, include directories, namespaces, libraries, renames, removals, constants
-   - Command-line arguments are ONLY for runtime options (output path, include depth override)
+   - Command-line arguments are ONLY for runtime options (output path, error handling)
    - See `main.py` lines 90-120 for argument parser definition
 
 3. **System Include Paths Are Auto-Detected by Clang**:
@@ -385,7 +384,6 @@ When broad regex rules cause conflicts (e.g., stripping prefixes from multiple l
 - `docs/XML_CONFIG.md` - Removed incorrect "Migration from Command-Line" section
 - `docs/TROUBLESHOOTING.md` - Updated all sections to use XML configuration
 - `docs/MULTI_FILE_OUTPUT.md` - Rewrote to remove `--multi` flag references
-- `docs/INCLUDE_DEPTH.md` - NOT updated per user request (contains old CLI examples for reference)
 
 **Testing Verification**:
 ```bash
@@ -401,6 +399,40 @@ python -m pytest tests/ -v
 - The tool intentionally limits CLI to runtime options only
 
 **User Quote**: "Check main.py you dingus" - always verify actual implementation before documenting
+
+### 2025-12-14: Include Depth Feature Removal - COMPLETED
+- **Status**: Feature completely removed, 157 tests passing (down from 166, removed 9 include-depth specific tests)
+- **Reason**: Simplification - the feature added complexity without significant benefit
+- **Impact**: All files in translation unit are now processed without depth filtering
+
+**Code Changes**:
+- `cs_binding_generator/main.py` - Removed `--include-depth` CLI argument
+- `cs_binding_generator/generator.py` - Removed:
+  - `self.allowed_files` set
+  - `_build_file_depth_map()` method (54 lines)
+  - All `allowed_files` filtering checks
+  - Simplified macro extraction to only process main header file
+- All system header filtering still works via `_is_system_header()` method
+
+**Tests Removed** (9 total):
+- `tests/test_cli.py::test_cli_include_depth` - Tested --include-depth CLI flag
+- `tests/test_generator.py::test_include_depth_zero` - Tested depth=0 filtering
+- `tests/test_generator.py::test_include_depth_one` - Tested depth=1 filtering
+- `tests/test_generator.py::test_include_depth_two` - Tested depth=2 filtering
+- `tests/test_generator.py::test_include_depth_large` - Tested large depth values
+- `tests/test_cli_extended.py::test_cli_include_depth_zero` - CLI test for depth=0
+- `tests/test_cli_extended.py::TestIncludeDepthHandling::test_include_depth_circular_includes`
+- `tests/test_cli_extended.py::TestIncludeDepthHandling::test_include_depth_very_deep_nesting`
+- `tests/test_error_handling.py::TestInternalMethods::test_file_depth_mapping`
+- `tests/conftest.py::nested_includes` fixture removed (no longer used)
+
+**Documentation Updated**:
+- `docs/INCLUDE_DEPTH.md` - Deleted entirely
+- `README.md` - Removed feature listing, CLI option, and project structure reference
+- `docs/TROUBLESHOOTING.md` - Removed all include-depth troubleshooting steps
+- `docs/INCLUDE_DIRECTORIES.md` - Removed references to include-depth interaction
+
+**Result**: ~120 lines of code removed, simpler mental model, all includes always processed
 
 ---
 

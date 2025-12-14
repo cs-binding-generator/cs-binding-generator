@@ -149,30 +149,6 @@ class TestInternalMethods:
         assert len(generator.generated_structs) == 0
         assert len(generator.seen_functions) == 0
         assert len(generator.enum_members) == 0
-    
-    def test_file_depth_mapping(self, temp_dir):
-        """Test file depth calculation for include processing"""
-        generator = CSharpBindingsGenerator()
-        
-        # Create nested include structure
-        main_h = temp_dir / "main.h"
-        level1_h = temp_dir / "level1.h"
-        level2_h = temp_dir / "level2.h"
-        
-        main_h.write_text('#include "level1.h"\nint main_func();')
-        level1_h.write_text('#include "level2.h"\nint level1_func();')
-        level2_h.write_text('int level2_func();')
-        
-        # Parse and build depth map
-        index = clang.cindex.Index.create()
-        tu = index.parse(str(main_h), args=[f"-I{temp_dir}"])
-        
-        depth_map = generator._build_file_depth_map(tu, str(main_h), max_depth=2)
-        
-        assert str(main_h) in depth_map
-        assert depth_map[str(main_h)] == 0
-        # level1.h should be depth 1
-        # level2.h should be depth 2 (if found)
 
 
 class TestCodeGeneratorEdgeCases:
@@ -448,10 +424,9 @@ class TestMemoryAndPerformance:
         
         # Should handle deep includes without stack overflow
         output = generator.generate(
-            [(str(headers[0]), "testlib")], 
+            [(str(headers[0]), "testlib")],
             output=str(temp_dir),
-            include_dirs=[str(temp_dir)],
-            include_depth=5  # Limit depth
+            include_dirs=[str(temp_dir)]
         )
         
         assert "testlib.cs" in output

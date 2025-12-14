@@ -87,37 +87,7 @@ class TestCLIIntegration:
         assert testlib_file.exists()
         content = testlib_file.read_text()
         assert "namespace MyCustomNamespace;" in content
-    
-    def test_cli_include_depth_zero(self, tmp_path):
-        """Test CLI with include depth zero (only main files)"""
-        # Create main header with include
-        main_header = tmp_path / "main.h"
-        included_header = tmp_path / "included.h"
-        
-        included_header.write_text("int included_func();")
-        main_header.write_text('#include "included.h"\nint main_func();')
-        
-        config_file = tmp_path / "config.xml"
-        config_content = create_xml_config([(str(main_header), "testlib")])
-        config_file.write_text(config_content)
-        
-        output_dir = tmp_path / "output"
-        output_dir.mkdir()
-        
-        result = subprocess.run([
-            "python", "-m", "cs_binding_generator.main", 
-            "-C", str(config_file),
-            "-o", str(output_dir),
-            "--include-depth", "0"
-        ], capture_output=True, text=True)
-        
-        assert result.returncode == 0
-        # Should only process main file, not includes
-        testlib_content = (output_dir / "testlib.cs").read_text()
-        assert "main_func" in testlib_content
-        # included_func should not appear since depth is 0
-        assert "included_func" not in testlib_content
-    
+
     def test_cli_multi_file_output(self, tmp_path):
         """Test CLI multi-file output generation"""
         # Create headers for multiple libraries
@@ -210,7 +180,6 @@ class TestCLIIntegration:
             "python", "-m", "cs_binding_generator.main",
             "-C", str(config_file),
             "-o", str(output_dir),
-            "--include-depth", "2",
             "--ignore-missing"
         ], capture_output=True, text=True)
         
@@ -340,56 +309,6 @@ class TestMultiFileGeneration:
         # Should handle special characters (likely sanitized)
         assert len(result) > 0
         # File name should be sanitized for filesystem compatibility
-
-
-class TestIncludeDepthHandling:
-    """Test include depth processing edge cases"""
-    
-    def test_include_depth_circular_includes(self, tmp_path):
-        """Test handling of circular includes"""
-        from cs_binding_generator.generator import CSharpBindingsGenerator
-        
-        # Create circular includes (a.h includes b.h, b.h includes a.h)
-        header_a = tmp_path / "a.h"
-        header_b = tmp_path / "b.h"
-        
-        header_a.write_text('#ifndef A_H\n#define A_H\n#include "b.h"\nint func_a();\n#endif')
-        header_b.write_text('#ifndef B_H\n#define B_H\n#include "a.h"\nint func_b();\n#endif')
-        
-        generator = CSharpBindingsGenerator()
-        
-        # Should handle circular includes without infinite loop
-        output = generator.generate([
-            (str(header_a), "testlib")
-        ], output=str(tmp_path), include_dirs=[str(tmp_path)], include_depth=3)
-        
-        assert "namespace Bindings;" in output["testlib.cs"]
-        # Should process without hanging
-    
-    def test_include_depth_very_deep_nesting(self, tmp_path):
-        """Test very deep include nesting"""
-        from cs_binding_generator.generator import CSharpBindingsGenerator
-        
-        # Create deep chain: h0 -> h1 -> h2 -> ... -> h20
-        headers = []
-        for i in range(21):  # 0 to 20
-            header = tmp_path / f"h{i}.h"
-            if i < 20:
-                header.write_text(f'#include "h{i+1}.h"\nint func_{i}();')
-            else:
-                header.write_text(f"int func_{i}();")  # Deepest file
-            headers.append(header)
-        
-        generator = CSharpBindingsGenerator()
-        
-        # Test with various depth limits
-        for max_depth in [5, 10, 50]:
-            output = generator.generate([
-                (str(headers[0]), "testlib")
-            ], output=str(tmp_path), include_dirs=[str(tmp_path)], include_depth=max_depth)
-            
-            assert "namespace Bindings;" in output["testlib.cs"]
-            # Should respect depth limit and not crash
 
 
 class TestStringAndMarshallingEdgeCases:

@@ -29,7 +29,6 @@ class CSharpBindingsGenerator:
         self.generated_unions = {}  # library -> [unions]
         self.generated_enums = {}  # library -> [enums]
         self.source_file = None
-        self.allowed_files = set()  # Files allowed based on include depth
 
         # Track what we've already generated to avoid duplicates
         self.seen_functions = set()  # (name, location)
@@ -58,7 +57,6 @@ class CSharpBindingsGenerator:
         self.enum_members.clear()
         self.captured_macros.clear()
         self.source_file = None
-        self.allowed_files.clear()
 
     def _extract_macros_from_file(self, file_path: str, patterns: list[str]) -> dict[str, str]:
         """Extract #define macros from a header file that match the given patterns
@@ -233,7 +231,7 @@ class CSharpBindingsGenerator:
             # Only generate code for non-system headers
             if cursor.location.file:
                 file_path = str(cursor.location.file)
-                if file_path not in self.allowed_files or self._is_system_header(file_path):
+                if self._is_system_header(file_path):
                     # Don't generate code but still recurse
                     for child in cursor.get_children():
                         self.process_cursor(child)
@@ -258,7 +256,7 @@ class CSharpBindingsGenerator:
                 # Only generate code for non-system headers
                 if cursor.location.file:
                     file_path = str(Path(cursor.location.file.name).resolve())
-                    if file_path not in self.allowed_files or self._is_system_header(file_path):
+                    if self._is_system_header(file_path):
                         # Don't generate code but still recurse
                         for child in cursor.get_children():
                             self.process_cursor(child)
@@ -285,7 +283,7 @@ class CSharpBindingsGenerator:
                 # Only generate code for non-system headers
                 if cursor.location.file:
                     file_path = str(Path(cursor.location.file.name).resolve())
-                    if file_path not in self.allowed_files or self._is_system_header(file_path):
+                    if self._is_system_header(file_path):
                         # Don't generate code but still recurse
                         for child in cursor.get_children():
                             self.process_cursor(child)
@@ -309,7 +307,7 @@ class CSharpBindingsGenerator:
                 # Only generate code for non-system headers
                 if cursor.location.file:
                     file_path = str(Path(cursor.location.file.name).resolve())
-                    if file_path not in self.allowed_files or self._is_system_header(file_path):
+                    if self._is_system_header(file_path):
                         # Don't generate code but still recurse
                         for child in cursor.get_children():
                             self.process_cursor(child)
@@ -334,7 +332,7 @@ class CSharpBindingsGenerator:
             # Only generate code for non-system opaque struct typedefs
             if cursor.location.file:
                 file_path = str(cursor.location.file)
-                if file_path not in self.allowed_files or self._is_system_header(file_path):
+                if self._is_system_header(file_path):
                     return
 
             # Handle opaque struct typedefs (e.g., typedef struct SDL_Window SDL_Window;)
@@ -386,12 +384,6 @@ class CSharpBindingsGenerator:
 
     def prescan_opaque_types(self, cursor):
         """Pre-scan AST to identify opaque types before processing functions"""
-        # Only process items in allowed files (based on include depth)
-        if cursor.location.file:
-            file_path = str(cursor.location.file)
-            if file_path not in self.allowed_files:
-                return
-
         if cursor.kind == CursorKind.TYPEDEF_DECL:
             # Handle opaque struct typedefs (e.g., typedef struct SDL_Window SDL_Window;)
             children = list(cursor.get_children())
@@ -479,68 +471,11 @@ class CSharpBindingsGenerator:
                 enum_name = f"AnonymousEnum{anonymous_counter}"
                 self.enum_members[enum_name] = (self.current_library, members, underlying_type)
 
-    def _build_file_depth_map(self, tu, root_file: str, max_depth: Optional[int]) -> dict[str, int]:
-        """Build a mapping of file paths to their include depth
-
-        Args:
-            tu: Translation unit
-            root_file: Root header file path
-            max_depth: Maximum include depth to process (None for infinite)
-
-        Returns:
-            Dictionary mapping absolute file paths to their depth level
-        """
-        file_depth = {str(Path(root_file).resolve()): 0}
-
-        if max_depth == 0:
-            return file_depth
-
-        # If max_depth is None, use a very large number for infinite depth
-        effective_max_depth = float("inf") if max_depth is None else max_depth
-
-        # Collect all inclusion directives with their source file
-        def collect_inclusions(cursor, inclusions):
-            """Collect all INCLUSION_DIRECTIVE nodes"""
-            if cursor.kind == CursorKind.INCLUSION_DIRECTIVE:
-                source_file = cursor.location.file
-                included_file = cursor.get_included_file()
-                if source_file and included_file:
-                    source_path = str(Path(source_file.name).resolve())
-                    included_path = str(Path(included_file.name).resolve())
-                    inclusions.append((source_path, included_path))
-
-            for child in cursor.get_children():
-                collect_inclusions(child, inclusions)
-
-        # Collect all inclusions
-        inclusions: list[tuple[str, str]] = []
-        collect_inclusions(tu.cursor, inclusions)
-
-        # Build depth map by processing inclusions level by level
-        current_depth = 0
-        while current_depth < effective_max_depth:
-            # Find all files at current depth
-            files_at_depth = {f for f, d in file_depth.items() if d == current_depth}
-            if not files_at_depth:
-                break
-
-            # Find all files included by files at current depth
-            for source_path, included_path in inclusions:
-                if source_path in files_at_depth:
-                    new_depth = current_depth + 1
-                    if included_path not in file_depth or file_depth[included_path] > new_depth:
-                        file_depth[included_path] = new_depth
-
-            current_depth += 1
-
-        return file_depth
-
     def generate(
         self,
         header_library_pairs: list[tuple[str, str]],
         output: str,
         include_dirs: Optional[list[str]] = None,
-        include_depth: Optional[int] = None,
         ignore_missing: bool = False,
         library_class_names: Optional[dict[str, str]] = None,
         library_namespaces: Optional[dict[str, str]] = None,
@@ -554,7 +489,6 @@ class CSharpBindingsGenerator:
             header_library_pairs: List of (header_file, library_name) tuples
             output: Output directory for generated files (required)
             include_dirs: List of directories to search for included headers
-            include_depth: How deep to process included files (0=only input files, 1=direct includes, etc.; None=infinite)
             library_class_names: Dict mapping library names to custom class names (defaults to NativeMethods)
             library_namespaces: Dict mapping library names to custom namespaces
             library_using_statements: Dict mapping library names to lists of using statements
@@ -638,10 +572,6 @@ class CSharpBindingsGenerator:
             print(f"Processing: {header_file} -> {library_name}")
             if include_dirs:
                 print(f"Include directories: {', '.join(include_dirs)}")
-            if include_depth is not None:
-                print(f"Include depth: {include_depth}")
-            else:
-                print("Include depth: infinite")
 
             tu = index.parse(header_file, args=clang_args, options=parse_options)
 
@@ -667,16 +597,6 @@ class CSharpBindingsGenerator:
                         f"Fatal parsing errors in {header_file}. Check include directories and header file accessibility."
                     )
 
-            # Build file depth map and update allowed files
-            file_depth_map = self._build_file_depth_map(tu, header_file, include_depth)
-            self.allowed_files.update(file_depth_map.keys())
-
-            if include_depth != 0 and len(file_depth_map) > 1:
-                depth_str = str(include_depth) if include_depth is not None else "infinite"
-                print(f"Processing {len(file_depth_map)} file(s) (depth {depth_str}):")
-                for file_path, depth in sorted(file_depth_map.items(), key=lambda x: x[1]):
-                    print(f"  [depth {depth}] {Path(file_path).name}")
-
             # Extract macros if global constants are defined
             if self.global_constants:
                 if library_name not in self.captured_macros:
@@ -687,11 +607,9 @@ class CSharpBindingsGenerator:
                 for const_name, const_pattern, const_type, const_flags in self.global_constants:
                     patterns.append(const_pattern)
 
-                # Extract macros from all files in the depth map
-                for file_path in file_depth_map.keys():
-                    if not self._is_system_header(file_path):
-                        file_macros = self._extract_macros_from_file(file_path, patterns)
-                        self.captured_macros[library_name].update(file_macros)
+                # Extract macros from the main header file
+                file_macros = self._extract_macros_from_file(header_file, patterns)
+                self.captured_macros[library_name].update(file_macros)
 
                 if self.captured_macros[library_name]:
                     print(f"Captured {len(self.captured_macros[library_name])} macro(s) for {library_name}")

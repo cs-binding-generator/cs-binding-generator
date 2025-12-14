@@ -89,86 +89,6 @@ void process_point(Point* p);
         assert "public static partial void process_point(Point* p);" in content
 
 
-def test_cli_include_depth():
-    """Test CLI with --include-depth flag"""
-    with tempfile.TemporaryDirectory() as tmpdir:
-        tmppath = Path(tmpdir)
-        
-        # Create include directory
-        include_dir = tmppath / "include"
-        include_dir.mkdir()
-        
-        # Create level 1 header
-        (include_dir / "base.h").write_text("""
-typedef struct BaseType {
-    int value;
-} BaseType;
-""")
-        
-        # Create main header that includes base.h
-        main_header = tmppath / "main.h"
-        main_header.write_text("""
-#include "base.h"
-
-typedef struct MainType {
-    BaseType base;
-} MainType;
-
-void main_function();
-""")
-        
-        # Create XML config
-        config_content = create_xml_config(
-            [(str(main_header), "lib")],
-            include_dirs=[str(include_dir)]
-        )
-        config_file = tmppath / "config.xml"
-        config_file.write_text(config_content)
-        
-        # Test with depth 0 (should only have MainType)
-        output_dir = tmppath / "output0"
-        result = subprocess.run(
-            [
-                "python", "-m", "cs_binding_generator.main",
-                "--config", str(config_file),
-                "-o", str(output_dir),
-                "--include-depth", "0"
-            ],
-            capture_output=True,
-            text=True
-        )
-        
-        assert result.returncode == 0
-        lib_file = output_dir / "lib.cs"
-        content = lib_file.read_text()
-        assert "MainType" in content
-        assert "main_function" in content
-        # BaseType should not be generated (it's in included file)
-        assert "public partial struct BaseType" not in content
-        
-        # Test with depth 1 (should have both)
-        config_file2 = tmppath / "config2.xml"
-        config_file2.write_text(config_content)
-        output_dir2 = tmppath / "output1"
-        result = subprocess.run(
-            [
-                "python", "-m", "cs_binding_generator.main",
-                "--config", str(config_file2),
-                "-o", str(output_dir2),
-                "--include-depth", "1"
-            ],
-            capture_output=True,
-            text=True
-        )
-        
-        assert result.returncode == 0
-        lib_file2 = output_dir2 / "lib.cs"
-        content2 = lib_file2.read_text()
-        assert "MainType" in content2
-        assert "BaseType" in content2
-        assert "main_function" in content2
-
-
 def test_sdl3_generates_valid_csharp():
     """Test that SDL3 headers generate valid C# code that compiles with dotnet"""
     with tempfile.TemporaryDirectory() as tmpdir:
@@ -277,7 +197,6 @@ def test_cli_missing_header_files():
 if __name__ == "__main__":
     test_cli_with_include_directories()
     test_cli_multiple_include_dirs()
-    test_cli_include_depth()
     test_sdl3_generates_valid_csharp()
     test_cli_missing_header_files()
     print("CLI tests passed!")
