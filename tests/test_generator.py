@@ -605,3 +605,127 @@ class TestGeneratorInternals:
         assert "STATUS_OK = unchecked((int)(0))," in testlib_content
         assert "STATUS_ERROR = unchecked((int)(1))," in testlib_content
         assert "STATUS_PENDING = unchecked((int)(2))," in testlib_content
+
+    def test_macros_extracted_from_included_headers(self, temp_dir, tmp_path):
+        """Test that macros are extracted from included headers, not just the main header"""
+        # Create an included header with macros
+        included_header = temp_dir / "flags.h"
+        included_header.write_text("""
+            #define WINDOW_FULLSCREEN 0x0001
+            #define WINDOW_HIDDEN 0x0002
+            #define WINDOW_BORDERLESS 0x0004
+        """)
+
+        # Create main header that includes the other header
+        main_header = temp_dir / "main.h"
+        main_header.write_text(f"""
+            #include "{included_header.name}"
+            
+            void create_window(int flags);
+        """)
+
+        generator = CSharpBindingsGenerator()
+
+        # Generate with constants pattern matching the macros in the included file
+        global_constants = [("WindowFlags", "WINDOW_.*", "uint", True)]
+
+        result = generator.generate(
+            [(str(main_header), "testlib")],
+            output=str(tmp_path),
+            global_constants=global_constants,
+            include_dirs=[str(temp_dir)]
+        )
+
+        testlib_content = result["testlib.cs"]
+
+        # Verify the enum was generated with macros from the included header
+        assert "[Flags]" in testlib_content
+        assert "public enum WindowFlags : uint" in testlib_content
+        assert "WINDOW_FULLSCREEN = unchecked((uint)(0x0001))," in testlib_content
+        assert "WINDOW_HIDDEN = unchecked((uint)(0x0002))," in testlib_content
+        assert "WINDOW_BORDERLESS = unchecked((uint)(0x0004))," in testlib_content
+
+    def test_macros_from_nested_includes(self, temp_dir, tmp_path):
+        """Test that macros are extracted from deeply nested included headers"""
+        # Create a deeply nested include structure
+        level2_header = temp_dir / "level2.h"
+        level2_header.write_text("""
+            #define LEVEL2_CONSTANT_A 100
+            #define LEVEL2_CONSTANT_B 200
+        """)
+
+        level1_header = temp_dir / "level1.h"
+        level1_header.write_text(f"""
+            #include "{level2_header.name}"
+            #define LEVEL1_CONSTANT_X 10
+            #define LEVEL1_CONSTANT_Y 20
+        """)
+
+        main_header = temp_dir / "main_nested.h"
+        main_header.write_text(f"""
+            #include "{level1_header.name}"
+            #define MAIN_CONSTANT_1 1
+            #define MAIN_CONSTANT_2 2
+        """)
+
+        generator = CSharpBindingsGenerator()
+
+        # Test extracting from all levels
+        global_constants = [
+            ("MainConstants", "MAIN_.*", "int", False),
+            ("Level1Constants", "LEVEL1_.*", "int", False),
+            ("Level2Constants", "LEVEL2_.*", "int", False)
+        ]
+
+        result = generator.generate(
+            [(str(main_header), "testlib")],
+            output=str(tmp_path),
+            global_constants=global_constants,
+            include_dirs=[str(temp_dir)]
+        )
+
+        testlib_content = result["testlib.cs"]
+
+        # Verify all enums were generated from all include levels
+        assert "public enum MainConstants" in testlib_content
+        assert "MAIN_CONSTANT_1 = unchecked((int)(1))," in testlib_content
+        assert "MAIN_CONSTANT_2 = unchecked((int)(2))," in testlib_content
+
+        assert "public enum Level1Constants" in testlib_content
+        assert "LEVEL1_CONSTANT_X = unchecked((int)(10))," in testlib_content
+        assert "LEVEL1_CONSTANT_Y = unchecked((int)(20))," in testlib_content
+
+        assert "public enum Level2Constants" in testlib_content
+        assert "LEVEL2_CONSTANT_A = unchecked((int)(100))," in testlib_content
+        assert "LEVEL2_CONSTANT_B = unchecked((int)(200))," in testlib_content
+
+    def test_macros_not_extracted_from_system_headers(self, temp_dir, tmp_path):
+        """Test that macros from system headers are not extracted"""
+        # Create a header that uses constants but doesn't define them
+        # (simulating macros that would come from system headers)
+        main_header = temp_dir / "test_system.h"
+        main_header.write_text("""
+            // System header macros would be here but we don't extract them
+            #define LOCAL_FLAG_A 0x01
+            #define LOCAL_FLAG_B 0x02
+            
+            void use_flags(int flags);
+        """)
+
+        generator = CSharpBindingsGenerator()
+
+        # Only extract LOCAL_FLAG_* macros (not system macros)
+        global_constants = [("LocalFlags", "LOCAL_FLAG_.*", "uint", False)]
+
+        result = generator.generate(
+            [(str(main_header), "testlib")],
+            output=str(tmp_path),
+            global_constants=global_constants
+        )
+
+        testlib_content = result["testlib.cs"]
+
+        # Verify only local macros were extracted
+        assert "public enum LocalFlags" in testlib_content
+        assert "LOCAL_FLAG_A = unchecked((uint)(0x01))," in testlib_content
+        assert "LOCAL_FLAG_B = unchecked((uint)(0x02))," in testlib_content

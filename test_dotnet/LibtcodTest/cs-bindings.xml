@@ -7,6 +7,8 @@
     <rename from="SDL_setenv_unsafe" to="SetEnvUnsafe"/>
     <rename from="SDL_unsetenv_unsafe" to="UnsetEnvUnsafe"/>
 
+    <constants name="WindowFlags" pattern="SDL_WINDOW_.*" type="ulong" flags="true"/>
+
     <rename from="SDL_(.*)" to="$1" regex="true"/>
     <rename from="TCOD_(.*)" to="$1" regex="true"/>
 
@@ -20,8 +22,6 @@
 
     <include_directory path="/usr/include/libtcod"/>
     <include_directory path="/usr/include/SDL3"/>
-
-    <constants name="WindowFlags" pattern="SDL_WINDOW_.*" type="ulong" flags="true"/>
 
     <library name="SDL3" namespace="SDL3" class="SDL">
         <include file="/usr/include/SDL3/SDL.h"/>

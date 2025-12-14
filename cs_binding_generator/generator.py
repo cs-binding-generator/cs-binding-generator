@@ -2,6 +2,7 @@
 Main C# bindings generator orchestration
 """
 
+import os
 import re
 import sys
 from pathlib import Path
@@ -607,9 +608,24 @@ class CSharpBindingsGenerator:
                 for const_name, const_pattern, const_type, const_flags in self.global_constants:
                     patterns.append(const_pattern)
 
-                # Extract macros from the main header file
-                file_macros = self._extract_macros_from_file(header_file, patterns)
-                self.captured_macros[library_name].update(file_macros)
+                # Extract macros from all files in the translation unit (not just the main header)
+                # This includes all #included files, which is where macros like SDL_WINDOW_* live
+                def collect_files(cursor, files_set):
+                    """Recursively collect all file paths from the AST"""
+                    if cursor.location.file:
+                        file_path = str(cursor.location.file)
+                        if not self._is_system_header(file_path):
+                            files_set.add(file_path)
+                    for child in cursor.get_children():
+                        collect_files(child, files_set)
+                
+                all_files = set()
+                collect_files(tu.cursor, all_files)
+                
+                # Extract macros from all non-system files
+                for file_path in all_files:
+                    file_macros = self._extract_macros_from_file(file_path, patterns)
+                    self.captured_macros[library_name].update(file_macros)
 
                 if self.captured_macros[library_name]:
                     print(f"Captured {len(self.captured_macros[library_name])} macro(s) for {library_name}")
