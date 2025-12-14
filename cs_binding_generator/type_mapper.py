@@ -124,7 +124,10 @@ class TypeMapper:
             # - Struct field: nuint (must be unmanaged)
             # - Parameter: string (for passing C strings as input)
             if pointee.kind in (TypeKind.CHAR_S, TypeKind.CHAR_U):
-                return "nuint" if (is_return_type or is_struct_field) else "string"
+                # Return types and struct fields should remain unmanaged (`nuint`),
+                # but parameters that accept strings should be nullable (`string?`) to
+                # reflect that C APIs often accept NULL for optional strings.
+                return "nuint" if (is_return_type or is_struct_field) else "string?"
 
             # void* -> nint
             if pointee.kind == TypeKind.VOID:

@@ -85,7 +85,7 @@ class TestTypeMapper:
             mock_type.get_pointee.return_value = mock_pointee
             
             result = self.mapper.map_type(mock_type)
-            assert result == "string"
+            assert result == "string?"
     
     def test_struct_pointer(self):
         """Test that struct* maps to Type* (typed pointer)"""

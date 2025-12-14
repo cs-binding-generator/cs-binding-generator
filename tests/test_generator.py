@@ -78,7 +78,7 @@ class TestCSharpBindingsGenerator:
         assert "public float z;" in output
         
         # Check functions
-        assert "public static partial void init_engine(string config_path);" in output
+        assert "public static partial void init_engine(string? config_path);" in output
         assert "public static partial Vector3* create_vector(float x, float y, float z);" in output
         assert "public static partial void destroy_vector(Vector3* vec);" in output
         assert "public static partial float dot_product(Vector3* a, Vector3* b);" in output
@@ -131,7 +131,7 @@ class TestCSharpBindingsGenerator:
         assert "public enum Status" in output
         assert "public enum Color" in output
         assert "public static partial int add(int a, int b);" in output
-        assert "public static partial void init_engine(string config_path);" in output
+        assert "public static partial void init_engine(string? config_path);" in output
     
     def test_generate_nonexistent_file(self, capsys, tmp_path):
         """Test handling of nonexistent header files"""
@@ -301,7 +301,7 @@ class TestGeneratorInternals:
         assert "public static partial SDL_Window* SDL_CreateWindow" in output["testlib.cs"]
         assert "public static partial void SDL_DestroyWindow(SDL_Window* window);" in output["testlib.cs"]
         assert "public static partial nuint SDL_GetWindowTitle(SDL_Window* window);" in output["testlib.cs"]
-        assert "public static partial int SDL_SetWindowTitle(SDL_Window* window, string title);" in output["testlib.cs"]
+        assert "public static partial int SDL_SetWindowTitle(SDL_Window* window, string? title);" in output["testlib.cs"]
         assert "public static partial SDL_Renderer* SDL_CreateRenderer(SDL_Window* window);" in output["testlib.cs"]
         assert "public static partial void SDL_RenderPresent(SDL_Renderer* renderer);" in output["testlib.cs"]
     

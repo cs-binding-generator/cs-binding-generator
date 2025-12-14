@@ -329,7 +329,7 @@ class TestStringAndMarshallingEdgeCases:
         generator = CSharpBindingsGenerator()
         output = generator.generate([(str(header), "stringlib")], output=str(tmp_path))
         assert "nuint get_string" in output["stringlib.cs"]  # char* -> nuint (return value)
-        assert "string format" in output["stringlib.cs"]  # multiple string params
+        assert "string? format" in output["stringlib.cs"]  # multiple string params
         # Should handle various string types appropriately
     
     def test_struct_with_string_fields(self, tmp_path):
