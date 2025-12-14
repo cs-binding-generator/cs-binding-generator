@@ -565,14 +565,12 @@ class TestGeneratorInternals:
         generator = CSharpBindingsGenerator()
 
         # Generate with constants extraction
-        library_constants = {
-            "testlib": [("Flags", "FLAG_.*", "uint")]
-        }
+        global_constants = [("Flags", "FLAG_.*", "uint")]
 
         result = generator.generate(
             [(str(header), "testlib")],
             output=str(tmp_path),
-            library_constants=library_constants
+            global_constants=global_constants
         )
 
         testlib_content = result["testlib.cs"]
@@ -597,14 +595,12 @@ class TestGeneratorInternals:
         generator = CSharpBindingsGenerator()
 
         # Generate with unsigned enum type
-        library_constants = {
-            "testlib": [("Flags", "FLAG_.*", "ulong")]
-        }
+        global_constants = [("Flags", "FLAG_.*", "ulong")]
 
         result = generator.generate(
             [(str(header), "testlib")],
             output=str(tmp_path),
-            library_constants=library_constants
+            global_constants=global_constants
         )
 
         testlib_content = result["testlib.cs"]

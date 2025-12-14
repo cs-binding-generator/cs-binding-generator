@@ -546,7 +546,7 @@ class CSharpBindingsGenerator:
         library_namespaces: Optional[dict[str, str]] = None,
         library_using_statements: Optional[dict[str, list[str]]] = None,
         visibility: str = "public",
-        library_constants: Optional[dict[str, list[tuple[str, str, str]]]] = None,
+        global_constants: Optional[list[tuple[str, str, str]]] = None,
     ) -> dict[str, str]:
         """Generate C# bindings from C header file(s)
 
@@ -559,7 +559,7 @@ class CSharpBindingsGenerator:
             library_namespaces: Dict mapping library names to custom namespaces
             library_using_statements: Dict mapping library names to lists of using statements
             visibility: Visibility modifier for generated code ("public" or "internal")
-            library_constants: Dict mapping library names to lists of (name, pattern, type) tuples for macro extraction
+            global_constants: List of (name, pattern, type) tuples for macro extraction, applied to all libraries
         """
         # Store visibility setting
         self.visibility = visibility
@@ -576,8 +576,8 @@ class CSharpBindingsGenerator:
         # Store library using statements
         self.library_using_statements = library_using_statements or {}
 
-        # Store library constants
-        self.library_constants = library_constants or {}
+        # Store global constants
+        self.global_constants = global_constants or []
 
         # Clear previous state
         self._clear_state()
@@ -677,14 +677,14 @@ class CSharpBindingsGenerator:
                 for file_path, depth in sorted(file_depth_map.items(), key=lambda x: x[1]):
                     print(f"  [depth {depth}] {Path(file_path).name}")
 
-            # Extract macros if constants are defined for this library
-            if library_name in self.library_constants:
+            # Extract macros if global constants are defined
+            if self.global_constants:
                 if library_name not in self.captured_macros:
                     self.captured_macros[library_name] = {}
 
-                # Collect all patterns for this library
+                # Collect all patterns from global constants
                 patterns = []
-                for const_name, const_pattern, const_type in self.library_constants[library_name]:
+                for const_name, const_pattern, const_type in self.global_constants:
                     patterns.append(const_pattern)
 
                 # Extract macros from all files in the depth map
@@ -731,36 +731,35 @@ class CSharpBindingsGenerator:
 """
                 self._add_to_library_collection(self.generated_enums, library, code)
 
-        # Generate enums from captured macros
+        # Generate enums from captured macros using global constants
         for library_name in self.captured_macros:
-            if library_name in self.library_constants:
-                for const_name, const_pattern, const_type in self.library_constants[library_name]:
-                    # Get all macros matching this pattern
-                    matching_macros = {}
-                    for macro_name, macro_value in self.captured_macros[library_name].items():
-                        if re.fullmatch(const_pattern, macro_name):
-                            matching_macros[macro_name] = macro_value
+            for const_name, const_pattern, const_type in self.global_constants:
+                # Get all macros matching this pattern
+                matching_macros = {}
+                for macro_name, macro_value in self.captured_macros[library_name].items():
+                    if re.fullmatch(const_pattern, macro_name):
+                        matching_macros[macro_name] = macro_value
 
-                    if matching_macros:
-                        # Apply rename rules to the enum name and member names
-                        enum_name = self.type_mapper.apply_rename(const_name)
+                if matching_macros:
+                    # Apply rename rules to the enum name and member names
+                    enum_name = self.type_mapper.apply_rename(const_name)
 
-                        # Build enum members with renamed names
-                        members = []
-                        for macro_name, macro_value in sorted(matching_macros.items()):
-                            renamed_member = self.type_mapper.apply_rename(macro_name)
-                            members.append(f"    {renamed_member} = unchecked(({const_type})({macro_value})),")
+                    # Build enum members with renamed names
+                    members = []
+                    for macro_name, macro_value in sorted(matching_macros.items()):
+                        renamed_member = self.type_mapper.apply_rename(macro_name)
+                        members.append(f"    {renamed_member} = unchecked(({const_type})({macro_value})),")
 
-                        members_str = "\n".join(members)
+                    members_str = "\n".join(members)
 
-                        # Generate enum with specified type
-                        type_clause = f" : {const_type}" if const_type != "int" else ""
-                        code = f"""{self.visibility} enum {enum_name}{type_clause}
+                    # Generate enum with specified type
+                    type_clause = f" : {const_type}" if const_type != "int" else ""
+                    code = f"""{self.visibility} enum {enum_name}{type_clause}
 {{
 {members_str}
 }}
 """
-                        self._add_to_library_collection(self.generated_enums, library_name, code)
+                    self._add_to_library_collection(self.generated_enums, library_name, code)
 
         return self._generate_multi_file_output(output)
 

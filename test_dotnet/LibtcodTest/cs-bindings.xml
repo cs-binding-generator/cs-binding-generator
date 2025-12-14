@@ -21,6 +21,8 @@
     <include_directory path="/usr/include/libtcod"/>
     <include_directory path="/usr/include/SDL3"/>
 
+    <constants name="WindowFlags" pattern="SDL_WINDOW_.*" type="ulong"/>
+
     <library name="SDL3" namespace="SDL3" class="SDL">
         <include file="/usr/include/SDL3/SDL.h"/>
     </library>

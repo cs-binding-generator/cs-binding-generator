@@ -54,6 +54,22 @@ def parse_config_file(config_path):
             is_regex = remove.get("regex", "false").lower() == "true"
             removals.append((pattern.strip(), is_regex))
 
+        # Get global constants (macros to extract)
+        # These are stored as a list of (name, pattern, type) tuples
+        # They will be applied to all libraries during processing
+        global_constants = []
+        for const in root.findall("constants"):
+            const_name = const.get("name")
+            const_pattern = const.get("pattern")
+            const_type = const.get("type", "uint")  # Default to uint
+
+            if not const_name:
+                raise ValueError("Constants element missing 'name' attribute")
+            if not const_pattern:
+                raise ValueError("Constants element missing 'pattern' attribute")
+
+            global_constants.append((const_name.strip(), const_pattern.strip(), const_type.strip()))
+
         for library in root.findall("library"):
             library_name = library.get("name")
             if not library_name:
@@ -91,23 +107,6 @@ def parse_config_file(config_path):
                     raise ValueError(f"Include element in library '{library_name}' missing 'file' attribute")
                 header_library_pairs.append((header_path.strip(), library_name.strip()))
 
-            # Get constant definitions (macros to extract)
-            constants = []
-            for const in library.findall("constants"):
-                const_name = const.get("name")
-                const_pattern = const.get("pattern")
-                const_type = const.get("type", "uint")  # Default to uint
-
-                if not const_name:
-                    raise ValueError(f"Constants element in library '{library_name}' missing 'name' attribute")
-                if not const_pattern:
-                    raise ValueError(f"Constants element in library '{library_name}' missing 'pattern' attribute")
-
-                constants.append((const_name.strip(), const_pattern.strip(), const_type.strip()))
-
-            if constants:
-                library_constants[library_name.strip()] = constants
-
         return (
             header_library_pairs,
             include_dirs,
@@ -117,7 +116,7 @@ def parse_config_file(config_path):
             library_namespaces,
             library_using_statements,
             visibility,
-            library_constants,
+            global_constants,
         )
 
     except ET.ParseError as e:
