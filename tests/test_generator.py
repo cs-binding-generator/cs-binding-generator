@@ -489,3 +489,127 @@ class TestGeneratorInternals:
         graphics_content = result["graphics.cs"]
         assert "public static unsafe partial class CustomGraphics" in graphics_content
         assert "public static unsafe partial class NativeMethods" not in graphics_content
+
+    def test_is_numeric_macro_value(self):
+        """Test the _is_numeric_macro_value method"""
+        generator = CSharpBindingsGenerator()
+
+        # Should accept plain numbers
+        assert generator._is_numeric_macro_value("123") == True
+        assert generator._is_numeric_macro_value("-1") == True
+        assert generator._is_numeric_macro_value("0x0001") == True
+        assert generator._is_numeric_macro_value("0xFF") == True
+
+        # Should accept cast expressions (after stripping)
+        assert generator._is_numeric_macro_value("0x0000000000000001") == True
+
+        # Should accept simple arithmetic
+        assert generator._is_numeric_macro_value("(1 << 5)") == True
+        assert generator._is_numeric_macro_value("1 | 2") == True
+
+        # Should reject bare identifiers
+        assert generator._is_numeric_macro_value("SDL_WINDOW_FULLSCREEN") == False
+        assert generator._is_numeric_macro_value("OTHER_MACRO") == False
+
+    def test_extract_macros_from_file(self, temp_dir):
+        """Test extracting macros from a header file"""
+        # Create a test header with various macro types
+        header = temp_dir / "test_macros.h"
+        header.write_text("""
+            #define TEST_VALUE_1 0x0001
+            #define TEST_VALUE_2 SDL_UINT64_C(0x0002)
+            #define TEST_VALUE_3 (-1)
+            #define TEST_VALUE_4 TEST_VALUE_1  // Reference to another macro
+            #define OTHER_VALUE 0x1234  // Different pattern
+            #define TEST_STRING "hello"  // String value
+        """)
+
+        generator = CSharpBindingsGenerator()
+
+        # Extract macros matching TEST_VALUE_* pattern
+        macros = generator._extract_macros_from_file(str(header), ["TEST_VALUE_.*"])
+
+        # Should capture numeric values
+        assert "TEST_VALUE_1" in macros
+        assert macros["TEST_VALUE_1"] == "0x0001"
+
+        # Should strip cast macros and capture the inner value
+        assert "TEST_VALUE_2" in macros
+        assert macros["TEST_VALUE_2"] == "0x0002"
+
+        # Should capture negative values
+        assert "TEST_VALUE_3" in macros
+        assert macros["TEST_VALUE_3"] == "(-1)"
+
+        # Should NOT capture macros that reference other identifiers
+        assert "TEST_VALUE_4" not in macros
+
+        # Should NOT capture macros that don't match pattern
+        assert "OTHER_VALUE" not in macros
+
+        # Should NOT capture string macros
+        assert "TEST_STRING" not in macros
+
+    def test_generate_with_constants(self, temp_dir, tmp_path):
+        """Test generating bindings with constants extraction"""
+        # Create a header with macros
+        header = temp_dir / "test_with_macros.h"
+        header.write_text("""
+            #define FLAG_A 0x01
+            #define FLAG_B 0x02
+            #define FLAG_C 0x04
+
+            int test_func(int flags);
+        """)
+
+        generator = CSharpBindingsGenerator()
+
+        # Generate with constants extraction
+        library_constants = {
+            "testlib": [("Flags", "FLAG_.*", "uint")]
+        }
+
+        result = generator.generate(
+            [(str(header), "testlib")],
+            output=str(tmp_path),
+            library_constants=library_constants
+        )
+
+        testlib_content = result["testlib.cs"]
+
+        # Should generate enum with captured constants
+        assert "public enum Flags : uint" in testlib_content
+        assert "FLAG_A = unchecked((uint)(0x01))," in testlib_content
+        assert "FLAG_B = unchecked((uint)(0x02))," in testlib_content
+        assert "FLAG_C = unchecked((uint)(0x04))," in testlib_content
+
+    def test_generate_with_constants_negative_value(self, temp_dir, tmp_path):
+        """Test that negative values in unsigned enums are wrapped with unchecked cast"""
+        # Create a header with a negative macro value (like SDL_WINDOW_SURFACE_VSYNC_ADAPTIVE)
+        header = temp_dir / "test_negative.h"
+        header.write_text("""
+            #define FLAG_NORMAL 0x01
+            #define FLAG_ADAPTIVE (-1)
+
+            int test_func(int flags);
+        """)
+
+        generator = CSharpBindingsGenerator()
+
+        # Generate with unsigned enum type
+        library_constants = {
+            "testlib": [("Flags", "FLAG_.*", "ulong")]
+        }
+
+        result = generator.generate(
+            [(str(header), "testlib")],
+            output=str(tmp_path),
+            library_constants=library_constants
+        )
+
+        testlib_content = result["testlib.cs"]
+
+        # Verify unchecked cast is applied to both positive and negative values
+        assert "public enum Flags : ulong" in testlib_content
+        assert "FLAG_NORMAL = unchecked((ulong)(0x01))," in testlib_content
+        assert "FLAG_ADAPTIVE = unchecked((ulong)((-1)))," in testlib_content

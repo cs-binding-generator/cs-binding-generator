@@ -2,6 +2,7 @@
 Main C# bindings generator orchestration
 """
 
+import re
 import sys
 from pathlib import Path
 from typing import Optional
@@ -36,6 +37,9 @@ class CSharpBindingsGenerator:
         self.seen_unions = set()  # (name, location)
         self.enum_members = {}  # name -> (library, list of (member_name, value) tuples, underlying_type)
 
+        # Store captured macros by library: library -> {macro_name: value}
+        self.captured_macros = {}  # library -> {macro_name: value}
+
     def _add_to_library_collection(self, collection: dict, library: str, item: str):
         """Add an item to a library-specific collection"""
         if library not in collection:
@@ -52,8 +56,88 @@ class CSharpBindingsGenerator:
         self.seen_structs.clear()
         self.seen_unions.clear()
         self.enum_members.clear()
+        self.captured_macros.clear()
         self.source_file = None
         self.allowed_files.clear()
+
+    def _extract_macros_from_file(self, file_path: str, patterns: list[str]) -> dict[str, str]:
+        """Extract #define macros from a header file that match the given patterns
+
+        Args:
+            file_path: Path to the header file
+            patterns: List of regex patterns to match macro names
+
+        Returns:
+            Dict mapping macro names to their values
+        """
+        macros = {}
+
+        try:
+            with open(file_path, 'r', encoding='utf-8') as f:
+                for line in f:
+                    # Look for #define directives with simple numeric values
+                    # Pattern: #define NAME VALUE
+                    match = re.match(r'^\s*#\s*define\s+(\w+)\s+(.+?)(?://.*)?$', line)
+                    if match:
+                        macro_name = match.group(1)
+                        macro_value = match.group(2).strip()
+
+                        # Strip C-style comments (/**< ... */ or /* ... */)
+                        macro_value = re.sub(r'/\*.*?\*/', '', macro_value).strip()
+
+                        # Strip trailing commas
+                        macro_value = macro_value.rstrip(',')
+
+                        # Strip C cast macros like SDL_UINT64_C(0x...) and extract the value
+                        cast_match = re.match(r'^\w+\((.*)\)$', macro_value)
+                        if cast_match:
+                            macro_value = cast_match.group(1).strip()
+
+                        # Only capture macros with numeric-looking values or simple expressions
+                        # Skip macros that reference other identifiers (which would need evaluation)
+                        if self._is_numeric_macro_value(macro_value):
+                            # Check if this macro matches any of the patterns
+                            for pattern in patterns:
+                                if re.fullmatch(pattern, macro_name):
+                                    macros[macro_name] = macro_value
+                                    break
+        except Exception as e:
+            # If we can't read the file, just skip it
+            pass
+
+        return macros
+
+    def _is_numeric_macro_value(self, value: str) -> bool:
+        """Check if a macro value looks numeric (number, cast, or simple expression)
+
+        Returns True for:
+        - Plain numbers: 0x123, 123, -1
+        - Cast expressions: SDL_UINT64_C(0x123)
+        - Simple arithmetic: (1 << 5)
+
+        Returns False for:
+        - Identifier references: SDL_WINDOW_SOMETHING (would need evaluation)
+        """
+        # If it contains bare uppercase identifiers (not in function calls), skip it
+        # This catches things like "SDL_WINDOW_HIGH_PIXEL_DENSITY" which reference other macros
+        # Pattern: uppercase identifier that's not immediately followed by (
+        if re.match(r'^[A-Z_][A-Z0-9_]+$', value):
+            return False
+
+        # Check if it's a plain number (hex, decimal, negative)
+        if re.match(r'^-?\d+$', value) or re.match(r'^0x[0-9A-Fa-f]+$', value):
+            return True
+
+        # Check if it's a cast/macro call with numeric content: NAME(0x...)
+        if re.match(r'^\w+\(.*\)$', value):
+            return True
+
+        # Check if it contains simple arithmetic operators with numbers
+        if re.match(r'^[\d\sx()|<<>>+\-*/&^~]+$', value):
+            return True
+
+        # Default to False for anything else
+        return False
 
     def _is_system_header(self, file_path: str) -> bool:
         """Check if a file path is a system header that should be excluded"""
@@ -462,6 +546,7 @@ class CSharpBindingsGenerator:
         library_namespaces: Optional[dict[str, str]] = None,
         library_using_statements: Optional[dict[str, list[str]]] = None,
         visibility: str = "public",
+        library_constants: Optional[dict[str, list[tuple[str, str, str]]]] = None,
     ) -> dict[str, str]:
         """Generate C# bindings from C header file(s)
 
@@ -474,6 +559,7 @@ class CSharpBindingsGenerator:
             library_namespaces: Dict mapping library names to custom namespaces
             library_using_statements: Dict mapping library names to lists of using statements
             visibility: Visibility modifier for generated code ("public" or "internal")
+            library_constants: Dict mapping library names to lists of (name, pattern, type) tuples for macro extraction
         """
         # Store visibility setting
         self.visibility = visibility
@@ -489,6 +575,9 @@ class CSharpBindingsGenerator:
 
         # Store library using statements
         self.library_using_statements = library_using_statements or {}
+
+        # Store library constants
+        self.library_constants = library_constants or {}
 
         # Clear previous state
         self._clear_state()
@@ -588,6 +677,25 @@ class CSharpBindingsGenerator:
                 for file_path, depth in sorted(file_depth_map.items(), key=lambda x: x[1]):
                     print(f"  [depth {depth}] {Path(file_path).name}")
 
+            # Extract macros if constants are defined for this library
+            if library_name in self.library_constants:
+                if library_name not in self.captured_macros:
+                    self.captured_macros[library_name] = {}
+
+                # Collect all patterns for this library
+                patterns = []
+                for const_name, const_pattern, const_type in self.library_constants[library_name]:
+                    patterns.append(const_pattern)
+
+                # Extract macros from all files in the depth map
+                for file_path in file_depth_map.keys():
+                    if not self._is_system_header(file_path):
+                        file_macros = self._extract_macros_from_file(file_path, patterns)
+                        self.captured_macros[library_name].update(file_macros)
+
+                if self.captured_macros[library_name]:
+                    print(f"Captured {len(self.captured_macros[library_name])} macro(s) for {library_name}")
+
             # Pre-scan for opaque types before processing functions
             self.prescan_opaque_types(tu.cursor)
 
@@ -622,6 +730,37 @@ class CSharpBindingsGenerator:
 }}
 """
                 self._add_to_library_collection(self.generated_enums, library, code)
+
+        # Generate enums from captured macros
+        for library_name in self.captured_macros:
+            if library_name in self.library_constants:
+                for const_name, const_pattern, const_type in self.library_constants[library_name]:
+                    # Get all macros matching this pattern
+                    matching_macros = {}
+                    for macro_name, macro_value in self.captured_macros[library_name].items():
+                        if re.fullmatch(const_pattern, macro_name):
+                            matching_macros[macro_name] = macro_value
+
+                    if matching_macros:
+                        # Apply rename rules to the enum name and member names
+                        enum_name = self.type_mapper.apply_rename(const_name)
+
+                        # Build enum members with renamed names
+                        members = []
+                        for macro_name, macro_value in sorted(matching_macros.items()):
+                            renamed_member = self.type_mapper.apply_rename(macro_name)
+                            members.append(f"    {renamed_member} = unchecked(({const_type})({macro_value})),")
+
+                        members_str = "\n".join(members)
+
+                        # Generate enum with specified type
+                        type_clause = f" : {const_type}" if const_type != "int" else ""
+                        code = f"""{self.visibility} enum {enum_name}{type_clause}
+{{
+{members_str}
+}}
+"""
+                        self._add_to_library_collection(self.generated_enums, library_name, code)
 
         return self._generate_multi_file_output(output)
 

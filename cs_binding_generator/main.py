@@ -82,6 +82,7 @@ Examples:
             config_library_namespaces,
             config_library_using_statements,
             config_visibility,
+            config_library_constants,
         ) = parse_config_file(args.config)
     except (ValueError, FileNotFoundError) as e:
         print(f"Error reading config file: {e}", file=sys.stderr)
@@ -122,6 +123,7 @@ Examples:
             library_namespaces=config_library_namespaces,
             library_using_statements=config_library_using_statements,
             visibility=config_visibility,
+            library_constants=config_library_constants,
         )
     except Exception as e:
         import traceback
