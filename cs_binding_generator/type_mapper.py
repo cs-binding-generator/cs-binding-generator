@@ -214,7 +214,69 @@ class TypeMapper:
             # Pointer to struct/union with ELABORATED type but no name
             if pointee.kind in (TypeKind.RECORD, TypeKind.ELABORATED):
                 return "nint"
+ 
+            # Function pointer (pointer to function prototype) -> when used as a struct field
+            # libclang represents function pointers as POINTER whose pointee is FUNCTIONPROTO/FUNCTIONNOPROTO
+            # Emit a raw C# function pointer type for struct fields so it can be cast/invoked by consumers.
+            # Use unmanaged Cdecl calling convention as a sensible default for C libraries.
+            if pointee.kind in (TypeKind.FUNCTIONPROTO, TypeKind.FUNCTIONNOPROTO):
+                # Try to build an accurate C# function-pointer signature.
+                # Default to using nint for unknown return/parameter types.
+                try:
+                    # Determine return type
+                    ret_type = None
+                    if hasattr(pointee, "get_result"):
+                        ret = pointee.get_result()
+                        if ret:
+                            mapped_ret = self.map_type(ret, is_return_type=True)
+                            ret_type = mapped_ret or "nint"
+                    elif hasattr(pointee, "result_type"):
+                        # Some mocks or libclang variants expose result_type
+                        ret = getattr(pointee, "result_type")
+                        mapped_ret = self.map_type(ret, is_return_type=True) if ret else None
+                        ret_type = mapped_ret or "nint"
+                    else:
+                        ret_type = "nint"
 
+                    # Determine parameter types
+                    param_types: list[str] = []
+                    # libclang Type may expose an argument iterator via 'argument_types' or 'get_arguments'
+                    if hasattr(pointee, "argument_types") and callable(pointee.argument_types):
+                        try:
+                            for a in pointee.argument_types():
+                                mapped = self.map_type(a, is_return_type=False)
+                                param_types.append(mapped or "nint")
+                        except Exception:
+                            param_types = []
+                    elif hasattr(pointee, "get_arg_types") and callable(pointee.get_arg_types):
+                        try:
+                            for a in pointee.get_arg_types():
+                                mapped = self.map_type(a, is_return_type=False)
+                                param_types.append(mapped or "nint")
+                        except Exception:
+                            param_types = []
+                    elif hasattr(pointee, "arg_types"):
+                        try:
+                            for a in getattr(pointee, "arg_types"):
+                                mapped = self.map_type(a, is_return_type=False)
+                                param_types.append(mapped or "nint")
+                        except Exception:
+                            param_types = []
+
+                    # Filter out 'void' parameters which indicate no parameters
+                    param_types = [p for p in param_types if p and p != "void"]
+
+                    # Fallback when we couldn't discover parameters
+                    if not param_types:
+                        # Emit signature with just the return type (no parameters)
+                        sig = f"delegate* unmanaged[Cdecl]<{ret_type}>"
+                    else:
+                        # C# function-pointer generic list expects parameter types first, return type last
+                        sig = f"delegate* unmanaged[Cdecl]<{', '.join(param_types + [ret_type])}>"
+
+                    return sig
+                except Exception:
+                    return "delegate* unmanaged[Cdecl]<nint>"
             # Other pointers -> nint for safety
             return "nint"
 

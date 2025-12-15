@@ -85,6 +85,32 @@ class TestTypeMapperComplexTypes:
         result = self.type_mapper.map_type(mock_type)
         
         assert "Opaque*" in result
+
+    def test_struct_function_pointer_field(self):
+        """Struct field that is a function pointer should map to a function-pointer type"""
+        mock_cursor = Mock()
+        mock_cursor.spelling = "CallbackHolder"
+        mock_cursor.kind = CursorKind.STRUCT_DECL
+
+        # Field is a function pointer: int (*callback)(int)
+        mock_field = Mock()
+        mock_field.kind = CursorKind.FIELD_DECL
+        mock_field.spelling = "callback"
+        # Represented as POINTER whose pointee is FUNCTIONPROTO
+        mock_field.type = MockType(spelling="int (*)(int)", kind=TypeKind.POINTER)
+        mock_pointee = MockType(spelling="int (int)", kind=TypeKind.FUNCTIONPROTO)
+        mock_field.type.get_pointee.return_value = mock_pointee
+        mock_field.get_field_offsetof.return_value = 0
+
+        mock_cursor.get_children.return_value = [mock_field]
+
+        # Instantiate generator used in other tests
+        self.generator = CodeGenerator(self.type_mapper)
+
+        result = self.generator.generate_struct(mock_cursor)
+
+        assert "CallbackHolder" in result
+        assert "delegate* unmanaged[Cdecl]" in result
     
     def test_enum_type_mapping(self):
         """Test enum type mapping"""
