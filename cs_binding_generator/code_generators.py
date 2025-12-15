@@ -45,12 +45,14 @@ class CodeGenerator:
         if cursor.type.kind == TypeKind.FUNCTIONPROTO:
             is_variadic = cursor.type.is_function_variadic()
 
-        # Skip variadic functions if skip_variadic flag is set
-        if is_variadic and self.skip_variadic:
-            return ""
+        # If skip_variadic is set, we should NOT skip the function entirely;
+        # instead drop only the variadic argument and generate the function as
+        # a normal (non-variadic) LibraryImport. Also do not mark
+        # has_variadic_functions in this case so assembly attribute remains usable.
+        is_variadic_for_generation = is_variadic and (not self.skip_variadic)
 
         # Track that we have variadic functions (for DisableRuntimeMarshalling)
-        if is_variadic:
+        if is_variadic and not self.skip_variadic:
             self.has_variadic_functions = True
 
         # Build parameter list with marshalling attributes
@@ -76,8 +78,8 @@ class CodeGenerator:
             else:
                 params.append(f"{arg_type} {arg_name}")
 
-        # Add __arglist for variadic functions
-        if is_variadic:
+        # Add __arglist for variadic functions (only when we're generating the variadic form)
+        if is_variadic_for_generation:
             params.append("__arglist")
 
         params_str = ", ".join(params) if params else ""
@@ -88,8 +90,9 @@ class CodeGenerator:
             return_marshal = "    [return: MarshalAs(UnmanagedType.I1)]\n"
 
         # Generate DllImport for variadic functions (LibraryImport doesn't support __arglist)
-        # Use LibraryImport for non-variadic functions
-        if is_variadic:
+        # Use LibraryImport for non-variadic functions. When skip_variadic is set,
+        # is_variadic_for_generation will be False and we'll generate a normal LibraryImport.
+        if is_variadic_for_generation:
             code = f"""    [DllImport("{library_name}", EntryPoint = "{original_func_name}", CallingConvention = CallingConvention.Cdecl)]
 {return_marshal}    {self.visibility} static extern {result_type} {func_name}({params_str});
 """

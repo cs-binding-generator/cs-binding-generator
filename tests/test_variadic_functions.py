@@ -137,8 +137,13 @@ class TestVariadicFunctions:
 
         result = skip_generator.generate_function(mock_cursor, "testlib")
 
-        # Should return empty string (skipped)
-        assert result == ""
+        # With the new behavior, skip_variadic drops the variadic arguments but
+        # still generates the function as a normal (non-variadic) LibraryImport.
+        assert result != ""
+        assert "printf_like" in result
+        assert "__arglist" not in result
+        assert "LibraryImport" in result
+        assert "partial" in result
 
     def test_skip_variadic_flag_does_not_skip_regular_functions(self):
         """Test that skip_variadic flag doesn't affect non-variadic functions"""
@@ -306,8 +311,10 @@ int regular_function(int x);
         assert test_cs.exists()
         content = test_cs.read_text()
 
-        # Should NOT have the variadic function
-        assert "my_printf" not in content
+        # With the new behavior, skip_variadic drops the variadic args but
+        # the function is still generated as a normal LibraryImport without __arglist.
+        assert "my_printf" in content
+        assert "__arglist" not in content
 
         # Should still have the regular function
         assert "regular_function" in content
@@ -416,10 +423,12 @@ int regular_function(int x);
         # Should have DisableRuntimeMarshalling assembly attribute (because variadic was skipped)
         assert "[assembly: System.Runtime.CompilerServices.DisableRuntimeMarshalling]" in bindings_content
 
-        # Should NOT have the variadic function in test.cs
+        # Under the new behavior, the variadic function is still generated
+        # but without varargs; verify it is present and lacks __arglist.
         test_cs = temp_dir / "test.cs"
         test_content = test_cs.read_text()
-        assert "my_printf" not in test_content
+        assert "my_printf" in test_content
+        assert "__arglist" not in test_content
 
         # Should still have the regular function
         assert "regular_function" in test_content

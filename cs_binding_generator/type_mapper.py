@@ -99,7 +99,12 @@ class TypeMapper:
         # These appear as __va_list_tag or __builtin_va_list and cannot be mapped to C#
         if hasattr(ctype, "spelling"):
             type_spelling = ctype.spelling
-            if type_spelling and ("__va_list" in type_spelling or type_spelling == "va_list"):
+            # Defensive: ensure we treat non-string spellings safely (mocks may provide Mock)
+            try:
+                type_spelling_str = str(type_spelling) if type_spelling is not None else ""
+            except Exception:
+                type_spelling_str = ""
+            if type_spelling_str and ("__va_list" in type_spelling_str or type_spelling_str == "va_list"):
                 return None  # Signal that this type cannot be mapped
 
         # Handle constant arrays - these need special syntax in C#
