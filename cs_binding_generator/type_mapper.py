@@ -51,9 +51,9 @@ class TypeMapper:
             # Get the canonical type to resolve through typedefs
             canonical = underlying.get_canonical()
 
-            # If canonical is a primitive type, map it
+            # If canonical is a primitive type, map it (use size-aware mapping)
             if canonical.kind in self.type_map:
-                return str(self.type_map[canonical.kind])
+                return self._map_primitive_kind(canonical.kind, canonical)
 
             # If it's a struct/union, get the name from canonical
             if canonical.kind == TypeKind.RECORD:
@@ -218,9 +218,9 @@ class TypeMapper:
             # Other pointers -> nint for safety
             return "nint"
 
-        # Basic types
+        # Basic types (use size-aware mapping for some kinds)
         if ctype.kind in self.type_map:
-            return str(self.type_map[ctype.kind])
+            return self._map_primitive_kind(ctype.kind, ctype)
 
         # Handle elaborated types (e.g., 'struct Foo' vs 'Foo')
         if ctype.kind == TypeKind.ELABORATED:
@@ -389,3 +389,29 @@ class TypeMapper:
     def get_all_removals(self) -> list[tuple[str, bool]]:
         """Get all removal patterns as list of tuples"""
         return list(self.removals)
+
+    def _map_primitive_kind(self, kind, ctype) -> str:
+        """Map primitive TypeKind to C# type, considering platform-sized types like long/unsigned long
+
+        `ctype` may provide size information via `get_size()` which returns size in bytes when available.
+        Use that to decide whether C `long` maps to C# `int` (32-bit) or `long` (64-bit).
+        """
+        from clang.cindex import TypeKind
+
+        # Handle long/unsigned long specially based on size
+        if kind == TypeKind.LONG:
+            try:
+                size = ctype.get_size()
+                # If size is 8 bytes, map to C# long, otherwise map to int
+                return "long" if size == 8 else "int"
+            except Exception:
+                return "int"
+        if kind == TypeKind.ULONG:
+            try:
+                size = ctype.get_size()
+                return "ulong" if size == 8 else "uint"
+            except Exception:
+                return "uint"
+
+        # Default mapping from the constants table
+        return str(self.type_map.get(kind, "nint"))

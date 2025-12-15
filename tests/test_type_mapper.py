@@ -187,3 +187,30 @@ class TestTypeMapper:
         mock_type.spelling = ""
         result = self.mapper.map_type(mock_type)
         assert result == "nint"
+
+    def test_size_aware_primitive_mapping(self):
+        """Test mapping for primitives that depend on size (long/ulong, float/double)"""
+        from unittest.mock import Mock
+        from clang.cindex import TypeKind
+
+        # Helper to create a mock type with given kind and size
+        def mk(kind, size_bytes):
+            m = Mock()
+            m.kind = kind
+            m.spelling = ""
+            m.get_size.return_value = size_bytes
+            return m
+
+        # long with 8 bytes -> maps to C# long
+        assert self.mapper.map_type(mk(TypeKind.LONG, 8)) == "long"
+        # long with 4 bytes -> maps to C# int
+        assert self.mapper.map_type(mk(TypeKind.LONG, 4)) == "int"
+
+        # unsigned long with 8 bytes -> maps to C# ulong
+        assert self.mapper.map_type(mk(TypeKind.ULONG, 8)) == "ulong"
+        # unsigned long with 4 bytes -> maps to C# uint
+        assert self.mapper.map_type(mk(TypeKind.ULONG, 4)) == "uint"
+
+        # floats/doubles should map regardless of size reported (float->float, double->double)
+        assert self.mapper.map_type(mk(TypeKind.FLOAT, 4)) == "float"
+        assert self.mapper.map_type(mk(TypeKind.DOUBLE, 8)) == "double"
