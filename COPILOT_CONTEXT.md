@@ -436,4 +436,19 @@ python -m pytest tests/ -v
 
 ---
 
+### 2025-12-25: Generate underlying opaque struct names for typedefs - FIXED
+
+- **Problem**: When headers use the common C pattern `typedef struct _Name Name;`, the generator sometimes emitted only the typedef alias (`Name`) while other parts of the generated code referenced the underlying struct spelling (`_Name`). This caused undefined type references like `_XDisplay` missing from generated bindings.
+
+- **Fix**: Updated `cs_binding_generator/generator.py` to also emit an opaque struct for the underlying struct name when encountering opaque typedefs. For example, `typedef struct _XDisplay Display;` now results in both `partial struct Display` and `partial struct _XDisplay` being generated and both names registered as opaque types.
+
+- **Files changed**:
+   - `cs_binding_generator/generator.py`: Emit underlying struct name and register it in `TypeMapper.opaque_types` when handling opaque typedefs.
+   - `tests/test_opaque_typedef_underlying.py`: New unit test that verifies both alias and underlying struct are emitted.
+
+- **Why this change**: This is a minimal, generic, and low-risk fix that covers the common pattern used in many C headers and prevents missing-type references in generated output without overhauling the type-resolution logic.
+
+- **Testing**: Added a unit test and ran the full test suite. Result: **177 passed** locally after the change.
+
+
 **Remember**: Always update this file when you learn something new about the project!

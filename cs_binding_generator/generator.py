@@ -377,6 +377,28 @@ class CSharpBindingsGenerator:
                                 self.seen_structs.add((type_name, None, None))
                                 # Register as opaque type for pointer handling
                                 self.type_mapper.opaque_types.add(type_name)
+                                # Also generate an opaque type for the underlying struct name
+                                # e.g. when typedef struct _XDisplay Display; we also want _XDisplay
+                                try:
+                                    underlying_spelling = str(child.type.spelling)
+                                except Exception:
+                                    underlying_spelling = None
+                                if underlying_spelling:
+                                    # strip 'struct ' prefix if present
+                                    u_name = underlying_spelling
+                                    for prefix in ["const ", "volatile ", "struct ", "union ", "class "]:
+                                        if u_name.startswith(prefix):
+                                            u_name = u_name[len(prefix) :]
+                                            break
+                                    if u_name and u_name != type_name:
+                                        u_struct_key = (u_name, str(cursor.location.file), cursor.location.line)
+                                        if u_struct_key not in self.seen_structs:
+                                            u_code = self.code_generator.generate_opaque_type(u_name)
+                                            if u_code:
+                                                self._add_to_library_collection(self.generated_structs, self.current_library, u_code)
+                                                self.seen_structs.add(u_struct_key)
+                                                self.seen_structs.add((u_name, None, None))
+                                                self.type_mapper.opaque_types.add(u_name)
                 elif child.kind == CursorKind.STRUCT_DECL and not child.is_definition() and child.spelling:
                     # Direct forward declaration
                     struct_key = (child.spelling, str(cursor.location.file), cursor.location.line)
