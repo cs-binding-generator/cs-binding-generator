@@ -120,6 +120,26 @@ class TypeMapper:
             # For now, return None to skip these
             return None
 
+        # Handle incomplete arrays (e.g., const char* const items[])
+        # These appear as function parameters and should be treated as pointers
+        if ctype.kind == TypeKind.INCOMPLETEARRAY:
+            element_type = ctype.get_array_element_type()
+            # Map the element type
+            element_mapped = self.map_type(element_type, is_return_type=False, is_struct_field=False)
+            if element_mapped is None:
+                return None
+            # Incomplete array of pointers becomes pointer-to-pointer
+            # e.g., const char*[] -> nuint* or byte**
+            if element_type.kind == TypeKind.POINTER:
+                # For char* arrays, use nuint (not byte**)
+                pointee = element_type.get_pointee()
+                if pointee.kind in (TypeKind.CHAR_S, TypeKind.CHAR_U):
+                    return "nuint"
+                # For other pointer arrays, return pointer to the mapped element type
+                return f"{element_mapped}*"
+            # For non-pointer element types, return pointer to the element type
+            return f"{element_mapped}*"
+
         # Handle pointers
         if ctype.kind == TypeKind.POINTER:
             pointee = ctype.get_pointee()

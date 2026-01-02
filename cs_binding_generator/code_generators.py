@@ -187,11 +187,16 @@ class CodeGenerator:
         # Add helper function for struct return types (skip for variadic functions)
         if is_struct_return and not is_variadic:
             # Build parameters for helper (same as original)
+            # Escape parameter names for the function call
+            param_names = [self._escape_keyword(arg.spelling) if arg.spelling else f"param{i}" 
+                          for i, arg in enumerate(cursor.get_arguments())]
+            params_call_str = ", ".join(param_names) if param_names else ""
+            
             code += f"""
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     {self.visibility} static unsafe {struct_return_type} {func_name}Struct({params_str})
     {{
-        var ptr = {func_name}({", ".join(arg.spelling or f"param{i}" for i, arg in enumerate(cursor.get_arguments())) if cursor.get_arguments() else ""});
+        var ptr = {func_name}({params_call_str});
         return Marshal.PtrToStructure<{struct_return_type}>((nint)ptr);
     }}
 """
