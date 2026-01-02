@@ -237,10 +237,69 @@ class CodeGenerator:
         # Collect fields with their offsets
         fields = []
         for field in cursor.get_children():
+            # Handle anonymous unions/structs by flattening their members into the parent struct
+            if field.kind == CursorKind.UNION_DECL and field.spelling and "anonymous" in field.spelling.lower() and field.is_definition():
+                # This is an anonymous union - flatten its members into the struct
+                for union_member in field.get_children():
+                    if union_member.kind == CursorKind.FIELD_DECL:
+                        member_name = union_member.spelling
+                        if not member_name:
+                            continue
+                        
+                        # Escape C# keywords
+                        member_name = self._escape_keyword(member_name)
+                        
+                        # Get the offset using parent struct's type.get_offset()
+                        # This gives us the actual offset in the parent struct, not relative to the union
+                        try:
+                            offset_bits = cursor.type.get_offset(union_member.spelling)
+                            offset_bytes = offset_bits // 8
+                        except Exception:
+                            # Fallback to field offset (will be wrong for anonymous unions)
+                            offset_bits = union_member.get_field_offsetof()
+                            offset_bytes = offset_bits // 8
+                        
+                        # Map the type
+                        member_type = self.type_mapper.map_type(union_member.type, is_struct_field=True)
+                        if not member_type or "unnamed" in member_type or "::" in member_type:
+                            continue
+                        
+                        fields.append(f"    [FieldOffset({offset_bytes})]\n    {self.visibility} {member_type} {member_name};")
+                continue
+            
+            # Handle anonymous structs by flattening their members
+            if field.kind == CursorKind.STRUCT_DECL and field.spelling and "anonymous" in field.spelling.lower() and field.is_definition():
+                # This is an anonymous struct - flatten its members into the parent struct
+                for struct_member in field.get_children():
+                    if struct_member.kind == CursorKind.FIELD_DECL:
+                        member_name = struct_member.spelling
+                        if not member_name:
+                            continue
+                        
+                        # Escape C# keywords
+                        member_name = self._escape_keyword(member_name)
+                        
+                        # Get the offset using parent struct's type.get_offset()
+                        try:
+                            offset_bits = cursor.type.get_offset(struct_member.spelling)
+                            offset_bytes = offset_bits // 8
+                        except Exception:
+                            # Fallback to field offset
+                            offset_bits = struct_member.get_field_offsetof()
+                            offset_bytes = offset_bits // 8
+                        
+                        # Map the type
+                        member_type = self.type_mapper.map_type(struct_member.type, is_struct_field=True)
+                        if not member_type or "unnamed" in member_type or "::" in member_type:
+                            continue
+                        
+                        fields.append(f"    [FieldOffset({offset_bytes})]\n    {self.visibility} {member_type} {member_name};")
+                continue
+            
             if field.kind == CursorKind.FIELD_DECL:
                 field_name = field.spelling
 
-                # Skip unnamed fields (anonymous unions/structs)
+                # Skip unnamed fields (anonymous unions/structs without definitions are already handled above)
                 if not field_name:
                     continue
 

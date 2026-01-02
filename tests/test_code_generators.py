@@ -139,6 +139,8 @@ class TestCodeGenerator:
         
         assert result == ""
     
+
+    
     def test_generate_union_simple(self):
         """Test generating a simple union"""
         mock_cursor = Mock()

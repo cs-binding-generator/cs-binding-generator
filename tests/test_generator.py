@@ -800,3 +800,72 @@ class TestGeneratorInternals:
         assert "public enum GpuShaderFormat : uint" in testlib_content
         assert "SDL_GPU_SHADERFORMAT_PRIVATE = unchecked((uint)((1u << 0)))," in testlib_content
         assert "SDL_GPU_SHADERFORMAT_EXAMPLE = unchecked((uint)((1u << 3)))," in testlib_content
+    def test_struct_with_anonymous_union(self, tmp_path):
+        """Test that structs with anonymous unions flatten the union members into the struct"""
+        header = tmp_path / "test.h"
+        header.write_text("""
+            typedef unsigned int ImGuiID;
+            
+            struct ImGuiStoragePair {
+                ImGuiID key;
+                union { int val_i; float val_f; void* val_p; };
+            };
+        """)
+
+        generator = CSharpBindingsGenerator()
+        result = generator.generate(
+            [(str(header), "testlib")],
+            output=str(tmp_path)
+        )
+
+        testlib_content = result["testlib.cs"]
+
+        # Verify the struct was generated
+        assert "public unsafe partial struct ImGuiStoragePair" in testlib_content
+        
+        # Verify the first field is present
+        assert "public uint key;" in testlib_content
+        
+        # Verify anonymous union members are flattened into the struct
+        assert "public int val_i;" in testlib_content
+        assert "public float val_f;" in testlib_content
+        assert "public nint val_p;" in testlib_content
+        
+        # Verify anonymous union is NOT generated as a separate struct
+        assert "anonymous" not in testlib_content.lower()
+        
+        # Verify all union members share the same offset (4 bytes after key)
+        lines = testlib_content.split('\n')
+        struct_start = None
+        for i, line in enumerate(lines):
+            if "struct ImGuiStoragePair" in line:
+                struct_start = i
+                break
+        
+        assert struct_start is not None
+        
+        # Find the union member offsets
+        val_i_offset = None
+        val_f_offset = None
+        val_p_offset = None
+        
+        for i in range(struct_start, min(struct_start + 20, len(lines))):
+            if "val_i" in lines[i]:
+                # Look for FieldOffset in previous line
+                if i > 0 and "FieldOffset" in lines[i-1]:
+                    val_i_offset = lines[i-1]
+            if "val_f" in lines[i]:
+                if i > 0 and "FieldOffset" in lines[i-1]:
+                    val_f_offset = lines[i-1]
+            if "val_p" in lines[i]:
+                if i > 0 and "FieldOffset" in lines[i-1]:
+                    val_p_offset = lines[i-1]
+        
+        # All three should have the same offset
+        assert val_i_offset is not None
+        assert val_f_offset is not None
+        assert val_p_offset is not None
+        assert val_i_offset == val_f_offset == val_p_offset
+        
+        # Verify the offset is 8 bytes (due to alignment - uint is 4 bytes, but union is aligned to 8)
+        assert "[FieldOffset(8)]" in val_i_offset

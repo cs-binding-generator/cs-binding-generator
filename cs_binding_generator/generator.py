@@ -265,6 +265,9 @@ class CSharpBindingsGenerator:
 
         elif cursor.kind == CursorKind.STRUCT_DECL:
             if cursor.is_definition():
+                # Skip anonymous structs - they are handled inline by their parent struct
+                if cursor.spelling and "anonymous" in cursor.spelling.lower():
+                    return
                 # Only generate code for non-system headers
                 if cursor.location.file:
                     file_path = str(Path(cursor.location.file.name).resolve())
@@ -292,6 +295,9 @@ class CSharpBindingsGenerator:
 
         elif cursor.kind == CursorKind.UNION_DECL:
             if cursor.is_definition():
+                # Skip anonymous unions - they are handled inline by their parent struct
+                if cursor.spelling and "anonymous" in cursor.spelling.lower():
+                    return
                 # Only generate code for non-system headers
                 if cursor.location.file:
                     file_path = str(Path(cursor.location.file.name).resolve())
