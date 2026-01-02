@@ -869,3 +869,44 @@ class TestGeneratorInternals:
         
         # Verify the offset is 8 bytes (due to alignment - uint is 4 bytes, but union is aligned to 8)
         assert "[FieldOffset(8)]" in val_i_offset
+
+
+def test_struct_with_bool_array(temp_header_file, tmp_path):
+    """Test that bool arrays in structs are mapped to byte arrays to ensure unmanaged structs"""
+    header_content = """
+    #include <stdbool.h>
+    
+    typedef struct TestBoolArray {
+        int id;
+        bool flags[5];
+        float value;
+    } TestBoolArray;
+    
+    // Function taking pointer to struct - would cause CS8500 if struct is managed
+    void processBoolArray(TestBoolArray* data);
+    """
+    Path(temp_header_file).write_text(header_content)
+
+    output_dir = tmp_path / "output"
+    generator = CSharpBindingsGenerator()
+    result = generator.generate([(temp_header_file, "test")], output=str(output_dir))
+    
+    assert isinstance(result, dict)
+    assert "test.cs" in result
+    output = result["test.cs"]
+
+    # Verify struct was generated
+    assert "struct TestBoolArray" in output
+
+    # Verify bool array was converted to byte array (not bool array)
+    assert "fixed byte flags[5]" in output
+    assert "fixed bool" not in output
+
+    # Verify the struct has proper field offsets
+    assert "[FieldOffset(0)]" in output  # id at offset 0
+    assert "[FieldOffset(4)]" in output  # flags at offset 4 (after int)
+    assert "[FieldOffset(12)]" in output  # value at offset 12 (after 5 bytes of flags + 3 bytes padding for alignment)
+
+    # Verify function was generated with pointer parameter
+    assert "TestBoolArray*" in output
+    assert "processBoolArray" in output

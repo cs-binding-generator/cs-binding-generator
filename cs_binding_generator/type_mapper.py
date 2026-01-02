@@ -307,7 +307,7 @@ class TypeMapper:
 
         # Basic types (use size-aware mapping for some kinds)
         if ctype.kind in self.type_map:
-            return self._map_primitive_kind(ctype.kind, ctype)
+            return self._map_primitive_kind(ctype.kind, ctype, is_struct_field)
 
         # Handle elaborated types (e.g., 'struct Foo' vs 'Foo')
         if ctype.kind == TypeKind.ELABORATED:
@@ -477,13 +477,19 @@ class TypeMapper:
         """Get all removal patterns as list of tuples"""
         return list(self.removals)
 
-    def _map_primitive_kind(self, kind, ctype) -> str:
+    def _map_primitive_kind(self, kind, ctype, is_struct_field: bool = False) -> str:
         """Map primitive TypeKind to C# type, considering platform-sized types like long/unsigned long
 
         `ctype` may provide size information via `get_size()` which returns size in bytes when available.
         Use that to decide whether C `long` maps to C# `int` (32-bit) or `long` (64-bit).
+        
+        For struct fields, `bool` is mapped to `byte` to avoid managed type issues in unmanaged structs.
         """
         from clang.cindex import TypeKind
+
+        # Map bool to byte in struct fields to ensure unmanaged structs
+        if kind == TypeKind.BOOL and is_struct_field:
+            return "byte"
 
         # Handle long/unsigned long specially based on size
         if kind == TypeKind.LONG:

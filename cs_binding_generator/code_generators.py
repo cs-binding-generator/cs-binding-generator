@@ -319,7 +319,7 @@ class CodeGenerator:
                 if field.type.kind == TypeKind.CONSTANTARRAY:
                     element_type = field.type.get_array_element_type()
                     array_size = field.type.get_array_size()
-                    element_csharp = self.type_mapper.map_type(element_type)
+                    element_csharp = self.type_mapper.map_type(element_type, is_struct_field=True)
 
                     # Skip if element type cannot be mapped
                     if not element_csharp:
@@ -329,6 +329,7 @@ class CodeGenerator:
                     element_size = element_type.get_size()  # size in bytes
 
                     # Check if element type is a primitive type (can use fixed keyword)
+                    # Note: bool is excluded because fixed bool arrays make structs managed
                     primitive_types = {
                         "byte",
                         "sbyte",
@@ -340,7 +341,6 @@ class CodeGenerator:
                         "ulong",
                         "float",
                         "double",
-                        "bool",
                         "char",
                     }
 
@@ -419,7 +419,7 @@ class CodeGenerator:
                 if field.type.kind == TypeKind.CONSTANTARRAY:
                     element_type = field.type.get_array_element_type()
                     array_size = field.type.get_array_size()
-                    element_csharp = self.type_mapper.map_type(element_type)
+                    element_csharp = self.type_mapper.map_type(element_type, is_struct_field=True)
 
                     # Skip if element type cannot be mapped
                     if not element_csharp:
@@ -429,6 +429,7 @@ class CodeGenerator:
                     element_size = element_type.get_size()
 
                     # Check if element type is a primitive type (can use fixed keyword)
+                    # Note: bool is excluded because fixed bool arrays make structs managed
                     primitive_types = {
                         "byte",
                         "sbyte",
@@ -440,7 +441,6 @@ class CodeGenerator:
                         "ulong",
                         "float",
                         "double",
-                        "bool",
                         "char",
                     }
 
