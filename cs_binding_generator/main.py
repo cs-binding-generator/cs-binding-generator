@@ -14,7 +14,7 @@ import clang.cindex
 if __name__ == "__main__" and __package__ is None:
     sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from cs_binding_generator.config import parse_config_file, BindingConfig
+from cs_binding_generator.config import parse_config_file
 from cs_binding_generator.generator import CSharpBindingsGenerator
 from cs_binding_generator import __version__
 
