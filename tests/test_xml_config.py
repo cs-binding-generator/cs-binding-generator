@@ -7,7 +7,7 @@ import tempfile
 from pathlib import Path
 import xml.etree.ElementTree as ET
 
-from cs_binding_generator.config import parse_config_file
+from cs_binding_generator.config import parse_config_file, BindingConfig
 
 
 class TestXMLConfigParsing:
@@ -26,13 +26,13 @@ class TestXMLConfigParsing:
         config_file = temp_dir / "config.xml"
         config_file.write_text(config_content)
 
-        pairs, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements, visibility, global_constants, global_defines = parse_config_file(str(config_file))
+        config = parse_config_file(str(config_file))
 
-        assert len(pairs) == 1
-        assert pairs[0] == ("/path/to/test.h", "testlib")
-        assert library_namespaces == {"testlib": "TestNamespace"}
-        assert include_dirs == []
-        assert visibility == "public"  # Default visibility
+        assert len(config.header_library_pairs) == 1
+        assert config.header_library_pairs[0] == ("/path/to/test.h", "testlib")
+        assert config.library_namespaces == {"testlib": "TestNamespace"}
+        assert config.include_dirs == []
+        assert config.visibility == "public"  # Default visibility
     
     def test_parse_multiple_libraries(self, temp_dir):
         """Test parsing config with multiple libraries"""
@@ -51,15 +51,15 @@ class TestXMLConfigParsing:
         config_file = temp_dir / "config.xml"
         config_file.write_text(config_content)
         
-        pairs, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements, visibility, global_constants, global_defines = parse_config_file(str(config_file))
+        config = parse_config_file(str(config_file))
         
-        assert len(pairs) == 3
-        assert pairs[0] == ("/path/to/lib1.h", "lib1")
-        assert pairs[1] == ("/path/to/lib2a.h", "lib2")
-        assert pairs[2] == ("/path/to/lib2b.h", "lib2")
+        assert len(config.header_library_pairs) == 3
+        assert config.header_library_pairs[0] == ("/path/to/lib1.h", "lib1")
+        assert config.header_library_pairs[1] == ("/path/to/lib2a.h", "lib2")
+        assert config.header_library_pairs[2] == ("/path/to/lib2b.h", "lib2")
         # Should have namespaces for both libraries
-        assert library_namespaces == {"lib1": "Lib1Namespace", "lib2": "Lib2Namespace"}
-        assert include_dirs == []
+        assert config.library_namespaces == {"lib1": "Lib1Namespace", "lib2": "Lib2Namespace"}
+        assert config.include_dirs == []
     
     def test_parse_config_without_namespace(self, temp_dir):
         """Test parsing config without namespace specification"""
@@ -74,12 +74,12 @@ class TestXMLConfigParsing:
         config_file = temp_dir / "config.xml"
         config_file.write_text(config_content)
         
-        pairs, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements, visibility, global_constants, global_defines = parse_config_file(str(config_file))
+        config = parse_config_file(str(config_file))
         
-        assert len(pairs) == 1
-        assert pairs[0] == ("/path/to/test.h", "testlib")
-        assert library_namespaces == {}
-        assert include_dirs == []
+        assert len(config.header_library_pairs) == 1
+        assert config.header_library_pairs[0] == ("/path/to/test.h", "testlib")
+        assert config.library_namespaces == {}
+        assert config.include_dirs == []
     
     def test_parse_config_with_class_attributes(self, temp_dir):
         """Test parsing config with custom class names"""
@@ -100,15 +100,15 @@ class TestXMLConfigParsing:
         config_file = temp_dir / "config.xml"
         config_file.write_text(config_content)
         
-        pairs, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements, visibility, global_constants, global_defines = parse_config_file(str(config_file))
+        config = parse_config_file(str(config_file))
         
-        assert len(pairs) == 3
-        assert pairs[0] == ("/path/to/lib1.h", "lib1")
-        assert pairs[1] == ("/path/to/lib2.h", "lib2")
-        assert pairs[2] == ("/path/to/lib3.h", "lib3")
-        assert library_namespaces == {"lib1": "TestNamespace"}
-        assert include_dirs == []
-        assert library_class_names == {"lib1": "CustomLib1", "lib2": "CustomLib2", "lib3": "NativeMethods"}
+        assert len(config.header_library_pairs) == 3
+        assert config.header_library_pairs[0] == ("/path/to/lib1.h", "lib1")
+        assert config.header_library_pairs[1] == ("/path/to/lib2.h", "lib2")
+        assert config.header_library_pairs[2] == ("/path/to/lib3.h", "lib3")
+        assert config.library_namespaces == {"lib1": "TestNamespace"}
+        assert config.include_dirs == []
+        assert config.library_class_names == {"lib1": "CustomLib1", "lib2": "CustomLib2", "lib3": "NativeMethods"}
     
     def test_parse_config_missing_library_name(self, temp_dir):
         """Test parsing config with missing library name attribute"""
@@ -194,13 +194,13 @@ class TestXMLConfigParsing:
         config_file = temp_dir / "cs-bindings.xml"
         config_file.write_text(config_content)
         
-        pairs, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements, visibility, global_constants, global_defines = parse_config_file(str(config_file))
+        config = parse_config_file(str(config_file))
         
-        assert len(pairs) == 2
-        assert pairs[0] == ("/usr/include/libtcod/libtcod.h", "libtcod")
-        assert pairs[1] == ("/usr/include/SDL3/SDL.h", "SDL3")
-        assert library_namespaces == {"libtcod": "Libtcod", "SDL3": "SDL3"}
-        assert include_dirs == []
+        assert len(config.header_library_pairs) == 2
+        assert config.header_library_pairs[0] == ("/usr/include/libtcod/libtcod.h", "libtcod")
+        assert config.header_library_pairs[1] == ("/usr/include/SDL3/SDL.h", "SDL3")
+        assert config.library_namespaces == {"libtcod": "Libtcod", "SDL3": "SDL3"}
+        assert config.include_dirs == []
     
     def test_config_with_whitespace_handling(self, temp_dir):
         """Test that whitespace in config values is properly handled"""
@@ -215,12 +215,12 @@ class TestXMLConfigParsing:
         config_file = temp_dir / "config.xml"
         config_file.write_text(config_content)
         
-        pairs, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements, visibility, global_constants, global_defines = parse_config_file(str(config_file))
+        config = parse_config_file(str(config_file))
         
-        assert len(pairs) == 1
-        assert pairs[0] == ("/path/to/test.h", "testlib")  # Should be stripped
-        assert library_namespaces == {"testlib": "TestNamespace"}  # Namespace stripped in new impl
-        assert include_dirs == []
+        assert len(config.header_library_pairs) == 1
+        assert config.header_library_pairs[0] == ("/path/to/test.h", "testlib")  # Should be stripped
+        assert config.library_namespaces == {"testlib": "TestNamespace"}  # Namespace stripped in new impl
+        assert config.include_dirs == []
     
     def test_config_with_global_include_directories(self, temp_dir):
         """Test parsing config with global include directories"""
@@ -237,12 +237,12 @@ class TestXMLConfigParsing:
         config_file = temp_dir / "config.xml"
         config_file.write_text(config_content)
         
-        pairs, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements, visibility, global_constants, global_defines = parse_config_file(str(config_file))
+        config = parse_config_file(str(config_file))
         
-        assert len(pairs) == 1
-        assert pairs[0] == ("/path/to/test.h", "testlib")
-        assert library_namespaces == {"testlib": "TestNamespace"}
-        assert include_dirs == ["/usr/include", "/usr/local/include"]
+        assert len(config.header_library_pairs) == 1
+        assert config.header_library_pairs[0] == ("/path/to/test.h", "testlib")
+        assert config.library_namespaces == {"testlib": "TestNamespace"}
+        assert config.include_dirs == ["/usr/include", "/usr/local/include"]
     
     def test_config_with_library_specific_include_directories(self, temp_dir):
         """Test parsing config with library-specific include directories"""
@@ -263,13 +263,13 @@ class TestXMLConfigParsing:
         config_file = temp_dir / "config.xml"
         config_file.write_text(config_content)
         
-        pairs, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements, visibility, global_constants, global_defines = parse_config_file(str(config_file))
+        config = parse_config_file(str(config_file))
         
-        assert len(pairs) == 2
-        assert pairs[0] == ("/path/to/lib1.h", "lib1")
-        assert pairs[1] == ("/path/to/lib2.h", "lib2")
-        assert library_namespaces == {"lib1": "Lib1Namespace"}
-        assert set(include_dirs) == {"/usr/include", "/usr/include/lib1", "/usr/include/lib2"}
+        assert len(config.header_library_pairs) == 2
+        assert config.header_library_pairs[0] == ("/path/to/lib1.h", "lib1")
+        assert config.header_library_pairs[1] == ("/path/to/lib2.h", "lib2")
+        assert config.library_namespaces == {"lib1": "Lib1Namespace"}
+        assert set(config.include_dirs) == {"/usr/include", "/usr/include/lib1", "/usr/include/lib2"}
     
     def test_config_missing_include_directory_path(self, temp_dir):
         """Test parsing config with missing include directory path attribute"""
@@ -330,14 +330,14 @@ class TestXMLConfigParsing:
         config_file = temp_dir / "config.xml"
         config_file.write_text(config_content)
         
-        pairs, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements, visibility, global_constants, global_defines = parse_config_file(str(config_file))
+        config = parse_config_file(str(config_file))
         
-        assert len(pairs) == 2
-        assert pairs[0] == ("/path/to/lib1.h", "lib1")
-        assert pairs[1] == ("/path/to/lib2.h", "lib2")
-        assert library_namespaces == {"lib1": "Lib1", "lib2": "Lib2"}
-        assert include_dirs == []
-        assert library_using_statements == {
+        assert len(config.header_library_pairs) == 2
+        assert config.header_library_pairs[0] == ("/path/to/lib1.h", "lib1")
+        assert config.header_library_pairs[1] == ("/path/to/lib2.h", "lib2")
+        assert config.library_namespaces == {"lib1": "Lib1", "lib2": "Lib2"}
+        assert config.include_dirs == []
+        assert config.library_using_statements == {
             "lib1": ["System", "System.Collections"],
             "lib2": ["System.IO"]
         }
@@ -355,11 +355,11 @@ class TestXMLConfigParsing:
         config_file = temp_dir / "config.xml"
         config_file.write_text(config_content)
 
-        pairs, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements, visibility, global_constants, global_defines = parse_config_file(str(config_file))
+        config = parse_config_file(str(config_file))
 
-        assert len(pairs) == 1
-        assert pairs[0] == ("/path/to/test.h", "testlib")
-        assert visibility == "internal"
+        assert len(config.header_library_pairs) == 1
+        assert config.header_library_pairs[0] == ("/path/to/test.h", "testlib")
+        assert config.visibility == "internal"
 
     def test_parse_config_with_public_visibility(self, temp_dir):
         """Test parsing config with explicit public visibility"""
@@ -374,11 +374,11 @@ class TestXMLConfigParsing:
         config_file = temp_dir / "config.xml"
         config_file.write_text(config_content)
 
-        pairs, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements, visibility, global_constants, global_defines = parse_config_file(str(config_file))
+        config = parse_config_file(str(config_file))
 
-        assert len(pairs) == 1
-        assert pairs[0] == ("/path/to/test.h", "testlib")
-        assert visibility == "public"
+        assert len(config.header_library_pairs) == 1
+        assert config.header_library_pairs[0] == ("/path/to/test.h", "testlib")
+        assert config.visibility == "public"
 
     def test_parse_config_with_invalid_visibility(self, temp_dir):
         """Test parsing config with invalid visibility value"""
@@ -412,9 +412,9 @@ class TestXMLConfigParsing:
         config_file = temp_dir / "config.xml"
         config_file.write_text(config_content)
 
-        pairs, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements, visibility, global_constants, global_defines = parse_config_file(str(config_file))
+        config = parse_config_file(str(config_file))
 
-        assert visibility == "public"
+        assert config.visibility == "public"
 
     def test_parse_config_with_constants(self, temp_dir):
         """Test parsing config with constants definitions"""
@@ -431,13 +431,13 @@ class TestXMLConfigParsing:
         config_file = temp_dir / "config.xml"
         config_file.write_text(config_content)
 
-        pairs, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements, visibility, global_constants, global_defines = parse_config_file(str(config_file))
+        config = parse_config_file(str(config_file))
 
-        assert len(pairs) == 1
-        assert pairs[0] == ("/path/to/test.h", "testlib")
-        assert len(global_constants) == 2
-        assert global_constants[0] == ("WindowFlags", "TEST_WINDOW_.*", "ulong", False)
-        assert global_constants[1] == ("InitFlags", "TEST_INIT_.*", "uint", False)
+        assert len(config.header_library_pairs) == 1
+        assert config.header_library_pairs[0] == ("/path/to/test.h", "testlib")
+        assert len(config.global_constants) == 2
+        assert config.global_constants[0] == ("WindowFlags", "TEST_WINDOW_.*", "ulong", False)
+        assert config.global_constants[1] == ("InitFlags", "TEST_INIT_.*", "uint", False)
 
     def test_parse_config_constants_missing_name(self, temp_dir):
         """Test that constants without name attribute raises error"""
@@ -487,10 +487,10 @@ class TestXMLConfigParsing:
         config_file = temp_dir / "config.xml"
         config_file.write_text(config_content)
 
-        pairs, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements, visibility, global_constants, global_defines = parse_config_file(str(config_file))
+        config = parse_config_file(str(config_file))
 
-        assert len(global_constants) == 1
-        assert global_constants[0] == ("TestFlags", "TEST_.*", "uint", False)
+        assert len(config.global_constants) == 1
+        assert config.global_constants[0] == ("TestFlags", "TEST_.*", "uint", False)
 
     def test_parse_config_constants_with_flags(self, temp_dir):
         """Test parsing constants with flags attribute"""
@@ -507,13 +507,13 @@ class TestXMLConfigParsing:
         config_file = temp_dir / "config.xml"
         config_file.write_text(config_content)
 
-        pairs, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements, visibility, global_constants, global_defines = parse_config_file(str(config_file))
+        config = parse_config_file(str(config_file))
 
-        assert len(global_constants) == 2
+        assert len(config.global_constants) == 2
         # First constant has flags=true
-        assert global_constants[0] == ("WindowFlags", "WINDOW_.*", "ulong", True)
+        assert config.global_constants[0] == ("WindowFlags", "WINDOW_.*", "ulong", True)
         # Second constant defaults to flags=false
-        assert global_constants[1] == ("InitFlags", "INIT_.*", "uint", False)
+        assert config.global_constants[1] == ("InitFlags", "INIT_.*", "uint", False)
 
     @pytest.fixture
     def temp_dir(self):

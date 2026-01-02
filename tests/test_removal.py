@@ -7,6 +7,7 @@ from pathlib import Path
 import pytest
 
 from cs_binding_generator.generator import CSharpBindingsGenerator
+from cs_binding_generator.config import parse_config_file, BindingConfig
 
 
 class TestRemovalFunctionality:
@@ -31,17 +32,16 @@ class TestRemovalFunctionality:
             </bindings>
         """)
         
-        from cs_binding_generator.config import parse_config_file
-        header_library_pairs, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements, visibility, global_constants, global_defines = parse_config_file(str(config))
+        config = parse_config_file(str(config))
         
         generator = CSharpBindingsGenerator()
-        for pattern, is_regex in removals:
+        for pattern, is_regex in config.removals:
             generator.type_mapper.add_removal(pattern, is_regex)
             
         result = generator.generate(
-            header_library_pairs,
+            config.header_library_pairs,
             output=str(temp_dir),
-            library_namespaces=library_namespaces,
+            library_namespaces=config.library_namespaces,
             include_dirs=[str(temp_dir)]
         )
         
@@ -72,17 +72,16 @@ class TestRemovalFunctionality:
             </bindings>
         """)
         
-        from cs_binding_generator.config import parse_config_file
-        header_library_pairs, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements, visibility, global_constants, global_defines = parse_config_file(str(config))
+        config = parse_config_file(str(config))
         
         generator = CSharpBindingsGenerator()
-        for pattern, is_regex in removals:
+        for pattern, is_regex in config.removals:
             generator.type_mapper.add_removal(pattern, is_regex)
             
         result = generator.generate(
-            header_library_pairs,
+            config.header_library_pairs,
             output=str(temp_dir),
-            library_namespaces=library_namespaces,
+            library_namespaces=config.library_namespaces,
             include_dirs=[str(temp_dir)]
         )
         
@@ -121,17 +120,16 @@ class TestRemovalFunctionality:
             </bindings>
         """)
         
-        from cs_binding_generator.config import parse_config_file
-        header_library_pairs, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements, visibility, global_constants, global_defines = parse_config_file(str(config))
+        config = parse_config_file(str(config))
         
         generator = CSharpBindingsGenerator()
-        for pattern, is_regex in removals:
+        for pattern, is_regex in config.removals:
             generator.type_mapper.add_removal(pattern, is_regex)
             
         result = generator.generate(
-            header_library_pairs,
+            config.header_library_pairs,
             output=str(temp_dir),
-            library_namespaces=library_namespaces,
+            library_namespaces=config.library_namespaces,
             include_dirs=[str(temp_dir)]
         )
         
@@ -166,17 +164,16 @@ class TestRemovalFunctionality:
             </bindings>
         """)
         
-        from cs_binding_generator.config import parse_config_file
-        header_library_pairs, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements, visibility, global_constants, global_defines = parse_config_file(str(config))
+        config = parse_config_file(str(config))
         
         generator = CSharpBindingsGenerator()
-        for pattern, is_regex in removals:
+        for pattern, is_regex in config.removals:
             generator.type_mapper.add_removal(pattern, is_regex)
             
         result = generator.generate(
-            header_library_pairs,
+            config.header_library_pairs,
             output=str(temp_dir),
-            library_namespaces=library_namespaces,
+            library_namespaces=config.library_namespaces,
             include_dirs=[str(temp_dir)]
         )
         
@@ -212,17 +209,16 @@ class TestRemovalFunctionality:
             </bindings>
         """)
         
-        from cs_binding_generator.config import parse_config_file
-        header_library_pairs, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements, visibility, global_constants, global_defines = parse_config_file(str(config))
+        config = parse_config_file(str(config))
         
         generator = CSharpBindingsGenerator()
-        for pattern, is_regex in removals:
+        for pattern, is_regex in config.removals:
             generator.type_mapper.add_removal(pattern, is_regex)
             
         result = generator.generate(
-            header_library_pairs,
+            config.header_library_pairs,
             output=str(temp_dir),
-            library_namespaces=library_namespaces,
+            library_namespaces=config.library_namespaces,
             include_dirs=[str(temp_dir)]
         )
         
@@ -253,17 +249,16 @@ class TestRemovalFunctionality:
             </bindings>
         """)
         
-        from cs_binding_generator.config import parse_config_file
-        header_library_pairs, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements, visibility, global_constants, global_defines = parse_config_file(str(config))
+        config = parse_config_file(str(config))
         
         generator = CSharpBindingsGenerator()
-        for pattern, is_regex in removals:
+        for pattern, is_regex in config.removals:
             generator.type_mapper.add_removal(pattern, is_regex)
             
         result = generator.generate(
-            header_library_pairs,
+            config.header_library_pairs,
             output=str(temp_dir),
-            library_namespaces=library_namespaces,
+            library_namespaces=config.library_namespaces,
             include_dirs=[str(temp_dir)]
         )
         
@@ -297,19 +292,18 @@ class TestRemovalFunctionality:
             </bindings>
         """)
         
-        from cs_binding_generator.config import parse_config_file
-        header_library_pairs, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements, visibility, global_constants, global_defines = parse_config_file(str(config))
+        config = parse_config_file(str(config))
         
         generator = CSharpBindingsGenerator()
-        for from_name, to_name, is_regex in renames:
+        for from_name, to_name, is_regex in config.renames:
             generator.type_mapper.add_rename(from_name, to_name, is_regex)
-        for pattern, is_regex in removals:
+        for pattern, is_regex in config.removals:
             generator.type_mapper.add_removal(pattern, is_regex)
             
         result = generator.generate(
-            header_library_pairs,
+            config.header_library_pairs,
             output=str(temp_dir),
-            library_namespaces=library_namespaces,
+            library_namespaces=config.library_namespaces,
             include_dirs=[str(temp_dir)]
         )
         
@@ -342,17 +336,16 @@ class TestRemovalFunctionality:
             </bindings>
         """)
         
-        from cs_binding_generator.config import parse_config_file
-        header_library_pairs, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements, visibility, global_constants, global_defines = parse_config_file(str(config))
+        config = parse_config_file(str(config))
         
         generator = CSharpBindingsGenerator()
-        for pattern, is_regex in removals:
+        for pattern, is_regex in config.removals:
             generator.type_mapper.add_removal(pattern, is_regex)
             
         result = generator.generate(
-            header_library_pairs,
+            config.header_library_pairs,
             output=str(temp_dir),
-            library_namespaces=library_namespaces,
+            library_namespaces=config.library_namespaces,
             include_dirs=[str(temp_dir)]
         )
         

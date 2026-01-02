@@ -6,7 +6,7 @@ import tempfile
 from pathlib import Path
 import pytest
 
-from cs_binding_generator.config import parse_config_file
+from cs_binding_generator.config import parse_config_file, BindingConfig
 from cs_binding_generator.generator import CSharpBindingsGenerator
 
 
@@ -78,16 +78,16 @@ class TestEdgeCases:
             </bindings>
         """)
         
-        header_library_pairs, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements, visibility, global_constants, global_defines = parse_config_file(str(config))
+        config = parse_config_file(str(config))
         
         generator = CSharpBindingsGenerator()
-        for from_name, to_name, is_regex in renames:
+        for from_name, to_name, is_regex in config.renames:
             generator.type_mapper.add_rename(from_name, to_name, is_regex)
             
         result = generator.generate(
-            header_library_pairs,
+            config.header_library_pairs,
             output=str(temp_dir),
-            library_namespaces=library_namespaces,
+            library_namespaces=config.library_namespaces,
             include_dirs=[str(temp_dir)]
         )
         
@@ -152,16 +152,16 @@ class TestEdgeCases:
             </bindings>
         """)
         
-        header_library_pairs, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements, visibility, global_constants, global_defines = parse_config_file(str(config))
+        config = parse_config_file(str(config))
         
         generator = CSharpBindingsGenerator()
-        for from_name, to_name, is_regex in renames:
+        for from_name, to_name, is_regex in config.renames:
             generator.type_mapper.add_rename(from_name, to_name, is_regex)
             
         result = generator.generate(
-            header_library_pairs, 
+            config.header_library_pairs, 
             output=str(temp_dir),
-            library_namespaces=library_namespaces,
+            library_namespaces=config.library_namespaces,
             include_dirs=[str(temp_dir)]
         )
         
@@ -201,16 +201,16 @@ class TestEdgeCases:
             </bindings>
         """)
         
-        header_library_pairs, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements, visibility, global_constants, global_defines = parse_config_file(str(config))
+        config = parse_config_file(str(config))
         
         generator = CSharpBindingsGenerator()
-        for from_name, to_name, is_regex in renames:
+        for from_name, to_name, is_regex in config.renames:
             generator.type_mapper.add_rename(from_name, to_name, is_regex)
             
         result = generator.generate(
-            header_library_pairs, 
+            config.header_library_pairs, 
             output=str(temp_dir),
-            library_namespaces=library_namespaces,
+            library_namespaces=config.library_namespaces,
             include_dirs=[str(temp_dir)]
         )
         
@@ -299,16 +299,16 @@ class TestEdgeCases:
             </bindings>
         """)
         
-        header_library_pairs, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements, visibility, global_constants, global_defines = parse_config_file(str(config))
+        config = parse_config_file(str(config))
         
         generator = CSharpBindingsGenerator()
-        for from_name, to_name, is_regex in renames:
+        for from_name, to_name, is_regex in config.renames:
             generator.type_mapper.add_rename(from_name, to_name, is_regex)
             
         result = generator.generate(
-            header_library_pairs,
+            config.header_library_pairs,
             output=str(temp_dir),
-            library_namespaces=library_namespaces,
+            library_namespaces=config.library_namespaces,
             include_dirs=[str(temp_dir)]
         )
         
@@ -371,16 +371,16 @@ class TestEdgeCases:
             </bindings>
         """)
         
-        header_library_pairs, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements, visibility, global_constants, global_defines = parse_config_file(str(config))
+        config = parse_config_file(str(config))
         
         generator = CSharpBindingsGenerator()
-        for from_name, to_name, is_regex in renames:
+        for from_name, to_name, is_regex in config.renames:
             generator.type_mapper.add_rename(from_name, to_name, is_regex)
             
         result = generator.generate(
-            header_library_pairs, 
+            config.header_library_pairs, 
             output=str(temp_dir),
-            library_namespaces=library_namespaces,
+            library_namespaces=config.library_namespaces,
             include_dirs=[str(temp_dir)]
         )
         
@@ -425,16 +425,16 @@ class TestEdgeCases:
             </bindings>
         """)
         
-        header_library_pairs, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements, visibility, global_constants, global_defines = parse_config_file(str(config))
+        config = parse_config_file(str(config))
         
         generator = CSharpBindingsGenerator()
-        for from_name, to_name, is_regex in renames:
+        for from_name, to_name, is_regex in config.renames:
             generator.type_mapper.add_rename(from_name, to_name, is_regex)
             
         result = generator.generate(
-            header_library_pairs, 
+            config.header_library_pairs, 
             output=str(temp_dir),
-            library_namespaces=library_namespaces,
+            library_namespaces=config.library_namespaces,
             include_dirs=[str(temp_dir)]
         )
         

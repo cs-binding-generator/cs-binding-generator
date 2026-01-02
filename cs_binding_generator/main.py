@@ -14,7 +14,7 @@ import clang.cindex
 if __name__ == "__main__" and __package__ is None:
     sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from cs_binding_generator.config import parse_config_file
+from cs_binding_generator.config import parse_config_file, BindingConfig
 from cs_binding_generator.generator import CSharpBindingsGenerator
 from cs_binding_generator import __version__
 
@@ -81,33 +81,15 @@ Examples:
         args.output = "."
 
     # Handle configuration file
-    header_library_pairs = []
-    config_include_dirs = []
-    config_renames = {}
-
     try:
-        (
-            header_library_pairs,
-            config_include_dirs,
-            config_renames,
-            config_removals,
-            config_library_class_names,
-            config_library_namespaces,
-            config_library_using_statements,
-            config_visibility,
-            config_global_constants,
-            config_global_defines,
-        ) = parse_config_file(args.config)
+        config = parse_config_file(args.config)
     except (ValueError, FileNotFoundError) as e:
         print(f"Error reading config file: {e}", file=sys.stderr)
         sys.exit(1)
 
-    if not header_library_pairs:
+    if not config.header_library_pairs:
         print("Error: No libraries found in config file", file=sys.stderr)
         sys.exit(1)
-
-    # Include directories are now defined in the config file
-    include_dirs = config_include_dirs
 
     # Set clang library path if provided
     if args.clang_path:
@@ -118,27 +100,27 @@ Examples:
         generator = CSharpBindingsGenerator()
 
         # Apply renames if using config file
-        if args.config and config_renames:
-            for from_name, to_name, is_regex in config_renames:
+        if args.config and config.renames:
+            for from_name, to_name, is_regex in config.renames:
                 generator.type_mapper.add_rename(from_name, to_name, is_regex)
 
         # Apply removals if using config file
-        if args.config and config_removals:
-            for pattern, is_regex in config_removals:
+        if args.config and config.removals:
+            for pattern, is_regex in config.removals:
                 generator.type_mapper.add_removal(pattern, is_regex)
 
         generator.generate(
-            header_library_pairs,
+            config.header_library_pairs,
             output=args.output,
-            include_dirs=include_dirs,
+            include_dirs=config.include_dirs,
             ignore_missing=args.ignore_missing,
             skip_variadic=not args.use_variadic,
-            library_class_names=config_library_class_names,
-            library_namespaces=config_library_namespaces,
-            library_using_statements=config_library_using_statements,
-            visibility=config_visibility,
-            global_constants=config_global_constants,
-            global_defines=config_global_defines,
+            library_class_names=config.library_class_names,
+            library_namespaces=config.library_namespaces,
+            library_using_statements=config.library_using_statements,
+            visibility=config.visibility,
+            global_constants=config.global_constants,
+            global_defines=config.global_defines,
         )
     except Exception as e:
         import traceback

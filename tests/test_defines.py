@@ -1,7 +1,7 @@
 """Tests for compiler defines feature"""
 
 import pytest
-from cs_binding_generator.config import parse_config_file
+from cs_binding_generator.config import parse_config_file, BindingConfig
 from cs_binding_generator.generator import CSharpBindingsGenerator
 
 
@@ -20,21 +20,10 @@ class TestDefinesXMLParsing:
 </bindings>
         """)
 
-        (
-            header_library_pairs,
-            include_dirs,
-            renames,
-            removals,
-            library_class_names,
-            library_namespaces,
-            library_using_statements,
-            visibility,
-            global_constants,
-            global_defines,
-        ) = parse_config_file(str(config_file))
+        config = parse_config_file(str(config_file))
 
-        assert len(global_defines) == 1
-        assert global_defines[0] == ("ENABLE_FEATURE", None)
+        assert len(config.global_defines) == 1
+        assert config.global_defines[0] == ("ENABLE_FEATURE", None)
 
     def test_parse_single_define_with_value(self, tmp_path):
         """Test parsing a single define with a value"""
@@ -48,13 +37,10 @@ class TestDefinesXMLParsing:
 </bindings>
         """)
 
-        (
-            *_,
-            global_defines,
-        ) = parse_config_file(str(config_file))
+        config = parse_config_file(str(config_file))
 
-        assert len(global_defines) == 1
-        assert global_defines[0] == ("VERSION", "123")
+        assert len(config.global_defines) == 1
+        assert config.global_defines[0] == ("VERSION", "123")
 
     def test_parse_multiple_defines(self, tmp_path):
         """Test parsing multiple defines"""
@@ -71,16 +57,13 @@ class TestDefinesXMLParsing:
 </bindings>
         """)
 
-        (
-            *_,
-            global_defines,
-        ) = parse_config_file(str(config_file))
+        config = parse_config_file(str(config_file))
 
-        assert len(global_defines) == 4
-        assert global_defines[0] == ("ENABLE_FEATURE", None)
-        assert global_defines[1] == ("VERSION", "123")
-        assert global_defines[2] == ("DEBUG", None)
-        assert global_defines[3] == ("MAX_SIZE", "1024")
+        assert len(config.global_defines) == 4
+        assert config.global_defines[0] == ("ENABLE_FEATURE", None)
+        assert config.global_defines[1] == ("VERSION", "123")
+        assert config.global_defines[2] == ("DEBUG", None)
+        assert config.global_defines[3] == ("MAX_SIZE", "1024")
 
     def test_parse_no_defines(self, tmp_path):
         """Test parsing config with no defines"""
@@ -93,12 +76,9 @@ class TestDefinesXMLParsing:
 </bindings>
         """)
 
-        (
-            *_,
-            global_defines,
-        ) = parse_config_file(str(config_file))
+        config = parse_config_file(str(config_file))
 
-        assert len(global_defines) == 0
+        assert len(config.global_defines) == 0
 
     def test_define_missing_name_raises_error(self, tmp_path):
         """Test that define without name raises error"""
@@ -127,13 +107,10 @@ class TestDefinesXMLParsing:
 </bindings>
         """)
 
-        (
-            *_,
-            global_defines,
-        ) = parse_config_file(str(config_file))
+        config = parse_config_file(str(config_file))
 
-        assert len(global_defines) == 1
-        assert global_defines[0] == ("EMPTY", "")
+        assert len(config.global_defines) == 1
+        assert config.global_defines[0] == ("EMPTY", "")
 
 
 class TestDefinesCodeGeneration:
