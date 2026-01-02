@@ -58,9 +58,9 @@ Examples:
     )
 
     parser.add_argument(
-        "--skip-variadic",
+        "--use-variadic",
         action="store_true",
-        help="Skip generating bindings for variadic functions (functions with ... parameters)",
+        help="Generate variadic functions with __arglist parameter using DllImport (non-AOT compatible). By default, variadic functions are generated with the variadic parameter omitted, which typically works due to calling conventions but may cause stack cleanup issues.",
     )
 
     args = parser.parse_args()
@@ -131,7 +131,7 @@ Examples:
             output=args.output,
             include_dirs=include_dirs,
             ignore_missing=args.ignore_missing,
-            skip_variadic=args.skip_variadic,
+            skip_variadic=not args.use_variadic,
             library_class_names=config_library_class_names,
             library_namespaces=config_library_namespaces,
             library_using_statements=config_library_using_statements,

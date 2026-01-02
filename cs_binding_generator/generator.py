@@ -531,7 +531,7 @@ class CSharpBindingsGenerator:
             output: Output directory for generated files (required)
             include_dirs: List of directories to search for included headers
             ignore_missing: Continue processing even if some header files are not found
-            skip_variadic: Skip generating bindings for variadic functions
+            skip_variadic: Skip generating bindings for variadic functions (default: True)
             library_class_names: Dict mapping library names to custom class names (defaults to NativeMethods)
             library_namespaces: Dict mapping library names to custom namespaces
             library_using_statements: Dict mapping library names to lists of using statements
