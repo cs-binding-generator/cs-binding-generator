@@ -26,6 +26,7 @@ class TestCSharpBindingsGenerator:
         # Check basic structure
         assert "namespace Bindings;" in output  # Default namespace since no library namespace specified
         assert "using System.Runtime.InteropServices;" in output
+        assert "#nullable enable" in output  # Should always have nullable directive
         
         # Check enum generation
         assert "public enum Status" in output

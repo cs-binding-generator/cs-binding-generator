@@ -718,6 +718,8 @@ class OutputBuilder:
         parts.append("// Do not modify this file directly")
         parts.append("//")
         parts.append("")
+        parts.append("#nullable enable")
+        parts.append("")
 
         # Usings (non-global)
         from .constants import REQUIRED_USINGS
