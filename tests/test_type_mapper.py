@@ -124,7 +124,7 @@ class TestTypeMapper:
         assert result == "SDL_Window*"
     
     def test_generic_pointer(self):
-        """Test that other pointers map to nint"""
+        """Test that pointers to primitive types map to typed pointers (e.g., int* -> int*)"""
         mock_type = Mock()
         mock_type.kind = TypeKind.POINTER
         mock_type.spelling = "int *"
@@ -132,10 +132,40 @@ class TestTypeMapper:
         mock_pointee = Mock()
         mock_pointee.kind = TypeKind.INT
         mock_pointee.spelling = "int"
+        mock_pointee.get_size.return_value = 4  # For _map_primitive_kind
         mock_type.get_pointee.return_value = mock_pointee
         
         result = self.mapper.map_type(mock_type)
-        assert result == "nint"
+        assert result == "int*"
+    
+    def test_primitive_pointers(self):
+        """Test that pointers to various primitive types map to typed pointers instead of nint"""
+        test_cases = [
+            (TypeKind.UINT, "unsigned int", 4, "uint*"),
+            (TypeKind.INT, "int", 4, "int*"),
+            (TypeKind.FLOAT, "float", 4, "float*"),
+            (TypeKind.DOUBLE, "double", 8, "double*"),
+            (TypeKind.SHORT, "short", 2, "short*"),
+            (TypeKind.USHORT, "unsigned short", 2, "ushort*"),
+            (TypeKind.UCHAR, "unsigned char", 1, "byte*"),
+            (TypeKind.SCHAR, "signed char", 1, "sbyte*"),
+            (TypeKind.LONG, "long", 8, "long*"),  # 8 bytes -> maps to C# long
+            (TypeKind.ULONG, "unsigned long", 8, "ulong*"),  # 8 bytes -> maps to C# ulong
+        ]
+        
+        for kind, spelling, size, expected in test_cases:
+            mock_type = Mock()
+            mock_type.kind = TypeKind.POINTER
+            mock_type.spelling = f"{spelling} *"
+            
+            mock_pointee = Mock()
+            mock_pointee.kind = kind
+            mock_pointee.spelling = spelling
+            mock_pointee.get_size.return_value = size
+            mock_type.get_pointee.return_value = mock_pointee
+            
+            result = self.mapper.map_type(mock_type)
+            assert result == expected, f"Expected {spelling}* -> {expected}, got {result}"
     
     def test_enum_type(self):
         """Test that enums map to their spelling or int"""

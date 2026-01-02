@@ -304,6 +304,13 @@ class TypeMapper:
                     return sig
                 except Exception:
                     return "delegate* unmanaged[Cdecl]<nint>"
+            
+            # Handle pointers to primitive types (e.g., int*, uint*, float*)
+            # This must come before the nint fallback
+            if pointee.kind in self.type_map:
+                primitive_type = self._map_primitive_kind(pointee.kind, pointee, is_struct_field=False)
+                return f"{primitive_type}*"
+            
             # Other pointers -> nint for safety
             return "nint"
 
