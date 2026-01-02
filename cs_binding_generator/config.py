@@ -18,6 +18,7 @@ def parse_config_file(config_path):
         include_dirs = []
         renames = []  # Changed to list of (from, to, is_regex) tuples
         removals = []  # List of (pattern, is_regex) tuples
+        global_defines = []  # List of (name, value) tuples for compiler defines
         library_class_names = {}  # Map library name to class name
         library_namespaces = {}  # Map library name to namespace
         library_using_statements = {}  # Map library name to list of using statements
@@ -53,6 +54,16 @@ def parse_config_file(config_path):
                 raise ValueError("Remove element missing 'pattern' attribute")
             is_regex = remove.get("regex", "false").lower() == "true"
             removals.append((pattern.strip(), is_regex))
+
+        # Get global compiler defines
+        for define in root.findall("define"):
+            name = define.get("name")
+            if not name:
+                raise ValueError("Define element missing 'name' attribute")
+            value = define.get("value")  # Optional, can be None
+            if value is not None:
+                value = value.strip()
+            global_defines.append((name.strip(), value))
 
         # Get global constants (macros to extract)
         # These are stored as a list of (name, pattern, type, is_flags) tuples
@@ -118,6 +129,7 @@ def parse_config_file(config_path):
             library_using_statements,
             visibility,
             global_constants,
+            global_defines,
         )
 
     except ET.ParseError as e:

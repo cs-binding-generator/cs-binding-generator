@@ -26,7 +26,7 @@ class TestXMLConfigParsing:
         config_file = temp_dir / "config.xml"
         config_file.write_text(config_content)
 
-        pairs, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements, visibility, global_constants = parse_config_file(str(config_file))
+        pairs, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements, visibility, global_constants, global_defines = parse_config_file(str(config_file))
 
         assert len(pairs) == 1
         assert pairs[0] == ("/path/to/test.h", "testlib")
@@ -51,7 +51,7 @@ class TestXMLConfigParsing:
         config_file = temp_dir / "config.xml"
         config_file.write_text(config_content)
         
-        pairs, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements, visibility, global_constants = parse_config_file(str(config_file))
+        pairs, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements, visibility, global_constants, global_defines = parse_config_file(str(config_file))
         
         assert len(pairs) == 3
         assert pairs[0] == ("/path/to/lib1.h", "lib1")
@@ -74,7 +74,7 @@ class TestXMLConfigParsing:
         config_file = temp_dir / "config.xml"
         config_file.write_text(config_content)
         
-        pairs, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements, visibility, global_constants = parse_config_file(str(config_file))
+        pairs, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements, visibility, global_constants, global_defines = parse_config_file(str(config_file))
         
         assert len(pairs) == 1
         assert pairs[0] == ("/path/to/test.h", "testlib")
@@ -100,7 +100,7 @@ class TestXMLConfigParsing:
         config_file = temp_dir / "config.xml"
         config_file.write_text(config_content)
         
-        pairs, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements, visibility, global_constants = parse_config_file(str(config_file))
+        pairs, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements, visibility, global_constants, global_defines = parse_config_file(str(config_file))
         
         assert len(pairs) == 3
         assert pairs[0] == ("/path/to/lib1.h", "lib1")
@@ -194,7 +194,7 @@ class TestXMLConfigParsing:
         config_file = temp_dir / "cs-bindings.xml"
         config_file.write_text(config_content)
         
-        pairs, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements, visibility, global_constants = parse_config_file(str(config_file))
+        pairs, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements, visibility, global_constants, global_defines = parse_config_file(str(config_file))
         
         assert len(pairs) == 2
         assert pairs[0] == ("/usr/include/libtcod/libtcod.h", "libtcod")
@@ -215,7 +215,7 @@ class TestXMLConfigParsing:
         config_file = temp_dir / "config.xml"
         config_file.write_text(config_content)
         
-        pairs, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements, visibility, global_constants = parse_config_file(str(config_file))
+        pairs, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements, visibility, global_constants, global_defines = parse_config_file(str(config_file))
         
         assert len(pairs) == 1
         assert pairs[0] == ("/path/to/test.h", "testlib")  # Should be stripped
@@ -237,7 +237,7 @@ class TestXMLConfigParsing:
         config_file = temp_dir / "config.xml"
         config_file.write_text(config_content)
         
-        pairs, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements, visibility, global_constants = parse_config_file(str(config_file))
+        pairs, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements, visibility, global_constants, global_defines = parse_config_file(str(config_file))
         
         assert len(pairs) == 1
         assert pairs[0] == ("/path/to/test.h", "testlib")
@@ -263,7 +263,7 @@ class TestXMLConfigParsing:
         config_file = temp_dir / "config.xml"
         config_file.write_text(config_content)
         
-        pairs, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements, visibility, global_constants = parse_config_file(str(config_file))
+        pairs, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements, visibility, global_constants, global_defines = parse_config_file(str(config_file))
         
         assert len(pairs) == 2
         assert pairs[0] == ("/path/to/lib1.h", "lib1")
@@ -330,7 +330,7 @@ class TestXMLConfigParsing:
         config_file = temp_dir / "config.xml"
         config_file.write_text(config_content)
         
-        pairs, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements, visibility, global_constants = parse_config_file(str(config_file))
+        pairs, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements, visibility, global_constants, global_defines = parse_config_file(str(config_file))
         
         assert len(pairs) == 2
         assert pairs[0] == ("/path/to/lib1.h", "lib1")
@@ -355,7 +355,7 @@ class TestXMLConfigParsing:
         config_file = temp_dir / "config.xml"
         config_file.write_text(config_content)
 
-        pairs, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements, visibility, global_constants = parse_config_file(str(config_file))
+        pairs, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements, visibility, global_constants, global_defines = parse_config_file(str(config_file))
 
         assert len(pairs) == 1
         assert pairs[0] == ("/path/to/test.h", "testlib")
@@ -374,7 +374,7 @@ class TestXMLConfigParsing:
         config_file = temp_dir / "config.xml"
         config_file.write_text(config_content)
 
-        pairs, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements, visibility, global_constants = parse_config_file(str(config_file))
+        pairs, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements, visibility, global_constants, global_defines = parse_config_file(str(config_file))
 
         assert len(pairs) == 1
         assert pairs[0] == ("/path/to/test.h", "testlib")
@@ -412,7 +412,7 @@ class TestXMLConfigParsing:
         config_file = temp_dir / "config.xml"
         config_file.write_text(config_content)
 
-        pairs, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements, visibility, global_constants = parse_config_file(str(config_file))
+        pairs, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements, visibility, global_constants, global_defines = parse_config_file(str(config_file))
 
         assert visibility == "public"
 
@@ -431,7 +431,7 @@ class TestXMLConfigParsing:
         config_file = temp_dir / "config.xml"
         config_file.write_text(config_content)
 
-        pairs, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements, visibility, global_constants = parse_config_file(str(config_file))
+        pairs, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements, visibility, global_constants, global_defines = parse_config_file(str(config_file))
 
         assert len(pairs) == 1
         assert pairs[0] == ("/path/to/test.h", "testlib")
@@ -487,7 +487,7 @@ class TestXMLConfigParsing:
         config_file = temp_dir / "config.xml"
         config_file.write_text(config_content)
 
-        pairs, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements, visibility, global_constants = parse_config_file(str(config_file))
+        pairs, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements, visibility, global_constants, global_defines = parse_config_file(str(config_file))
 
         assert len(global_constants) == 1
         assert global_constants[0] == ("TestFlags", "TEST_.*", "uint", False)
@@ -507,7 +507,7 @@ class TestXMLConfigParsing:
         config_file = temp_dir / "config.xml"
         config_file.write_text(config_content)
 
-        pairs, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements, visibility, global_constants = parse_config_file(str(config_file))
+        pairs, include_dirs, renames, removals, library_class_names, library_namespaces, library_using_statements, visibility, global_constants, global_defines = parse_config_file(str(config_file))
 
         assert len(global_constants) == 2
         # First constant has flags=true

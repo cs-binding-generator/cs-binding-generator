@@ -523,6 +523,7 @@ class CSharpBindingsGenerator:
         library_using_statements: Optional[dict[str, list[str]]] = None,
         visibility: str = "public",
         global_constants: Optional[list[tuple[str, str, str, bool]]] = None,
+        global_defines: Optional[list[tuple[str, Optional[str]]]] = None,
     ) -> dict[str, str]:
         """Generate C# bindings from C header file(s)
 
@@ -537,6 +538,7 @@ class CSharpBindingsGenerator:
             library_using_statements: Dict mapping library names to lists of using statements
             visibility: Visibility modifier for generated code ("public" or "internal")
             global_constants: List of (name, pattern, type) tuples for macro extraction, applied to all libraries
+            global_defines: List of (name, value) tuples for compiler defines, applied to all headers
         """
         # Store visibility setting
         self.visibility = visibility
@@ -556,6 +558,9 @@ class CSharpBindingsGenerator:
         # Store global constants
         self.global_constants = global_constants or []
 
+        # Store global defines
+        self.global_defines = global_defines or []
+
         # Clear previous state
         self._clear_state()
 
@@ -566,6 +571,13 @@ class CSharpBindingsGenerator:
         clang_args = ["-x", "c"]
         for include_dir in include_dirs:
             clang_args.append(f"-I{include_dir}")
+
+        # Add global compiler defines
+        for name, value in self.global_defines:
+            if value is None or value == "":
+                clang_args.append(f"-D{name}")
+            else:
+                clang_args.append(f"-D{name}={value}")
 
         # Add system include paths so clang can find standard headers
         # These paths are typical locations for system headers

@@ -96,6 +96,7 @@ Examples:
             config_library_using_statements,
             config_visibility,
             config_global_constants,
+            config_global_defines,
         ) = parse_config_file(args.config)
     except (ValueError, FileNotFoundError) as e:
         print(f"Error reading config file: {e}", file=sys.stderr)
@@ -137,6 +138,7 @@ Examples:
             library_using_statements=config_library_using_statements,
             visibility=config_visibility,
             global_constants=config_global_constants,
+            global_defines=config_global_defines,
         )
     except Exception as e:
         import traceback
