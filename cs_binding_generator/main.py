@@ -109,6 +109,11 @@ Examples:
             for pattern, is_regex in config.removals:
                 generator.type_mapper.add_removal(pattern, is_regex)
 
+        # Apply flag enum patterns if using config file
+        if args.config and config.flag_enums:
+            for pattern, is_regex in config.flag_enums:
+                generator.type_mapper.add_flag_enum(pattern, is_regex)
+
         generator.generate(
             config.header_library_pairs,
             output=args.output,

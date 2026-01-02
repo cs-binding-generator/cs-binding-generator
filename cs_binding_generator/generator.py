@@ -711,8 +711,13 @@ class CSharpBindingsGenerator:
                 if underlying_type and underlying_type != "int":
                     inheritance_clause = f" : {underlying_type}"
 
+                # Check if this enum should have [Flags] attribute
+                flags_attribute = ""
+                if self.type_mapper.is_flag_enum(enum_name):
+                    flags_attribute = "[Flags]\n"
+
                 values_str = "\n".join([f"    {name} = {value}," for name, value in members])
-                code = f"""{self.visibility} enum {enum_name}{inheritance_clause}
+                code = f"""{flags_attribute}{self.visibility} enum {enum_name}{inheritance_clause}
 {{
 {values_str}
 }}

@@ -29,6 +29,8 @@ class TypeMapper:
         self.renames = []
         # Global removals that filter out types/functions - list of (pattern, is_regex) tuples
         self.removals = []
+        # Global flag enums that should have [Flags] attribute - list of (pattern, is_regex) tuples
+        self.flag_enums = []
 
     def register_typedef(self, name: str, underlying_type) -> None:
         """Register a typedef for later resolution"""
@@ -476,6 +478,25 @@ class TypeMapper:
     def get_all_removals(self) -> list[tuple[str, bool]]:
         """Get all removal patterns as list of tuples"""
         return list(self.removals)
+
+    def add_flag_enum(self, pattern: str, is_regex: bool = False):
+        """Add a flag enum pattern to mark enums with [Flags] attribute"""
+        self.flag_enums.append((pattern, is_regex))
+
+    def is_flag_enum(self, name: str) -> bool:
+        """Check if an enum should have [Flags] attribute (first match wins)"""
+        import re
+
+        for pattern, is_regex in self.flag_enums:
+            if is_regex:
+                # Use fullmatch for precise identifier matching
+                if re.fullmatch(pattern, name):
+                    return True  # First match wins
+            else:
+                # Simple exact match
+                if name == pattern:
+                    return True  # First match wins
+        return False
 
     def _map_primitive_kind(self, kind, ctype, is_struct_field: bool = False) -> str:
         """Map primitive TypeKind to C# type, considering platform-sized types like long/unsigned long

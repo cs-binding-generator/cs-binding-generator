@@ -13,6 +13,7 @@ class BindingConfig:
     include_dirs: list[str] = field(default_factory=list)
     renames: list[tuple[str, str, bool]] = field(default_factory=list)
     removals: list[tuple[str, bool]] = field(default_factory=list)
+    flag_enums: list[tuple[str, bool]] = field(default_factory=list)
     library_class_names: dict[str, str] = field(default_factory=dict)
     library_namespaces: dict[str, str] = field(default_factory=dict)
     library_using_statements: dict[str, list[str]] = field(default_factory=dict)
@@ -62,6 +63,14 @@ def parse_config_file(config_path):
                 raise ValueError("Remove element missing 'pattern' attribute")
             is_regex = remove.get("regex", "false").lower() == "true"
             config.removals.append((pattern.strip(), is_regex))
+
+        # Get global flag enums (enum patterns that should have [Flags] attribute)
+        for flag_enum in root.findall("flags"):
+            pattern = flag_enum.get("pattern")
+            if not pattern:
+                raise ValueError("Flags element missing 'pattern' attribute")
+            is_regex = flag_enum.get("regex", "false").lower() == "true"
+            config.flag_enums.append((pattern.strip(), is_regex))
 
         # Get global compiler defines
         for define in root.findall("define"):
