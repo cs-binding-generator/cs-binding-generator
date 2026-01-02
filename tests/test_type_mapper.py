@@ -3,6 +3,8 @@ Unit tests for TypeMapper
 """
 
 import pytest
+import tempfile
+import os
 from unittest.mock import Mock
 from clang.cindex import TypeKind
 
@@ -180,6 +182,42 @@ class TestTypeMapper:
         mock_type.spelling = ""
         result = self.mapper.map_type(mock_type)
         assert result == "int"
+    
+    def test_enum_pointer(self):
+        """Test that pointers to enums generate correctly using real C code"""
+        from cs_binding_generator.generator import CSharpBindingsGenerator
+        
+        # Create a temporary header with enum pointer
+        with tempfile.NamedTemporaryFile(mode='w', suffix='.h', delete=False) as f:
+            f.write("""
+                enum MyEnum {
+                    VALUE1 = 0,
+                    VALUE2 = 1
+                };
+                
+                void test_function(enum MyEnum* ptr);
+                void test_function2(enum MyEnum* out1, enum MyEnum* out2);
+            """)
+            header_path = f.name
+        
+        try:
+            # Generate bindings (using tmp_path fixture pattern from test_generator.py)
+            generator = CSharpBindingsGenerator()
+            result = generator.generate([(header_path, "test")], output="-")
+            
+            # Result is a dict with filenames as keys, get the test.cs file
+            assert "test.cs" in result
+            output = result["test.cs"]
+            
+            # Verify enum pointer parameters don't have "enum " prefix
+            assert "enum MyEnum*" not in output, "Found 'enum MyEnum*' in output, should be 'MyEnum*'"
+            assert "MyEnum* ptr" in output or "MyEnum* out1" in output, f"Expected 'MyEnum* ptr' or 'MyEnum* out1' in output"
+            
+            # Verify the enum itself is generated correctly
+            assert "public enum MyEnum" in output, "Expected enum definition"
+        finally:
+            # Clean up
+            os.unlink(header_path)
     
     def test_struct_type(self):
         """Test that structs map to their spelling"""

@@ -206,7 +206,7 @@ class TypeMapper:
                     # Strip const and other qualifiers - may need multiple passes
                     while True:
                         stripped = False
-                        for prefix in ["const ", "volatile ", "restrict ", "struct ", "union ", "class "]:
+                        for prefix in ["const ", "volatile ", "restrict ", "struct ", "union ", "enum ", "class "]:
                             if struct_name.startswith(prefix):
                                 struct_name = struct_name[len(prefix) :]
                                 stripped = True
@@ -304,6 +304,18 @@ class TypeMapper:
                     return sig
                 except Exception:
                     return "delegate* unmanaged[Cdecl]<nint>"
+            
+            # Handle pointers to enums (e.g., MyEnum* -> MyEnum*, not "enum MyEnum*")
+            if pointee.kind == TypeKind.ENUM:
+                enum_name = pointee.spelling if hasattr(pointee, "spelling") else None
+                if enum_name:
+                    # Strip "enum " prefix if present
+                    if enum_name.startswith("enum "):
+                        enum_name = enum_name[5:]
+                    # Apply any renames and return as typed pointer
+                    return f"{self.apply_rename(enum_name)}*"
+                # Fallback for unnamed enums
+                return "int*"
             
             # Handle pointers to primitive types (e.g., int*, uint*, float*)
             # This must come before the nint fallback
