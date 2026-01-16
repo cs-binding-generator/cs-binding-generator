@@ -373,6 +373,10 @@ class CSharpBindingsGenerator:
                         "uintptr_t",
                         "wchar_t",
                     ]:
+                        # Check if this type should be removed
+                        if self.type_mapper.should_remove(type_name):
+                            return
+
                         struct_key = (type_name, str(cursor.location.file), cursor.location.line)
                         # Use global deduplication
                         if struct_key not in self.seen_structs:
@@ -397,15 +401,21 @@ class CSharpBindingsGenerator:
                                             u_name = u_name[len(prefix) :]
                                             break
                                     if u_name and u_name != type_name:
-                                        u_struct_key = (u_name, str(cursor.location.file), cursor.location.line)
-                                        if u_struct_key not in self.seen_structs:
-                                            u_code = self.code_generator.generate_opaque_type(u_name)
-                                            if u_code:
-                                                self._add_to_library_collection(self.generated_structs, self.current_library, u_code)
-                                                self.seen_structs.add(u_struct_key)
-                                                self.seen_structs.add((u_name, None, None))
-                                                self.type_mapper.opaque_types.add(u_name)
+                                        # Check if the underlying name should be removed
+                                        if not self.type_mapper.should_remove(u_name):
+                                            u_struct_key = (u_name, str(cursor.location.file), cursor.location.line)
+                                            if u_struct_key not in self.seen_structs:
+                                                u_code = self.code_generator.generate_opaque_type(u_name)
+                                                if u_code:
+                                                    self._add_to_library_collection(self.generated_structs, self.current_library, u_code)
+                                                    self.seen_structs.add(u_struct_key)
+                                                    self.seen_structs.add((u_name, None, None))
+                                                    self.type_mapper.opaque_types.add(u_name)
                 elif child.kind == CursorKind.STRUCT_DECL and not child.is_definition() and child.spelling:
+                    # Check if this type should be removed
+                    if self.type_mapper.should_remove(child.spelling):
+                        return
+
                     # Direct forward declaration
                     struct_key = (child.spelling, str(cursor.location.file), cursor.location.line)
                     # Use global deduplication
@@ -442,10 +452,13 @@ class CSharpBindingsGenerator:
                         "uintptr_t",
                         "wchar_t",
                     ]:
-                        self.type_mapper.opaque_types.add(type_name)
+                        # Only register as opaque if not marked for removal
+                        if not self.type_mapper.should_remove(type_name):
+                            self.type_mapper.opaque_types.add(type_name)
                 elif child.kind == CursorKind.STRUCT_DECL and not child.is_definition() and child.spelling:
-                    # Direct forward declaration
-                    self.type_mapper.opaque_types.add(child.spelling)
+                    # Direct forward declaration - only register if not marked for removal
+                    if not self.type_mapper.should_remove(child.spelling):
+                        self.type_mapper.opaque_types.add(child.spelling)
 
         # Recurse into children
         for child in cursor.get_children():
