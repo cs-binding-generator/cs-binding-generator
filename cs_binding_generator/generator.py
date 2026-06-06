@@ -780,6 +780,8 @@ class CSharpBindingsGenerator:
         global_constants: Optional[list[tuple[str, str, str, bool]]] = None,
         global_defines: Optional[list[tuple[str, Optional[str]]]] = None,
         utf8_byte_overloads: bool = False,
+        typed_fields: Optional[dict[tuple[str, str], str]] = None,
+        typed_params: Optional[dict[tuple[str, str], str]] = None,
     ) -> dict[str, str]:
         """Generate C# bindings from C header file(s)
 
@@ -799,9 +801,15 @@ class CSharpBindingsGenerator:
         # Store visibility setting
         self.visibility = visibility
 
-        # Initialize code generator with visibility, skip_variadic, and byte-overload flag
+        # Initialize code generator with visibility, skip_variadic, byte-overload flag,
+        # and the per-(struct, field) / per-(function, param) typed overrides.
         self.code_generator = CodeGenerator(
-            self.type_mapper, visibility, skip_variadic, utf8_byte_overloads
+            self.type_mapper,
+            visibility,
+            skip_variadic,
+            utf8_byte_overloads,
+            typed_fields or {},
+            typed_params or {},
         )
 
         # Store library class names

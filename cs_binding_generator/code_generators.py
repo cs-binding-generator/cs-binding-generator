@@ -18,6 +18,8 @@ class CodeGenerator:
         visibility: str = "public",
         skip_variadic: bool = False,
         utf8_byte_overloads: bool = False,
+        typed_fields: dict[tuple[str, str], str] | None = None,
+        typed_params: dict[tuple[str, str], str] | None = None,
     ):
         self.type_mapper = type_mapper
         self.anonymous_enum_counter = 0
@@ -29,6 +31,11 @@ class CodeGenerator:
         # a `string?` parameter. Lets callers pass pre-encoded UTF-8 buffers without the
         # managed-string → UTF-8 re-encode round trip.
         self.utf8_byte_overloads = utf8_byte_overloads
+        # Per-(struct, field) and per-(function, param) type overrides keyed by the C
+        # identifier (pre-rename). Used to retype raw `uint`/`byte` fields/params at the
+        # matching [Flags] enum so call sites stop needing manual `(uint)` casts.
+        self.typed_fields = typed_fields or {}
+        self.typed_params = typed_params or {}
 
     def generate_function(self, cursor, library_name: str) -> str:
         """Generate C# LibraryImport for a function"""
@@ -79,9 +86,17 @@ class CodeGenerator:
             # Escape C# keywords in parameter names
             arg_name = self._escape_keyword(arg_name)
 
-            # Check if this is a char** parameter (now mapped to nuint)
+            # Check if this is a char** parameter (now mapped to nuint).
+            # Inspect BEFORE applying the typed-param override so the helper-emit
+            # logic below still sees char** for its routing decision.
             if arg_type == "nuint" and self._is_char_double_pointer(arg.type):
                 char_double_ptr_params.append({"index": i, "name": arg_name, "original_type": arg.type})
+
+            # Apply any XML-declared typed-param override for this (function, param).
+            # Uses the C function name (pre-rename) and the C parameter name as keys.
+            typed = self.typed_params.get((original_func_name, arg_name))
+            if typed:
+                arg_type = typed
 
             # Add marshalling attributes for bool parameters
             if arg_type == "bool":
@@ -131,6 +146,13 @@ class CodeGenerator:
                     break
                 arg_name = arg.spelling or f"param{i}"
                 arg_name = self._escape_keyword(arg_name)
+                # Honor typed-param overrides on the byte* overload too — they take
+                # priority over the byte* swap, so a flag-enum param stays typed on
+                # both overloads while string? params still flip to byte*.
+                typed = self.typed_params.get((original_func_name, arg_name))
+                if typed:
+                    byte_params.append(f"{typed} {arg_name}")
+                    continue
                 if arg_type == "string?":
                     has_string_param = True
                     byte_params.append(f"byte* {arg_name}")
@@ -313,10 +335,18 @@ class CodeGenerator:
                         member_type = self.type_mapper.map_type(union_member.type, is_struct_field=True)
                         if not member_type or "unnamed" in member_type or "::" in member_type:
                             continue
-                        
+
+                        # Honor typed-field overrides even for flattened anonymous-union
+                        # members: they end up named on the parent struct, so callers
+                        # would write `parent.member`, which is the access path we want
+                        # to retype.
+                        typed = self.typed_fields.get((original_struct_name, union_member.spelling))
+                        if typed:
+                            member_type = typed
+
                         fields.append(f"    [FieldOffset({offset_bytes})]\n    {self.visibility} {member_type} {member_name};")
                 continue
-            
+
             # Handle anonymous structs by flattening their members
             if field.kind == CursorKind.STRUCT_DECL and field.spelling and "anonymous" in field.spelling.lower() and field.is_definition():
                 # This is an anonymous struct - flatten its members into the parent struct
@@ -342,10 +372,15 @@ class CodeGenerator:
                         member_type = self.type_mapper.map_type(struct_member.type, is_struct_field=True)
                         if not member_type or "unnamed" in member_type or "::" in member_type:
                             continue
-                        
+
+                        # Same as for anonymous-union flattening: retype on the parent's key.
+                        typed = self.typed_fields.get((original_struct_name, struct_member.spelling))
+                        if typed:
+                            member_type = typed
+
                         fields.append(f"    [FieldOffset({offset_bytes})]\n    {self.visibility} {member_type} {member_name};")
                 continue
-            
+
             if field.kind == CursorKind.FIELD_DECL:
                 field_name = field.spelling
 
@@ -407,6 +442,12 @@ class CodeGenerator:
                     # Skip fields with invalid types (anonymous unions/structs)
                     if not field_type or "unnamed" in field_type or "::" in field_type:
                         continue
+
+                    # Apply any XML-declared typed-field override for this (struct, field).
+                    # Uses the C struct/field names (pre-rename) as the key.
+                    typed = self.typed_fields.get((original_struct_name, field.spelling))
+                    if typed:
+                        field_type = typed
 
                     fields.append(f"    [FieldOffset({offset_bytes})]\n    {self.visibility} {field_type} {field_name};")
 

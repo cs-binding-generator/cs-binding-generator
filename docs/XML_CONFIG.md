@@ -240,6 +240,64 @@ public enum WindowFlags : ulong
 }
 ```
 
+### Typed Field Override: `<typed-field>`
+
+Swap the auto-mapped C# type on a single struct field for whatever the user
+specifies — typically a `[Flags]` enum extracted via `<constants>`, so call sites
+can write `usage = MyFlags.X | MyFlags.Y` instead of an explicit `(uint)` cast.
+
+**Attributes:**
+- `struct` (required): C struct name (pre-rename)
+- `field` (required): C field name (pre-rename)
+- `type` (required): C# type to substitute
+
+The generator does not validate that `type` exists or that it's binary-compatible
+with the original field — that's on the user. The most common use is pointing
+`uint`/`byte` fields at a `[Flags]` enum of the same underlying type. Mismatches
+produce a compile error in the generated `.cs`, which is the right failure mode.
+
+```xml
+<typed-field struct="SDL_GPUBufferCreateInfo" field="usage"
+             type="SDL_GPUBufferUsageFlags"/>
+<typed-field struct="SDL_GPUTextureCreateInfo" field="usage"
+             type="SDL_GPUTextureUsageFlags"/>
+```
+
+Generated C#:
+```csharp
+public unsafe partial struct SDL_GPUBufferCreateInfo
+{
+    [FieldOffset(0)] public SDL_GPUBufferUsageFlags usage;
+    ...
+}
+```
+
+### Typed Param Override: `<typed-param>`
+
+Same idea applied to a function parameter. Lets the user retype a single
+parameter on a single function without affecting any other call.
+
+**Attributes:**
+- `function` (required): C function name (pre-rename)
+- `param` (required): C parameter name (pre-rename)
+- `type` (required): C# type to substitute
+
+```xml
+<typed-param function="SDL_CreateGPUDevice" param="format_flags"
+             type="SDL_GPUShaderFormat"/>
+```
+
+Generated C#:
+```csharp
+[LibraryImport("SDL3", EntryPoint = "SDL_CreateGPUDevice", ...)]
+public static partial SDL_GPUDevice* SDL_CreateGPUDevice(
+    SDL_GPUShaderFormat format_flags, bool debug_mode, string? name);
+```
+
+When `<utf8-byte-overloads/>` is also enabled, the typed override is honored on
+**both** overloads: the typed param keeps its type, and only `string?` params
+get swapped to `byte*` on the secondary overload.
+
 ### UTF-8 Byte Overloads: `<utf8-byte-overloads/>`
 
 Opt in to a second `[LibraryImport]` partial method for every non-variadic function

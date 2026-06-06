@@ -21,6 +21,12 @@ class BindingConfig:
     global_constants: list[tuple[str, str, str, bool]] = field(default_factory=list)
     global_defines: list[tuple[str, str | None]] = field(default_factory=list)
     utf8_byte_overloads: bool = False
+    # Per-(struct, field) type overrides — keyed by the C struct and field name (pre-rename).
+    # Lets the user point a raw `uint`/`byte` field at a flag-enum type so call sites can
+    # write `usage = MyFlags.X | MyFlags.Y` instead of `(uint)(MyFlags.X | MyFlags.Y)`.
+    typed_fields: dict[tuple[str, str], str] = field(default_factory=dict)
+    # Same idea for function parameters: (function, param) -> type name.
+    typed_params: dict[tuple[str, str], str] = field(default_factory=dict)
 
 
 def parse_config_file(config_path):
@@ -110,6 +116,32 @@ def parse_config_file(config_path):
         # without the round trip through Encoding.UTF8 → marshaller → native.
         if root.find("utf8-byte-overloads") is not None:
             config.utf8_byte_overloads = True
+
+        # Per-(struct, field) type overrides. Each entry replaces the auto-mapped C# type
+        # on a single struct field with whatever the user specifies (typically a [Flags]
+        # enum extracted via <constants>). The struct/field names use the C identifier,
+        # before any rename rule fires.
+        for tf in root.findall("typed-field"):
+            struct_name = tf.get("struct")
+            field_name = tf.get("field")
+            type_name = tf.get("type")
+            if not struct_name or not field_name or not type_name:
+                raise ValueError(
+                    "typed-field element missing one of 'struct', 'field', 'type' attributes"
+                )
+            config.typed_fields[(struct_name.strip(), field_name.strip())] = type_name.strip()
+
+        # Per-(function, param) type overrides. Same mechanism, applied to function
+        # parameters. The function/param names use the C identifier, before renames.
+        for tp in root.findall("typed-param"):
+            func_name = tp.get("function")
+            param_name = tp.get("param")
+            type_name = tp.get("type")
+            if not func_name or not param_name or not type_name:
+                raise ValueError(
+                    "typed-param element missing one of 'function', 'param', 'type' attributes"
+                )
+            config.typed_params[(func_name.strip(), param_name.strip())] = type_name.strip()
 
         for library in root.findall("library"):
             library_name = library.get("name")

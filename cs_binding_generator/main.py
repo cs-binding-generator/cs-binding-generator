@@ -127,6 +127,8 @@ Examples:
             global_constants=config.global_constants,
             global_defines=config.global_defines,
             utf8_byte_overloads=config.utf8_byte_overloads,
+            typed_fields=config.typed_fields,
+            typed_params=config.typed_params,
         )
     except Exception as e:
         import traceback
