@@ -240,6 +240,55 @@ public enum WindowFlags : ulong
 }
 ```
 
+### UTF-8 Byte Overloads: `<utf8-byte-overloads/>`
+
+Opt in to a second `[LibraryImport]` partial method for every non-variadic function
+whose primary signature contains at least one `string?` parameter. The overload
+swaps every `string?` for `byte*`, letting callers pass pre-encoded UTF-8 buffers
+(u8 literals, pinned `ReadOnlySpan<byte>`, `byte[]` via `fixed`) to native code
+without the `string` → marshaller → UTF-8 round trip.
+
+**Attributes:** none. Presence of the element enables the feature.
+
+```xml
+<bindings>
+    <utf8-byte-overloads/>
+    <library name="SDL3" namespace="MyApp">
+        <include file="/usr/include/SDL3/SDL.h"/>
+    </library>
+</bindings>
+```
+
+**Example:**
+
+Input C:
+```c
+int SDL_SetStringProperty(unsigned int props, const char* name, const char* value);
+```
+
+Generated C# (both partials reference the same native symbol):
+```csharp
+[LibraryImport("SDL3", EntryPoint = "SDL_SetStringProperty", StringMarshalling = StringMarshalling.Utf8)]
+[UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+public static partial int SDL_SetStringProperty(uint props, string? name, string? value);
+
+[LibraryImport("SDL3", EntryPoint = "SDL_SetStringProperty", StringMarshalling = StringMarshalling.Utf8)]
+[UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+public static partial int SDL_SetStringProperty(uint props, byte* name, byte* value);
+```
+
+Caller:
+```csharp
+fixed (byte* p = "SDL.gpu.shader.create.name"u8)
+fixed (byte* v = nameBytes)
+    SDL_SetStringProperty(props, p, v);
+```
+
+The C# compiler resolves overloads by argument type. The overload is only emitted
+for non-variadic functions that have at least one `string?` param — functions with
+no string params are left as-is. Non-string parameters (including bool with its
+`[MarshalAs(UnmanagedType.I1)]` attribute) are forwarded verbatim into the overload.
+
 ### Flag Enums: `<flags>`
 
 Mark **auto-discovered** C enums (those declared as `typedef enum { ... } Name;`

@@ -21,6 +21,7 @@ The tool is configured primarily through XML configuration files, providing powe
 - **Removal Support**: Filter out unwanted functions, types, or patterns
 - **Compiler Defines**: Pass `-D` flags to libclang via `<define>` to enable optional API blocks and gate platform-specific code paths during parsing
 - **Flag Enum Marking**: Tag auto-discovered C enums with `[Flags]` via `<flags>`, with exact-name or regex matching
+- **UTF-8 Byte Overloads**: Opt in via `<utf8-byte-overloads/>` to emit a second `byte*`-param partial alongside every `string?`-param `[LibraryImport]`, so callers can hand pre-encoded UTF-8 buffers (u8 literals, pinned spans) to native code without re-encoding through a managed string
 - **Macro Constants**: Extract C `#define` constants as C# enums (numeric mode) or as UTF-8 `ReadOnlySpan<byte>` members (string mode). Object-like and function-like macros are recursively expanded, and C-style casts in macro values are stripped before the numeric check, so chains like `SDL_BUTTON_MASK(SDL_BUTTON_LEFT)` and values like `((SDL_AudioDeviceID) 0xFFFFFFFFu)` resolve cleanly.
 - **String Handling**: Provides both raw pointer and helper string methods for `char*` returns
 - **Struct Generation**: Creates explicit layout structs with proper field offsets

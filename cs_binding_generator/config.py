@@ -20,6 +20,7 @@ class BindingConfig:
     visibility: str = "public"
     global_constants: list[tuple[str, str, str, bool]] = field(default_factory=list)
     global_defines: list[tuple[str, str | None]] = field(default_factory=list)
+    utf8_byte_overloads: bool = False
 
 
 def parse_config_file(config_path):
@@ -102,6 +103,13 @@ def parse_config_file(config_path):
             config.global_constants.append(
                 ((const_name or "").strip(), const_pattern.strip(), const_type, const_flags)
             )
+
+        # Opt-in: for every function that has at least one `string?` parameter (mapped
+        # from a C char* arg), emit a parallel byte*-param overload alongside the primary
+        # P/Invoke. Lets callers pass pre-encoded UTF-8 buffers (u8 literals, pinned spans)
+        # without the round trip through Encoding.UTF8 → marshaller → native.
+        if root.find("utf8-byte-overloads") is not None:
+            config.utf8_byte_overloads = True
 
         for library in root.findall("library"):
             library_name = library.get("name")

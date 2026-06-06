@@ -12,12 +12,23 @@ from .type_mapper import TypeMapper
 class CodeGenerator:
     """Generates C# code from libclang AST nodes"""
 
-    def __init__(self, type_mapper: TypeMapper, visibility: str = "public", skip_variadic: bool = False):
+    def __init__(
+        self,
+        type_mapper: TypeMapper,
+        visibility: str = "public",
+        skip_variadic: bool = False,
+        utf8_byte_overloads: bool = False,
+    ):
         self.type_mapper = type_mapper
         self.anonymous_enum_counter = 0
         self.visibility = visibility
         self.skip_variadic = skip_variadic
         self.has_variadic_functions = False
+        # When True, generate_function emits a parallel `byte*`-param overload alongside
+        # the primary `[LibraryImport]` for any function whose original signature contains
+        # a `string?` parameter. Lets callers pass pre-encoded UTF-8 buffers without the
+        # managed-string → UTF-8 re-encode round trip.
+        self.utf8_byte_overloads = utf8_byte_overloads
 
     def generate_function(self, cursor, library_name: str) -> str:
         """Generate C# LibraryImport for a function"""
@@ -100,6 +111,40 @@ class CodeGenerator:
             code = f"""    [LibraryImport("{library_name}", EntryPoint = "{original_func_name}", StringMarshalling = StringMarshalling.Utf8)]
     [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
 {return_marshal}    {self.visibility} static partial {result_type} {func_name}({params_str});
+"""
+
+        # Optional byte*-param overload. Emitted only when (a) the opt-in flag is set,
+        # (b) the function isn't variadic, and (c) at least one parameter was mapped to
+        # `string?`. The overload swaps every `string?` param for `byte*`, letting callers
+        # pass pre-encoded UTF-8 buffers (u8 literals, pinned spans) without re-encoding.
+        # The C# compiler picks between the two overloads by argument type at the call site.
+        if self.utf8_byte_overloads and not is_variadic_for_generation:
+            byte_params: list[str] = []
+            has_string_param = False
+            for i, arg in enumerate(cursor.get_arguments()):
+                arg_type = self.type_mapper.map_type(arg.type, is_return_type=False)
+                if arg_type is None:
+                    # If the primary emit accepted these params, the secondary should too.
+                    # Skip silently rather than emit a half-built overload.
+                    byte_params = []
+                    has_string_param = False
+                    break
+                arg_name = arg.spelling or f"param{i}"
+                arg_name = self._escape_keyword(arg_name)
+                if arg_type == "string?":
+                    has_string_param = True
+                    byte_params.append(f"byte* {arg_name}")
+                elif arg_type == "bool":
+                    byte_params.append(f"[MarshalAs(UnmanagedType.I1)] {arg_type} {arg_name}")
+                else:
+                    byte_params.append(f"{arg_type} {arg_name}")
+
+            if has_string_param:
+                byte_params_str = ", ".join(byte_params)
+                code += f"""
+    [LibraryImport("{library_name}", EntryPoint = "{original_func_name}", StringMarshalling = StringMarshalling.Utf8)]
+    [UnmanagedCallConv(CallConvs = [typeof(CallConvCdecl)])]
+{return_marshal}    {self.visibility} static partial {result_type} {func_name}({byte_params_str});
 """
 
         # Add helper function for char* return types (skip for variadic functions)
