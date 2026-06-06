@@ -58,6 +58,41 @@ Specifies directories where header files can be found. Similar to `-I` flags in 
 - Can be defined globally (applies to all libraries)
 - Can be defined inside `<library>` (applies only to that library)
 
+### Preprocessor Defines: `<define>`
+
+Pass `-D` preprocessor flags to libclang when it parses each header. Use this to
+flip feature flags, set platform sentinels, or expose configuration values that
+the headers gate behind `#ifdef`.
+
+**Attributes:**
+- `name` (required): The macro name to define
+- `value` (optional): The value to assign. Omit (or pass an empty string) to define
+  the macro with no value, equivalent to a bare `-DNAME` flag
+
+**Important:** Defines are always global and apply to every library/header that gets
+parsed.
+
+```xml
+<!-- Bare define: -DENABLE_FEATURE -->
+<define name="ENABLE_FEATURE"/>
+
+<!-- Define with value: -DVERSION=123 -->
+<define name="VERSION" value="123"/>
+
+<!-- Useful for forcing a platform / SDK macro before include: -->
+<define name="_GNU_SOURCE"/>
+<define name="SDL_MAIN_HANDLED"/>
+```
+
+**Use cases:**
+- Enable optional API blocks the headers gate behind `#ifdef`
+- Force a platform identifier so cross-architecture headers pick the right branch
+- Inject a build-flavor flag (debug/release/profile) into the parse
+
+Note that defines affect what libclang *sees*, not what the generated C# code
+does. They alter which functions, structs, and macros end up in the binding;
+they don't insert anything into the C# output directly.
+
 ### Renaming: `<rename>`
 
 Transform C names to C# names. Applied to functions, types, enums, and constants.
@@ -122,33 +157,60 @@ Remove specific functions, types, or patterns from generation.
 
 ### Constants: `<constants>`
 
-Extract C macro constants as C# enums.
+Extract C macro constants as either a C# enum (numeric values) or as UTF-8
+`ReadOnlySpan<byte>` members on the library class (string values).
 
 **Attributes:**
-- `name` (required): Name of the C# enum to generate
+- `name` (required for numeric, optional for `type="string"`): Name of the C# enum
+  to generate. String groups have no wrapper type, so the name is ignored.
 - `pattern` (required): Pattern to match macro names
-- `type` (optional): C# enum base type (default: `uint`)
-- `flags` (optional): Add `[Flags]` attribute (default: `false`)
+- `type` (optional, default `uint`): C# enum base type for numeric mode, or the
+  literal value `string` to switch into UTF-8 string-constants mode
+- `flags` (optional, default `false`): Add `[Flags]` attribute. Numeric mode only.
 
-**Important:** Constants are always global and macros are extracted from all headers. The generated enums are placed in the library file that matches the most extracted macros.
+**Important:** Constants are always global and macros are extracted from all headers.
+A constants group is emitted in every library whose translation unit captures at
+least one matching macro. When two libraries share a header (transitive include),
+the same enum will appear in both library files.
 
 ```xml
-<!-- Generate enum from SDL window flags -->
+<!-- Numeric: flag enum from SDL window flags -->
 <constants name="WindowFlags" pattern="SDL_WINDOW_.*" type="ulong" flags="true"/>
 
-<!-- Generate enum from init flags (no [Flags] attribute) -->
+<!-- Numeric: plain enum (no [Flags]) -->
 <constants name="InitFlags" pattern="SDL_INIT_.*"/>
 
-<!-- Generate enum with specific type -->
+<!-- Numeric: explicit base type -->
 <constants name="EventType" pattern="SDL_EVENT_.*" type="int"/>
+
+<!-- String: emits each match as a ReadOnlySpan<byte> on the library class -->
+<constants pattern="SDL_PROP_.*_STRING" type="string"/>
 ```
 
-**How it works:**
-1. Generator scans header files for `#define` macros
-2. Macros matching the pattern are collected
-3. Only numeric values are included (hex, octal, or decimal)
-4. A C# enum is generated with those values
-5. Rename rules are applied to enum members
+**How numeric mode works:**
+1. Scan every `#define` in each header into a per-file macro table, keeping both
+   object-like (`#define NAME body`) and function-like (`#define NAME(arg) body`)
+   forms.
+2. For each pattern-matching object-like macro, expand its body against the table
+   recursively (capped at 8 substitutions to bound self-referential cycles). This
+   resolves chains like `#define A B` / `#define B 1` to `1`, and function-like
+   calls like `SDL_BUTTON_MASK(SDL_BUTTON_LEFT)` to `(1u << ((1)-1))`.
+3. Strip leading C-style casts such as `(SomeType)` when they sit in front of a
+   numeric token, so `((SDL_AudioDeviceID) 0xFFFFFFFFu)` reduces to `(0xFFFFFFFFu)`.
+4. Validate that the result is numeric (hex, decimal, bitwise/arithmetic expression).
+   Macros that don't fully resolve are silently skipped.
+5. Emit a C# enum with the surviving values; rename rules are applied to both the
+   enum name and the member names.
+
+**How string mode works:**
+1. The same `#define` table is built, but candidate bodies are only accepted if
+   they are a single quoted C string literal (e.g. `"hello"`). Identifier references
+   inside string bodies are NOT expanded.
+2. Each surviving macro is emitted as
+   `public static System.ReadOnlySpan<byte> NAME => "literal"u8;` on the library's
+   static class. No wrapper type is created, so `name=` on the `<constants>`
+   element is unused in this mode.
+3. Rename rules apply to the member name.
 
 **Example:**
 
@@ -177,6 +239,69 @@ public enum WindowFlags : ulong
     BORDERLESS = unchecked((ulong)(0x00000008)),
 }
 ```
+
+### Flag Enums: `<flags>`
+
+Mark **auto-discovered** C enums (those declared as `typedef enum { ... } Name;`
+in the header) with the C# `[Flags]` attribute. Use this when the C author chose
+a real `enum` over `#define` macros but the values are still bitmask flags.
+
+This is distinct from `<constants flags="true">`:
+
+- `<constants flags="true">` extracts `#define` macros into a NEW enum and tags
+  that new enum with `[Flags]`.
+- `<flags>` tags an EXISTING enum that the generator already discovered from
+  a `typedef enum` in the source.
+
+**Attributes:**
+- `pattern` (required): The enum name to match (or a regex if `regex="true"`)
+- `regex` (optional, default `false`): Treat `pattern` as a regular expression
+
+**Important:** Flag patterns are global. The first matching pattern wins (no
+chaining). Pattern matching uses `re.fullmatch`, so the pattern must match the
+entire enum name.
+
+```xml
+<!-- Exact name match -->
+<flags pattern="SDL_WindowFlags"/>
+
+<!-- Regex: every enum whose name ends in `Flags` -->
+<flags pattern=".*Flags" regex="true"/>
+
+<!-- Combine specific overrides with a broad rule -->
+<flags pattern="Permissions"/>
+<flags pattern=".*Mode" regex="true"/>
+```
+
+**Example:**
+
+Input C header:
+```c
+typedef enum {
+    SDL_WINDOW_FULLSCREEN = 1,
+    SDL_WINDOW_RESIZABLE = 2,
+    SDL_WINDOW_HIDDEN    = 4
+} SDL_WindowFlags;
+```
+
+Configuration:
+```xml
+<flags pattern="SDL_WindowFlags"/>
+```
+
+Generated C#:
+```csharp
+[Flags]
+public enum SDL_WindowFlags
+{
+    SDL_WINDOW_FULLSCREEN = 1,
+    SDL_WINDOW_RESIZABLE = 2,
+    SDL_WINDOW_HIDDEN = 4,
+}
+```
+
+Renames are applied after flag matching: if `<rename>` renames the enum, write
+your `<flags>` pattern against the **renamed** name.
 
 ### Libraries: `<library>`
 

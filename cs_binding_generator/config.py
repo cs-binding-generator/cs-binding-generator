@@ -84,19 +84,24 @@ def parse_config_file(config_path):
 
         # Get global constants (macros to extract)
         # These are stored as a list of (name, pattern, type, is_flags) tuples
-        # They will be applied to all libraries during processing
+        # They will be applied to all libraries during processing.
+        # The `name` attribute is required for numeric constants groups (which become a
+        # named C# enum) but optional for `type="string"` groups (which emit each macro
+        # as a member of the library's static class with no wrapper type).
         for const in root.findall("constants"):
             const_name = const.get("name")
             const_pattern = const.get("pattern")
-            const_type = const.get("type", "uint")  # Default to uint
-            const_flags = const.get("flags", "false").lower() == "true"  # Default to false
+            const_type = const.get("type", "uint").strip()
+            const_flags = const.get("flags", "false").lower() == "true"
 
-            if not const_name:
-                raise ValueError("Constants element missing 'name' attribute")
             if not const_pattern:
                 raise ValueError("Constants element missing 'pattern' attribute")
+            if const_type != "string" and not const_name:
+                raise ValueError("Constants element missing 'name' attribute")
 
-            config.global_constants.append((const_name.strip(), const_pattern.strip(), const_type.strip(), const_flags))
+            config.global_constants.append(
+                ((const_name or "").strip(), const_pattern.strip(), const_type, const_flags)
+            )
 
         for library in root.findall("library"):
             library_name = library.get("name")

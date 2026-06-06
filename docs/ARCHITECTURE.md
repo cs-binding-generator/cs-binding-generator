@@ -83,8 +83,19 @@ The main orchestrator that coordinates the entire generation process.
 - `process_cursor()`: Recursively walks the AST
 - `prescan_opaque_types()`: Identifies opaque struct typedefs
 - `_build_file_depth_map()`: Tracks include hierarchy
-- `_extract_macros_from_file()`: Scans header for #define macros
-- `_is_numeric_macro_value()`: Validates macro values are numeric constants
+- `_extract_macros_from_file()` / `_extract_typed_macros_from_file()`: Scan a
+  header for `#define` macros matching the configured patterns; the typed
+  variant dispatches between numeric and string emission kinds.
+- `_scan_macros()`: Pass-1 scan that builds a per-file table of both object-like
+  and function-like macros, used as the lookup target during expansion.
+- `_expand_macros()` / `_expand_once()`: Recursive textual substitution of
+  identifier references and function-like macro calls, depth-capped against
+  self-referential cycles. String literals are skipped.
+- `_strip_c_casts()`: Removes `(IDENT)` and `(IDENT IDENT)` C-style casts when
+  followed by a numeric token, so `((SDL_AudioDeviceID) 0xFFFFFFFFu)` reduces
+  to `(0xFFFFFFFFu)`.
+- `_is_numeric_macro_value()` / `_is_string_macro_value()`: Per-kind value
+  validators run after expansion/cast-strip.
 
 ### 4. Type Mapper (`type_mapper.py`)
 
@@ -428,9 +439,8 @@ Potential areas for improvement:
 
 1. **Function pointer support**: Map to delegates
 2. **Callback handling**: Generate C# delegate types
-3. **Macro expansion**: Process simple #define values
-4. **Bitfield support**: Handle bit-width fields
-5. **Documentation comments**: Extract and preserve doxygen comments
-6. **Source maps**: Track C header → C# line mapping
-7. **Incremental generation**: Only regenerate changed definitions
-8. **Custom type maps**: User-provided type override files
+3. **Bitfield support**: Handle bit-width fields
+4. **Documentation comments**: Extract and preserve doxygen comments
+5. **Source maps**: Track C header → C# line mapping
+6. **Incremental generation**: Only regenerate changed definitions
+7. **Custom type maps**: User-provided type override files

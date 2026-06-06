@@ -469,13 +469,15 @@ class TestGeneratorInternals:
         assert "TEST_VALUE_3" in macros
         assert macros["TEST_VALUE_3"] == "(-1)"
 
-        # Should NOT capture macros that reference other identifiers
-        assert "TEST_VALUE_4" not in macros
+        # Macros that reference other captured macros are resolved transitively:
+        # TEST_VALUE_4 -> TEST_VALUE_1 -> 0x0001.
+        assert "TEST_VALUE_4" in macros
+        assert macros["TEST_VALUE_4"] == "0x0001"
 
         # Should NOT capture macros that don't match pattern
         assert "OTHER_VALUE" not in macros
 
-        # Should NOT capture string macros
+        # Should NOT capture string macros (string mode requires type="string")
         assert "TEST_STRING" not in macros
 
     def test_generate_with_constants(self, temp_dir, tmp_path):

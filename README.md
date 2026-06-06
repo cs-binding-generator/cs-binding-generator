@@ -19,7 +19,9 @@ The tool is configured primarily through XML configuration files, providing powe
 - **Automatic Type Mapping**: Intelligently maps C types to C# equivalents
 - **Renaming Support**: Simple and regex-based renaming rules to transform C names to C# conventions
 - **Removal Support**: Filter out unwanted functions, types, or patterns
-- **Macro Constants**: Extract C `#define` constants as C# enums with optional `[Flags]` attribute
+- **Compiler Defines**: Pass `-D` flags to libclang via `<define>` to enable optional API blocks and gate platform-specific code paths during parsing
+- **Flag Enum Marking**: Tag auto-discovered C enums with `[Flags]` via `<flags>`, with exact-name or regex matching
+- **Macro Constants**: Extract C `#define` constants as C# enums (numeric mode) or as UTF-8 `ReadOnlySpan<byte>` members (string mode). Object-like and function-like macros are recursively expanded, and C-style casts in macro values are stripped before the numeric check, so chains like `SDL_BUTTON_MASK(SDL_BUTTON_LEFT)` and values like `((SDL_AudioDeviceID) 0xFFFFFFFFu)` resolve cleanly.
 - **String Handling**: Provides both raw pointer and helper string methods for `char*` returns
 - **Struct Generation**: Creates explicit layout structs with proper field offsets
 - **Union Support**: Converts C unions to C# structs with `LayoutKind.Explicit` and field offsets
@@ -420,7 +422,10 @@ CsBindingGenerator/
 ## Limitations
 
 - Variadic functions are not supported (skipped)
-- Complex macros with expressions are not extracted
+- Macro expansion is textual, not a full C preprocessor: token-pasting (`##`),
+  stringizing (`#`), and multi-line backslash continuations are not handled.
+  Multi-token type names inside casts are recognized (`unsigned int`, `long long`),
+  but pointer casts (`(int*)`) are not stripped.
 - Bitfields in structs are not supported
 - Function pointers are mapped to `nint`
 - Requires manual handling of callbacks

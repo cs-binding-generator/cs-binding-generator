@@ -60,51 +60,293 @@ class CSharpBindingsGenerator:
         self.source_file = None
 
     def _extract_macros_from_file(self, file_path: str, patterns: list[str]) -> dict[str, str]:
-        """Extract #define macros from a header file that match the given patterns
+        """Numeric-only extractor (legacy signature, retained for internal tests).
 
-        Args:
-            file_path: Path to the header file
-            patterns: List of regex patterns to match macro names
-
-        Returns:
-            Dict mapping macro names to their values
+        Forwards to `_extract_typed_macros_from_file` treating every pattern as
+        ``numeric``, and strips the kind from each entry so the return shape stays
+        ``{name: value}``.
         """
-        macros = {}
+        typed = [(p, "numeric") for p in patterns]
+        result = self._extract_typed_macros_from_file(file_path, typed)
+        return {name: value for name, (value, _kind) in result.items()}
+
+    def _extract_typed_macros_from_file(
+        self,
+        file_path: str,
+        typed_patterns: list[tuple[str, str]],
+    ) -> dict[str, tuple[str, str]]:
+        """Extract ``#define`` macros from a header, dispatching by pattern kind.
+
+        ``typed_patterns`` is a list of ``(regex, kind)`` pairs where ``kind`` is either
+        ``"string"`` or ``"numeric"``. Each macro is tested against the patterns for its
+        kind:
+
+        - ``"string"``: the macro body must be a single C string literal (``"..."``).
+          No expansion is done — string macros that reference other identifiers are
+          out of scope. The stored value is the literal including the bounding quotes.
+        - ``"numeric"``: the body is expanded against the file's full macro table,
+          C casts are stripped, and the result must pass `_is_numeric_macro_value`.
+
+        Returns a dict ``{name: (value, kind)}`` so callers can route emit decisions
+        (enum vs. UTF-8 property) without re-classifying.
+        """
+        macros: dict[str, tuple[str, str]] = {}
+        table = self._scan_macros(file_path)
+
+        numeric_patterns = [p for p, k in typed_patterns if k != "string"]
+        string_patterns = [p for p, k in typed_patterns if k == "string"]
+
+        for name, (params, body) in table.items():
+            if params is not None:
+                continue  # function-like macros stay in the table only as expansion targets
+
+            wants_numeric = any(re.fullmatch(p, name) for p in numeric_patterns)
+            wants_string = any(re.fullmatch(p, name) for p in string_patterns)
+
+            # Prefer the string check first when the macro body literally looks like a
+            # quoted string — that way `<constants type="string">` doesn't accidentally
+            # lose to a wider `numeric` pattern that happens to also match the name.
+            if wants_string and self._is_string_macro_value(body):
+                macros[name] = (body, "string")
+                continue
+
+            if wants_numeric:
+                value = self._expand_macros(body, table)
+                value = self._strip_c_casts(value)
+
+                # Legacy single-arg cast-macro form `WRAP(value)` (e.g. SDL_UINT64_C(0x123)).
+                # Run AFTER expansion so we only fall back when expansion didn't replace
+                # the wrapper.
+                cast_match = re.match(r'^\w+\((.*)\)$', value)
+                if cast_match:
+                    value = cast_match.group(1).strip()
+
+                if self._is_numeric_macro_value(value):
+                    macros[name] = (value, "numeric")
+
+        return macros
+
+    @staticmethod
+    def _is_string_macro_value(value: str) -> bool:
+        """True if `value` is a single C string literal (e.g. `"hello"`).
+
+        Backslash escapes are honored so that `"a\"b"` is recognized as one literal,
+        not a quote-balanced pair. Concatenated literals like `"a" "b"` are rejected;
+        we don't try to fuse them.
+        """
+        if len(value) < 2 or value[0] != '"' or value[-1] != '"':
+            return False
+        i = 1
+        end = len(value) - 1
+        while i < end:
+            if value[i] == '\\' and i + 1 < end:
+                i += 2
+            elif value[i] == '"':
+                return False
+            else:
+                i += 1
+        return True
+
+    def _scan_macros(self, file_path: str) -> dict[str, tuple[list[str] | None, str]]:
+        """Pass-1 scan: turn every `#define` in a file into a lookup table.
+
+        Returns a dict from macro name to `(params, body)` where:
+          - object-like macros (`#define NAME body`) have `params=None`
+          - function-like macros (`#define NAME(arg1, arg2) body`) have `params=[...]`
+
+        Bodies are stripped of trailing `/* ... */` comments and trailing commas to
+        match the legacy single-pass behavior. Multi-line continuations (backslash-
+        newline) are not handled — same limitation the previous scanner had.
+        """
+        # Function-like has to be tried first because its `NAME(` opening would otherwise
+        # be consumed by the object-like `\w+` group and leave `(args) body` as the value.
+        func_re = re.compile(r'^\s*#\s*define\s+(\w+)\(([^)]*)\)\s+(.+?)(?://.*)?$')
+        obj_re = re.compile(r'^\s*#\s*define\s+(\w+)\s+(.+?)(?://.*)?$')
+        table: dict[str, tuple[list[str] | None, str]] = {}
 
         try:
             with open(file_path, 'r', encoding='utf-8') as f:
                 for line in f:
-                    # Look for #define directives with simple numeric values
-                    # Pattern: #define NAME VALUE
-                    match = re.match(r'^\s*#\s*define\s+(\w+)\s+(.+?)(?://.*)?$', line)
-                    if match:
-                        macro_name = match.group(1)
-                        macro_value = match.group(2).strip()
-
-                        # Strip C-style comments (/**< ... */ or /* ... */)
-                        macro_value = re.sub(r'/\*.*?\*/', '', macro_value).strip()
-
-                        # Strip trailing commas
-                        macro_value = macro_value.rstrip(',')
-
-                        # Strip C cast macros like SDL_UINT64_C(0x...) and extract the value
-                        cast_match = re.match(r'^\w+\((.*)\)$', macro_value)
-                        if cast_match:
-                            macro_value = cast_match.group(1).strip()
-
-                        # Only capture macros with numeric-looking values or simple expressions
-                        # Skip macros that reference other identifiers (which would need evaluation)
-                        if self._is_numeric_macro_value(macro_value):
-                            # Check if this macro matches any of the patterns
-                            for pattern in patterns:
-                                if re.fullmatch(pattern, macro_name):
-                                    macros[macro_name] = macro_value
-                                    break
-        except Exception as e:
-            # If we can't read the file, just skip it
+                    fm = func_re.match(line)
+                    if fm:
+                        name = fm.group(1)
+                        params = [p.strip() for p in fm.group(2).split(',') if p.strip()]
+                        body = self._clean_macro_body(fm.group(3))
+                        table[name] = (params, body)
+                        continue
+                    om = obj_re.match(line)
+                    if om:
+                        name = om.group(1)
+                        body = self._clean_macro_body(om.group(2))
+                        table[name] = (None, body)
+        except Exception:
             pass
 
-        return macros
+        return table
+
+    @staticmethod
+    def _clean_macro_body(body: str) -> str:
+        body = body.strip()
+        body = re.sub(r'/\*.*?\*/', '', body).strip()
+        return body.rstrip(',')
+
+    def _expand_macros(self, value: str, macros: dict, max_depth: int = 8) -> str:
+        """Iteratively substitute identifier and function-call references in `value`
+        until the value stops changing or we hit `max_depth`.
+
+        The depth cap is a hard stop against self-referential macros (`#define FOO FOO`)
+        and mutually-referential pairs; we'd rather return a partially-expanded value the
+        numeric check rejects than hang.
+        """
+        for _ in range(max_depth):
+            new_value = self._expand_once(value, macros)
+            if new_value == value:
+                return value
+            value = new_value
+        return value
+
+    def _expand_once(self, value: str, macros: dict) -> str:
+        """One substitution pass over `value`.
+
+        Walks the string left-to-right. When we hit an identifier, decide:
+        - if it's followed by `(`, treat it as a function-like macro call and substitute
+          the body with the args bound to the parameter names;
+        - otherwise treat it as an object-like macro reference and substitute its body.
+
+        Identifiers inside `"..."` string literals are skipped so that string-valued
+        macros aren't corrupted by accidental substitution.
+        """
+        ident_re = re.compile(r'[A-Za-z_]\w*')
+        out: list[str] = []
+        i = 0
+        n = len(value)
+
+        while i < n:
+            ch = value[i]
+
+            if ch == '"':
+                # Copy a string literal verbatim, honoring backslash escapes so that an
+                # escaped `\"` doesn't terminate the string prematurely.
+                j = i + 1
+                while j < n:
+                    if value[j] == '\\' and j + 1 < n:
+                        j += 2
+                    elif value[j] == '"':
+                        j += 1
+                        break
+                    else:
+                        j += 1
+                out.append(value[i:j])
+                i = j
+                continue
+
+            if ch.isalpha() or ch == '_':
+                m = ident_re.match(value, i)
+                assert m is not None  # the leading-char check above guarantees this
+                name = m.group(0)
+                end = i + len(name)
+
+                if end < n and value[end] == '(':
+                    # Possible function-like call.
+                    close = self._find_matching_paren(value, end)
+                    if close is not None and name in macros and macros[name][0] is not None:
+                        params, body = macros[name]
+                        args = self._split_macro_args(value[end + 1:close])
+                        if len(args) == len(params):
+                            out.append(self._substitute_params(body, params, args))
+                            i = close + 1
+                            continue
+                    # Not a known function-like macro (or arity mismatch): leave it alone.
+                    out.append(name)
+                    i = end
+                    continue
+
+                # Bare identifier.
+                if name in macros and macros[name][0] is None:
+                    out.append(macros[name][1])
+                else:
+                    out.append(name)
+                i = end
+            else:
+                out.append(ch)
+                i += 1
+
+        return ''.join(out)
+
+    @staticmethod
+    def _find_matching_paren(s: str, open_idx: int) -> int | None:
+        """Return the index of the `)` that closes the `(` at `open_idx`, or None
+        if the parens never balance."""
+        depth = 0
+        for i in range(open_idx, len(s)):
+            if s[i] == '(':
+                depth += 1
+            elif s[i] == ')':
+                depth -= 1
+                if depth == 0:
+                    return i
+        return None
+
+    @staticmethod
+    def _split_macro_args(args_str: str) -> list[str]:
+        """Split a comma-separated function-like macro argument list, respecting paren
+        depth so that `(a, b)` inside an argument is not split into two args."""
+        if args_str.strip() == '':
+            return []
+        args: list[str] = []
+        buf: list[str] = []
+        depth = 0
+        for ch in args_str:
+            if ch == ',' and depth == 0:
+                args.append(''.join(buf).strip())
+                buf = []
+            else:
+                if ch == '(':
+                    depth += 1
+                elif ch == ')':
+                    depth -= 1
+                buf.append(ch)
+        args.append(''.join(buf).strip())
+        return args
+
+    @staticmethod
+    def _substitute_params(body: str, params: list[str], args: list[str]) -> str:
+        """Replace every whole-word occurrence of each parameter name in `body` with the
+        corresponding argument text. Identifiers inside string literals are not skipped
+        here because function-like macro bodies that contain strings AND reference params
+        in them are vanishingly rare in C and unsupported."""
+        mapping = dict(zip(params, args))
+
+        def repl(m: re.Match) -> str:
+            name = m.group(0)
+            return mapping[name] if name in mapping else name
+
+        return re.sub(r'\b[A-Za-z_]\w*\b', repl, body)
+
+    def _strip_c_casts(self, value: str) -> str:
+        """Strip C-style casts `(IDENT)` from a macro value when they sit in front of a
+        numeric token.
+
+        The lookahead is what makes this safe: we only remove `(name)` when the next
+        non-space character is a digit, opening paren, minus, or bitwise NOT — i.e. the
+        start of a numeric expression that the cast is converting. Parens around a bare
+        identifier (e.g. `(x)+1`) are left alone, and parens around a number (e.g. `(1)`)
+        are not casts so the leading-letter requirement on the identifier skips them.
+        """
+        # Match a `(IDENT)` or `(IDENT IDENT ...)` cast where each token is whitespace-
+        # separated. Covers `(uint32_t)`, `(unsigned int)`, `(long long)`, etc. We do not
+        # try to handle pointer casts (`(int*)`) — those contain `*` and the numeric check
+        # would reject the surrounding expression anyway.
+        cast_pattern = re.compile(
+            r'\(\s*[A-Za-z_]\w*(?:\s+[A-Za-z_]\w*)*\s*\)\s*(?=[\d(\-~])'
+        )
+        # Loop until stable: nested casts like `((Foo)(Bar)0)` need a couple of passes.
+        prev = None
+        result = value
+        while prev != result:
+            prev = result
+            result = cast_pattern.sub('', result)
+        return result
 
     def _is_numeric_macro_value(self, value: str) -> bool:
         """Check if a macro value looks numeric (number, cast, or simple expression)
@@ -670,10 +912,13 @@ class CSharpBindingsGenerator:
                 if library_name not in self.captured_macros:
                     self.captured_macros[library_name] = {}
 
-                # Collect all patterns from global constants
-                patterns = []
+                # Tag each pattern with its emission kind so the per-file scanner can
+                # filter accordingly. Anything other than "string" routes to the numeric
+                # path (existing behavior).
+                typed_patterns: list[tuple[str, str]] = []
                 for const_name, const_pattern, const_type, const_flags in self.global_constants:
-                    patterns.append(const_pattern)
+                    kind = "string" if const_type == "string" else "numeric"
+                    typed_patterns.append((const_pattern, kind))
 
                 # Extract macros from all files in the translation unit (not just the main header)
                 # This includes all #included files, which is where macros like SDL_WINDOW_* live
@@ -685,13 +930,13 @@ class CSharpBindingsGenerator:
                             files_set.add(file_path)
                     for child in cursor.get_children():
                         collect_files(child, files_set)
-                
+
                 all_files = set()
                 collect_files(tu.cursor, all_files)
-                
+
                 # Extract macros from all non-system files
                 for file_path in all_files:
-                    file_macros = self._extract_macros_from_file(file_path, patterns)
+                    file_macros = self._extract_typed_macros_from_file(file_path, typed_patterns)
                     self.captured_macros[library_name].update(file_macros)
 
                 if self.captured_macros[library_name]:
@@ -737,36 +982,65 @@ class CSharpBindingsGenerator:
 """
                 self._add_to_library_collection(self.generated_enums, library, code)
 
-        # Generate enums from captured macros using global constants
+        # Generate enums or UTF-8 string members from captured macros using global constants
         for library_name in self.captured_macros:
             for const_name, const_pattern, const_type, const_flags in self.global_constants:
-                # Get all macros matching this pattern
-                matching_macros = {}
-                for macro_name, macro_value in self.captured_macros[library_name].items():
-                    if re.fullmatch(const_pattern, macro_name):
-                        matching_macros[macro_name] = macro_value
+                wants_string = const_type == "string"
 
-                if matching_macros:
-                    # Apply rename rules to the enum name and member names
-                    enum_name = self.type_mapper.apply_rename(const_name)
+                # Get all macros matching this pattern, filtering by kind so that
+                # a numeric constants group can't accidentally pick up a string macro
+                # (or vice-versa) when their name patterns overlap.
+                matching_macros: dict[str, str] = {}
+                for macro_name, (macro_value, kind) in self.captured_macros[library_name].items():
+                    if not re.fullmatch(const_pattern, macro_name):
+                        continue
+                    if wants_string and kind != "string":
+                        continue
+                    if not wants_string and kind != "numeric":
+                        continue
+                    matching_macros[macro_name] = macro_value
 
-                    # Build enum members with renamed names
-                    members = []
-                    for macro_name, macro_value in sorted(matching_macros.items()):
+                if not matching_macros:
+                    continue
+
+                if wants_string:
+                    # Each macro lands as a ReadOnlySpan<byte> member directly on the
+                    # library's static class. We use the fully-qualified type so we don't
+                    # need to add `using System;` to every generated file.
+                    for macro_name, raw_string in sorted(matching_macros.items()):
                         renamed_member = self.type_mapper.apply_rename(macro_name)
-                        members.append(f"    {renamed_member} = unchecked(({const_type})({macro_value})),")
+                        prop = (
+                            f"    {self.visibility} static System.ReadOnlySpan<byte> "
+                            f"{renamed_member} => {raw_string}u8;\n"
+                        )
+                        self._add_to_library_collection(
+                            self.generated_functions, library_name, prop
+                        )
+                    continue
 
-                    members_str = "\n".join(members)
+                # Numeric (enum) path — unchanged from before.
+                # Apply rename rules to the enum name and member names
+                enum_name = self.type_mapper.apply_rename(const_name)
 
-                    # Generate enum with specified type and optional [Flags] attribute
-                    flags_attr = "[Flags]\n" if const_flags else ""
-                    type_clause = f" : {const_type}" if const_type != "int" else ""
-                    code = f"""{flags_attr}{self.visibility} enum {enum_name}{type_clause}
+                # Build enum members with renamed names
+                members = []
+                for macro_name, macro_value in sorted(matching_macros.items()):
+                    renamed_member = self.type_mapper.apply_rename(macro_name)
+                    members.append(
+                        f"    {renamed_member} = unchecked(({const_type})({macro_value})),"
+                    )
+
+                members_str = "\n".join(members)
+
+                # Generate enum with specified type and optional [Flags] attribute
+                flags_attr = "[Flags]\n" if const_flags else ""
+                type_clause = f" : {const_type}" if const_type != "int" else ""
+                code = f"""{flags_attr}{self.visibility} enum {enum_name}{type_clause}
 {{
 {members_str}
 }}
 """
-                    self._add_to_library_collection(self.generated_enums, library_name, code)
+                self._add_to_library_collection(self.generated_enums, library_name, code)
 
         return self._generate_multi_file_output(output)
 
